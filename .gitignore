@@ -1,0 +1,50 @@
+# general
+.lesshst
+.tool-versions
+.var
+desk
+docs
+downloads
+music
+pics
+pub
+templates
+vids
+.Xauthority
+.icons
+.themes
+.wget*
+.gtk*
+.bash*
+.asdf
+.npm
+.mozilla
+.cache
+.local
+*.sh
+
+# git
+.gitconfig-personal
+.gitconfig-work
+
+# config files
+.fehbg
+.config/dconf
+.config/github-copilot
+.config/gtk*
+.config/pulse
+.config/ranger
+.config/nvim
+.config/flameshot
+.config/Q*
+.config/cava
+# fish
+.config/fish/completions
+.config/fish/conf.d
+.config/fish/fish*
+.config/fish/functions
+.config/fish/themes
+
+# important
+.ssh
+www
