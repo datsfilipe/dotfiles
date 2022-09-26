@@ -18,6 +18,7 @@ vids
 .bash*
 .asdf
 .npm
+.npmrc
 .mozilla
 .cache
 .local
