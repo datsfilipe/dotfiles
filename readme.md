@@ -57,3 +57,7 @@
   ```bash
   pnpm install -g typescript typescript-language-server
   ```
+- Eslint_d:
+  ```bash
+  pnpm install -g eslint_d
+  ```
