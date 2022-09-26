@@ -42,8 +42,11 @@
   co = checkout
   ci = commit
   ca = commit -a
-  ps = "!git push origin $(git rev-parse --abbrev-ref HEAD)"
-  pl = "!git pull origin $(git rev-parse --abbrev-ref HEAD)"
+  ps = push
+  psu = push -u
+  psm = "!git push origin $(git rev-parse --abbrev-ref HEAD)"
+  pl = pull
+  plm = "!git pull origin $(git rev-parse --abbrev-ref HEAD)"
   br = branch
   ba = branch -a
   bm = branch --merged
