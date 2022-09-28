@@ -1,7 +1,13 @@
 shell:
   program: fish
+  args:
+    - -l
+    - -c
+    - 'tmux attach || tmux'
+# add vi mode keybind toggle to alacritty
+key_bindings:
+  - { key: V, mods: Control, action: ToggleViMode }
 colors:
-  # do gruvbox dark colorscheme with high contrast
   primary:
     background: '0x282828'
     foreground: '0xebdbb2'
@@ -43,7 +49,6 @@ font:
     style: Bold Italic
 
   size: 11.5
-
 window:
   padding:
    x: 15
