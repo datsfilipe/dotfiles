@@ -25,6 +25,7 @@ vids
 *.sh
 assets/rice.png
 .pki
+.config/nextjs-nodejs
 
 # git
 .gitconfig-personal
