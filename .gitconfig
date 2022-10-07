@@ -68,3 +68,4 @@
   unstage = reset HEAD --
   undo = checkout --
   rollback = reset --soft HEAD~1
+  whoami = config user.name
