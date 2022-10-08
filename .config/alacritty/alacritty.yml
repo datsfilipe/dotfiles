@@ -4,9 +4,8 @@ shell:
     - -l
     - -c
     - 'tmux attach || tmux'
-# add vi mode keybind toggle to alacritty
 key_bindings:
-  - { key: V, mods: Control, action: ToggleViMode }
+  - { key: X, mods: Control, action: ToggleViMode }
 colors:
   primary:
     background: '0x282828'
