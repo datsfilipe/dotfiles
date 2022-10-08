@@ -50,6 +50,9 @@ assets/rice.png
 .config/fish/functions
 .config/fish/themes
 
+# wakatime
+.wakatime*
+
 # important
 .ssh
 www
