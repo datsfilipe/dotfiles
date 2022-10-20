@@ -23,6 +23,10 @@
   # extract, go to the folder and run:
   sudo ./install.sh
   ```
+- Commitzen
+  ```bash
+  pnpm install -g commitzen cz-conventional-changelog
+  ```
 
 ## Asdf Plugins
 
