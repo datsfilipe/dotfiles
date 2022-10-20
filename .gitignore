@@ -43,6 +43,7 @@ assets/rice.png
 .config/Q*
 .config/cava
 .config/chromium
+.config/mpv/watch_later
 # fish
 .config/fish/completions
 .config/fish/conf.d
