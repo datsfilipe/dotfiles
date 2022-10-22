@@ -53,10 +53,6 @@
   ```bash
   pnpm install -g cspell@latest
   ```
-- Prettierd:
-  ```bash
-  pnpm install -g fsouza/prettierd/prettierd
-  ```
 - Typescript:
   ```bash
   pnpm install -g typescript typescript-language-server
