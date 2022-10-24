@@ -44,6 +44,10 @@ assets/rice.png
 .config/cava
 .config/chromium
 .config/mpv/watch_later
+.config/kdeglobals
+.config/kdenlive-layoutsrc
+.config/kdenliverc
+.config/obs-studio
 # fish
 .config/fish/completions
 .config/fish/conf.d
