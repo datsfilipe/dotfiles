@@ -3,9 +3,9 @@
 [includeIf "gitdir:~/www/work/"]
   path = ~/.gitconfig-work
 [core]
-	excludesfile = ~/.gitignore
-	editor = nvim
-	ignorecase = false
+  excludesfile = ~/.gitignore
+  editor = nvim
+  ignorecase = false
 [push]
   default = simple
 [color]
@@ -18,22 +18,22 @@
 [hub]
   protocol = https
 [github]
-	user = datsfilipe
+  user = datsfilipe
 [diff]
   tool = nvimdiff
 [difftool "nvimdiff"]
-	cmd = nvim -d \"$LOCAL\" \"$REMOTE\"
-	path = 
+  cmd = nvim -d \"$LOCAL\" \"$REMOTE\"
+  path = 
 [merge]
   tool = nvimdiff
 [mergetool "nvimdiff"]
-	cmd = nvim -d \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-	trustExitCode = true
+  cmd = nvim -d \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+  trustExitCode = true
 [filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	required = true
-	process = git-lfs filter-process
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  required = true
+  process = git-lfs filter-process
 [ghq]
   root = ~/.asdf/shims/ghq
 [alias]
