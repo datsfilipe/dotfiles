@@ -1,4 +1,5 @@
 # general
+.bun
 .lesshst
 .tool-versions
 .var
@@ -25,7 +26,6 @@ vids
 *.sh
 assets/rice.png
 .pki
-.config/nextjs-nodejs
 
 # git
 .gitconfig-personal
@@ -48,6 +48,7 @@ assets/rice.png
 .config/kdenlive-layoutsrc
 .config/kdenliverc
 .config/obs-studio
+.config/nextjs-nodejs
 # fish
 .config/fish/completions
 .config/fish/conf.d
