@@ -61,6 +61,7 @@ alias remove-lock "rm /var/lib/pacman/db.lck"
 alias play-playlist "mpv --shuffle --really-quiet --loop-playlist yes --no-video" # play playlists in mpv with shuffle and loop with one command
 alias download-youtube-playlist "youtube-dl -i -f bestaudio --extract-audio --audio-format mp3 --audio-quality 0 --yes-playlist --embed-thumbnail --add-metadata --output '%(title)s.%(ext)s'" 
 alias download-youtube-music "youtube-dl -i -f bestaudio --extract-audio --audio-format mp3 --audio-quality 0 --no-playlist --embed-thumbnail --add-metadata --output '%(title)s.%(ext)s'"
+alias download-youtube-video "youtube-dl -i -f bestvideo --format mp4 --no-playlist --embed-thumbnail --add-metadata --output '%(title)s.%(ext)s'"
 alias del "trash-put" # trash-put is a command line utility that moves files to the trash can
 alias delc "trash-empty" # trash-empty is a command line utility that empties the trash can
 alias dell "trash-list" # trash-list is a command line utility that lists the contents of the trash can
