@@ -49,6 +49,7 @@ assets/rice.png
 .config/kdenliverc
 .config/obs-studio
 .config/nextjs-nodejs
+.config/configstore
 # fish
 .config/fish/completions
 .config/fish/conf.d
