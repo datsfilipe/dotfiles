@@ -1,0 +1,135 @@
+window {
+    background-color: #1a1b26;
+    padding:          10px;
+    border-radius:    4;
+    border-color:     #2a2b36;
+    border:           1px;
+}
+
+mainbox {
+    border:  0;
+    padding: 0;
+    background-color: #1a1b26;
+}
+
+message {
+    border:       2px 0 0;
+    border-color: #c0caf5;
+    padding:      1px;
+    background-color: #1a1b26;
+}
+
+textbox {
+    highlight:  #c0caf5;
+    text-color: #c0caf5;
+    background-color: #1a1b26;
+}
+
+listview {
+    border:       2px solid 0 0;
+    padding:      2px 0 0;
+    border-color: #c0caf5;
+    spacing:      2px;
+    scrollbar:    true;
+    background-color: #1a1b26;
+}
+
+element {
+    border:  0;
+    padding: 4px;
+    background-color: #1a1b26;
+}
+
+element.normal.normal {
+    background-color: #1a1b26;
+    text-color:       #c0caf5;
+}
+
+element.normal.urgent {
+    background-color: #1a1b26;
+    text-color:       #ff75a0;
+}
+
+element.normal.active {
+    background-color: #1a1b26;
+    text-color:       #c0caf5;
+}
+
+element.selected.normal {
+    background-color: #ff75a0;
+    text-color:       #1a1b26;
+}
+
+element.selected.urgent {
+    background-color: #ff75a0;
+    text-color:       #1a1b26;
+}
+
+element.selected.active {
+    background-color: #ff75a0;
+    text-color:       #1a1b26;
+}
+
+element.alternate.normal {
+    background-color: #1a1b26;
+    text-color:       #c0caf5;
+}
+
+element.alternate.urgent {
+    background-color: #1a1b26;
+    text-color:       #ff75a0;
+}
+
+element.alternate.active {
+    background-color: #1a1b26;
+    text-color:       #c0caf5;
+}
+
+scrollbar {
+    width:        4px;
+    border:       0;
+    handle-color: #c0caf5;
+    background-color: #1a1b26;
+    handle-width: 8px;
+    padding:      0;
+}
+
+mode-switcher {
+    border:       2px 0 0;
+    border-color: #c0caf5;
+}
+
+inputbar {
+    spacing:    0;
+    text-color: #c0caf5;
+    padding:    2px;
+    children:   [ prompt, textbox-prompt-sep, entry, case-indicator ];
+    background-color: #1a1b26;
+}
+
+case-indicator,
+entry,
+prompt,
+button {
+    spacing:    0;
+    text-color: #c0caf5;
+    padding:    2px;
+    background-color: #1a1b26;
+}
+
+button.selected {
+    background-color: #ff75a0;
+    text-color:       #1a1b26;
+}
+
+textbox-prompt-sep {
+    expand:     false;
+    str:        ":";
+    text-color: #c0caf5;
+    margin:     0 0.3em 0 0;
+    background-color: #1a1b26;
+}
+element-text, element-icon {
+    background-color: inherit;
+    text-color:       inherit;
+}
