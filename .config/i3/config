@@ -78,7 +78,7 @@ client.unfocused        $borderInactive   $borderInactive     $color7		$borderIn
 client.urgent           $color9   	  $color9	      $color7		$color9
 client.background       $bg-color
 
-exec --no-startup-id feh --bg-fill $HOME/pics/01.png
+exec --no-startup-id feh --bg-fill $HOME/pics/02.jpg
 exec --no-startup-id dex --autostart --environment i3
 
 exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
