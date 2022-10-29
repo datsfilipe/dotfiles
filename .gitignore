@@ -50,6 +50,7 @@ assets/rice.png
 .config/obs-studio
 .config/nextjs-nodejs
 .config/configstore
+.config/neofetch
 # fish
 .config/fish/completions
 .config/fish/conf.d
