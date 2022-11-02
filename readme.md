@@ -23,9 +23,13 @@
   # extract, go to the folder and run:
   sudo ./install.sh
   ```
-- Commitzen
+- Commitzen:
   ```bash
   pnpm install -g commitzen cz-conventional-changelog
+  ```
+- Rustywind:
+  ```bash
+  pnpm i -g rustywind
   ```
 
 ## Asdf Plugins
