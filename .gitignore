@@ -26,6 +26,7 @@ vids
 *.sh
 assets/rice.png
 .pki
+.yarnrc
 
 # git
 .gitconfig-personal
@@ -51,6 +52,7 @@ assets/rice.png
 .config/nextjs-nodejs
 .config/configstore
 .config/neofetch
+.config/yarn
 # fish
 .config/fish/completions
 .config/fish/conf.d
