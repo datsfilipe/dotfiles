@@ -53,6 +53,7 @@ assets/rice.png
 .config/configstore
 .config/neofetch
 .config/yarn
+.config/simple-update-notifier
 # fish
 .config/fish/completions
 .config/fish/conf.d
