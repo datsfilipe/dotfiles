@@ -25,7 +25,7 @@
   ```
 - Commitzen:
   ```bash
-  pnpm install -g commitzen cz-conventional-changelog
+  pnpm install -g commitizen cz-conventional-changelog
   ```
 - Rustywind:
   ```bash
