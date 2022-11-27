@@ -20,5 +20,11 @@
     "C-k": "peco.SelectUp",
     "C-d": "downFour",
     "C-u": "upFour"
+  },
+  "Style": {
+    "Basic": ["on_default", "default"],
+    "Selected": ["on_yellow", "black"],
+    "Query": ["yellow", "bold"],
+    "Matched": ["default", "on_default"]
   }
 }
