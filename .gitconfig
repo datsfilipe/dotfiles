@@ -36,6 +36,8 @@
   process = git-lfs filter-process
 [ghq]
   root = ~/www/personal
+[ghq "work-repos-link"]
+  root = ~/www/work
 [alias]
   st = status -sb
   sf = show --name-only
