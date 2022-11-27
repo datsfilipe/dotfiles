@@ -36,10 +36,6 @@
   process = git-lfs filter-process
 [ghq]
   root = ~/www/personal
-[ghq "git@github.com:datsfilipe/datsnvim.git"]
-  root = ~/.config
-[ghq "git@github.com:datsfilipe/dotfiles.git"]
-  root = ~/
 [alias]
   st = status -sb
   sf = show --name-only
