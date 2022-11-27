@@ -58,7 +58,9 @@ assets/rice.png
 .config/fish/completions
 .config/fish/conf.d
 .config/fish/fish*
-.config/fish/functions
+.config/fish/functions/fish_mode_prompt.fish
+.config/fish/functions/fish_prompt.fish
+.config/fish/functions/fisher.fish
 .config/fish/themes
 
 # wakatime
