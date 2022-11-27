@@ -1,0 +1,24 @@
+{
+  "Prompt": "[peco]",
+  "Action": {
+    "downFour": [
+      "peco.SelectDown",
+      "peco.SelectDown",
+      "peco.SelectDown",
+      "peco.SelectDown"
+    ],
+    "upFour": [
+      "peco.SelectUp",
+      "peco.SelectUp",
+      "peco.SelectUp",
+      "peco.SelectUp"
+    ]
+  },
+  "Keymap": {
+    "C-c": "peco.Cancel",
+    "C-j": "peco.SelectDown",
+    "C-k": "peco.SelectUp",
+    "C-d": "downFour",
+    "C-u": "upFour"
+  }
+}
