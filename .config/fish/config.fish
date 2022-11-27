@@ -5,11 +5,6 @@ set fish_greeting ""
 set -gx TERM xterm-256color
 set -g theme_color_scheme terminal-dark
 
-# bind CTRL + L to clear term
-function fish_user_key_bindings
-    bind \cl 'clear; commandline -f repaint'
-end
-
 # ban rm command
 function "rm"
   echo "don't use rm, use del instead"
