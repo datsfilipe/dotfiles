@@ -65,3 +65,12 @@
   ```bash
   pnpm install -g eslint_d
   ```
+
+## Docker
+
+```bash
+sudo pacman -S docker
+sudo systemctl enable docker
+sudo systemctl start docker
+sudo usermod -aG docker $USER
+```
