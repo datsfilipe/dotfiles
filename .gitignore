@@ -27,6 +27,7 @@ vids
 assets/rice.png
 .pki
 .yarnrc
+.docker
 
 # git
 .gitconfig-personal
@@ -54,6 +55,7 @@ assets/rice.png
 .config/neofetch
 .config/yarn
 .config/simple-update-notifier
+.config/Insomnia
 # fish
 .config/fish/completions
 .config/fish/conf.d
