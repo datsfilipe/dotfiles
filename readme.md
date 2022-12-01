@@ -65,6 +65,9 @@
   ```bash
   pnpm install -g eslint_d
   ```
+- ```bash
+paru -S rust-analyzer
+```
 
 ## Docker
 
