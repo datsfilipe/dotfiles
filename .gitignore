@@ -1,4 +1,5 @@
 # general
+.node_repl_history
 .bun
 .lesshst
 .tool-versions
