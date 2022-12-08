@@ -70,7 +70,7 @@ font:
     style: Italic
 
   bold_italic:
-    family: Fira Code Nerd Font
+    family: JetBrainsMono Nerd Font
     style: Bold Italic
 
   size: 11.5
