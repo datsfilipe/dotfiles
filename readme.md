@@ -65,9 +65,18 @@
   ```bash
   pnpm install -g eslint_d
   ```
-- ```bash
-paru -S rust-analyzer
-```
+- rust-analyzer:
+  ```bash
+  paru -S rust-analyzer
+  ```
+- Stylua:
+  ```bash
+  cargo install stylua
+  ```
+- Lldb:
+  ```bash
+  paru -S lldb
+  ```
 
 ## Docker
 
