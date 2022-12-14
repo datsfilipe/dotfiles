@@ -3,73 +3,73 @@ font pango:Inter Medium 10
 
 # gruvbox theme
 # colors
-# set $hc-color #FFFFFF
-# set $bg-color #262626
-# set $sc-color #FFFFFF
-# set $fg-color #FFFFFF
-# # black + darkgrey
-# set $color0   #262626
-# set $color8   #928374
-# # darkred + red
-# set $color1   #cc241d
-# set $color9   #fb4934
-# # darkgreen + lightgreen
-# set $color2   #98971a
-# set $color10  #b8bb26
-# # darkyellow + yellow
-# set $color3   #d79921
-# set $color11  #fabd2f
-# # darkblue + blue
-# set $color4   #458588
-# set $color12  #83a598
-# # darkmagenta + ffffff
-# set $color5   #b16286
-# set $color13  #d3869b
-# # darkcyan + cyan
-# set $color6   #689d6a
-# set $color14  #8ec07c
-# # lightgrey + white
-# set $color7   #a89984
-# set $color15  #ebdbb2
-# # border
-# set $color16 #404040
-# set $borderInactive #403a37
-# set $borderActive   #504945
-
-# # tokyonight theme
-# colors
 set $hc-color #FFFFFF
-set $bg-color #1a1b26
+set $bg-color #262626
 set $sc-color #FFFFFF
 set $fg-color #FFFFFF
 # black + darkgrey
-set $color0   #1a1b26
-set $color8   #4b5263
+set $color0   #262626
+set $color8   #928374
 # darkred + red
-set $color1   #ff6c6b
-set $color9   #ff9e9d
+set $color1   #cc241d
+set $color9   #fb4934
 # darkgreen + lightgreen
-set $color2   #98be65
-set $color10  #c6e48b
+set $color2   #98971a
+set $color10  #b8bb26
 # darkyellow + yellow
-set $color3   #da8548
-set $color11  #ffaf68
+set $color3   #d79921
+set $color11  #fabd2f
 # darkblue + blue
-set $color4   #51afef
-set $color12  #81a1c1
+set $color4   #458588
+set $color12  #83a598
 # darkmagenta + ffffff
-set $color5   #c678dd
-set $color13  #c678dd
+set $color5   #b16286
+set $color13  #d3869b
 # darkcyan + cyan
-set $color6   #46d9ff
-set $color14  #46d9ff
+set $color6   #689d6a
+set $color14  #8ec07c
 # lightgrey + white
-set $color7   #c0caf5
-set $color15  #c0caf5
+set $color7   #a89984
+set $color15  #ebdbb2
 # border
-set $color16 #1a1b26
-set $borderInactive #1a1b26
-set $borderActive #2d2e43
+set $color16 #404040
+set $borderInactive #403a37
+set $borderActive   #504945
+
+# # tokyonight theme
+# colors
+# set $hc-color #FFFFFF
+# set $bg-color #1a1b26
+# set $sc-color #FFFFFF
+# set $fg-color #FFFFFF
+# # black + darkgrey
+# set $color0   #1a1b26
+# set $color8   #4b5263
+# # darkred + red
+# set $color1   #ff6c6b
+# set $color9   #ff9e9d
+# # darkgreen + lightgreen
+# set $color2   #98be65
+# set $color10  #c6e48b
+# # darkyellow + yellow
+# set $color3   #da8548
+# set $color11  #ffaf68
+# # darkblue + blue
+# set $color4   #51afef
+# set $color12  #81a1c1
+# # darkmagenta + ffffff
+# set $color5   #c678dd
+# set $color13  #c678dd
+# # darkcyan + cyan
+# set $color6   #46d9ff
+# set $color14  #46d9ff
+# # lightgrey + white
+# set $color7   #c0caf5
+# set $color15  #c0caf5
+# # border
+# set $color16 #1a1b26
+# set $borderInactive #1a1b26
+# set $borderActive #2d2e43
 
 # Window Colors
 client.focused          $borderActive     $borderActive       $color7     	$borderActive
@@ -78,7 +78,7 @@ client.unfocused        $borderInactive   $borderInactive     $color7		$borderIn
 client.urgent           $color9   	  $color9	      $color7		$color9
 client.background       $bg-color
 
-exec --no-startup-id feh --bg-fill $HOME/pics/07.png
+exec --no-startup-id feh --bg-fill $HOME/pics/wallpapers/06.jpg
 exec --no-startup-id dex --autostart --environment i3
 
 exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
