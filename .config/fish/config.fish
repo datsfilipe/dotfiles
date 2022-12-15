@@ -72,8 +72,8 @@ set hydro_color_duration "#b8bb26"
 
 set hydro_symbol_prompt ""
 set hydro_symbol_git_dirty " "
-set hydro_symbol_git_ahead " "
-set hydro_symbol_git_behind " "
+set hydro_symbol_git_ahead ""
+set hydro_symbol_git_behind ""
 
 # set aliases (cat --> bat, ls --> exa)
 alias ls "ls -p -G"
