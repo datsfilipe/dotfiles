@@ -95,6 +95,10 @@ function set-theme
   # Update neovim theme variable
   sed -i "s/vim.g.THEME = .*/vim.g.THEME = '$argv[1]'/g" ~/.config/nvim/init.lua
 
+  # Update styles for peco
+  set style (jq '.Style' "$HOME/.config/peco/themes/$argv[1].json")
+  jq --argjson style "$style" '.Style = $style' config.json > tmp.json && mv tmp.json config.json
+
   # Restart i3
   i3-msg restart
 end
