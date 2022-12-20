@@ -57,9 +57,10 @@ assets/rice.png
 .config/yarn
 .config/simple-update-notifier
 .config/Insomnia
+.config/i3/config
 # fish
 .config/fish/completions
-.config/fish/conf.d
+.config/fish/conf.d/hydro.fish
 .config/fish/fish*
 .config/fish/functions/fish_mode_prompt.fish
 .config/fish/functions/fish_prompt.fish
