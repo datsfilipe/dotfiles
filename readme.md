@@ -9,6 +9,10 @@
   ```bash
   sudo pacman -S peco
   ```
+- Jq:
+  ```bash
+  paru -S jq
+  ```
 - Ghq:
   ```bash
   asdf plugin add ghq
