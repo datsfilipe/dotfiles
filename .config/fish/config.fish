@@ -1,81 +1,22 @@
-# ------------------------------------------------------------------------------
-# fish shell config
-# ------------------------------------------------------------------------------
+# Set fish greeting
 set fish_greeting ""
+
+# Set terminal color scheme
 set -gx TERM xterm-256color
 set -g theme_color_scheme terminal-dark
 
-# ban rm command
-function "rm"
+# Ban the rm command
+function rm
   echo "don't use rm, use del instead"
 end
 
-# set colorscheme gruvbox
-set -U fish_color_normal "#282828"
-set -U fish_color_command "#ebdbb2"
-set -U fish_color_quote "#ebdbb2"
-set -U fish_color_redirection "#ebdbb2"
-set -U fish_color_end "#ebdbb2"
-set -U fish_color_error "#fb4934"
-set -U fish_color_escape "#fb4934"
-set -U fish_color_cwd "#83a598"
-set -U fish_color_cwd_root "#fb4934"
-set -U fish_color_match "#fb4934"
-set -U fish_color_selection "#282828"
-set -U fish_color_search_match "#83a598"
-set -U fish_color_operator "#83a598"
-set -U fish_color_param "#83a598"
-set -U fish_color_comment "#928374"
-set -U fish_color_history_current "#ebdbb2"
-set -U fish_color_host "#83a598"
-set -U fish_color_autosuggestion "#83a598"
-set -U fish_color_valid_path "#b8bb26"
-set -U fish_color_user brgreen
-set -U fish_color_cancel -r
-
-# set tokyonight colorscheme
-# set -U fish_color_normal "#1f2335"
-# set -U fish_color_command "#a9b1d6"
-# set -U fish_color_quote "#a9b1d6"
-# set -U fish_color_redirection "#a9b1d6"
-# set -U fish_color_end "#a9b1d6"
-# set -U fish_color_error "#ff6c6b"
-# set -U fish_color_escape "#ff6c6b"
-# set -U fish_color_cwd "#7aa2f7"
-# set -U fish_color_cwd_root "#ff6c6b"
-# set -U fish_color_match "#ff6c6b"
-# set -U fish_color_selection "#1f2335"
-# set -U fish_color_search_match "#7aa2f7"
-# set -U fish_color_operator "#7aa2f7"
-# set -U fish_color_param "#7aa2f7"
-# set -U fish_color_comment "#5c6370"
-# set -U fish_color_history_current "#a9b1d6"
-# set -U fish_color_host "#7aa2f7"
-# set -U fish_color_autosuggestion "#7aa2f7"
-# set -U fish_color_valid_path "#98c379"
-# set -U fish_color_user brgreen
-# set -U fish_color_cancel -r
-
-# hydro prompt settings with gruvbox dark 
-set hydro_color_prompt "#ebdbb2"
-set hydro_color_pwd "#83a598"
-set hydro_color_git "#83a598"
-set hydro_color_error "#fb4934"
-set hydro_color_duration "#b8bb26"
-
-# set hydro prompt settings with tokyonight
-# set hydro_color_prompt "#a9b1d6"
-# set hydro_color_pwd "#7aa2f7"
-# set hydro_color_git "#7aa2f7"
-# set hydro_color_error "#ff6c6b"
-# set hydro_color_duration "#98c379"
-
+# Set prompt symbols
 set hydro_symbol_prompt ""
 set hydro_symbol_git_dirty " "
 set hydro_symbol_git_ahead ""
 set hydro_symbol_git_behind ""
 
-# set aliases (cat --> bat, ls --> exa)
+# Set aliases
 alias ls "ls -p -G"
 alias la "ls -A"
 alias ll "ls -l"
@@ -83,42 +24,88 @@ alias lla "ll -A"
 alias g git
 alias cat bat
 alias remove-lock "rm /var/lib/pacman/db.lck"
-alias play-playlist "mpv --shuffle --really-quiet --loop-playlist yes --no-video" # play playlists in mpv with shuffle and loop with one command
-alias download-youtube-playlist "youtube-dl -i -f bestaudio --extract-audio --audio-format mp3 --audio-quality 0 --yes-playlist --embed-thumbnail --add-metadata --output '%(title)s.%(ext)s'" 
+alias play-playlist "mpv --shuffle --really-quiet --loop-playlist yes --no-video"
+alias download-youtube-playlist "youtube-dl -i -f bestaudio --extract-audio --audio-format mp3 --audio-quality 0 --yes-playlist --embed-thumbnail --add-metadata --output '%(title)s.%(ext)s'"
 alias download-youtube-music "youtube-dl -i -f bestaudio --extract-audio --audio-format mp3 --audio-quality 0 --no-playlist --embed-thumbnail --add-metadata --output '%(title)s.%(ext)s'"
 alias download-youtube-video "youtube-dl -i -f bestvideo --format mp4 --no-playlist --embed-thumbnail --add-metadata --output '%(title)s.%(ext)s'"
-alias del "trash-put" # trash-put is a command line utility that moves files to the trash can
-alias delc "trash-empty" # trash-empty is a command line utility that empties the trash can
-alias dell "trash-list" # trash-list is a command line utility that lists the contents of the trash can
-alias delu "trash-restore" # trash-restore is a command line utility that restores files from the trash can
-alias delr "trash-rm" # trash-rm is a command line utility that removes files from the trash can
-command -qv nvim && alias vim nvim
+alias del "trash-put"
+alias delc "trash-empty"
+alias dell "trash-list"
+alias delu "trash-restore"
+alias delr "trash-rm"
 
-# config asdf plugin manager
+# Use Neovim if it is installed
+if command -qv nvim
+  alias vim nvim
+end
+
+# Configure asdf plugin manager
 source /opt/asdf-vm/asdf.fish
 
-# set neovim as editor
+# Set Neovim as the editor
 set -gx EDITOR nvim
 set -gx TERMINAL alacritty
 
-# add bin dirs to $PATH
+# Add bin directories to $PATH
 set -gx PATH bin $PATH
 set -gx PATH ~/bin $PATH
 set -gx PATH ~/.local/bin $PATH
 
-# set exa as ls replacement
+# Set exa as the ls replacement if it is installed
 if type -q exa
   alias ll "exa -l -g --icons"
   alias lla "ll -a"
 end
 
-# local config
+# Load local configuration file
 set LOCAL_CONFIG (dirname (status --current-filename))/config-local.fish
 if test -f $LOCAL_CONFIG
   source $LOCAL_CONFIG
 end
 
-# pnpm
+# Set config variables
+set -gx WALLPAPER 06
+
+# Load theme configuration
+source ~/.config/fish/theme.conf
+
+# Tmux default theme
+tmux source-file "$HOME/.config/tmux/themes/$THEME.conf"
+
+# Function to set the theme
+function set-theme
+  if not set -q argv[1]
+    printf "Error: No theme specified.\n"
+    printf "Usage: set-theme <theme>\n"
+    return 1
+  end
+
+  # Set the theme variable in the theme.conf file
+  sed -i "s/set -gx THEME .*/set -gx THEME $argv[1]/" ~/.config/fish/theme.conf
+
+  # Update the colors setting in the Alacritty configuration file
+  sed -i "s/colors:.*/colors: *$argv[1]/" ~/.config/alacritty/alacritty.yml
+  
+  # I3 configuration file
+  cat ~/.config/i3/conf.d/*.config "$HOME/.config/i3/conf.d/themes/$argv[1].config" > "$HOME/.config/i3/config"
+  
+  # Update tmux theme
+  tmux source-file "$HOME/.config/tmux/themes/$argv[1].conf"
+
+  # Update neovim theme variable
+  sed -i "s/vim.g.THEME = .*/vim.g.THEME = '$argv[1]'/g" ~/.config/nvim/init.lua
+
+  # Restart i3
+  i3-msg restart
+end
+
+# Load fish theme configuration
+if [ "$THEME" = "gruvbox" ];
+  source ~/.config/fish/conf.d/gruvbox.fish
+else if [ "$THEME" = "tokyonight" ];
+  source ~/.config/fish/conf.d/tokyonight.fish
+end
+
+# Configure pnpm
 set -gx PNPM_HOME "/home/dtsf/.local/share/pnpm"
 set -gx PATH "$PNPM_HOME" $PATH
-# pnpm end
