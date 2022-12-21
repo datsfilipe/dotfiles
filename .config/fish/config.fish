@@ -2,7 +2,6 @@
 set fish_greeting ""
 
 # Set terminal color scheme
-set -gx TERM xterm-256color
 set -g theme_color_scheme terminal-dark
 
 # Ban the rm command
@@ -72,43 +71,9 @@ source ~/.config/fish/theme.conf
 # Tmux default theme
 tmux source-file "$HOME/.config/tmux/themes/$THEME.conf"
 
-# Function to set the theme
-function set-theme
-  if not set -q argv[1]
-    printf "Error: No theme specified.\n"
-    printf "Usage: set-theme <theme>\n"
-    return 1
-  end
-
-  # Set the theme variable in the theme.conf file
-  sed -i "s/set -gx THEME .*/set -gx THEME $argv[1]/" ~/.config/fish/theme.conf
-
-  # Update the colors setting in the Alacritty configuration file
-  sed -i "s/colors:.*/colors: *$argv[1]/" ~/.config/alacritty/alacritty.yml
-  
-  # I3 configuration file
-  cat ~/.config/i3/conf.d/*.config "$HOME/.config/i3/conf.d/themes/$argv[1].config" > "$HOME/.config/i3/config"
-  
-  # Update tmux theme
-  tmux source-file "$HOME/.config/tmux/themes/$argv[1].conf"
-
-  # Update neovim theme variable
-  sed -i "s/vim.g.THEME = .*/vim.g.THEME = '$argv[1]'/g" ~/.config/nvim/init.lua
-
-  # Update styles for peco
-  set style (jq '.Style' "$HOME/.config/peco/themes/$argv[1].json")
-  jq --argjson style "$style" '.Style = $style' "$HOME/.config/peco/config.json" > "$HOME/.config/peco/tmp.json" && mv  "$HOME/.config/peco/tmp.json" "$HOME/.config/peco/config.json"
-
-  # Restart i3
-  i3-msg restart
-end
-
 # Load fish theme configuration
-if [ "$THEME" = "gruvbox" ];
-  source ~/.config/fish/conf.d/gruvbox.fish
-else if [ "$THEME" = "tokyonight" ];
-  source ~/.config/fish/conf.d/tokyonight.fish
-end
+set current_theme $THEME
+source (dirname (status --current-filename))/conf.d/$current_theme.fish
 
 # Configure pnpm
 set -gx PNPM_HOME "/home/dtsf/.local/share/pnpm"
