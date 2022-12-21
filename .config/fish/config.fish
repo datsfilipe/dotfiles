@@ -97,7 +97,7 @@ function set-theme
 
   # Update styles for peco
   set style (jq '.Style' "$HOME/.config/peco/themes/$argv[1].json")
-  jq --argjson style "$style" '.Style = $style' config.json > tmp.json && mv tmp.json config.json
+  jq --argjson style "$style" '.Style = $style' "$HOME/.config/peco/config.json" > "$HOME/.config/peco/tmp.json" && mv  "$HOME/.config/peco/tmp.json" "$HOME/.config/peco/config.json"
 
   # Restart i3
   i3-msg restart
