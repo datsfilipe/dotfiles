@@ -1,8 +1,24 @@
 # Set fish greeting
 set fish_greeting ""
 
-# Set terminal color scheme
-set -g theme_color_scheme terminal-dark
+# Load theme configuration
+source ~/.config/fish/theme.conf
+
+# Load fish theme configuration
+function reset_theme --on-event fish_postexec
+    switch "$THEME"
+      case "gruvbox"
+        source (dirname (status --current-filename))/conf.d/gruvbox.fish
+      case "tokyonight"
+        source (dirname (status --current-filename))/conf.d/tokyonight.fish
+    end
+end
+
+# Tmux default theme
+tmux source-file "$HOME/.config/tmux/themes/$THEME.conf"
+
+# Set config variables
+set -gx WALLPAPER 06
 
 # Ban the rm command
 function rm
@@ -38,17 +54,14 @@ if command -qv nvim
   alias vim nvim
 end
 
-# Configure asdf plugin manager
-source /opt/asdf-vm/asdf.fish
-
 # Set Neovim as the editor
 set -gx EDITOR nvim
+
+# Set alacritty as the terminal
 set -gx TERMINAL alacritty
 
-# Add bin directories to $PATH
-set -gx PATH bin $PATH
-set -gx PATH ~/bin $PATH
-set -gx PATH ~/.local/bin $PATH
+# Configure asdf plugin manager
+source /opt/asdf-vm/asdf.fish
 
 # Set exa as the ls replacement if it is installed
 if type -q exa
@@ -56,28 +69,10 @@ if type -q exa
   alias lla "ll -a"
 end
 
-# Load local configuration file
-set LOCAL_CONFIG (dirname (status --current-filename))/config-local.fish
-if test -f $LOCAL_CONFIG
-  source $LOCAL_CONFIG
-end
-
-# Set config variables
-set -gx WALLPAPER 06
-
-# Load theme configuration
-source ~/.config/fish/theme.conf
-
-# Tmux default theme
-tmux source-file "$HOME/.config/tmux/themes/$THEME.conf"
-
-# Load fish theme configuration
-switch (echo $THEME)
-  case "gruvbox"
-    source (dirname (status --current-filename))/conf.d/gruvbox.fish
-  case "tokyonight"
-    source (dirname (status --current-filename))/conf.d/tokyonight.fish
-end
+# Add bin directories to $PATH
+set -gx PATH bin $PATH
+set -gx PATH ~/bin $PATH
+set -gx PATH ~/.local/bin $PATH
 
 # Configure pnpm
 set -gx PNPM_HOME "/home/dtsf/.local/share/pnpm"
