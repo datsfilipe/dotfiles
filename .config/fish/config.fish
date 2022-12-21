@@ -72,8 +72,12 @@ source ~/.config/fish/theme.conf
 tmux source-file "$HOME/.config/tmux/themes/$THEME.conf"
 
 # Load fish theme configuration
-set current_theme $THEME
-source (dirname (status --current-filename))/conf.d/$current_theme.fish
+switch (echo $THEME)
+  case "gruvbox"
+    source (dirname (status --current-filename))/conf.d/gruvbox.fish
+  case "tokyonight"
+    source (dirname (status --current-filename))/conf.d/tokyonight.fish
+end
 
 # Configure pnpm
 set -gx PNPM_HOME "/home/dtsf/.local/share/pnpm"
