@@ -23,7 +23,8 @@ vids
 .npmrc
 .mozilla
 .cache
-.local
+.local/share
+.local/state
 *.sh
 assets/rice.png
 .pki
