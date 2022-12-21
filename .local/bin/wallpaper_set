@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# Set the wallpaper using feh
+# Check if the environment variable WALLPAPER is set
+if [ -z "$WALLPAPER" ]; then
+  echo "Error: WALLPAPER environment variable is not set"
+  exit 1
+fi
+
+# Set the wallpaper using feh
+# Check if the wallpaper file exists and has a valid file extension
+wallpaper="$HOME/pics/wallpapers/$WALLPAPER.jpg"
+if [ ! -f "$wallpaper" ]; then
+  wallpaper="$HOME/pics/wallpapers/$WALLPAPER.png"
+  if [ ! -f "$wallpaper" ]; then
+    echo "Error: wallpaper file not found"
+    exit 1
+  fi
+fi
+
+feh --bg-scale "$wallpaper"
