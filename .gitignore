@@ -41,7 +41,6 @@ assets/rice.png
 .config/github-copilot
 .config/gtk*
 .config/pulse
-.config/ranger
 .config/nvim
 .config/flameshot
 .config/Q*
