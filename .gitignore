@@ -66,6 +66,7 @@ assets/rice.png
 .config/fish/functions/fish_prompt.fish
 .config/fish/functions/fisher.fish
 .config/fish/themes
+.config/fish/theme.conf
 
 # wakatime
 .wakatime*
