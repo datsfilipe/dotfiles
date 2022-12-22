@@ -4,15 +4,15 @@ set fish_greeting ""
 # Load theme configuration
 source ~/.config/fish/theme.conf
 
-source (dirname (status --current-filename))/conf.d/$THEME.fish
+source ~/.config/fish/conf.d/$THEME.fish
 
 # Load fish theme configuration
 function reset_theme --on-event fish_postexec
     switch "$THEME"
       case "gruvbox"
-        source (dirname (status --current-filename))/conf.d/gruvbox.fish
+        source ~/.config/fish/conf.d/gruvbox.fish
       case "tokyonight"
-        source (dirname (status --current-filename))/conf.d/tokyonight.fish
+        source ~/.config/fish/conf.d/tokyonight.fish
     end
 end
 
