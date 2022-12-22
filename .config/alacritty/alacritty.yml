@@ -79,7 +79,7 @@ window:
   padding:
    x: 15
    y: 15
-  opacity: 0.9
+  opacity: 0.8
 cursor:
   style: Block
   blink: true
