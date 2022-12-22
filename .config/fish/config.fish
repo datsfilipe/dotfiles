@@ -4,6 +4,8 @@ set fish_greeting ""
 # Load theme configuration
 source ~/.config/fish/theme.conf
 
+source (dirname (status --current-filename))/conf.d/$THEME.fish
+
 # Load fish theme configuration
 function reset_theme --on-event fish_postexec
     switch "$THEME"
@@ -16,9 +18,6 @@ end
 
 # Tmux default theme
 tmux source-file "$HOME/.config/tmux/themes/$THEME.conf"
-
-# Set config variables
-set -gx WALLPAPER 06
 
 # Ban the rm command
 function rm
