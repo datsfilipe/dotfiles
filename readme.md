@@ -54,6 +54,10 @@
   ```bash
   asdf plugin-add rust https://github.com/code-lever/asdf-rust.git
   ```
+- Github CLI:
+  ```bash
+  asdf plugin-add github-cli https://github.com/bartlomiejdanek/asdf-github-cli.git
+  ```
 
 ## Neovim Needed
 
