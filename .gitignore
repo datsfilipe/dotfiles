@@ -58,6 +58,7 @@ assets/rice.png
 .config/simple-update-notifier
 .config/Insomnia
 .config/i3/config
+.config/gh
 # fish
 .config/fish/completions
 .config/fish/conf.d/hydro.fish
