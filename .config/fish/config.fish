@@ -72,6 +72,7 @@ end
 set -gx PATH bin $PATH
 set -gx PATH ~/bin $PATH
 set -gx PATH ~/.local/bin $PATH
+set -gx PATH ~/.asdf/shims $PATH
 
 # Configure pnpm
 set -gx PNPM_HOME "/home/dtsf/.local/share/pnpm"
