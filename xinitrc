@@ -35,7 +35,6 @@ export SSH_AUTH_SOCK
 mkdir -p "$HOME"/.local/share/keyrings
 
 # run programs
-setxkbmap br &
 udiskie --tray &
 xrandr --output HDMI-A-0 --brightness 0.4 &
 xsetroot -cursor_name left_ptr &
