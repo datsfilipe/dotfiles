@@ -17,7 +17,12 @@ function reset_theme --on-event fish_postexec
 end
 
 # Tmux default theme
-tmux source-file "$HOME/.config/tmux/themes/$THEME.conf"
+switch "$THEME"
+  case "gruvbox"
+    tmux source-file "$HOME/.config/tmux/themes/gruvbox.conf"
+  case "tokyonight"
+    tmux source-file "$HOME/.config/tmux/themes/tokyonight.conf"
+end
 
 # Ban the rm command
 function rm
