@@ -1,0 +1,96 @@
+#!/usr/bin/env bash
+source ~/.env
+
+# Parse the command line arguments
+while [[ $# -gt 0 ]]
+do
+key="$1"
+
+case $key in
+  --title)
+  title="$2"
+  shift
+  shift
+  ;;
+  --description)
+  description="$2"
+  shift
+  shift
+  ;;
+  --published)
+  published="$2"
+  shift
+  shift
+  ;;
+  --series)
+  series="$2"
+  shift
+  shift
+  ;;
+  --tags)
+  tags="$2"
+  shift
+  shift
+  ;;
+  --cover-image)
+  cover_image="$2"
+  shift
+  shift
+  ;;
+  --canonical-url)
+  canonical_url="$2"
+  shift
+  shift
+  ;;
+  --file)
+  markdown_file="$2"
+  shift
+  shift
+  ;;
+  *)
+  shift
+  ;;
+esac
+done
+
+markdown=$(jq -n --arg markdown "$(cat $markdown_file)" '{body_markdown: $markdown}')
+tags=$(echo "$tags" | tr -d '[:space:]' | tr ',' '\n' | jq -R . | jq -s .)
+
+data=$(jq -n \
+  --arg title "$title" \
+  --arg description "$description" \
+  --arg series "$series" \
+  --arg cover_image "$cover_image" \
+  --arg canonical_url "$canonical_url" \
+  --argjson published "true" \
+  '{
+    article: {
+      title: $title,
+      description: $description,
+      series: $series,
+      cover_image: $cover_image,
+      canonical_url: $canonical_url,
+      published: $published,
+    }
+  }'
+)
+
+data=$(echo "$data" | jq --argjson markdown "$markdown" '.article += $markdown')
+data=$(echo "$data" | jq --argjson tags "$tags" '.article += {tags: $tags}')
+
+response=$(curl -X POST https://dev.to/api/articles \
+  -H "api-key: $DEV_TO_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d "$data" \
+  -w '%{http_code}')
+
+if [[ $response =~ ([0-9]{3})$ ]]; then
+  status_code=${BASH_REMATCH[1]}
+  if [[ $status_code == 201 ]]; then
+    echo "Article successfully created"
+  else
+    echo "Error: $status_code"
+  fi
+else
+  echo "Error: $response"
+fi
