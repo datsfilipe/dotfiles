@@ -19,6 +19,7 @@ function peco_change_directory
     ghq list -p
     ls -ad */|perl -pe "s#^#$PWD/#"|grep -v \.git
     ls -ad $HOME/www/*/* |grep -v \.git
-    ls -d /run/media/*
+    ls -ad $HOME/www/personal/markdown
+    ls -d /run/media/*/*
   end | sed -e 's/\/$//' | awk '!a[$0]++' | _peco_change_directory $argv
 end
