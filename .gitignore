@@ -30,6 +30,11 @@ assets/rice.png
 .pki
 .yarnrc
 .docker
+.env
+.pulse-cookie
+.steam
+.steampath
+.steampid
 
 # git
 .gitconfig-personal
@@ -59,6 +64,7 @@ assets/rice.png
 .config/Insomnia
 .config/i3/config
 .config/gh
+.config/cef_user_data
 # fish
 .config/fish/completions
 .config/fish/conf.d/hydro.fish
