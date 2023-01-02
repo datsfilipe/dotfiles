@@ -17,16 +17,6 @@
   ```bash
   asdf plugin add ghq
   ```
-- Hub:
-  ```bash
-  sudo pacman -S hub
-  ```
-- Git Lfs:
-  _download the binary in here: https://github.com/git-lfs/git-lfs/releases_
-  ```bash
-  # extract, go to the folder and run:
-  sudo ./install.sh
-  ```
 - Commitzen:
   ```bash
   pnpm install -g commitizen cz-conventional-changelog
