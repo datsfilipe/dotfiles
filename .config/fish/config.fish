@@ -1,28 +1,8 @@
 # Set fish greeting
 set fish_greeting ""
 
-# Load theme configuration
-source ~/.config/fish/theme.conf
-
-source ~/.config/fish/conf.d/$THEME.fish
-
 # Load fish theme configuration
-function reset_theme --on-event fish_postexec
-    switch "$THEME"
-      case "gruvbox"
-        source ~/.config/fish/conf.d/gruvbox.fish
-      case "tokyonight"
-        source ~/.config/fish/conf.d/tokyonight.fish
-    end
-end
-
-# Tmux default theme
-switch "$THEME"
-  case "gruvbox"
-    tmux source-file "$HOME/.config/tmux/themes/gruvbox.conf"
-  case "tokyonight"
-    tmux source-file "$HOME/.config/tmux/themes/tokyonight.conf"
-end
+source ~/.config/fish/conf.d/oxocarbon.fish
 
 # Ban the rm command
 function rm
