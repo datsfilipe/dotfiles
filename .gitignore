@@ -65,6 +65,9 @@ assets/rice.png
 .config/i3/config
 .config/gh
 .config/cef_user_data
+.config/discord
+.config/google-chrome
+pavucontrol.ini
 # fish
 .config/fish/completions
 .config/fish/conf.d/hydro.fish
