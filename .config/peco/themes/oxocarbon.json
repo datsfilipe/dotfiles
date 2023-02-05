@@ -3,6 +3,6 @@
     "Basic": ["on_default", "default"],
     "Selected": ["on_cyan", "black"],
     "Query": ["cyan", "bold"],
-    "Matched": ["on_default", "default"]
+    "Matched": ["default", "on_default"]
   }
 }

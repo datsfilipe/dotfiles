@@ -27,11 +27,11 @@
       "default"
     ],
     "Selected": [
-      "on_yellow",
+      "on_cyan",
       "black"
     ],
     "Query": [
-      "yellow",
+      "cyan",
       "bold"
     ],
     "Matched": [
