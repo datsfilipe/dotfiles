@@ -11,3 +11,4 @@ application/x-extension-xhtml=firefoxdeveloperedition.desktop
 application/x-extension-xht=firefoxdeveloperedition.desktop
 x-scheme-handler/about=google-chrome.desktop
 x-scheme-handler/unknown=google-chrome.desktop
+x-scheme-handler/mailto=google-chrome.desktop
