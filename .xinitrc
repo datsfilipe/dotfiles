@@ -41,4 +41,4 @@ xrandr --output HDMI-A-0 --brightness 0.4 &
 xsetroot -cursor_name left_ptr &
 xinput --set-prop 9 'libinput Accel Speed' 1 &
 picom -f &
-exec i3
+exec bspwm
