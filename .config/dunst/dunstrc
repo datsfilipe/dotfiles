@@ -38,3 +38,18 @@
   mouse_left_click = close_current
   mouse_middle_click = do_action
   mouse_right_click = close_all
+
+[urgency_low]
+  background = "#161616"
+  foreground = "#f4f4f4"
+  timeout = 5
+
+[urgency_normal]
+  background = "#161616"
+  foreground = "#f4f4f4"
+  timeout = 10
+
+[urgency_critical]
+  background = "#161616"
+  foreground = "#B66467"
+  timeout = 20
