@@ -6,7 +6,7 @@ super + @p
   rofi -show
 
 super + @a
-  google-chrome-stable
+  google-chrome-stable --enable-features=WebUIDarkMode --force-dark-mode
 
 #Screenshot
 Print
