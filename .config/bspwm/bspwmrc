@@ -22,10 +22,6 @@ bc normal_border_color "$c"
 bc focused_border_color "$c"
 bc active_border_color "$c"
 bc window_gap 10
-bc split_ratio 0.50
+bc split_ratio 0.45
 bc borderless_monocle true
 bc gapless_monocle false
-bc focus_follows_pointer true
-
-#rules
-br -a feh state=floating
