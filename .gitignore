@@ -43,7 +43,6 @@ assets/rice.png
 # config files
 .fehbg
 .config/dconf
-.config/github-copilot
 .config/gtk*
 .config/pulse
 .config/nvim
@@ -67,6 +66,7 @@ assets/rice.png
 .config/cef_user_data
 .config/discord
 .config/google-chrome
+.config/unity3d
 pavucontrol.ini
 # fish
 .config/fish/completions
