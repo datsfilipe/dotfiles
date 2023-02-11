@@ -32,7 +32,7 @@ alias delc "trash-empty"
 alias dell "trash-list"
 alias delu "trash-restore"
 alias delr "trash-rm"
-alias tvim "XDG_CONFIG_HOME=~/.test-config XDG_DATA_HOME=~/.test-config nvim" # second neovim configuration
+alias tvim "XDG_CONFIG_HOME=~/.test-config XDG_DATA_HOME=~/.test-config/data nvim" # second neovim configuration
 
 # Use Neovim if it is installed
 if command -qv nvim
