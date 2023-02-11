@@ -67,7 +67,7 @@ assets/rice.png
 .config/discord
 .config/google-chrome
 .config/unity3d
-.test-config/nvim
+.test-config
 pavucontrol.ini
 # fish
 .config/fish/completions
