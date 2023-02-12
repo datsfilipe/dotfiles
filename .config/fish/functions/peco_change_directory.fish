@@ -27,14 +27,16 @@ function peco_change_directory
     set dir_list $dir_list $dir
   end
 
-  # adding git dirs
-  for dir in (ls -ad */ | grep -v \.git)
-    set dir_list $dir_list $PWD/$dir
+  # adding dirs in $PWD that isn't in git dir
+  for dir in (ls -ad */|perl -pe "s#^#$PWD/#"|grep -v \.git)
+    set dir_list $dir_list $dir
   end
 
   # adding home dirs inside www (my projects folder)
-  for dir in (ls -ad (realpath $HOME/www/*/*) | grep -v \.git)
-    set dir_list $dir_list $dir
+  for dir in (find (realpath $HOME/www) -type d | grep -v \.git)
+    if test $dir != (realpath $HOME/www)
+      set dir_list $dir_list $dir
+    end
   end
 
   # adding mounted drivers dirs
@@ -47,7 +49,8 @@ function peco_change_directory
   for dir in $dir_list
     if test -d $dir
       if [ (ls -A $dir | wc -l) -gt 0 ]
-        set dir_list_filtered $dir_list_filtered $dir
+        set new_dir (echo $dir | sed 's:/*$::') # remove trailling /
+        set dir_list_filtered $dir_list_filtered $new_dir
       end
     end
   end
