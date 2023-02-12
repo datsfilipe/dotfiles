@@ -45,7 +45,6 @@ assets/rice.png
 .config/dconf
 .config/gtk*
 .config/pulse
-.config/nvim
 .config/flameshot
 .config/Q*
 .config/cava
