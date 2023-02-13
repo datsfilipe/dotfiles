@@ -40,8 +40,10 @@ function peco_change_directory
   end
 
   # adding mounted drivers dirs
-  for dir in (ls -d /run/media/*/*)
-    set dir_list $dir_list $dir
+  if test -d "/run/media/*"
+    for dir in (ls -d /*)
+      set dir_list $dir_list $dir
+    end
   end
 
   # filtering dirs by existence and non-emptiness
