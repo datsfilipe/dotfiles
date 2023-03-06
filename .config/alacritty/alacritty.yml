@@ -28,6 +28,7 @@ window:
   padding:
    x: 25
    y: 25
+  opacity: 1
 cursor:
   style: Block
   blink: true
