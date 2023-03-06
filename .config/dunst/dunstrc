@@ -8,7 +8,7 @@
   width = 275
   height = 100
   offset = 10x50
-  origin = bottom-right
+  origin = top-right
 
   frame_width = 0
   separator_height = 0
@@ -16,7 +16,7 @@
   separator_color = "#151515"
 
   sort = no
-  font = JetBrains Mono 10
+  font = Overpass 10
   markup = full
   format = "<b>%s</b>\n%b"
   alignment = left
