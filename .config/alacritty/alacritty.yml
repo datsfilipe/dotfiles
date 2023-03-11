@@ -28,10 +28,9 @@ window:
   padding:
    x: 25
    y: 25
-  opacity: 1
 cursor:
   style: Block
   blink: true
   blink_interval: 500
 import:
-  - ~/.config/alacritty/themes/oxocarbon.yml
+  - ~/.config/alacritty/themes/gruvbox.yml

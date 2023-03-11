@@ -1,4 +1,4 @@
-@import "~/.config/rofi/themes/oxocarbon.rasi"
+@import "~/.config/rofi/themes/gruvbox.rasi"
 
 configuration {
   modi: "drun";

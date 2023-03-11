@@ -1,9 +1,9 @@
 @theme "/dev/null"
 
 * {
-  bg: #151515;
-  fg: #33b1ff;
-  al: #37474F;
+  bg: #1d2021;
+  fg: #ebdbb2;
+  al: #928374;
   background-color: @bg;
   text-color: @fg;
 }
