@@ -70,6 +70,7 @@ VirtualBox VMs
 .config/github-copilot
 .config/fontforge
 .config/VirtualBox
+.config/vlc
 .test-config
 pavucontrol.ini
 .config/qBittorrent
