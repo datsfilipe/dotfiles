@@ -44,6 +44,7 @@ VirtualBox VMs
 # config files
 .fehbg
 .config/dconf
+.config/zellij
 .config/gtk*
 .config/pulse
 .config/flameshot
@@ -83,6 +84,10 @@ pavucontrol.ini
 .config/fish/functions/fisher.fish
 .config/fish/themes
 .config/fish/theme.conf
+# tmux
+tmux-out*
+tmux-client*
+tmux-server*
 
 # wakatime
 .wakatime*
