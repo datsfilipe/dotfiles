@@ -40,7 +40,7 @@ function peco_change_directory
   end
 
   # adding mounted drivers dirs /run/media
-  for dir in (find /run/media -type d)
+  for dir in (find /run/media/dtsf -type d)
     set dir_list $dir_list $dir
   end
 
