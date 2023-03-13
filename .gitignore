@@ -72,9 +72,10 @@ VirtualBox VMs
 .config/fontforge
 .config/VirtualBox
 .config/vlc
+.config/qBittorrent
+.config/htop
 .test-config
 pavucontrol.ini
-.config/qBittorrent
 # fish
 .config/fish/completions
 .config/fish/conf.d/hydro.fish
@@ -95,3 +96,6 @@ tmux-server*
 # important
 .ssh
 www
+
+# torrents folder
+torrents
