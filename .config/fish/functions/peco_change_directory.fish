@@ -1,10 +1,11 @@
 # use peco to list directories
 function _peco_change_directory
   if [ (count $argv) ]
-    peco --layout=bottom-up --query "$argv "|perl -pe 's/([ ()])/\\\\$1/g'|read foo
+    peco --layout=bottom-up --query "$argv"|perl -pe 's/([ ()])/\\\\$1/g'|read foo
   else
     peco --layout=bottom-up |perl -pe 's/([ ()])/\\\\$1/g'|read foo
   end
+
   if [ $foo ]
     builtin cd $foo
     commandline -r ''
@@ -15,48 +16,35 @@ function _peco_change_directory
 end
 
 function peco_change_directory
-  # adding simple dirs to the list
-  set dir_list (
-    realpath $HOME/.config
-    realpath $HOME/www/personal/posts
-    realpath $HOME/.test-config/nvim
-  )
+  set -l config $HOME/.config
+  set -l posts $HOME/www/personal/posts
+  set -l notes $HOME/www/personal/notes
+  set -l tvim $HOME/.test-config/nvim
+  set -l ghq (ghq list -p)
+  set -l non_git_dirs (ls -d -- * 2> /dev/null | grep -v '\.git/' | sed 's|/$||')
+  set -l media_dirs /run/media/$USER/*
 
-  # adding ghq list
-  for dir in (ghq list -p)
-    set dir_list $dir_list $dir
-  end
+  # combine all directories in an array
+  set -l dirs $config $posts $notes $tvim $ghq $media_dirs $non_git_dirs
 
-  # adding dirs in $PWD that isn't in git dir
-  for dir in (ls -ad */|perl -pe "s#^#$PWD/#"|grep -v \.git)
-    set dir_list $dir_list $dir
-  end
-
-  # adding home dirs inside www (my projects folder)
-  for dir in (find $HOME/www -type d | grep -v \.git)
-    if test $dir != $HOME/www
-      set dir_list $dir_list $dir
-    end
-  end
-
-  # adding mounted drivers dirs /run/media
-  for dir in (find /run/media/dtsf -type d)
-    set dir_list $dir_list $dir
-  end
-
-  # filtering dirs by existence and non-emptiness
-  set dir_list_filtered ( )
-  for dir in $dir_list
-    if test -d $dir
-      if [ (ls -A $dir | wc -l) -gt 0 ]
-        set new_dir (echo $dir | sed 's:/*$::') # remove trailling /
-        set dir_list_filtered $dir_list_filtered $new_dir
+  # filter out the files
+  set -l filtered_dirs
+  for dir in $dirs
+    if [ -d $dir ]
+      switch $dir
+        case $notes
+          set -l note_dirs (ls -d -- $notes/* 2> /dev/null | sed 's|/$||')
+          for note_dir in $note_dirs
+            set -l basename (basename $note_dir)
+            set filtered_dirs $filtered_dirs $note_dir
+          end
+        case '*'
+          set filtered_dirs $filtered_dirs $dir
       end
     end
   end
 
-  # pass the list to _peco_change_directory function
-  for dir in $dir_list_filtered
+  for dir in $filtered_dirs
     echo $dir
   end | _peco_change_directory $argv
 end
