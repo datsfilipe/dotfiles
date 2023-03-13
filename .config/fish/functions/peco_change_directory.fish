@@ -33,8 +33,8 @@ function peco_change_directory
   end
 
   # adding home dirs inside www (my projects folder)
-  for dir in (find (realpath $HOME/www) -type d | grep -v \.git)
-    if test $dir != (realpath $HOME/www)
+  for dir in (find $HOME/www -type d | grep -v \.git)
+    if test $dir != $HOME/www
       set dir_list $dir_list $dir
     end
   end
