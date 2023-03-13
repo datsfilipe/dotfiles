@@ -1,6 +1,8 @@
 # How It Looks
 ![Rice showcase](./assets/showcase.png)
 
+*Note: Hatsune Miku!*
+
 # Workspaces
 
 1. For when I'm not working, just watching videos or other activity;
