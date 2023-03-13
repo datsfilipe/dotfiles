@@ -12,6 +12,10 @@ super + @a
 Print
   flameshot gui
 
+#Powermenu
+super + l
+  powermenu
+
 #Workspaces
 super + {_,shift + }{1-9,0}
   bspc {desktop -f,node -d} '^{1-9,10}'paces 
