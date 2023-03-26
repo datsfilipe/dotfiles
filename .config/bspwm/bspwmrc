@@ -5,7 +5,8 @@ source ~/.env
 #Autostart
 killall sxhkd; sxhkd &
 killall dunst; dunst &
-feh --bg-fill $WALLPAPER &
+# feh --bg-fill $WALLPAPER &
+live_wall $WALLPAPER &
 $HOME/.config/polybar/launch.sh &
 
 #variable
