@@ -6,8 +6,8 @@ source ~/.env
 killall sxhkd; sxhkd &
 killall dunst; dunst &
 # feh --bg-fill $WALLPAPER &
-live_wall $WALLPAPER &
-$HOME/.config/polybar/launch.sh &
+killall xwinwrap; live_wall $WALLPAPER &
+killall polybar; $HOME/.config/polybar/launch.sh &
 
 #variable
 alias bc='bspc config'
