@@ -3,4 +3,4 @@
 input="$1"
 [ -f "$input" ] || exit 1
 
-xwinwrap -fs -fdt -ni -b -nf -un -o 1.0 -debug -- mpv -wid WID --loop --no-audio --no-keepaspect --geometry=1900x1400 "$input"
+xwinwrap -fs -fdt -ni -b -nf -un -o 1.0 -debug -- mpv -wid WID --loop --no-audio --video-zoom=0.2 "$input"
