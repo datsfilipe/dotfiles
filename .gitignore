@@ -36,6 +36,7 @@ assets/rice.png
 .steampath
 .steampid
 VirtualBox VMs
+go/
 
 # git
 .gitconfig-personal
