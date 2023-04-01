@@ -2,22 +2,22 @@
 
 source ~/.env
 
-#Autostart
+# autostart
 killall sxhkd; sxhkd &
 killall dunst; dunst &
 # feh --bg-fill $WALLPAPER &
 killall xwinwrap mpv; live_wall $WALLPAPER &
 killall polybar; $HOME/.config/polybar/launch.sh &
 
-#variable
+# variables
 alias bc='bspc config'
 alias br='bspc rule'
 c="#151515"
 
-#Workspaces
+# workspaces
 bspc monitor -d 1 2 3 4 5 6 7 8 9
 
-#Others
+# others
 bc border_width 0
 bc normal_border_color "$c"
 bc focused_border_color "$c"
@@ -26,3 +26,12 @@ bc window_gap 8
 bc split_ratio 0.45
 bc borderless_monocle true
 bc gapless_monocle false
+
+# rules
+br -a Google-chrome desktop='^2' follow=on
+br -a mpv desktop='^1' follow=on
+br -a discord desktop='^7' follow=on
+br -a qbittorrent desktop='^9' follow=on
+br -a zathura desktop='^8'
+br -a VirtualBox desktop='^8' follow=on
+br -a Steam desktop='^1'
