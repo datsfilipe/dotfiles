@@ -18,7 +18,10 @@
 # Setup tools:
 
 ```bash
-paru -S peco lldb asdf-vm docker alacritty tmux fish i3-wm bspwm polybar dunst sxhkd rofi ranger dragon-drop xclip openssh neovim ttf-font-awesome xwinwrap # and others ...
+paru -S peco lldb asdf-vm docker alacritty tmux fish i3-wm bspwm polybar dunst sxhkd rofi ranger dragon-drop xclip openssh neovim ttf-font-awesome xwinwrap mdt # and others ...
+
+# Install tomato from:
+# https://github.com/gabrielzschmitz/Tomato.C.git
 
 # asdf version manager
 asdf plugin add ghq && asdf install ghq latest
