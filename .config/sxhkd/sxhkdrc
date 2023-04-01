@@ -13,7 +13,7 @@ Print
   flameshot gui
 
 #Powermenu
-super + l
+super + @l
   powermenu
 
 #Workspaces
