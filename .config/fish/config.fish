@@ -22,17 +22,16 @@ alias ll "ls -l"
 alias lla "ll -A"
 alias g git
 alias cat bat
-alias remove-lock "rm /var/lib/pacman/db.lck"
-alias play-playlist "mpv --shuffle --really-quiet --loop-playlist yes --no-video"
-alias download-youtube-playlist "youtube-dl -i -f bestaudio --extract-audio --audio-format mp3 --audio-quality 0 --yes-playlist --embed-thumbnail --add-metadata --output '%(title)s.%(ext)s'"
-alias download-youtube-music "youtube-dl -i -f bestaudio --extract-audio --audio-format mp3 --audio-quality 0 --no-playlist --embed-thumbnail --add-metadata --output '%(title)s.%(ext)s'"
-alias download-youtube-video "youtube-dl -i -f bestvideo --format mp4 --no-playlist --embed-thumbnail --add-metadata --output '%(title)s.%(ext)s'"
+alias rm-lock "rm /var/lib/pacman/db.lck"
+alias play "mpv --shuffle --really-quiet --loop-playlist yes --no-video"
+alias download-yb-playlist "youtube-dl -i -f bestaudio --extract-audio --audio-format mp3 --audio-quality 0 --yes-playlist --embed-thumbnail --add-metadata --output '%(title)s.%(ext)s'"
+alias download-yb-music "youtube-dl -i -f bestaudio --extract-audio --audio-format mp3 --audio-quality 0 --no-playlist --embed-thumbnail --add-metadata --output '%(title)s.%(ext)s'"
+alias download-yb-video "youtube-dl -i -f bestvideo --format mp4 --no-playlist --embed-thumbnail --add-metadata --output '%(title)s.%(ext)s'"
 alias del "trash-put"
 alias delc "trash-empty"
 alias dell "trash-list"
 alias delu "trash-restore"
 alias delr "trash-rm"
-alias tvim "XDG_CONFIG_HOME=~/.test-config XDG_DATA_HOME=~/.test-config/data nvim" # second neovim configuration
 
 # Use Neovim if it is installed
 if command -qv nvim
@@ -63,3 +62,7 @@ set -gx PATH ~/.asdf/shims $PATH
 # Configure pnpm
 set -gx PNPM_HOME "/home/dtsf/.local/share/pnpm"
 set -gx PATH "$PNPM_HOME" $PATH
+
+# Configure MDT
+set -gx MDT_HOME "/home/dtsf/.local/share/mdt"
+set -gx MDT_MAIN_COLOR "#8ec07c"
