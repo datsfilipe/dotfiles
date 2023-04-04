@@ -76,7 +76,6 @@ go/
 .config/qBittorrent
 .config/htop
 .giget
-.test-config
 pavucontrol.ini
 # fish
 .config/fish/completions
