@@ -22,9 +22,9 @@
     "C-u": "upFour"
   },
   "Style": {
+    "Selected": ["on_magenta", "black"],
     "Basic": ["on_default", "default"],
-    "Selected": ["on_yellow", "black"],
-    "Query": ["yellow", "bold"],
-    "Matched": ["default", "on_default"]
+    "Query": ["white", "bold"],
+    "Matched": ["yellow", "on_default", "bold"]
   }
 }
