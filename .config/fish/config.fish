@@ -2,7 +2,7 @@
 set fish_greeting ""
 
 # Load fish theme configuration
-source ~/.config/fish/conf.d/gruvbox.fish
+source ~/.config/fish/conf.d/purple.fish
 
 # Ban the rm command
 function rm
