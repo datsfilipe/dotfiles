@@ -3,18 +3,6 @@
 
 *Note: Hatsune Miku!*
 
-# Workspaces
-
-1. For when I'm not working, just watching videos or other activity;
-2. Browser, navigating on the web doing work/study;
-3. Text editor, coding, neovim workspace;
-4. Another tmux session with only terminals;
-5. Playing music, nowadays it's another tmux session with mpv playing songs;
-6. Navigating in directories, saving, copying, etc (currently I don't have a file browser);
-7. Discord, of course;
-8. Any work app, chat, email, hub, whatever;
-9. When correlated windows are from same app or logic, keep them there.
-
 # Setup tools:
 
 ```bash
