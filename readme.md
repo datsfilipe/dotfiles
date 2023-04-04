@@ -1,8 +1,6 @@
 # How It Looks
 ![Rice showcase](./assets/showcase.png)
 
-*Note: Hatsune Miku!*
-
 # Setup tools:
 
 ```bash
