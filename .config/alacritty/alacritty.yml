@@ -23,14 +23,15 @@ font:
     family: JetBrainsMono Nerd Font
     style: Bold Italic
 
-  size: 11.5
+  size: 11
 window:
   padding:
    x: 25
    y: 25
+  opacity: 0.8
 cursor:
   style: Block
   blink: true
   blink_interval: 500
 import:
-  - ~/.config/alacritty/themes/gruvbox.yml
+  - ~/.config/alacritty/themes/purple.yml
