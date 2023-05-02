@@ -79,13 +79,18 @@ go/
 pavucontrol.ini
 # fish
 .config/fish/completions
-.config/fish/conf.d/hydro.fish
 .config/fish/fish*
 .config/fish/functions/fish_mode_prompt.fish
 .config/fish/functions/fish_prompt.fish
 .config/fish/functions/fisher.fish
-.config/fish/themes
-.config/fish/theme.conf
+.config/fish/functions/_*
+.config/fish/functions/fish_title*
+.config/fish/functions/fish_greeting*
+.config/fish/conf.d/__async_prompt.fish
+.config/fish/conf.d/_pure_init.fish
+.config/fish/conf.d/done.fish
+.config/fish/conf.d/pure.fish
+.config/fish/conf.d/hydro.fish
 # tmux
 tmux-out*
 tmux-client*
