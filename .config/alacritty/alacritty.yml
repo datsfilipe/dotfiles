@@ -23,11 +23,11 @@ font:
     family: JetBrainsMono Nerd Font
     style: Bold Italic
 
-  size: 11
+  size: 10.5
 window:
   padding:
-   x: 25
-   y: 25
+   x: 20
+   y: 20
   opacity: 0.8
 cursor:
   style: Block
