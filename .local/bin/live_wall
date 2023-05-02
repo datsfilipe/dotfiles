@@ -3,4 +3,6 @@
 input="$1"
 [ -f "$input" ] || exit 1
 
+killall -q mpv
+killall -q xwinwrap
 xwinwrap -fs -fdt -ni -b -nf -un -o 1.0 -debug -- mpv -wid WID --loop --no-audio --video-zoom=0.2 "$input"
