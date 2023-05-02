@@ -54,6 +54,10 @@ set -U __done_min_cmd_duration 5000
 if status is-interactive
 end
 
+# fzf with fd
+set -U FZF_DEFAULT_COMMAND "fd --type f --hidden --follow --exclude .git --color=always"
+set -U FZF_CTRL_T_COMMAND $FZF_DEFAULT_COMMAND
+
 set LOCAL_CONFIG (dirname (status --current-filename))/config-local.fish
 if test -f $LOCAL_CONFIG
   source $LOCAL_CONFIG
