@@ -1,69 +1,60 @@
-# Set fish greeting
 set fish_greeting ""
+set -gx TERM xterm-256color
 
-# Load fish theme configuration
-source ~/.config/fish/conf.d/purple.fish
-
-# Ban the rm command
+# aliases
+# no rm
 function rm
-  echo "don't use rm, use del instead"
+  echo "Use trash instead of rm"
 end
-
-# Set prompt symbols
-set hydro_symbol_prompt ""
-set hydro_symbol_git_dirty " "
-set hydro_symbol_git_ahead ""
-set hydro_symbol_git_behind ""
-
-# Set aliases
+# trash-cli
+alias del "trash-put"
+alias del-list "trash-list"
+alias del-res "trash-restore"
+alias del-clean "trash-empty"
+alias del-rm "trash-rm"
+# git
+alias g "git"
+alias ga "git add"
+alias gc "git commit"
+alias gca "git commit --amend"
+# ls (exa)
 alias ls "ls -p -G"
 alias la "ls -A"
 alias ll "ls -l"
 alias lla "ll -A"
-alias g git
-alias cat bat
-alias rm-lock "rm /var/lib/pacman/db.lck"
-alias play "mpv --shuffle --really-quiet --loop-playlist yes --no-video"
-alias download-yb-playlist "youtube-dl -i -f bestaudio --extract-audio --audio-format mp3 --audio-quality 0 --yes-playlist --embed-thumbnail --add-metadata --output '%(title)s.%(ext)s'"
-alias download-yb-music "youtube-dl -i -f bestaudio --extract-audio --audio-format mp3 --audio-quality 0 --no-playlist --embed-thumbnail --add-metadata --output '%(title)s.%(ext)s'"
-alias download-yb-video "youtube-dl -i -f bestvideo --format mp4 --no-playlist --embed-thumbnail --add-metadata --output '%(title)s.%(ext)s'"
-alias del "trash-put"
-alias delc "trash-empty"
-alias dell "trash-list"
-alias delu "trash-restore"
-alias delr "trash-rm"
-alias vimcfg "nvim ~/.config/nvim/init.lua"
-
-# Use Neovim if it is installed
-if command -qv nvim
-  alias vim nvim
-end
-
-# Set Neovim as the editor
-set -gx EDITOR nvim
-
-# Set alacritty as the terminal
-set -gx TERMINAL alacritty
-
-# Configure asdf plugin manager
-source /opt/asdf-vm/asdf.fish
-
-# Set exa as the ls replacement if it is installed
 if type -q exa
   alias ll "exa -l -g --icons"
   alias lla "ll -a"
 end
+# others
+alias cat "bat"
 
-# Add bin directories to $PATH
+# use nvim if it exists
+if command -qv nvim
+  alias vim nvim
+end
+
+# global variables
+set -gx EDITOR nvim
+set -gx TERMINAL alacritty
+
+# source / path
 set -gx PATH bin $PATH
 set -gx PATH ~/bin $PATH
 set -gx PATH ~/.local/bin $PATH
+source /opt/asdf-vm/asdf.fish # asdf
 set -gx PATH ~/.asdf/shims $PATH
-
-# Configure pnpm
-set -gx PNPM_HOME "/home/dtsf/.local/share/pnpm"
+set -gx PNPM_HOME "/home/dtsf/.local/share/pnpm" # pnpm
 set -gx PATH "$PNPM_HOME" $PATH
 
-# Configure MDT
-set -gx MDT_HOME "/home/dtsf/.local/share/mdt"
-set -gx MDT_MAIN_COLOR "#8ec07c"
+# plugins config
+set -U __done_min_cmd_duration 5000
+
+# commands to run in interactive sessions can go here
+if status is-interactive
+end
+
+set LOCAL_CONFIG (dirname (status --current-filename))/config-local.fish
+if test -f $LOCAL_CONFIG
+  source $LOCAL_CONFIG
+end
