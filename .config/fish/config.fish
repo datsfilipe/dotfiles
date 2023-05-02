@@ -32,6 +32,7 @@ alias delc "trash-empty"
 alias dell "trash-list"
 alias delu "trash-restore"
 alias delr "trash-rm"
+alias vimcfg "nvim ~/.config/nvim/init.lua"
 
 # Use Neovim if it is installed
 if command -qv nvim
