@@ -86,11 +86,7 @@ pavucontrol.ini
 .config/fish/functions/_*
 .config/fish/functions/fish_title*
 .config/fish/functions/fish_greeting*
-.config/fish/conf.d/__async_prompt.fish
-.config/fish/conf.d/_pure_init.fish
-.config/fish/conf.d/done.fish
-.config/fish/conf.d/pure.fish
-.config/fish/conf.d/hydro.fish
+.config/fish/conf.d/*
 # Min
 .config/Min/blob_storage
 .config/Min/Cache
