@@ -1,14 +1,14 @@
 [Default Applications]
-x-scheme-handler/http=google-chrome.desktop
-x-scheme-handler/https=google-chrome.desktop
-x-scheme-handler/chrome=firefoxdeveloperedition.desktop
-text/html=google-chrome.desktop
-application/x-extension-htm=firefoxdeveloperedition.desktop
-application/x-extension-html=firefoxdeveloperedition.desktop
-application/x-extension-shtml=firefoxdeveloperedition.desktop
-application/xhtml+xml=firefoxdeveloperedition.desktop
-application/x-extension-xhtml=firefoxdeveloperedition.desktop
-application/x-extension-xht=firefoxdeveloperedition.desktop
-x-scheme-handler/about=google-chrome.desktop
-x-scheme-handler/unknown=google-chrome.desktop
-x-scheme-handler/mailto=google-chrome.desktop
+x-scheme-handler/http=min.desktop
+x-scheme-handler/https=min.desktop
+x-scheme-handler/chrome=min.desktop
+text/html=min.desktop
+application/x-extension-htm=min.desktop
+application/x-extension-html=min.desktop
+application/x-extension-shtml=min.desktop
+application/xhtml+xml=min.desktop
+application/x-extension-xhtml=min.desktop
+application/x-extension-xht=min.desktop
+x-scheme-handler/about=min.desktop
+x-scheme-handler/unknown=min.desktop
+x-scheme-handler/mailto=min.desktop
