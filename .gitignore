@@ -91,6 +91,33 @@ pavucontrol.ini
 .config/fish/conf.d/done.fish
 .config/fish/conf.d/pure.fish
 .config/fish/conf.d/hydro.fish
+# Min
+.config/Min/blob_storage
+.config/Min/Cache
+.config/Min/Code Cache
+.config/Min/Cookies
+.config/Min/Cookies-journal
+.config/Min/Crashpad
+.config/Min/databases
+.config/Min/DawnCache
+.config/Min/Dictionaries
+.config/Min/GPUCache
+.config/Min/IndexedDB
+.config/Min/Local Storage
+.config/Min/Network Persistent State
+.config/Min/newTabBackground
+.config/Min/Partitions
+.config/Min/Preferences
+.config/Min/sessionRestore.json
+.config/Min/Session Storage
+.config/Min/settings.json
+.config/Min/SingletonCookie -> 7402513302553555933
+.config/Min/SingletonLock -> dtsf-machine-2-120809
+.config/Min/SingletonSocket -> /tmp/scoped_dir1Gbc0b/SingletonSocket
+.config/Min/tools
+.config/Min/TransportSecurity
+.config/Min/WebStorage
+.config/Min/windowBounds.json
 # tmux
 tmux-out*
 tmux-client*
