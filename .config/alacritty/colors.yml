@@ -4,7 +4,7 @@ colors:
     foreground: '0xc1c1c1'
 
   normal:
-    black:   '0x383838'
+    black:   '0x1a1a1a'
     red:     '0xFF7A84'
     green:   '0x22863a'
     yellow:  '0xffab70'
@@ -14,7 +14,7 @@ colors:
     white:   '0xfafafa'
 
   bright:
-    black:   '0x383838'
+    black:   '0x1a1a1a'
     red:     '0xFF7A84'
     green:   '0x22863a'
     yellow:  '0xffab70'
