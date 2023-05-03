@@ -58,6 +58,14 @@ end
 set -U FZF_DEFAULT_COMMAND "fd --type f --hidden --follow --exclude .git --color=always"
 set -U FZF_CTRL_T_COMMAND $FZF_DEFAULT_COMMAND
 
+# hydro prompt config
+# source ~/.config/fish/conf.d/prompt.fish
+set -g hydro_color_prompt blue
+set -g hydro_color_pwd blue
+set -g hydro_color_git red
+set -g hydro_color_error red
+set -g hydro_color_duration green
+
 set LOCAL_CONFIG (dirname (status --current-filename))/config-local.fish
 if test -f $LOCAL_CONFIG
   source $LOCAL_CONFIG
