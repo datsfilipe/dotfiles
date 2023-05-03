@@ -92,7 +92,6 @@ pavucontrol.ini
 .config/Min/SingletonCookie
 .config/Min/SingletonLock
 .config/Min/SingletonSocket
-.config/Min/userscripts/LinkTooltip.js
 .config/Min/blob_storage
 .config/Min/Cache
 .config/Min/Code Cache
