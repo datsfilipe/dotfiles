@@ -1,6 +1,6 @@
 [includeIf "gitdir:~/"]
   path = ~/.gitconfig-personal
-[includeIf "gitdir:~/www/work/"]
+[includeIf "gitdir:~/www/w/"]
   path = ~/.gitconfig-work
 [core]
   excludesfile = ~/.gitignore
@@ -35,9 +35,9 @@
   required = true
   process = git-lfs filter-process
 [ghq]
-  root = ~/www/personal
+  root = ~/www/s
 [ghq "work-repos-link"]
-  root = ~/www/work
+  root = ~/www/w
 [alias]
   st = status -sb
   sf = show --name-only
