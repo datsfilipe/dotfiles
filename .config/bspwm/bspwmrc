@@ -28,10 +28,11 @@ bc borderless_monocle true
 bc gapless_monocle false
 
 # rules
-br -a Google-chrome desktop='^2' follow=on
-br -a mpv desktop='^1' follow=on
-br -a discord desktop='^7' follow=on
-br -a qbittorrent desktop='^9' follow=on
-br -a zathura desktop='^8'
-br -a VirtualBox desktop='^8' follow=on
 br -a Steam desktop='^1'
+br -a mpv desktop='^1' follow=on
+br -a Min desktop='^2' follow=on
+br -a Chromium desktop='^3' follow=on
+br -a discord desktop='^5'
+br -a zathura desktop='^6' follow=on
+br -a VirtualBox desktop='^9' follow=on
+br -a qbittorrent desktop='^9' follow=on

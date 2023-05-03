@@ -5,8 +5,13 @@ super + Return
 super + @p
   rofi -show
 
+# personal browser
 super + @a
   min
+
+# development browser
+super + @d
+  chromium
 
 #Screenshot
 Print
