@@ -1,10 +1,10 @@
-@import "~/.config/rofi/themes/gruvbox.rasi"
+@import "~/.config/rofi/colors.rasi"
 
 configuration {
   modi: "drun";
   display-drun: "";
   drun-display-format: "{name}";
-  font: "Overpass Medium 10.5";
+  font: "JetBrainsMono Nerd Font Medium 9.5";
 }
 
 

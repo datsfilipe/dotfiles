@@ -1,4 +1,4 @@
-@import "~/.config/rofi/themes/gruvbox.rasi"
+@import "~/.config/rofi/colors.rasi"
 
 configuration {
   modi: "drun";
