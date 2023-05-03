@@ -6,7 +6,7 @@ source ~/.env
 killall sxhkd; sxhkd &
 killall dunst; dunst &
 # feh --bg-fill $WALLPAPER &
-live_wall $WALLPAPER &
+set_live_wallpaper $WALLPAPER &
 killall polybar; $HOME/.config/polybar/launch.sh &
 
 # variables
