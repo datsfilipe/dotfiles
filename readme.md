@@ -28,7 +28,7 @@ paru -S xdg-utils xdg-user-dirs zip unzip xclip openssh xorg-xrandr xorg-xsetroo
 <summary><b>Fonts</b></summary>
 
 ```bash
-paru -S otf-font-awesome noto-fonts-emoji ttf-symbola noto-fonts-cjk
+paru -S ttf-dejavu otf-font-awesome noto-fonts-emoji noto-fonts-cjk
 ```
 </details>
 
