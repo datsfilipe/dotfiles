@@ -44,7 +44,7 @@ paru -S bspwm sxhkd polybar dunst rofi ranger xwinwrap feh picom dragon-drop
 <summary><b>Terminal</b></summary>
 
 ```bash
-paru -S alacritty tmux fish neovim fd ripgrep bat exa fzf btop git asdf-vm
+paru -S alacritty tmux fish neovim fd ripgrep bat exa fzf btop git asdf-vm wget curl
 
 # asdf version manager plugins
 asdf plugin add ghq && asdf install ghq latest
@@ -62,6 +62,9 @@ sudo make install
 curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher
 fisher install franciscolourenco/done # notification when a long running command finishes
 fisher install jorgebucaran/hydro # prompt
+
+# fetch
+wget https://raw.githubusercontent.com/unxsh/nitch/main/setup.sh && sh setup.sh
 ```
 
 </details>
