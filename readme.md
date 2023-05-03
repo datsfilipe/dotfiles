@@ -87,11 +87,19 @@ nvim # should open Lazy window and install plugins
 ```
 </details>
 
-# Colors
+#### Colors
 
 Now I'm using [Min Theme for VS Code](https://github.com/misolori/min-theme-vscode) **colors**!!
 
-# Special Thanks
+#### GTK Theme
+
+I'm using [Yaru Colors red](https://www.pling.com/s/XFCE/p/1299514).
+
+#### Cursor Theme
+
+I'm using [MacOS Big Sur](https://www.pling.com/p/1408466).
+
+#### Special Thanks
 
 - *Me.*
 - *Myself.*
