@@ -37,12 +37,13 @@ assets/rice.png
 .steampid
 VirtualBox VMs
 go/
-
 # git
 .gitconfig-personal
 .gitconfig-work
-
 # config files
+.config/Bitwarden CLI
+.config/Thunar
+.config/xfce4
 .fehbg
 .config/dconf
 .config/zellij
@@ -88,6 +89,10 @@ pavucontrol.ini
 .config/fish/functions/fish_greeting*
 .config/fish/conf.d/*
 # Min
+.config/Min/SingletonCookie
+.config/Min/SingletonLock
+.config/Min/SingletonSocket
+.config/Min/userscripts/LinkTooltip.js
 .config/Min/blob_storage
 .config/Min/Cache
 .config/Min/Code Cache
