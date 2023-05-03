@@ -34,4 +34,4 @@ cursor:
   blink: true
   blink_interval: 500
 import:
-  - ~/.config/alacritty/themes/purple.yml
+  - ~/.config/alacritty/colors.yml
