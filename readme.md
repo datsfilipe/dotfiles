@@ -47,11 +47,11 @@ paru -S bspwm sxhkd polybar dunst rofi ranger xwinwrap feh picom dragon-drop
 paru -S alacritty tmux fish neovim fd ripgrep bat exa fzf btop git asdf-vm wget curl
 
 # asdf version manager plugins
-asdf plugin add ghq && asdf install ghq latest
-asdf plugin add nodejs https://github.com/asdf-vm/asdf-nodejs.git && asdf install nodejs lts
-asdf plugin-add pnpm && asdf install pnpm latest
-asdf plugin-add rust https://github.com/code-lever/asdf-rust.git && asdf install rust latest # I will learn rust one day...
-asdf plugin-add github-cli https://github.com/bartlomiejdanek/asdf-github-cli.git && asdf install github-cli latest
+asdf plugin add ghq && asdf install ghq latest && asdf global ghq latest
+asdf plugin add nodejs https://github.com/asdf-vm/asdf-nodejs.git && asdf list all nodejs && asdf install nodejs lts && asdf global nodejs lts
+asdf plugin-add pnpm && asdf install pnpm latest && asdf global pnpm latest
+asdf plugin-add rust https://github.com/code-lever/asdf-rust.git && asdf install rust latest && asdf global rust latest # I will learn rust one day...
+asdf plugin-add github-cli https://github.com/bartlomiejdanek/asdf-github-cli.git && asdf install github-cli latest && asdf global github-cli latest
 
 # pomodoro cli tool (it has rain sound :3)
 git clone https://github.com/gabrielzschmitz/Tomato.C.git
