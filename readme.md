@@ -65,6 +65,11 @@ fisher install jorgebucaran/hydro # prompt
 
 # fetch
 wget https://raw.githubusercontent.com/unxsh/nitch/main/setup.sh && sh setup.sh
+
+# dev packages
+pnpm i -g all-the-package-names stylelint @commitlint/cli @commitlint/config-conventional rustywind eslint_d
+paru -S proselint editorconfig-checker
+cargo install stylua
 ```
 
 </details>
