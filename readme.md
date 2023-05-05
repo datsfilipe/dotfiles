@@ -92,7 +92,7 @@ nvim # should open Lazy window and install plugins
 
 #### Colors
 
-Now I'm using [Min Theme for VS Code](https://github.com/misolori/min-theme-vscode) **colors**!!
+Now I'm using [Min Theme for VS Code](https://github.com/misolori/min-theme-vscode) **colors**!
 
 #### GTK Theme
 
