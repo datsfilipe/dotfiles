@@ -1,0 +1,19 @@
+#!/bin/sh
+
+layout=$1
+variant=$2
+
+if [ -z "$layout" ]; then
+  echo "No layout specified"
+  exit 1
+fi
+
+if [ -z "$variant" ]; then
+  setxkbmap $layout
+  notify-send "Keyboard layout" "Set to $layout"
+  exit 0
+fi
+
+setxkbmap $layout -variant $variant
+notify-send "Keyboard layout" "Set to $layout ($variant)"
+exit 0

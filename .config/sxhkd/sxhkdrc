@@ -41,6 +41,12 @@ XF86MonBrightnessUp
 XF86MonBrightnessDown
   xbacklight -5
 
+#Keyboard Management
+super + k
+  keyboard-layout us
+super + shift + k
+  keyboard-layout us intl
+
 #Window Management
 super + Tab
   bspc node -t {floating,tiled}
