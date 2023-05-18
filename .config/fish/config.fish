@@ -39,13 +39,9 @@ set -gx EDITOR nvim
 set -gx TERMINAL alacritty
 
 # source / path
-set -gx PATH bin $PATH
-set -gx PATH ~/bin $PATH
-set -gx PATH ~/.local/bin $PATH
 source /opt/asdf-vm/asdf.fish # asdf
-set -gx PATH ~/.asdf/shims $PATH
 set -gx PNPM_HOME "/home/dtsf/.local/share/pnpm" # pnpm
-set -gx PATH "$PNPM_HOME" $PATH
+set -gx PATH bin ~/bin ~/.local/bin ~/.asdf/shims "$PNPM_HOME" $PATH
 
 # plugins config
 set -U __done_min_cmd_duration 5000
