@@ -36,7 +36,7 @@ paru -S ttf-dejavu otf-font-awesome noto-fonts-emoji noto-fonts-cjk
 <summary><b>Window Manager and Utilities</b></summary>
 
 ```bash
-paru -S bspwm sxhkd polybar dunst rofi ranger xwinwrap feh picom dragon-drop
+paru -S bspwm sxhkd polybar dunst rofi ranger xwinwrap feh picom dragon-drop cronie
 ```
 </details>
 
@@ -70,6 +70,11 @@ wget https://raw.githubusercontent.com/unxsh/nitch/main/setup.sh && sh setup.sh
 pnpm i -g all-the-package-names stylelint @commitlint/cli @commitlint/config-conventional rustywind eslint_d
 paru -S proselint editorconfig-checker
 cargo install stylua
+
+# cronie
+sudo systemctl enable cronie.service
+sudo systemctl start cronie.service
+anacron -t $HOME/.local/etc/anacrontab -S $HOME/.local/var/spool
 ```
 
 </details>
