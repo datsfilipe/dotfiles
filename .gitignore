@@ -1,9 +1,39 @@
-# general
-.node_repl_history
-.bun
-.lesshst
+.local/var
+.local/state
+.local/share
+.Xauthority
+.asdf
+.bash_history
+.bash_logout
+.bash_profile
+.bashrc
+.cache
+.dotfiles
+.fehbg
+.gitconfig-personal
+.gtkrc-2.0
+.icons
+.themes
+.npm
+.oh-my-zsh
+.pki
+.ssh
 .tool-versions
 .var
+.wakatime.bdb
+.wakatime.cfg
+.wakatime
+.z
+.zcompdump-dtsf-machine-5.9
+.zcompdump-dtsf-machine-5.9.zwc
+.zsh_history
+.zshrc.pre-oh-my-zsh
+.pulse-cookie
+.steam
+.steampath
+.steampid
+
+# home dirs
 desk
 docs
 downloads
@@ -12,126 +42,10 @@ pics
 pub
 templates
 vids
-.Xauthority
-.icons
-.themes
-.wget*
-.gtk*
-.bash*
-.asdf
-.npm
-.npmrc
-.mozilla
-.cache
-.local/share
-.local/state
-*.sh
-assets/rice.png
-.pki
-.yarnrc
-.docker
-.env
-.pulse-cookie
-.steam
-.steampath
-.steampid
-VirtualBox VMs
-go/
-# git
-.gitconfig-personal
-.gitconfig-work
-# config files
-.config/Bitwarden CLI
-.config/Thunar
-.config/xfce4
-.fehbg
-.config/dconf
-.config/zellij
-.config/gtk*
-.config/pulse
-.config/flameshot
-.config/Q*
-.config/cava
-.config/chromium
-.config/mpv/watch_later
-.config/kdeglobals
-.config/kdenlive-layoutsrc
-.config/kdenliverc
-.config/obs-studio
-.config/nextjs-nodejs
-.config/configstore
-.config/neofetch
-.config/yarn
-.config/simple-update-notifier
-.config/Insomnia
-.config/i3/config
-.config/gh
-.config/cef_user_data
-.config/discord
-.config/google-chrome
-.config/unity3d
-.config/github-copilot
-.config/fontforge
-.config/VirtualBox
-.config/vlc
-.config/qBittorrent
-.config/htop
-.giget
-pavucontrol.ini
-# fish
-.config/fish/completions
-.config/fish/fish*
-.config/fish/functions/fish_mode_prompt.fish
-.config/fish/functions/fish_prompt.fish
-.config/fish/functions/fisher.fish
-.config/fish/functions/_*
-.config/fish/functions/fish_title*
-.config/fish/functions/fish_greeting*
-.config/fish/conf.d/*
-# Min
-.config/Min/SingletonCookie
-.config/Min/SingletonLock
-.config/Min/SingletonSocket
-.config/Min/blob_storage
-.config/Min/Cache
-.config/Min/Code Cache
-.config/Min/Cookies
-.config/Min/Cookies-journal
-.config/Min/Crashpad
-.config/Min/databases
-.config/Min/DawnCache
-.config/Min/Dictionaries
-.config/Min/GPUCache
-.config/Min/IndexedDB
-.config/Min/Local Storage
-.config/Min/Network Persistent State
-.config/Min/newTabBackground
-.config/Min/Partitions
-.config/Min/Preferences
-.config/Min/sessionRestore.json
-.config/Min/Session Storage
-.config/Min/settings.json
-.config/Min/SingletonCookie -> 7402513302553555933
-.config/Min/SingletonLock -> dtsf-machine-2-120809
-.config/Min/SingletonSocket -> /tmp/scoped_dir1Gbc0b/SingletonSocket
-.config/Min/tools
-.config/Min/TransportSecurity
-.config/Min/WebStorage
-.config/Min/windowBounds.json
+www
+torrents
+
 # tmux
 tmux-out*
 tmux-client*
 tmux-server*
-
-# wakatime
-.wakatime*
-
-# important
-.ssh
-www
-
-# torrents folder
-torrents
-
-# tomato
-.local/src

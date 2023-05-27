@@ -1,0 +1,10 @@
+right_format = "$time"
+add_newline = false
+
+[time]
+disabled = false
+style = "bold bright-black"
+format = "[$time]($style)"
+
+[line_break]
+disabled = true

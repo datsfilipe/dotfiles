@@ -1,0 +1,9 @@
+@theme "/dev/null"
+
+* {
+  bg: #1a1a1a;
+  fg: #FF7A84;
+  al: #6b737c;
+  background-color: @bg;
+  text-color: @fg;
+}

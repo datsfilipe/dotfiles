@@ -1,5 +1,5 @@
 shell:
-  program: fish
+  program: zsh
   args:
     - -l
     - -c
@@ -26,8 +26,8 @@ font:
   size: 10.5
 window:
   padding:
-   x: 20
-   y: 20
+   x: 16
+   y: 15
   opacity: 0.8
 cursor:
   style: Block

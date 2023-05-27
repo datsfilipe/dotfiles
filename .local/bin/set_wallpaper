@@ -2,17 +2,4 @@
 
 source ~/.env
 
-# Set the wallpaper using feh
-# Check if the environment variable WALLPAPER is set
-if [ -z "$WALLPAPER" ]; then
-  echo "Error: WALLPAPER environment variable is not set"
-  exit 1
-fi
-
-# Set the wallpaper using feh
-if [ ! -f "$WALLPAPER" ]; then
-  echo "Error: WALLPAPER environment variable is not a file"
-  exit 1
-fi
-
-feh --bg-scale "$WALLPAPER"
+feh --bg-fill "$1"

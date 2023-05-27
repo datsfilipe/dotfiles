@@ -1,0 +1,88 @@
+#!/usr/bin/env bash
+
+function post_install () {
+  sudo pacman -S git
+
+  # paru
+  git clone https://aur.archlinux.org/paru-bin paru
+  cd paru
+  makepkg -si
+  cd ..
+  rm -rf paru
+
+  # apps / system
+  paru -S mpv\
+    peek\
+    flameshot\
+    screenkey\
+    obs-studio\
+    zathura\
+    zathura-pdf-poppler\
+    chromium\
+    qbittorrent\
+    lxappearance\
+    rofi\
+    ranger\
+    xwinwrap\
+    feh\
+    picom\
+    dragon-drop\
+    cronie\
+    xdg-utils\
+    xdg-user-dirs\
+    zip\
+    unzip\
+    xclip\
+    openssh\
+    xorg-xrandr\
+    xorg-xsetroot\
+    udisks2\
+    udiskie\
+    pipewire\
+    flatpak
+
+  # fonts
+  paru -S ttf-dejavu\
+    noto-fonts-emoji\
+    noto-fonts-cjk
+
+  # term
+  paru -S alacritty\
+    tmux\
+    fish\
+    neovim\
+    fd\
+    ripgrep\
+    bat\
+    exa\
+    fzf\
+    btop\
+    git\
+    asdf-vm\
+    wget\
+    curl
+
+  # asdf setup
+  echo ". /opt/asdf-vm/asdf.sh" >> "$HOME/.bashrc"
+  echo "export PATH=$HOME/.asdf/shims:$PATH" >> "$HOME/.bashrc"
+  source "$HOME/.bashrc"
+  bash "$HOME/.local/bin/asdf_setup"
+  asdf reshim
+
+  # development packages
+  cargo install stylua
+  pnpm i -g stylelint @commitlint/cli @commitlint/config-conventional rustywind eslint_d
+  paru -S proselint editorconfig-checker
+
+  # setup cronie
+  sudo systemctl enable cronie.service
+  sudo systemctl start cronie.service
+  mkdir -p $HOME/.local/{var,etc}
+  anacron -t $HOME/.local/etc/anacrontab -S $HOME/.local/var/spool
+
+  # create project dirs
+  mkdir -p www/{s,w}
+  echo "Finished with no errors!"
+}
+
+post_install
