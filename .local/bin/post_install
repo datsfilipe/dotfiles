@@ -39,7 +39,8 @@ function post_install () {
     udisks2\
     udiskie\
     pipewire\
-    flatpak
+    flatpak\
+    htop
 
   # fonts
   paru -S ttf-dejavu\
