@@ -57,6 +57,13 @@ function pr() {
   fi
 }
 
+# change dir
+function change_dir() {
+  builtin cd $(nav)
+}
+zle -N change_dir
+bindkey '^F' change_dir
+
 # globals
 export TERMINAL=alacritty
 export EDITOR=nvim
