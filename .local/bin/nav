@@ -1,6 +1,12 @@
 #!/usr/bin/env bash
 
-dir=$( { ghq list -p; echo "$HOME/.config"; ls -ad */|perl -pe "s#^#$PWD/#"|grep -v \.git; ls -ad $HOME/www/s/*/*/* |grep -v \.git; } | fzf)
+dir=$( {
+  ghq list -p;
+  echo "$HOME/.config";
+  ls -ad */|perl -pe "s#^#$PWD/#"|grep -v \.git;
+  ls -ad $HOME/www/s/*/*/* |grep -v \.git;
+  ls -ad /run/media/$USER/*;
+} | fzf)
 
 if [[ -n $dir ]]; then
   echo "$dir" || exit 1
