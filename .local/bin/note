@@ -1,0 +1,21 @@
+#!/bin/bash
+
+directory="www/s/notes/unorganized/"
+prefix=$(date +'%Y-%m-%d_%H-%M')
+
+filename="${prefix}.md"
+fullpath="${directory}${filename}"
+
+if [ ! -d "$directory" ]; then
+    echo "Directory doesn't exist. Creating directory..."
+    mkdir -p "$directory"
+fi
+
+if [ -f "$fullpath" ]; then
+    echo "File already exists. Opening existing file..."
+else
+    echo "Creating a new file..."
+    touch "$fullpath"
+fi
+
+nvim "$fullpath"
