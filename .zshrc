@@ -11,14 +11,12 @@ plugins=(
 )
 
 source $ZSH/oh-my-zsh.sh # https://ohmyz.sh/
-
 # zsh-autosuggestions config
 bindkey '^ ' autosuggest-accept
-
-# starship prompt
+# prompt
 eval "$(starship init zsh)"
 
-# override aliases
+# aliases
 alias vim=nvim
 alias cat=bat
 # exa
@@ -40,7 +38,7 @@ function dir() {
   mkdir $1 && cd $1
 }
 
-# Git
+# git
 alias g=git
 alias ga="git add"
 alias gc="git commit"
@@ -64,22 +62,22 @@ function change_dir() {
 zle -N change_dir
 bindkey '^F' change_dir
 
-# globals
+# exports
 export TERMINAL=alacritty
 export EDITOR=nvim
-
-# asdf
-. /opt/asdf-vm/asdf.sh
-export PATH=~/.asdf/shims:$PATH
-
-# pnpm
-export PATH=/home/dtsf/.local/share/pnpm:$PATH
-
-# bins bro
 export PATH=bin:$PATH
 export PATH=~/bin:$PATH
 export PATH=~/.local/bin:$PATH
-
 # fzf with fd
 export FZF_DEFAULT_COMMAND="fd --type f --hidden --follow --exclude .git --color=always"
 export FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
+# asdf
+. /opt/asdf-vm/asdf.sh
+export PATH=~/.asdf/shims:$PATH
+# pnpm
+export PNPM_HOME="/home/dtsf/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
