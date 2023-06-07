@@ -13,7 +13,7 @@ if [ -f "$@" ]; then
 fi
 
 case "$@" in
-  *.rar) unar x "$@" -o "$dir";;
+  *.rar) unrar x "$@" -o "$dir";;
   *.tar.bz2) tar xjf "$@" -C "$dir";;
   *.tar.gz) tar xzf "$@" -C "$dir";;
   *.tar.xz) tar xf "$@" -C "$dir";;
