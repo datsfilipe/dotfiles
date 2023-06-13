@@ -1,4 +1,7 @@
 export ZSH="$HOME/.oh-my-zsh"
+# git clone https://github.com/denysdovhan/spaceship-prompt.git "$ZSH_CUSTOM/themes/spaceship-prompt" --depth=1
+# ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/themes/spaceship.zsh-theme"
+ZSH_THEME="spaceship"
 
 # git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 # git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
@@ -12,11 +15,27 @@ plugins=(
   auto-notify
 )
 
+# spaceship prompt config
+SPACESHIP_PROMPT_ORDER=(
+  user
+  dir
+  host
+  git
+  hg
+  exec_time
+  jobs
+  line_sep
+  exit_code
+  char
+)
+SPACESHIP_USER_SHOW=always
+SPACESHIP_PROMPT_ADD_NEWLINE=false
+SPACESHIP_CHAR_SYMBOL="❯ "
+
 source $ZSH/oh-my-zsh.sh # https://ohmyz.sh/
+
 # zsh-autosuggestions config
 bindkey '^ ' autosuggest-accept
-# prompt
-eval "$(starship init zsh)"
 
 # aliases
 alias vim=nvim
