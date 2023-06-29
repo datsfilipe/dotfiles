@@ -1,4 +1,4 @@
-exec --no-startup-id set_wallpaper ~/pics/walls/13.jpeg
+exec --no-startup-id set_wallpaper ~/pics/05.png
 exec --no-startup-id dex --autostart --environment i3
 
 exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
@@ -86,7 +86,7 @@ bindsym $mod+q kill
 bindsym $mod+0 workspace back_and_forth
 
 # open firefox
-bindsym $mod+a exec chromium
+bindsym $mod+a exec flatpak run com.google.Chrome
 bindsym $mod+o exec powermenu
 
 # keyboard
