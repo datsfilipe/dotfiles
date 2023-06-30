@@ -1,6 +1,10 @@
 .local/var
 .local/state
-.local/share
+.local/share/flatpak
+.local/share/keyrings
+.local/share/nvim
+.local/share/Trash
+.local/share/xorg
 .Xauthority
 .asdf
 .bash_history
