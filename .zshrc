@@ -52,9 +52,10 @@ alias delr=trash-rm
 # tmux
 alias t=tmux
 alias ta="tmux attach"
-alias ts="tmux new-session -s"
-alias tl="tmux ls"
-alias tk="tmux kill-session -t"
+function ts() {
+  tmux new-session -d -s $1
+  tmux switch-client -t $1
+}
 
 function rm() {
   echo "Use trash instead of rm"

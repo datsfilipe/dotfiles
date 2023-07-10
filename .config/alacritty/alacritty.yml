@@ -2,6 +2,8 @@ shell:
   program: zsh
   args:
     - -l
+    - -c
+    - "tmux attach || tmux new-session -s dtsf"
 key_bindings:
   - { key: X, mods: Control, action: ToggleViMode }
 font:
