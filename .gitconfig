@@ -37,9 +37,9 @@
   d = diff
   st = status -sb
   sf = show --name-only
-  co = checkout
-  ci = commit -m
+  c = commit
   ca = commit --amend
+  co = checkout
   ps = push
   psu = push -u
   psm = "!git push origin $(git rev-parse --abbrev-ref HEAD)"
