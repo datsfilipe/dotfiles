@@ -49,6 +49,12 @@ alias dels=trash-list
 alias delu=trash-restore
 alias delc=trash-empty
 alias delr=trash-rm
+# tmux
+alias t=tmux
+alias ta="tmux attach"
+alias ts="tmux new-session -s"
+alias tl="tmux ls"
+alias tk="tmux kill-session -t"
 
 function rm() {
   echo "Use trash instead of rm"

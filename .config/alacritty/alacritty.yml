@@ -2,13 +2,11 @@ shell:
   program: zsh
   args:
     - -l
-    - -c
-    - 'tmux attach || tmux'
 key_bindings:
   - { key: X, mods: Control, action: ToggleViMode }
 font:
   normal:
-    family: JetBrainsMono Nerd Font 
+    family: JetBrainsMono Nerd Font
     style: Regular
 
   bold:
@@ -23,11 +21,11 @@ font:
     family: JetBrainsMono Nerd Font
     style: Bold Italic
 
-  size: 11.5
+  size: 13
 window:
   padding:
-   x: 16
-   y: 15
+    x: 16
+    y: 15
   opacity: 0.8
 cursor:
   style: Block
