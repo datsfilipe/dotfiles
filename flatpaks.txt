@@ -1,0 +1,5 @@
+com.discordapp.Discord
+com.google.Chrome
+com.spotify.Client
+org.mozilla.firefox
+org.qbittorrent.qBittorrent
