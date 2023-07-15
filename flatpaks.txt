@@ -1,6 +1,7 @@
 com.discordapp.Discord
 com.github.tchx84.Flatseal
-com.google.Chrome
 com.spotify.Client
+com.valvesoftware.Steam
+org.chromium.Chromium
 org.mozilla.firefox
 org.qbittorrent.qBittorrent
