@@ -101,7 +101,7 @@ export FZF_DEFAULT_COMMAND="fd --type f --hidden --follow --exclude .git --color
 export FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
 # asdf
 . /opt/asdf-vm/asdf.sh
-export PATH=~/.asdf/shims:$PATH
+export PATH=~/.asdf/installs/*/*/bin:$PATH
 # pnpm
 export PNPM_HOME="/home/dtsf/.local/share/pnpm"
 case ":$PATH:" in
