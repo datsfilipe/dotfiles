@@ -56,6 +56,11 @@ function ts() {
   tmux new-session -d -s $1
   tmux switch-client -t $1
 }
+function tmux-sessionizer() {
+  bash -c "~/.local/bin/tmux-sessionizer"
+}
+zle -N tmux-sessionizer
+bindkey '^F' tmux-sessionizer
 
 function rm() {
   echo "Use trash instead of rm"
@@ -82,13 +87,6 @@ function pr() {
     gh pr checkout $1
   fi
 }
-
-# change dir
-function change_dir() {
-  builtin cd $(nav)
-}
-zle -N change_dir
-bindkey '^F' change_dir
 
 # exports
 export TERMINAL=alacritty
