@@ -7,48 +7,6 @@ exec --no-startup-id nm-applet
 # Font
 font pango:DMSans Regular 8
 
-# Gruvbox theme
-# Colors
-set $hc-color #FFFFFF
-set $bg-color #262626
-set $sc-color #FFFFFF
-set $fg-color #FFFFFF
-# black + darkgrey
-set $color0   #262626
-set $color8   #928374
-# darkred + red
-set $color1   #cc241d
-set $color9   #fb4934
-# darkgreen + lightgreen
-set $color2   #98971a
-set $color10  #b8bb26
-# darkyellow + yellow
-set $color3   #d79921
-set $color11  #fabd2f
-# darkblue + blue
-set $color4   #458588
-set $color12  #83a598
-# darkmagenta + ffffff
-set $color5   #b16286
-set $color13  #d3869b
-# darkcyan + cyan
-set $color6   #689d6a
-set $color14  #8ec07c
-# lightgrey + white
-set $color7   #a89984
-set $color15  #ebdbb2
-# border
-set $color16 #404040
-set $borderInactive #403a37
-set $borderActive   #504945
-
-# Window colors config
-client.focused          $borderActive     $borderActive       $color7     	$borderActive
-client.focused_inactive $borderInactive   $borderInactive     $color7		$borderInactive
-client.unfocused        $borderInactive   $borderInactive     $color7		$borderInactive
-client.urgent           $color9   	  $color9	      $color7		$color9
-client.background       $bg-color
-
 # Audio config
 set $refresh_i3status killall -SIGUSR1 i3status
 focus_follows_mouse no
@@ -195,13 +153,4 @@ bar {
 	position bottom
 	workspace_buttons yes
 	font pango: DMSans Medium, JetBrainsMono Nerd Font 8
-
-	colors {
-		background $bg-color
-		statusline $color7
-		separator $color7
-
-		active_workspace $color7 $borderActive $fg-color
-		focused_workspace $color7 $borderActive $fg-color
-	}
 }
