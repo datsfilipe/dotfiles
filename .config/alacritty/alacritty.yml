@@ -26,12 +26,12 @@ font:
   size: 13
 window:
   padding:
-    x: 16
-    y: 15
-  opacity: 0.8
+    x: 25
+    y: 25
+  opacity: 1
 cursor:
   style: Block
   blink: true
   blink_interval: 500
 import:
-  - ~/.config/alacritty/colors.yml
+  - ~/.config/alacritty/themes/eva.yml

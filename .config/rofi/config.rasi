@@ -1,4 +1,4 @@
-@import "~/.config/rofi/gruvbox.rasi"
+@import "~/.config/rofi/eva.rasi"
 
 configuration {
   modi: "drun";
