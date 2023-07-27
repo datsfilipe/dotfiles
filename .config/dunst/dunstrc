@@ -12,8 +12,10 @@
 
   frame_width = 0
   separator_height = 0
-  frame_color = "#1d2021"
-  separator_color = "#1d2021"
+#  frame_color = "#1d2021"
+#  separator_color = "#1d2021"
+  frame_color = "#151515"
+  separator_color = "#151515"
 
   sort = no
   font = JetBrainsMono Nerd Font 10
@@ -39,32 +41,32 @@
   mouse_middle_click = do_action
   mouse_right_click = close_all
 
+# urgency_low]
+#  background = "#1d2021"
+#  foreground = "#ebdbb2"
+#  timeout = 5
+# 
+# urgency_normal]
+#  background = "#1d2021"
+#  foreground = "#ebdbb2"
+#  timeout = 10
+# 
+# urgency_critical]
+#  background = "#ebdbb2"
+#  foreground = "#1d2021"
+#  timeout = 20
+
 [urgency_low]
-  background = "#1d2021"
-  foreground = "#ebdbb2"
+  background = "#151515"
+  foreground = "#FF7A84"
   timeout = 5
 
 [urgency_normal]
-  background = "#1d2021"
-  foreground = "#ebdbb2"
+  background = "#151515"
+  foreground = "#FF7A84"
   timeout = 10
 
 [urgency_critical]
-  background = "#ebdbb2"
-  foreground = "#1d2021"
+  background = "#FF7A84"
+  foreground = "#151515"
   timeout = 20
-
-# [urgency_low]
-#   background = "#1a1a1a"
-#   foreground = "#FF7A84"
-#   timeout = 5
-# 
-# [urgency_normal]
-#   background = "#1a1a1a"
-#   foreground = "#FF7A84"
-#   timeout = 10
-# 
-# [urgency_critical]
-#   background = "#FF7A84"
-#   foreground = "#1a1a1a"
-#   timeout = 20
