@@ -7,7 +7,7 @@ super + @p
 
 # personal browser
 super + @a
-  min
+  flatpak run org.mozilla.firefox
 
 # development browser
 super + @d
