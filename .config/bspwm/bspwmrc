@@ -1,12 +1,9 @@
 #!/bin/sh
 
-source ~/.env
-
 # autostart
 killall sxhkd; sxhkd &
 killall dunst; dunst &
-# feh --bg-fill $WALLPAPER &
-set_live_wallpaper $WALLPAPER &
+feh --bg-fill $HOME/pics/walls/01.jpg &
 killall polybar; $HOME/.config/polybar/launch.sh &
 
 # variables
