@@ -108,3 +108,7 @@ case ":$PATH:" in
 esac
 # pnpm end
 export PATH=$PATH:/home/dtsf/.spicetify
+
+# nix
+if [ -e /home/dtsf/.nix-profile/etc/profile.d/nix.sh ]; then . /home/dtsf/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
+source /home/dtsf/.nix-profile/etc/profile.d/nix.sh
