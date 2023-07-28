@@ -3,7 +3,7 @@
 # autostart
 killall sxhkd; sxhkd &
 killall dunst; dunst &
-feh --bg-fill $HOME/pics/walls/01.jpg &
+set_wallpaper $HOME/pics/walls/06.jpeg &
 killall polybar; $HOME/.config/polybar/launch.sh &
 
 # variables
