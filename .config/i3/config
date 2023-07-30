@@ -1,4 +1,4 @@
-exec --no-startup-id set_wallpaper ~/pics/walls/01.jpg
+exec --no-startup-id set_wallpaper ~/pics/walls/07.png
 exec --no-startup-id dex --autostart --environment i3
 
 exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
@@ -152,5 +152,5 @@ bar {
   status_command i3status
 	position bottom
 	workspace_buttons yes
-	font pango: DMSans Medium, JetBrainsMono Nerd Font 8
+	font pango: DMSans Medium, JetBrainsMono Nerd Font 6
 }
