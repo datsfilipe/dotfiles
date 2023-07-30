@@ -44,7 +44,7 @@ XF86MonBrightnessDown
 #Keyboard Management
 super + k
   keyboard-layout us
-super + shift + k
+super + i
   keyboard-layout us intl
 
 #Window Management
@@ -54,13 +54,13 @@ super + Tab
 super + q
   bspc node -{c,k}
 
-alt + Tab
-  bspc node -f next.local.!hidden.window
+super + ctrl + {h,j,k,l}
+  bspc node -f {west,south,north,east}
 
-super + {Up,Down,Left,Right}
+super + {k,j,h,l}
   {bspc node -z top 10 10; bspc node -z bottom -10 -10, bspc node -z bottom 10 10; bspc node -z top -10 -10, bspc node -z left 10 10; bspc node -z right -10 -10, bspc node -z right 10 10; bspc node -z left -10 -10 }
 
-super + shift + {Up,Down,Left,Right}
+super + shift + {k,j,h,l}
   bspc node -v {0 -10,0 10,-10 0,10 0}
 
 super + space
