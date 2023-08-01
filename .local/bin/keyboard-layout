@@ -10,10 +10,10 @@ fi
 
 if [ -z "$variant" ]; then
   setxkbmap $layout
-  notify-send "Keyboard layout" "Set to $layout"
+  notify-send -t 1000 "Keyboard layout" "Set to $layout"
   exit 0
 fi
 
 setxkbmap $layout -variant $variant
-notify-send "Keyboard layout" "Set to $layout ($variant)"
+notify-send -t 1000 "Keyboard layout" "Set to $layout ($variant)"
 exit 0
