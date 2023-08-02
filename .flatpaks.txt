@@ -1,6 +1,8 @@
 com.discordapp.Discord
 com.github.tchx84.Flatseal
 com.spotify.Client
+md.obsidian.Obsidian
 org.chromium.Chromium
+org.flathub.flatpak-external-data-checker
 org.mozilla.firefox
 org.qbittorrent.qBittorrent
