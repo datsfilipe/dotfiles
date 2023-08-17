@@ -1,6 +1,6 @@
 #!/bin/bash
  
-res=$(echo "||" | rofi -sep "|" -dmenu -theme "$HOME/.config/rofi/powermenu.rasi" -auto-select)
+res=$(echo "||" | rofi -sep "|" -dmenu -theme "$HOME/.config/rofi/powermenu.rasi" -auto-select)
  
 if [ $res = "" ]; then
   systemctl poweroff
@@ -8,7 +8,7 @@ fi
 if [ $res = "" ]; then
   systemctl reboot
 fi
-if [ $res = "" ]; then
+if [ $res = "" ]; then
   systemctl suspend
 fi
 exit 0
