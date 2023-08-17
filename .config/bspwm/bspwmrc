@@ -29,3 +29,4 @@ br -a discord desktop='^5'
 br -a zathura desktop='^6' follow=on
 br -a VirtualBox desktop='^9'
 br -a qbittorrent desktop='^9'
+br -a 'Spotify' desktop='^8'
