@@ -1,0 +1,49 @@
+alias vim=nvim
+alias cat=bat
+# exa
+alias ll="exa -l -g --icons"
+alias lla="exa -l -a -g --icons"
+# trash
+alias del=trash-put
+alias dels=trash-list
+alias delu=trash-restore
+alias delc=trash-empty
+alias delr=trash-rm
+# tmux
+alias t=tmux
+alias ta="tmux attach"
+function ts() {
+  tmux new-session -d -s $1
+  tmux switch-client -t $1
+}
+function tmux-sessionizer() {
+  bash -c "~/.local/bin/tmux-sessionizer"
+}
+zle -N tmux-sessionizer
+bindkey '^F' tmux-sessionizer
+
+function rm() {
+  echo "Use trash instead of rm"
+}
+
+# create and enter dir
+function dir() {
+  mkdir $1 && cd $1
+}
+
+# git
+alias g=git
+alias ga="git add"
+alias gc="git commit"
+alias gca="git commit --amend"
+alias root='cd "$(git rev-parse --show-toplevel)"'
+alias main='git checkout main'
+alias dot='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+
+function pr() {
+  if [ $1 = "ls" ]; then
+    gh pr list
+  else
+    gh pr checkout $1
+  fi
+}
