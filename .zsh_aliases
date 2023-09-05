@@ -49,3 +49,18 @@ function pr() {
     gh pr checkout $1
   fi
 }
+
+# nvim
+# alias nvim-*="NVIM_APPNAME=* nvim"
+function nvims() {
+  items=("default")
+  config=$(printf "%s\n" "${items[@]}" | fzf --height=~50% --layout=reverse --exit-0)
+  if [[ -z $config ]]; then
+    return 0
+  elif [[ $config == "default" ]]; then
+    config=""
+  fi
+  NVIM_APPNAME=$config nvim $@
+}
+
+bindkey -s ^v "nvims\n"
