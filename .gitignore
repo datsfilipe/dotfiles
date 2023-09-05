@@ -6,6 +6,7 @@
 .local/share/Trash
 .local/share/xorg
 .Xauthority
+.yarnrc
 .asdf
 .bash_history
 .bash_logout
@@ -36,6 +37,15 @@
 .steam
 .steampath
 .steampid
+.config/flameshot
+.config/btop
+.config/obs-studio
+.config/spicetify
+.config/stripe
+.local/share/gh
+.local/share/pnpm
+.docker
+.bun
 
 # home dirs
 desk
@@ -49,7 +59,16 @@ vids
 www
 torrents
 
+# nix
+.nix-channels
+.nix-defexpr
+.nix-profile
+
 # tmux
 tmux-out*
 tmux-client*
 tmux-server*
+
+# vm
+VirtualBox*
+.config/VirtualBox
