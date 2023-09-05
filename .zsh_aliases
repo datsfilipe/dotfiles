@@ -38,7 +38,9 @@ alias gc="git commit"
 alias gca="git commit --amend"
 alias root='cd "$(git rev-parse --show-toplevel)"'
 alias main='git checkout main'
-alias dot='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+
+# dotfiles
+alias '.s'='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 
 function pr() {
   if [ $1 = "ls" ]; then
