@@ -1,8 +1,8 @@
 alias vim=nvim
 alias cat=bat
 # exa
-alias ll="exa -l -g --icons"
-alias lla="exa -l -a -g --icons"
+alias ll="eza -l -g --icons"
+alias lla="eza -l -a -g --icons"
 # trash
 alias del=trash-put
 alias dels=trash-list
