@@ -7,7 +7,7 @@ super + @p
 
 # personal browser
 super + @a
-  flatpak run org.mozilla.firefox
+  flatpak run com.google.Chrome
 
 # development browser
 super + @d
@@ -42,9 +42,9 @@ XF86MonBrightnessDown
   xbacklight -5
 
 #Keyboard Management
-super + k
+alt + k
   keyboard-layout us
-super + i
+alt + i
   keyboard-layout us intl
 
 #Window Management
