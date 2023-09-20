@@ -7,7 +7,7 @@ super + @p
 
 # personal browser
 super + @a
-  flatpak run com.google.Chrome
+  google-chrome-stable
 
 # development browser
 super + @d
