@@ -5,6 +5,11 @@
 .local/share/nvim
 .local/share/Trash
 .local/share/xorg
+.local/share/desktop-directories
+.local/share/gh
+.local/share/pnpm
+.local/share/applications
+.local/share/icons
 .Xauthority
 .yarnrc
 .asdf
@@ -42,8 +47,9 @@
 .config/obs-studio
 .config/spicetify
 .config/stripe
-.local/share/gh
-.local/share/pnpm
+.config/google-chrome
+.config/menus
+.config/systemd
 .docker
 .bun
 
@@ -72,3 +78,8 @@ tmux-server*
 # vm
 VirtualBox*
 .config/VirtualBox
+
+# zsh
+.shell.pre-oh-my-zsh
+.zcompdump-datsmachine-5.9
+.zcompdump-datsmachine-5.9.zwc
