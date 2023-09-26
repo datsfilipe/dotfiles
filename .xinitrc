@@ -34,5 +34,4 @@ udiskie --tray &
 xrandr --output HDMI-A-0 --brightness 0.5 &
 xsetroot -cursor_name left_ptr &
 xinput --set-prop 9 'libinput Accel Speed' 1 &
-picom -f &
 exec bspwm

@@ -3,8 +3,14 @@
 # autostart
 killall sxhkd; sxhkd &
 killall dunst; dunst &
+killall picom; picom -f &
 set_wallpaper $HOME/pics/walls/03.jpeg &
-killall polybar; $HOME/.config/polybar/launch.sh &
+
+if [ -e "$STATUS_FILE" ] && [ "$(cat "$STATUS_FILE")" = "1" ]; then
+  killall polybar;
+else
+  killall polybar; $HOME/.config/polybar/launch.sh &
+fi
 
 # variables
 alias bc='bspc config'

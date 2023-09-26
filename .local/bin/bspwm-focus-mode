@@ -1,0 +1,15 @@
+#!/usr/bin/sh
+
+STATUS_FILE="/tmp/bspwm_focus_status"
+
+if [ -e "$STATUS_FILE" ] && [ "$(cat "$STATUS_FILE")" = "1" ]; then
+  sleep 0.10; bspc wm -r
+  polybar-msg cmd show
+  echo "0" > "$STATUS_FILE"
+else
+  polybar-msg cmd hide
+  killall picom; sleep 0.10;  picom --corner-radius 0 &
+  bspc config window_gap 0
+  bspc config top_padding 0
+  echo "1" > "$STATUS_FILE"
+fi

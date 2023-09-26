@@ -5,6 +5,10 @@ super + Return
 super + @p
   rofi -show
 
+# focus mode
+super + @f
+  bspwm-focus-mode
+
 # personal browser
 super + @a
   google-chrome-stable
