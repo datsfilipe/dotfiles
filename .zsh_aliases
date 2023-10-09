@@ -40,7 +40,7 @@ alias root='cd "$(git rev-parse --show-toplevel)"'
 alias main='git checkout main'
 
 # dotfiles
-alias '.s'='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+alias '.s'='git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 
 function pr() {
   if [ $1 = "ls" ]; then
