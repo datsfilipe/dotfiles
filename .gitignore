@@ -22,8 +22,6 @@
 .fehbg
 .gitconfig-personal
 .gtkrc-2.0
-.icons
-.themes
 .npm
 .oh-my-zsh
 .pki
@@ -50,6 +48,12 @@
 .config/google-chrome
 .config/menus
 .config/systemd
+.config/chromium
+.config/dconf
+.config/github-copilot
+.config/pulse
+.config/mpv/watch_later
+.config/gh
 .docker
 .bun
 
