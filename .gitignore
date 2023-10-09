@@ -10,6 +10,14 @@
 .local/share/pnpm
 .local/share/applications
 .local/share/icons
+.local/share/applications
+.local/share/desktop-directories
+.local/share/gem
+.local/share/icons
+.local/share/nvim
+.local/share/recently*
+.local/share/Trash
+.local/share/xorg
 .Xauthority
 .yarnrc
 .asdf
@@ -54,6 +62,17 @@
 .config/pulse
 .config/mpv/watch_later
 .config/gh
+.config/QtProject.conf
+.config/discord/
+.config/glib-2.0/
+.config/neofetch/
+.gnome/
+.icons/Quintom_Snow/
+.icons/Yaru-Red/
+.lesshst
+.wget-hsts
+.serverauth*
+.themes
 .docker
 .bun
 
@@ -62,7 +81,7 @@ desk
 docs
 downloads
 music
-pics/sshots
+pics/shots
 pub
 templates
 vids
@@ -85,5 +104,4 @@ VirtualBox*
 
 # zsh
 .shell.pre-oh-my-zsh
-.zcompdump-datsmachine-5.9
-.zcompdump-datsmachine-5.9.zwc
+.zcompdump*
