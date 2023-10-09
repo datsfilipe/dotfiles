@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/run/current-system/sw/bin/bash
  
 res=$(echo "||" | rofi -sep "|" -dmenu -theme "$HOME/.config/rofi/powermenu.rasi" -auto-select)
  

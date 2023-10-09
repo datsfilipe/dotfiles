@@ -1,4 +1,4 @@
-#!/usr/bin/sh
+#!/bin/sh
 
 STATUS_FILE="/tmp/bspwm_focus_status"
 

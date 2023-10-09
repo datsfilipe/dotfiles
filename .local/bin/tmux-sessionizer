@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/run/current-system/sw/bin/bash
 
 if [[ $# -eq 1 ]]; then
   selected=$1
