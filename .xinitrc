@@ -31,7 +31,7 @@ fi
 # run programs
 setxkbmap -layout us &
 udiskie --tray &
-xrandr --output HDMI-A-0 --brightness 0.5 &
+xrandr --output HDMI-1 --brightness 0.6 &
 xsetroot -cursor_name left_ptr &
 xinput --set-prop 9 'libinput Accel Speed' 1 &
 exec bspwm
