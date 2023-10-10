@@ -18,6 +18,7 @@
 .local/share/recently*
 .local/share/Trash
 .local/share/xorg
+.local/share/qBittorrent
 .Xauthority
 .yarnrc
 .asdf
@@ -66,6 +67,7 @@
 .config/discord/
 .config/glib-2.0/
 .config/neofetch/
+.config/qBittorrent
 .gnome/
 .icons/Quintom_Snow/
 .icons/Yaru-Red/
