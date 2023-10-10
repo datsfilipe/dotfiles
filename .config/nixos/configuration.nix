@@ -1,7 +1,19 @@
 { config, pkgs, ... }:
 
-{
+let
+  unstableTarball =
+    fetchTarball
+      https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz;
+in {
   nixpkgs.config.allowUnfree = true;
+  nixpkgs.config = {
+    packageOverrides = pkgs: {
+      unstable = import unstableTarball {
+        config = config.nixpkgs.config;
+      };
+    };
+  };
+
   nix.extraOptions = ''experimental-features = nix-command flakes'';
 
   imports =
@@ -75,6 +87,8 @@
     curl
     gcc
     gnumake
+    killall
+    libnotify
     neovim
     alacritty
     ranger
@@ -96,11 +110,13 @@
     sxhkd
     polybar
     feh
+    dunst
     neofetch
     trash-cli
     flameshot
     pavucontrol
     lxappearance
+    unstable.eza
 
     xorg.xorgserver
     xorg.xf86videoamdgpu
@@ -109,8 +125,7 @@
     xorg.xf86inputlibinput
     xorg.fontmiscmisc
     xorg.xrandr
-    xorg.xinit
-    xorg.xrandr
+    xorg.xinit xorg.xrandr
     xorg.xinput
     xorg.xsetroot
   ];
@@ -118,6 +133,7 @@
   # services/daemons
   virtualisation.docker.enable = true;
   services.openssh.enable = true;
+  services.udisks2.enable = true;
 
   # fonts
   fonts = {
@@ -145,4 +161,3 @@
   # v.
   system.stateVersion = "23.05";
 }
-
