@@ -118,6 +118,15 @@ in {
     lxappearance
     unstable.eza
 
+    # coding
+    go
+    cargo
+    rustc
+    nodejs
+    unstable.bun
+    gh
+    ghq
+
     xorg.xorgserver
     xorg.xf86videoamdgpu
     xorg.xf86inputevdev
