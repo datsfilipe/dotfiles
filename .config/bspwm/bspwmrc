@@ -4,7 +4,7 @@
 killall sxhkd; sxhkd &
 killall dunst; dunst &
 killall picom; picom -f &
-set_wallpaper $HOME/pics/walls/03.jpeg &
+set_wallpaper $HOME/pics/walls/04.png &
 
 if [ -e "$STATUS_FILE" ] && [ "$(cat "$STATUS_FILE")" = "1" ]; then
   killall polybar;
