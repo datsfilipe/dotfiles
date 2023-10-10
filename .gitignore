@@ -1,3 +1,4 @@
+go
 .local/var
 .local/state
 .local/share/flatpak
