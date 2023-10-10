@@ -111,7 +111,7 @@ in {
     polybar
     feh
     dunst
-    neofetch
+    htop
     trash-cli
     flameshot
     pavucontrol
@@ -119,11 +119,15 @@ in {
     unstable.eza
 
     # coding
-    go
+    unstable.go_1_21
+    gopls
     cargo
     rustc
+    rust-analyzer
     nodejs
     unstable.bun
+    nodePackages_latest.pnpm
+    unstable.javascript-typescript-langserver
     gh
     ghq
 
