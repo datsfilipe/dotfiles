@@ -1,3 +1,0 @@
-com.discordapp.Discord
-com.spotify.Client
-org.qbittorrent.qBittorrent

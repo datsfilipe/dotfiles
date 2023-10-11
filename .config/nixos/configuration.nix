@@ -98,7 +98,7 @@ in {
     git
     xdg-utils
     xdg-user-dirs
-    flatpak
+    qbittorrent
     picom
     fd
     fzf
