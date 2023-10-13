@@ -48,6 +48,7 @@ in {
   services.xserver = {
     enable = true;
     layout = "us";
+    videoDrivers = [ "amdgpu" ];
     displayManager.startx.enable = true;
     windowManager.bspwm.enable = true;
     windowManager.bspwm.configFile = builtins.getEnv "HOME" + "/.config/bspwm/bspwmrc";
@@ -117,6 +118,7 @@ in {
     pavucontrol
     lxappearance
     unstable.eza
+    appimage-run
 
     # coding
     unstable.go_1_21
@@ -142,6 +144,8 @@ in {
     xorg.xinput
     xorg.xsetroot
   ];
+
+  programs.steam.enable = true;
 
   # services/daemons
   virtualisation.docker.enable = true;
