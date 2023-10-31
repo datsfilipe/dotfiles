@@ -5,10 +5,10 @@
 { config, lib, pkgs, ... }:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
+  imports = (
+    import ../modules/desktops
+  );
+  nixpkgs.config.allowUnfree = true;
   nix.extraOptions = ''
     experimental-features = nix-command flakes
   '';
@@ -40,10 +40,45 @@
   environment.systemPackages = with pkgs; [
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     curl
+    zsh
     git
+    gcc
+    google-chrome
+    bitwarden
+    wezterm
+    wl-clipboard
   ];
 
   services.openssh.enable = true;
+
+  programs.neovim = {
+    enable = true;
+    vimAlias = true;
+  };
+
+  programs.hyprland = {
+    enable = true;
+    xwayland.enable = true;
+
+    enableNvidiaPatches = false;
+  };
+
+  fonts = {
+    fontDir.enable = true;
+    packages = with pkgs; [
+      inter
+      noto-fonts
+      noto-fonts-cjk
+      noto-fonts-emoji
+      font-awesome
+      (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
+    ];
+    fontconfig.defaultFonts = {
+      serif = [ "inter" ];
+      sansSerif = [ "inter" ];
+      monospace = [ "JetBrainsMono" ];
+    };
+  };
 
   system.stateVersion = "23.11"; # Did you read the comment?
 }
