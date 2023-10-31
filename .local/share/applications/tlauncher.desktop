@@ -1,7 +1,0 @@
-[Desktop Entry]
-Name=TLauncher
-Exec=java -jar /home/dtsf/.tlauncher/tlauncher.jar
-Terminal=false
-Type=Application
-Categories=Game;
-StartupNotify=false
