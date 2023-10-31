@@ -23,6 +23,9 @@ in {
     systemPackages = with pkgs; [
       mpvpaper
       wl-clipboard
+      grim
+      slurp
+      swappy
       swaybg
     ];
   };
