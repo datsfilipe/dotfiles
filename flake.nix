@@ -9,7 +9,7 @@
     };
   };
 
-  outputs = inputs@{ self, nixpkgs, ... }:
+  outputs = inputs@{ self, nixpkgs, home-manager, ... }:
     let
       vars = {
         user = "dtsf";
@@ -22,12 +22,7 @@
       nixosConfigurations = (
         import ./hosts {
           inherit (nixpkgs) lib;
-          inherit inputs nixpkgs vars;
-      });
-      homeMConfigurations = (
-        import ./home {
-          inherit (nixpkgs) lib;
-          inherit inputs nixpkgs vars;
+          inherit inputs nixpkgs home-manager vars;
       });
     };
 }
