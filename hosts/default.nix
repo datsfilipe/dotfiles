@@ -29,9 +29,11 @@ in {
               ../home/htop.nix
               ../home/hyprland.nix
               ../home/wezterm.nix
+              ../home/dunst.nix
+              ../home/zsh.nix
             ];
               
-            home.stateVersion = "23.05";
+            home.stateVersion = "23.11";
             programs.home-manager.enable = true;
           };
         };
