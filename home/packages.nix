@@ -6,10 +6,12 @@
     spotify
     qbittorrent
     discord
+    wezterm
 
     # tools
     bat
     eza
+    zoxide
     fd
     ripgrep
     fzf
@@ -19,7 +21,7 @@
     killall
     zip
     unzip
-    wezterm
+    flameshot
 
     # hyprland
     wl-clipboard

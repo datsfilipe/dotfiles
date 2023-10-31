@@ -43,6 +43,7 @@
     zsh
     git
     gcc
+    dunst
     google-chrome
     bitwarden
     wezterm
@@ -54,13 +55,6 @@
   programs.neovim = {
     enable = true;
     vimAlias = true;
-  };
-
-  programs.hyprland = {
-    enable = true;
-    xwayland.enable = true;
-
-    enableNvidiaPatches = false;
   };
 
   fonts = {
