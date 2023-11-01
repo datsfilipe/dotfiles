@@ -35,6 +35,7 @@ in {
               ../home/ags.nix
               ../home/anyrun.nix
               ../home/gtk.nix
+              ../home/spicetify.nix
             ];
 
             home.stateVersion = "23.11";

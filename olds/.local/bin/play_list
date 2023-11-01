@@ -1,3 +1,0 @@
-#!/bin/sh
-
-mpv --shuffle --really-quiet --loop-playlist yes --no-video $1

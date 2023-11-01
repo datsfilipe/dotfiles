@@ -10,6 +10,7 @@
     ags.url = "github:Aylur/ags";
     anyrun.url = "github:Kirottu/anyrun";
     anyrun.inputs.nixpkgs.follows = "nixpkgs";
+    spicetify-nix.url = "github:the-argus/spicetify-nix";
   };
 
   outputs = inputs@{ self, nixpkgs, home-manager, ... }:
