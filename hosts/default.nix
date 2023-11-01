@@ -34,8 +34,9 @@ in {
               ../home/zsh.nix
               ../home/ags.nix
               ../home/anyrun.nix
+              ../home/gtk.nix
             ];
-              
+
             home.stateVersion = "23.11";
             programs.home-manager.enable = true;
           };
