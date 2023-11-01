@@ -1,9 +1,6 @@
 // importing 
 import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
-import Notifications from 'resource:///com/github/Aylur/ags/service/notifications.js';
-import Mpris from 'resource:///com/github/Aylur/ags/service/mpris.js';
 import Audio from 'resource:///com/github/Aylur/ags/service/audio.js';
-import Battery from 'resource:///com/github/Aylur/ags/service/battery.js';
 import SystemTray from 'resource:///com/github/Aylur/ags/service/systemtray.js';
 import App from 'resource:///com/github/Aylur/ags/app.js';
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
@@ -36,50 +33,9 @@ const ClientTitle = () => Widget.Label({
 const Clock = () => Widget.Label({
     className: 'clock',
     connections: [
-        // this is bad practice, since exec() will block the main event loop
-        // in the case of a simple date its not really a problem
-        [1000, self => self.label = exec('date "+%H:%M:%S %b %e."')],
-
-        // this is what you should do
-        [1000, self => execAsync(['date', '+%H:%M:%S %b %e.'])
+        [1000, self => execAsync(['date', '+%b %e. - %H:%M:%S'])
             .then(date => self.label = date).catch(console.error)],
     ],
-});
-
-// we don't need dunst or any other notification daemon
-// because the Notifications module is a notification daemon itself
-const Notification = () => Widget.Box({
-    className: 'notification',
-    children: [
-        Widget.Icon({
-            icon: 'preferences-system-notifications-symbolic',
-            connections: [
-                [Notifications, self => self.visible = Notifications.popups.length > 0],
-            ],
-        }),
-        Widget.Label({
-            connections: [[Notifications, self => {
-                self.label = Notifications.popups[0]?.summary || '';
-            }]],
-        }),
-    ],
-});
-
-const Media = () => Widget.Button({
-    className: 'media',
-    onPrimaryClick: () => Mpris.getPlayer('')?.playPause(),
-    onScrollUp: () => Mpris.getPlayer('')?.next(),
-    onScrollDown: () => Mpris.getPlayer('')?.previous(),
-    child: Widget.Label({
-        connections: [[Mpris, self => {
-            const mpris = Mpris.getPlayer('');
-            // mpris player can be undefined
-            if (mpris)
-                self.label = `${mpris.trackArtists.join(', ')} - ${mpris.trackTitle}`;
-            else
-                self.label = 'Nothing is playing';
-        }]],
-    }),
 });
 
 const Volume = () => Widget.Box({
@@ -121,26 +77,6 @@ const Volume = () => Widget.Box({
     ],
 });
 
-const BatteryLabel = () => Widget.Box({
-    className: 'battery',
-    children: [
-        Widget.Icon({
-            connections: [[Battery, self => {
-                self.icon = `battery-level-${Math.floor(Battery.percent / 10) * 10}-symbolic`;
-            }]],
-        }),
-        Widget.ProgressBar({
-            valign: 'center',
-            connections: [[Battery, self => {
-                if (Battery.percent < 0)
-                    return;
-
-                self.fraction = Battery.percent / 100;
-            }]],
-        }),
-    ],
-});
-
 const SysTray = () => Widget.Box({
     connections: [[SystemTray, self => {
         self.children = SystemTray.items.map(item => Widget.Button({
@@ -156,24 +92,21 @@ const SysTray = () => Widget.Box({
 const Left = () => Widget.Box({
     children: [
         Workspaces(),
-        ClientTitle(),
     ],
 });
 
 const Center = () => Widget.Box({
     children: [
-        Media(),
-        Notification(),
+        ClientTitle(),
     ],
 });
 
 const Right = () => Widget.Box({
     halign: 'end',
     children: [
-        Volume(),
-        BatteryLabel(),
-        Clock(),
         SysTray(),
+        Volume(),
+        Clock(),
     ],
 });
 

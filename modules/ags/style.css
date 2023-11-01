@@ -2,48 +2,29 @@ label {
     font-weight: bold;
 }
 
-.workspaces button,
-.media {
-    background-color: transparent;
-    color: #eee;
+.bar {
+    color: #c1c1c1;
+    background-color: #151515;
+    font-size: 12px;
 }
 
-.workspaces button:hover,
-.media:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-    color: #efefef;
-}
-
-.workspaces button:active,
-.media:active {
-    background-color: rgba(255, 255, 255, 0.2);
-    color: #fff;
+.workspaces button {
+    background-color: #252525;
+    margin: 4px;
+    border-radius: 0;
 }
 
 .workspaces button.focused {
-    border-bottom: 3px solid aqua;
+    background-color:  #79b8ff;
+    color: #151515;
 }
 
 .client-title {
-    margin-left: 1em;
-    color: aqua;
-}
-
-.notification image {
-    color: yellow;
-    margin-left: 1em;
-}
-
-.battery progressbar {
-    margin: 0 6px;
-}
-
-.clock {
-    margin: 0 6px;
-    font-size: 1.1em;
+    color: #ff7a84;
 }
 
 progress, highlight {
-    background-color: aqua;
-    min-height: 8px;
+    background-color: #ff7a84;
+    min-height: 4px;
+    border-radius: 4px;
 }
