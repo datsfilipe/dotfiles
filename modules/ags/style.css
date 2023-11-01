@@ -23,6 +23,10 @@ label {
     color: #ff7a84;
 }
 
+.clock {
+  margin: 0 6px;
+}
+
 progress, highlight {
     background-color: #ff7a84;
     min-height: 4px;
