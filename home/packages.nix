@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ inputs, pkgs, ... }:
 {
   home.packages = with pkgs; [
     # gui
@@ -7,6 +7,8 @@
     qbittorrent
     discord
     wezterm
+    inputs.ags.packages.${pkgs.system}.default
+    inputs.anyrun.packages.${system}.anyrun
 
     # tools
     bat

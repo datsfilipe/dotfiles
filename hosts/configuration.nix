@@ -43,11 +43,14 @@
     zsh
     git
     gcc
+    nodejs
     dunst
     google-chrome
     bitwarden
     wezterm
     wl-clipboard
+    gtk3
+    gtk-layer-shell
   ];
 
   services.openssh.enable = true;
@@ -72,6 +75,18 @@
       sansSerif = [ "inter" ];
       monospace = [ "JetBrainsMono" ];
     };
+  };
+
+  nix.settings = {
+    builders-use-substitutes = true;
+    # substituters to use
+    substituters = [
+        "https://anyrun.cachix.org"
+    ];
+
+    trusted-public-keys = [
+        "anyrun.cachix.org-1:pqBobmOjI7nKlsUMV25u9QHa9btJK65/C8vnO3p346s="
+    ];
   };
 
   system.stateVersion = "23.11"; # Did you read the comment?

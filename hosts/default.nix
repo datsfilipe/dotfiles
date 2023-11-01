@@ -20,6 +20,7 @@ in {
       ./configuration.nix
       home-manager.nixosModules.home-manager {
         home-manager = {
+          extraSpecialArgs = { inherit inputs; };
           useGlobalPkgs = true;
           useUserPackages = true;
           users.${vars.user} = {
@@ -31,6 +32,8 @@ in {
               ../home/wezterm.nix
               ../home/dunst.nix
               ../home/zsh.nix
+              ../home/ags.nix
+              ../home/anyrun.nix
             ];
               
             home.stateVersion = "23.11";
