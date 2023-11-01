@@ -38,7 +38,8 @@
   };
 
   environment.systemPackages = with pkgs; [
-    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    xdg-utils
+    xdg-user-dirs
     curl
     zsh
     git
@@ -51,6 +52,7 @@
     wl-clipboard
     gtk3
     gtk-layer-shell
+    trash-cli
   ];
 
   services.openssh.enable = true;
@@ -88,6 +90,17 @@
         "anyrun.cachix.org-1:pqBobmOjI7nKlsUMV25u9QHa9btJK65/C8vnO3p346s="
     ];
   };
+
+  environment.etc."xdg/user-dirs.defaults".text = ''
+    DESKTOP=system/desktop
+    DOWNLOAD=downloads
+    TEMPLATES=system/templates
+    PUBLICSHARE=system/public
+    DOCUMENTS=documents
+    MUSIC=media/music
+    PICTURES=media/photos
+    VIDEOS=media/video
+  '';
 
   system.stateVersion = "23.11"; # Did you read the comment?
 }

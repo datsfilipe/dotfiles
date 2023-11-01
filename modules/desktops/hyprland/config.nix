@@ -77,7 +77,7 @@ let
     bind=$mainMod,Return,exec,wezterm
     bind=$mainMod,A,exec,google-chrome-stable
     bind=$mainMod,P,exec,anyrun
-    bind=,print,exec,${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp)" - | ${pkgs.swappy}/bin/swappy -f - -o ~/pics/$(date +%Hh_%Mm_%Ss_%d_%B_%Y).png && notify-send "Saved to ~/pics/$(date +%Hh_%Mm_%Ss_%d_%B_%Y).png"
+    bind=,print,exec,${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp)" - | ${pkgs.swappy}/bin/swappy -f - -o ~/media/photos/$(date +%Hh_%Mm_%Ss_%d_%B_%Y).png && notify-send "Saved to ~/media/photos/$(date +%Hh_%Mm_%Ss_%d_%B_%Y).png"
     bind=$mainMod,Q,killactive
     bind=$mainMod,Space,togglefloating
     bind=SUPER_SHIFT,Space,togglesplit
@@ -138,7 +138,7 @@ let
     exec-once=systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
     exec-once=dunst
     exec-once=ags
-    exec-once=${pkgs.swaybg}/bin/swaybg -m fill -i $HOME/pics/06.png
+    exec-once=${pkgs.swaybg}/bin/swaybg -m fill -i $HOME/.config/wallpaper.png
   '';
 in {
   xdg.configFile."hypr/hyprland.conf".text = hyprlandConfig;

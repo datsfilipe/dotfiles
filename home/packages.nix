@@ -3,7 +3,6 @@
   home.packages = with pkgs; [
     # gui
     mpv
-    spotify
     qbittorrent
     discord
     wezterm

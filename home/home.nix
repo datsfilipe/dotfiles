@@ -4,7 +4,7 @@
   xdg.userDirs = {
     enable = true;
     createDirectories = true;
-    downloads = "${config.home.homeDirectory}/downloads";
+    download = "${config.home.homeDirectory}/downloads";
     documents = "${config.home.homeDirectory}/documents";
     desktop = "${config.home.homeDirectory}/system/desktop";
     publicShare = "${config.home.homeDirectory}/system/public";
