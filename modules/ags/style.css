@@ -8,8 +8,12 @@ label {
     font-size: 12px;
 }
 
+.tray button {
+    background-color: #151515;
+}
+
 .workspaces button {
-    background-color: #252525;
+    background-color: transparent;
     margin: 4px;
     border-radius: 0;
 }
@@ -17,6 +21,10 @@ label {
 .workspaces button.focused {
     background-color:  #79b8ff;
     color: #151515;
+}
+
+.workspaces button.occupied {
+    background-color: #252525;
 }
 
 .client-title {

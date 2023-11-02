@@ -18,7 +18,11 @@ const Workspaces = () => Widget.Box({
         self.children = arr.map(i => Widget.Button({
             onClicked: () => execAsync(`hyprctl dispatch workspace ${i}`),
             child: Widget.Label(`${i}`),
-            className: Hyprland.active.workspace.id == i ? 'focused' : '',
+            className: Hyprland.active.workspace.id == i
+		? 'focused'
+		: Hyprland.getWorkspace(i)?.windows > 0
+		? 'occupied'
+		: ''
         }));
     }]],
 });
@@ -78,6 +82,7 @@ const Volume = () => Widget.Box({
 });
 
 const SysTray = () => Widget.Box({
+    className: 'tray',
     connections: [[SystemTray, self => {
         self.children = SystemTray.items.map(item => Widget.Button({
             child: Widget.Icon({ binds: [['icon', item, 'icon']] }),
