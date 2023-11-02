@@ -8,6 +8,10 @@ label {
     font-size: 12px;
 }
 
+.tray {
+    margin: 0 6px;
+}
+
 .tray button {
     background: transparent;
     border: none;
