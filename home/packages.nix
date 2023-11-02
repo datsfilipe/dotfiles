@@ -8,6 +8,7 @@
     wezterm
     inputs.ags.packages.${pkgs.system}.default
     inputs.anyrun.packages.${system}.anyrun
+    lxappearance
 
     # tools
     bat

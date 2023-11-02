@@ -4,27 +4,28 @@ label {
 
 .bar {
     color: #c1c1c1;
-    background-color: #151515;
+    background: #151515;
     font-size: 12px;
 }
 
 .tray button {
-    background-color: #151515;
+    background: transparent;
+    border: none;
 }
 
 .workspaces button {
-    background-color: transparent;
+    background: transparent;
     margin: 4px;
     border-radius: 0;
 }
 
 .workspaces button.focused {
-    background-color:  #79b8ff;
+    background:  #79b8ff;
     color: #151515;
 }
 
 .workspaces button.occupied {
-    background-color: #252525;
+    background: #252525;
 }
 
 .client-title {
@@ -36,7 +37,7 @@ label {
 }
 
 progress, highlight {
-    background-color: #ff7a84;
+    background: #ff7a84;
     min-height: 4px;
     border-radius: 4px;
 }

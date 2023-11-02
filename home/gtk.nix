@@ -4,8 +4,8 @@
   gtk = {
     enable = true;
     theme = {
-      package = pkgs.graphite-gtk-theme;
-      name = "Graphite-Dark";
+      package = pkgs.flat-remix-gtk;
+      name = "Flat-Remix-GTK-Red-Darkest-Solid";
     };
     # iconTheme = {
     #   package = pkgs.qogir-icon-theme;
