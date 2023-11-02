@@ -33,6 +33,7 @@ in {
             imports = [
               ../home/home.nix
               ../home/packages.nix
+              ../home/nvim.nix
               ../home/tmux.nix
               ../home/htop.nix
               ../home/hyprland.nix
