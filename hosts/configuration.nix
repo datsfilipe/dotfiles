@@ -44,6 +44,7 @@
     zsh
     git
     gcc
+    gnumake
     nodejs
     dunst
     google-chrome
