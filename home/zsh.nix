@@ -80,6 +80,8 @@ in
             gh pr checkout $1
           fi
         }
+
+        export WAKATIME_HOME="$HOME/.config"
       '';
       shellAliases = aliases;
 
