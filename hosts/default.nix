@@ -13,9 +13,6 @@
 
   lib = nixpkgs.lib;
 in {
-  environment.extraSetup = ''
-  '';
-
   dtsf-machine = lib.nixosSystem {
     inherit system;
     modules = [
@@ -27,9 +24,10 @@ in {
           useGlobalPkgs = true;
           useUserPackages = true;
           users.${vars.user} = {
-	    home.sessionPath = [
-	      "$HOME/.local/bin"
-	    ];
+            home.sessionPath = [
+              "$HOME/.local/bin"
+            ];
+
             imports = [
               ../home/home.nix
               ../home/packages.nix
