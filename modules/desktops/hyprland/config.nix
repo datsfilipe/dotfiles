@@ -6,7 +6,8 @@ let
 
     input {
       kb_layout=us
-      kb_options=grp:win_space_toggle
+      kb_variant=altgr-intl
+      kb_options=compose:menu,level3:ralt_switch,grp:win_space_toggle
 
       follow_mouse=0
       float_switch_override_focus=true
