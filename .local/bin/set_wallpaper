@@ -1,5 +1,0 @@
-#!/run/current-system/sw/bin/bash
-
-source ~/.env
-
-feh --bg-fill "$1"

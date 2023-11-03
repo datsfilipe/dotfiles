@@ -1,6 +1,3 @@
-[submodule "pics/walls"]
-	path = pics/walls
-	url = git@github.com:datsfilipe/walls.git
-[submodule ".config/nvim"]
-	path = .config/nvim
-	url = git@github.com:datsfilipe/datsnvim.git
+[submodule "modules/nvim"]
+	path = modules/nvim
+	url = git@github.com:datsfilipe/datsnvim

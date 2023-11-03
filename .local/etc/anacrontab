@@ -1,2 +1,0 @@
-#period in days   delay in minutes   job-identifier   command
-1 5 1 /usr/bin/trash-put /home/datsfilipe/.local/share/nvim/backup/*
