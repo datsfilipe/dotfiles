@@ -1,39 +1,39 @@
 label {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 .bar {
-    color: #c1c1c1;
-    background: #151515;
-    font-size: 12px;
+  color: #c1c1c1;
+  background: #151515;
+  font-size: 12px;
 }
 
 .tray {
-    margin: 0 6px;
+  margin: 0 6px;
 }
 
 .tray button {
-    background: transparent;
-    border: none;
+  background: transparent;
+  border: none;
 }
 
 .workspaces button {
-    background: transparent;
-    margin: 4px;
-    border-radius: 0;
+  background: transparent;
+  margin: 4px;
+  border-radius: 0;
 }
 
 .workspaces button.focused {
-    background:  #79b8ff;
-    color: #151515;
+  background:  #79b8ff;
+  color: #151515;
 }
 
 .workspaces button.occupied {
-    background: #252525;
+  background: #252525;
 }
 
 .client-title {
-    color: #ff7a84;
+  color: #ff7a84;
 }
 
 .clock {
@@ -41,7 +41,48 @@ label {
 }
 
 progress, highlight {
-    background: #ff7a84;
-    min-height: 4px;
-    border-radius: 4px;
+  background: #ff7a84;
+  min-height: 4px;
+  border-radius: 4px;
+}
+
+.powermenu button {
+  background: #151515;
+  border-radius: 0;
+  border: 1px solid #252525;
+  margin: 0 8px;
+  min-height: 40px;
+  font-weight: bold;
+}
+
+.sleep {
+  color: #22863a;
+}
+
+.reboot {
+  color: #79b8ff;
+}
+
+.shutdown {
+  color: #ff7a84;
+}
+
+.logout {
+  color: #ffab70;
+}
+
+.verification {
+  min-height: 60px;
+}
+
+.verification .description {
+  font-weight: bold;
+  color: #c1c1c1;
+}
+
+.verification .buttons button {
+  background: #151515;
+  margin: 0 8px;
+  border-radius: 0;
+  border: 1px solid #252525;
 }
