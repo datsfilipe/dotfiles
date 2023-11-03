@@ -7,10 +7,6 @@
       package = pkgs.flat-remix-gtk;
       name = "Flat-Remix-GTK-Red-Darkest-Solid";
     };
-    # iconTheme = {
-    #   package = pkgs.qogir-icon-theme;
-    #   name = "Qogir-dark";
-    # };
     font.name = "Inter";
     font.size = 10;
   };
