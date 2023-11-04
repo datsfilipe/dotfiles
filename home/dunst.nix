@@ -1,4 +1,4 @@
-let colors = import ../modules/colorschemes.nix;
+let theme = (import ../modules/colorscheme).theme;
 in {
   xdg.configFile."dunst/dunstrc".text = ''
     [global]
@@ -15,8 +15,8 @@ in {
 
       frame_width = 0
       separator_height = 0
-      frame_color = "${colors.scheme.eva.bg}"
-      separator_color = "${colors.scheme.eva.bg}"
+      frame_color = "${theme.scheme.colors.bg}"
+      separator_color = "${theme.scheme.colors.bg}"
 
       sort = no
       font = JetBrainsMono Nerd Font 10
@@ -43,18 +43,18 @@ in {
       mouse_right_click = close_all
 
     [urgency_low]
-      background = "${colors.scheme.eva.bg}"
-      foreground = "${colors.scheme.eva.red}"
+      background = "${theme.scheme.colors.bg}"
+      foreground = "${theme.scheme.colors.red}"
       timeout = 5
 
     [urgency_normal]
-      background = "${colors.scheme.eva.bg}"
-      foreground = "${colors.scheme.eva.red}"
+      background = "${theme.scheme.colors.bg}"
+      foreground = "${theme.scheme.colors.red}"
       timeout = 10
 
     [urgency_critical]
-      background = "${colors.scheme.eva.red}"
-      foreground = "${colors.scheme.eva.bg}"
+      background = "${theme.scheme.colors.red}"
+      foreground = "${theme.scheme.colors.bg}"
       timeout = 20
   '';
 }

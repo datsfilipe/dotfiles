@@ -1,10 +1,9 @@
 { pkgs, ... }:
+
 let
-  bg = "#1a1a1a";
-  fg = "#d6656a";
-  fgAlt = "#fafafa";
-  statusLeft = "#[fg=${fgAlt},bg=${bg}] #S ";
-  statusRight = "#[fg=${fg},bg=${bg}] @#(whoami) ";
+  theme = (import ../modules/colorscheme).theme;
+  statusLeft = "#[fg=${theme.scheme.colors.fg},bg=${theme.scheme.colors.bg}] #S ";
+  statusRight = "#[fg=${theme.scheme.colors.red},bg=${theme.scheme.colors.bg}] @#(whoami) ";
 in {
   programs.tmux = {
     enable = true;
@@ -41,14 +40,14 @@ in {
       set -g set-titles-string "#T"
 
       # THEME
-      set -g status-bg "${bg}"
-      set -g status-fg "${fg}"
+      set -g status-bg "${theme.scheme.colors.bg}"
+      set -g status-fg "${theme.scheme.colors.fg}"
 
       set -g status-left "${statusLeft}"
       set -g status-right "${statusRight}"
 
-      set -g pane-border-style "fg=${fg}"
-      set -g pane-active-border-style "fg=${fg}"
+      set -g pane-border-style "fg=${theme.scheme.colors.fg}"
+      set -g pane-active-border-style "fg=${theme.scheme.colors.fg}"
     '';
   };
 }

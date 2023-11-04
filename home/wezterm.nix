@@ -1,6 +1,6 @@
 { pkgs, vars, ... }:
 
-let colors = import ../modules/colorschemes.nix;
+let theme = (import ../modules/colorscheme).theme;
 in {
   xdg.configFile."wezterm/wezterm.lua".text = ''
     local wezterm = require("wezterm")  
@@ -13,9 +13,9 @@ in {
     end
 
     config.color_schemes = {
-      ["eva"] = require("eva"),
+      ["datstheme"] = require("theme"),
     }
-    config.color_scheme = "eva";
+    config.color_scheme = "datstheme";
     config.default_prog = { "tmux" }
     config.window_close_confirmation = "NeverPrompt"
     config.hide_tab_bar_if_only_one_tab = true
@@ -46,36 +46,36 @@ in {
     return config
   '';
 
-  xdg.configFile."wezterm/eva.lua".text = ''
+  xdg.configFile."wezterm/theme.lua".text = ''
     return {
-      background = "${colors.scheme.eva.bg}",
-      foreground = "${colors.scheme.eva.fg}",
-      cursor_bg = "${colors.scheme.eva.fg}",
-      cursor_fg = "${colors.scheme.eva.black}",
-      cursor_border = "${colors.scheme.eva.fg}",
-      selection_fg = "${colors.scheme.eva.black}",
-      selection_bg = "${colors.scheme.eva.fg}",
-      scrollbar_thumb = "${colors.scheme.eva.fg}",
-      split = "${colors.scheme.eva.white}",
+      background = "${theme.scheme.colors.bg}",
+      foreground = "${theme.scheme.colors.fg}",
+      cursor_bg = "${theme.scheme.colors.fg}",
+      cursor_fg = "${theme.scheme.colors.black}",
+      cursor_border = "${theme.scheme.colors.fg}",
+      selection_fg = "${theme.scheme.colors.black}",
+      selection_bg = "${theme.scheme.colors.fg}",
+      scrollbar_thumb = "${theme.scheme.colors.fg}",
+      split = "${theme.scheme.colors.white}",
       ansi = {
-        "${colors.scheme.eva.bg}",
-        "${colors.scheme.eva.red}",
-        "${colors.scheme.eva.green}",
-        "${colors.scheme.eva.yellow}",
-        "${colors.scheme.eva.blue}",
-        "${colors.scheme.eva.magenta}",
-        "${colors.scheme.eva.cyan}",
-        "${colors.scheme.eva.fg}",
+        "${theme.scheme.colors.bg}",
+        "${theme.scheme.colors.red}",
+        "${theme.scheme.colors.green}",
+        "${theme.scheme.colors.yellow}",
+        "${theme.scheme.colors.blue}",
+        "${theme.scheme.colors.magenta}",
+        "${theme.scheme.colors.cyan}",
+        "${theme.scheme.colors.fg}",
       },
       brights = {
-        "${colors.scheme.eva.white}",
-        "${colors.scheme.eva.red}",
-        "${colors.scheme.eva.green}",
-        "${colors.scheme.eva.yellow}",
-        "${colors.scheme.eva.blue}",
-        "${colors.scheme.eva.magenta}",
-        "${colors.scheme.eva.cyan}",
-        "${colors.scheme.eva.bg}",
+        "${theme.scheme.colors.white}",
+        "${theme.scheme.colors.red}",
+        "${theme.scheme.colors.green}",
+        "${theme.scheme.colors.yellow}",
+        "${theme.scheme.colors.blue}",
+        "${theme.scheme.colors.magenta}",
+        "${theme.scheme.colors.cyan}",
+        "${theme.scheme.colors.bg}",
       },
     }
   '';
