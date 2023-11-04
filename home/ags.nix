@@ -90,10 +90,10 @@ in {
     }
 
     .verification .buttons button {
-      background: ${theme.scheme.colors.altbg};
+      background: ${theme.scheme.colors.bg};
+      border: 1px solid ${theme.scheme.colors.altbg};
       margin: 0 8px;
       border-radius: 0;
-      border: 1px solid ${theme.scheme.colors.green};
     }
   '';
 }
