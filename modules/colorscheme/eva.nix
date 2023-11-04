@@ -1,6 +1,6 @@
 {
   scheme = {
-    eva = {
+    colors = {
       bg = "#151515";
       fg = "#c1c1c1";
       black = "#585858";
@@ -13,4 +13,6 @@
       white = "#fafafa";
     };
   };
+
+  nvim-colorscheme = "min-theme";
 }
