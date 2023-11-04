@@ -43,6 +43,7 @@ in {
               ../home/gtk.nix
               ../home/wall.nix
               ../home/spicetify.nix
+              ../home/direnv.nix
             ];
 
             home.stateVersion = "23.11";
