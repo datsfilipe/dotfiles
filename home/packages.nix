@@ -13,7 +13,6 @@
     bat
     eza
     zoxide
-    ripgrep
     fzf
     trash-cli
     fd
