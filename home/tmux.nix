@@ -41,13 +41,13 @@ in {
 
       # THEME
       set -g status-bg "${theme.scheme.colors.bg}"
-      set -g status-fg "${theme.scheme.colors.fg}"
+      set -g status-fg "${theme.scheme.colors.red}"
 
       set -g status-left "${statusLeft}"
       set -g status-right "${statusRight}"
 
-      set -g pane-border-style "fg=${theme.scheme.colors.fg}"
-      set -g pane-active-border-style "fg=${theme.scheme.colors.fg}"
+      set -g pane-border-style "fg=${theme.scheme.colors.red}"
+      set -g pane-active-border-style "fg=${theme.scheme.colors.red}"
     '';
   };
 }
