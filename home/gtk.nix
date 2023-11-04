@@ -1,11 +1,13 @@
 { pkgs, ... }:
 
-{
+let
+  theme = (import ../modules/colorscheme).theme;
+in {
   gtk = {
     enable = true;
     theme = {
-      package = pkgs.flat-remix-gtk;
-      name = "Flat-Remix-GTK-Red-Darkest-Solid";
+      name = theme.gtk-theme.name;
+      package = pkgs."${theme.gtk-theme.package}";
     };
     font.name = "Inter";
     font.size = 10;

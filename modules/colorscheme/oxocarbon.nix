@@ -16,4 +16,8 @@
   };
 
   nvim-colorscheme = "oxocarbon";
+  gtk-theme = {
+    package = "flat-remix-gtk";
+    name = "Flat-Remix-GTK-Cyan-Darkest-Solid";
+  };
 }

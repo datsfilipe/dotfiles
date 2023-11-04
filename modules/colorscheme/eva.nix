@@ -16,4 +16,8 @@
   };
 
   nvim-colorscheme = "min-theme";
+  gtk-theme = {
+    package = "flat-remix-gtk";
+    name = "Flat-Remix-GTK-Red-Darkest-Solid";
+  };
 }

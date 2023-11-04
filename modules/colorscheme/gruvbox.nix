@@ -16,4 +16,8 @@
   };
 
   nvim-colorscheme = "gruvbox";
+  gtk-theme = {
+    package = "flat-remix-gtk";
+    name = "Flat-Remix-GTK-Yellow-Darkest-Solid";
+  };
 }

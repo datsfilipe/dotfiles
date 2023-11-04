@@ -16,4 +16,8 @@
   };
 
   nvim-colorscheme = "catppuccin";
+  gtk-theme = {
+    package = "flat-remix-gtk";
+    name = "Flat-Remix-GTK-Magenta-Darkest-Solid";
+  };
 }
