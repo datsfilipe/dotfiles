@@ -1,3 +1,3 @@
 #!/bin/sh
 
-nixos-rebuild switch --flake .?submodules=1#
+nixos-rebuild switch --flake .?submodules=1#dtsf-machine
