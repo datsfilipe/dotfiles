@@ -2,6 +2,7 @@
   scheme = {
     colors = {
       bg = "#070707";
+      altbg = "#181818";
       fg = "#f8f8f2";
       black = "#1e1e1e";
       red = "#ff6188";
