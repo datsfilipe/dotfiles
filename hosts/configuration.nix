@@ -54,6 +54,7 @@
     dunst
     gtk3
     gtk-layer-shell
+    nodejs
   ];
 
   services.openssh.enable = true;
