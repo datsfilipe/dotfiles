@@ -41,6 +41,7 @@ in {
               ../home/ags.nix
               ../home/anyrun.nix
               ../home/gtk.nix
+              ../home/wall.nix
               ../home/spicetify.nix
             ];
 
