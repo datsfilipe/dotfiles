@@ -1,7 +1,0 @@
-#!/run/current-system/sw/bin/bash
-
-if [ $XDG_CURRENT_DESKTOP == "Hyprland" ]; then
-  cp "$1" ~/.config/wallpaper.png
-else
-  feh --bg-fill "$1"
-fi

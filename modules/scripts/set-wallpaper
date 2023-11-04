@@ -1,0 +1,4 @@
+#!/run/current-system/sw/bin/bash
+
+del ~/.config/wallpaper.png
+cp "$1" ~/.config/wallpaper.png
