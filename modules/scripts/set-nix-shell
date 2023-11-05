@@ -1,0 +1,26 @@
+#!/bin/sh
+
+DIR="$HOME/.dotfiles/shells"
+
+if [ ! -d "$DIR/$1" ]; then
+  echo "Provided shell not found"
+  exit 0
+fi
+
+if [ -f ".envrc" ]; then
+  echo "envrc already exists"
+  exit 0
+fi
+
+touch .envrc
+echo "use flake $DIR/$1" >> .envrc
+
+direnv allow
+
+echo "
+.envrc
+.direnv
+" >> .git/info/exclude
+
+echo "direnv is now configured with $1 shell"
+exit 1
