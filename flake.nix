@@ -15,13 +15,7 @@
 
   outputs = inputs@{ self, nixpkgs, home-manager, ... }:
     let
-      vars = {
-        user = "dtsf";
-        location = "$HOME/.setup";
-        terminal = "wezterm";
-        editor = "nvim";
-        browser = "chrome";
-      };
+      vars = { user = "dtsf"; };
     in {
       nixosConfigurations = (
         import ./hosts {

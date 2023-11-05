@@ -15,35 +15,23 @@
 in {
   dtsf-machine = lib.nixosSystem {
     inherit system;
+    specialArgs = { inherit inputs vars; };
+
     modules = [
-      ./hardware-configuration.nix
       ./configuration.nix
+      ./packages.nix
       home-manager.nixosModules.home-manager {
         home-manager = {
           extraSpecialArgs = { inherit inputs; };
           useGlobalPkgs = true;
           useUserPackages = true;
           users.${vars.user} = {
+            imports = (
+              import ../home
+            );
+
             home.sessionPath = [
               "$HOME/.local/bin"
-            ];
-
-            imports = [
-              ../home/home.nix
-              ../home/packages.nix
-              ../home/nvim.nix
-              ../home/tmux.nix
-              ../home/htop.nix
-              ../home/hyprland.nix
-              ../home/wezterm.nix
-              ../home/dunst.nix
-              ../home/zsh.nix
-              ../home/ags.nix
-              ../home/anyrun.nix
-              ../home/gtk.nix
-              ../home/wall.nix
-              ../home/spicetify.nix
-              ../home/direnv.nix
             ];
 
             home.stateVersion = "23.11";

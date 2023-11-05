@@ -1,7 +1,7 @@
 { pkgs, ... }:
 
 let
-  theme = (import ../modules/colorscheme).theme;
+  theme = (import ../../modules/colorscheme).theme;
 in {
   gtk = {
     enable = true;

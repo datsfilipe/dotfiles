@@ -1,6 +1,6 @@
 { pkgs, vars, ... }:
 
-let theme = (import ../modules/colorscheme).theme;
+let theme = (import ../../modules/colorscheme).theme;
 in {
   xdg.configFile."wezterm/wezterm.lua".text = ''
     local wezterm = require("wezterm")  

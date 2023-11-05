@@ -24,8 +24,6 @@ let
 in
 { 
   programs = {
-    # thefuck.enable = true;
-
     zsh = {
       enable = true;
       enableCompletion = true;
@@ -107,4 +105,6 @@ in
       shellAliases = aliases;
     };
   };
+
+  home = { packages = with pkgs; [ bat eza zoxide trash-cli ]; };
 }

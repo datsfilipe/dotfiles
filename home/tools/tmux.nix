@@ -1,7 +1,7 @@
 { pkgs, ... }:
 
 let
-  theme = (import ../modules/colorscheme).theme;
+  theme = (import ../../modules/colorscheme).theme;
   statusLeft = "#[fg=${theme.scheme.colors.fg},bg=${theme.scheme.colors.bg}] #S ";
   statusRight = "#[fg=${theme.scheme.colors.red},bg=${theme.scheme.colors.bg}] @#(whoami) ";
 in {

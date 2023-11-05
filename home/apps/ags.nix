@@ -1,8 +1,8 @@
 let
-  theme = (import ../modules/colorscheme).theme;
+  theme = (import ../../modules/colorscheme).theme;
 in {
   xdg.configFile."ags" = {
-    source = ../modules/ags;
+    source = ../../modules/ags;
     recursive = true;
   };
 
