@@ -21,6 +21,10 @@
 
       timeout = 4;
     };
+
+    # wifi adapter driver
+    initrd.kernelModules = [ "8821cu" ];
+    extraModulePackages = [ config.boot.kernelPackages.rtl8821cu ];
   };
 
   hardware.opengl = {
