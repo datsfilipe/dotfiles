@@ -40,6 +40,8 @@
     ripgrep
     fd
     fzf
+    ghq
+    gh
     
     # media
     pavucontrol
