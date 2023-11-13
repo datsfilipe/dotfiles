@@ -4,3 +4,6 @@
 [submodule "modules/walls"]
 	path = modules/walls
 	url = git@github.com:datsfilipe/walls
+[submodule "modules/scripts"]
+	path = modules/scripts
+	url = git@github.com:datsfilipe/unix-scripts

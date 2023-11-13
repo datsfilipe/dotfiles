@@ -1,4 +1,0 @@
-#!/bin/sh
-
-del $HOME/.config/wallpaper.png
-cp "$1" $HOME/.config/wallpaper.png
