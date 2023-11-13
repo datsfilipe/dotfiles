@@ -32,8 +32,8 @@ in {
       brightness = 0.8,
     }
 
-    config.window_background_opacity = 0.9
-    config.text_background_opacity = 0.95
+    config.window_background_opacity = 0.4
+    config.text_background_opacity = 1.0
 
     config.tab_bar_at_bottom = true
     config.use_fancy_tab_bar = false
