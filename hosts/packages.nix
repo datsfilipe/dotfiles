@@ -31,6 +31,7 @@
     
     # tools / services
     git
+    jq
     curl
     htop
     killall
