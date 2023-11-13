@@ -1,8 +1,10 @@
 #!/bin/sh
 
-USER="dtsf"
+USER=$(whoami)
 
+# setup unix-scripts for user
 rm -rf /home/$USER/.local/bin
-ln -s ./modules/scripts /home/$USER/.local/bin
+mkdir /home/$USER/.local/bin
+ln ./modules/scripts/* /home/$USER/.local/bin
 
-nixos-rebuild switch --flake .?submodules=1#$USER-machine
+sudo nixos-rebuild switch --flake .?submodules=1#$USER-machine
