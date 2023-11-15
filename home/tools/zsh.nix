@@ -20,6 +20,7 @@ let
     "gca"="git commit --amend";
     "root"="cd \"$(git rev-parse --show-toplevel)\"";
     "main"="git checkout main";
+    "lm"="list-manager";
   };
 in
 { 
