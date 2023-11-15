@@ -5,4 +5,5 @@
   ./anyrun.nix
   ./ags.nix
   ./lm.nix
+  ./firefox.nix
 ]

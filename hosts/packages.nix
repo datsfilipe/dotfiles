@@ -15,7 +15,6 @@
     qbittorrent
     discord
     wezterm
-    google-chrome
     bitwarden
 
     # file management
