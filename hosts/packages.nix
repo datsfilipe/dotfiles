@@ -34,14 +34,16 @@
     curl
     htop
     killall
-    dunst
-    libnotify
-    inotify-tools
     ripgrep
     fd
     fzf
     ghq
     gh
+
+    # services / daemons
+    dunst
+    libnotify
+    inotify-tools
     
     # media
     pavucontrol
