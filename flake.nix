@@ -11,6 +11,7 @@
     anyrun.url = "github:Kirottu/anyrun";
     anyrun.inputs.nixpkgs.follows = "nixpkgs";
     spicetify-nix.url = "github:the-argus/spicetify-nix";
+    list-manager.url = "github:datsfilipe/list-manager";
   };
 
   outputs = inputs@{ self, nixpkgs, home-manager, ... }:

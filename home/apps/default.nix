@@ -4,4 +4,5 @@
   ./spicetify.nix
   ./anyrun.nix
   ./ags.nix
+  ./lm.nix
 ]
