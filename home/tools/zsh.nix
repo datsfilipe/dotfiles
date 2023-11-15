@@ -65,6 +65,12 @@ in
         zle -N tmux-sessionizer
         bindkey '^F' tmux-sessionizer
 
+        function list-manager-fzf() {
+          bash -c "~/.local/bin/lm-fzf"
+        }
+        zle -N list-manager-fzf
+        bindkey '^L' list-manager-fzf
+
         # utils
         function rm() {
           echo "Use trash instead of rm"
