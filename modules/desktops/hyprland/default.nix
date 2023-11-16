@@ -21,7 +21,6 @@ in {
     '';
 
     systemPackages = with pkgs; [
-      inputs.ags.packages.${pkgs.system}.default
       inputs.anyrun.packages.${pkgs.system}.anyrun
       wl-clipboard
       mpvpaper

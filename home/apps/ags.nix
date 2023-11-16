@@ -1,6 +1,20 @@
+{ inputs, pkgs, ... }:
+
 let
   theme = (import ../../modules/colorscheme).theme;
 in {
+  imports = [ inputs.ags.homeManagerModules.default ];
+
+  home.packages = with pkgs; [
+    (python311.withPackages (p: [ p.python-pam ]))
+  ];
+
+  programs.ags = {
+    enable = true;
+    configDir = ../../modules/ags;
+    extraPackages = [ pkgs.libsoup_3 ];
+  };
+
   xdg.configFile."ags" = {
     source = ../../modules/ags;
     recursive = true;
@@ -94,6 +108,25 @@ in {
       border: 1px solid ${theme.scheme.colors.altbg};
       margin: 0 8px;
       border-radius: 0;
+    }
+
+    .volume, .microphone {
+      min-width: 120px;
+    }
+
+    .volume button, .microphone button {
+      border: 1px solid transparent;
+      outline: none;
+      background: transparent;
+    }
+
+    slider {
+      box-shadow: none;
+      background-color: transparent;
+      border: 1px solid transparent;
+      border-radius: 1em;
+      min-height: 0.7em;
+      min-width: 0.7em;
     }
   '';
 }
