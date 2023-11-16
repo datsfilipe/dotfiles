@@ -16,6 +16,7 @@
     discord
     wezterm
     bitwarden
+    obs-studio
 
     # file management
     unzip
