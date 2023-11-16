@@ -9,7 +9,7 @@ let
       kb_variant=altgr-intl
       kb_options=compose:menu,level3:ralt_switch,grp:win_space_toggle
 
-      follow_mouse=0
+      follow_mouse=1
       float_switch_override_focus=true
 
       sensitivity=0.7
@@ -84,15 +84,15 @@ let
     bind=$mainMod,Space,togglefloating
     bind=SUPER_SHIFT,Space,togglesplit
 
-    bind=$mainMod,left,movefocus,h
-    bind=$mainMod,right,movefocus,l
-    bind=$mainMod,up,movefocus,k
-    bind=$mainMod,down,movefocus,j
+    bind=$mainMod,h,movefocus,l
+    bind=$mainMod,l,movefocus,r
+    bind=$mainMod,k,movefocus,u
+    bind=$mainMod,j,movefocus,d
 
-    bind=SUPER_SHIFT,left,movewindow,h
-    bind=SUPER_SHIFT,right,movewindow,l
-    bind=SUPER_SHIFT,up,movewindow,k
-    bind=SUPER_SHIFT,down,movewindow,j
+    bind=SUPER_SHIFT,h,movewindow,l
+    bind=SUPER_SHIFT,l,movewindow,r
+    bind=SUPER_SHIFT,k,movewindow,u
+    bind=SUPER_SHIFT,j,movewindow,d
 
     bind=$mainMod,1,workspace,1
     bind=$mainMod,2,workspace,2
