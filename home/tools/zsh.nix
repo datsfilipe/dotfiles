@@ -69,7 +69,7 @@ in
           bash -c "~/.local/bin/lm-fzf"
         }
         zle -N list-manager-fzf
-        bindkey '^I' list-manager-fzf
+        bindkey '^T' list-manager-fzf
 
         # utils
         function rm() {
