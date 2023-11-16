@@ -7,6 +7,48 @@ import {
   Utils,
 } from '../imports.js';
 
+const VolumeIndicator = (type = 'speaker') => Widget.Button({
+  onClicked: () => Audio[type].is_muted = !Audio[type].is_muted,
+  child: Widget.Icon({
+    connections: [[Audio, icon => {
+      if (!Audio[type])
+        return;
+
+      icon.icon = type === 'speaker'
+        ? 'audio-speakers-symbolic'
+        : 'audio-headphones-symbolic';
+
+      icon.tooltip_text = `Volume ${Math.floor(Audio[type].volume * 100)}%`;
+    }, `${type}-changed`]],
+  }),
+});
+
+const VolumeSlider = (type = 'speaker') => Widget.Slider({
+  hexpand: true,
+  drawValue: false,
+  onChange: ({ value }) => Audio[type].volume = value,
+  connections: [[Audio, slider => {
+    slider.value = Audio[type]?.volume;
+  }, `${type}-changed`]],
+});
+
+const Volume = () => Widget.Box({
+  className: 'volume',
+  children: [
+    VolumeIndicator('speaker'),
+    VolumeSlider('speaker'),
+  ],
+});
+
+const Microphone = () => Widget.Box({
+  className: 'microphone',
+  binds: [['visible', Audio, 'recorders', r => r.length > 0]],
+  children: [
+    VolumeIndicator('microphone'),
+    VolumeSlider('microphone'),
+  ],
+});
+
 const Workspaces = () => Widget.Box({
   className: 'workspaces',
   connections: [[Hyprland.active.workspace, self => {
@@ -35,44 +77,6 @@ const Clock = () => Widget.Label({
   connections: [
     [1000, self => Utils.execAsync(['date', '+%b %e. - %H:%M:%S'])
       .then(date => self.label = date).catch(console.error)],
-  ],
-});
-
-const Volume = () => Widget.Box({
-  className: 'volume',
-  style: 'min-width: 180px',
-  children: [
-    Widget.Stack({
-      items: [
-        ['101', Widget.Icon('audio-volume-overamplified-symbolic')],
-        ['67', Widget.Icon('audio-volume-high-symbolic')],
-        ['34', Widget.Icon('audio-volume-medium-symbolic')],
-        ['1', Widget.Icon('audio-volume-low-symbolic')],
-        ['0', Widget.Icon('audio-volume-muted-symbolic')],
-      ],
-      connections: [[Audio, self => {
-        if (!Audio.speaker)
-          return;
-
-        if (Audio.speaker.isMuted) {
-          self.shown = '0';
-          return;
-        }
-
-        const show = [101, 67, 34, 1, 0].find(
-          threshold => threshold <= Audio.speaker.volume * 100);
-
-        self.shown = `${show}`;
-      }, 'speaker-changed']],
-    }),
-    Widget.Slider({
-      hexpand: true,
-      drawValue: false,
-      onChange: ({ value }) => Audio.speaker.volume = value,
-      connections: [[Audio, self => {
-        self.value = Audio.speaker?.volume || 0;
-      }, 'speaker-changed']],
-    }),
   ],
 });
 
@@ -105,6 +109,7 @@ const Right = () => Widget.Box({
   children: [
     SysTray(),
     Volume(),
+    Microphone(),
     Clock(),
   ],
 });
