@@ -9,6 +9,10 @@ in {
       name = theme.gtk-theme.name;
       package = pkgs."${theme.gtk-theme.package}";
     };
+    iconTheme = {
+      package = pkgs.qogir-icon-theme;
+      name = "Qogir-dark";
+    };
     font.name = "Inter";
     font.size = 10;
   };
