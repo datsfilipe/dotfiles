@@ -23,13 +23,13 @@
     zip
     unar
 
-    # GNU Utilities
+    # utilities
     gnumake
     gcc
     cmake
     libtool
     
-    # tools / services
+    # tools
     git
     jq
     curl
