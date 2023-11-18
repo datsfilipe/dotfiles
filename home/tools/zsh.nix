@@ -21,6 +21,8 @@ let
     "root"="cd \"$(git rev-parse --show-toplevel)\"";
     "main"="git checkout main";
     "lm"="list-manager";
+    "nsh"="nix-set-shell";
+    "cr"="curl-request";
   };
 in
 { 
