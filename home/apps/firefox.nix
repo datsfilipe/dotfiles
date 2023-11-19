@@ -9,7 +9,12 @@
   programs.firefox = {
     enable = true;
     profiles.dtsf = {
-      bookmarks = [];
+      bookmarks = [
+        {
+          name = "Nyaa";
+          url = "https://nyaa.si/";
+        }
+      ];
       extensions = with pkgs.nur.repos.rycee.firefox-addons; [
         duckduckgo-privacy-essentials
         privacy-badger
