@@ -21,7 +21,6 @@
         react-devtools
         vimium
         betterttv
-        tab-session-manager
       ];
       settings = {
         "browser.startup.homepage" = "about:blank";
