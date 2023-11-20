@@ -28,6 +28,7 @@
     gcc
     cmake
     libtool
+    lsof
     
     # tools
     git
