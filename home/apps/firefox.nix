@@ -30,6 +30,7 @@
         "browser.disableResetPrompt" = true;
         "browser.toolbars.bookmarks.visibility" = "never";
         "extensions.pocket.enabled" = false;
+        "browser.translations.enable" = false;
         # "privacy.clearOnShutdown.history" = true;
         "general.smoothScroll" = true;
 
