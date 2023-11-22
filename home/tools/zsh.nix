@@ -23,6 +23,7 @@ let
     "lm"="list-manager";
     "nsh"="nix-set-shell";
     "cr"="curl-request";
+    "wconn"="nmcli-wifi-connect";
   };
 in
 { 
