@@ -37,7 +37,7 @@ in {
     config.use_fancy_tab_bar = false
     config.window_decorations = "RESIZE"
 
-    config.font = wezterm.font("JetBrainsMono Nerd Font")
+    config.font = wezterm.font("JetBrainsMono Nerd Font", { weight = "Medium" })
 
     config.audible_bell = "Disabled"
 
