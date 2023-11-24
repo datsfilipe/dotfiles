@@ -1,6 +1,11 @@
 { pkgs, ... }:
 
-{
+let
+  localPkgs = import ../pkgs { pkgs = pkgs; };
+  customPkgs = with localPkgs; [
+    spacedrive
+  ];
+in {
   services.openssh.enable = true;
 
   programs.neovim = {
@@ -58,5 +63,5 @@
     xdg-user-dirs
     gtk-layer-shell
     gtk3
-  ];
+  ] ++ customPkgs;
 }
