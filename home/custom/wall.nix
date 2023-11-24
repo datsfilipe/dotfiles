@@ -1,3 +1,3 @@
 {
-  xdg.configFile."wallpaper.png".source = ../../modules/walls/07.png;
+  xdg.configFile."wallpaper.png".source = ../../modules/walls/08.png;
 }
