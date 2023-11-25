@@ -10,7 +10,7 @@ in {
     prefix = "C-a";
     escapeTime = 10;
     keyMode = "vi";
-    mouse = true;
+    mouse = false;
     shell = "${pkgs.zsh}/bin/zsh";
     historyLimit = 64096;
     extraConfig = ''
