@@ -1,7 +1,8 @@
-{ fetchurl
-, appimageTools
-,
+{
+  fetchurl,
+  appimageTools
 }:
+
 let
   name = "spacedrive";
   version = "0.1.2";
