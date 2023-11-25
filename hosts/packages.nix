@@ -46,6 +46,7 @@ in {
     fzf
     ghq
     gh
+    typioca
 
     # services / daemons
     dunst
