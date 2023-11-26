@@ -14,6 +14,10 @@
           name = "Nyaa";
           url = "https://nyaa.si/";
         }
+        {
+          name = "Todoist";
+          url = "https://todoist.com/app";
+        }
       ];
       extensions = with pkgs.nur.repos.rycee.firefox-addons; [
         duckduckgo-privacy-essentials
