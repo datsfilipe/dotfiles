@@ -2,7 +2,7 @@ let
   theme = (import ../../modules/colorscheme).theme;
 in {
   xdg.configFile."nvim" = {
-    source = ../../modules/nvim;
+    source = ../../dotfiles/nvim;
     recursive = true;
   };
 
