@@ -11,12 +11,12 @@ in {
 
   programs.ags = {
     enable = true;
-    configDir = ../../modules/ags;
+    configDir = ../../dotfiles/ags;
     extraPackages = [ pkgs.libsoup_3 ];
   };
 
   xdg.configFile."ags" = {
-    source = ../../modules/ags;
+    source = ../../dotfiles/ags;
     recursive = true;
   };
 
