@@ -24,6 +24,7 @@ let
     "nsh"="nix-set-shell";
     "cr"="curl-request";
     "wconn"="nmcli-wifi-connect";
+    "td"="taskwarrior-tui";
   };
 in
 { 
