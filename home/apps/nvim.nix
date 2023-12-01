@@ -11,6 +11,6 @@ in {
   '';
 
   xdg.configFile."nvim/lua/utils/nix_lazylock.lua".text = ''
-    return vim.fn.expand("$HOME/.dotfiles/modules/nvim") .. "/lazy-lock.json"
+    return vim.fn.expand("$HOME/.dotfiles/dotfiles/nvim") .. "/lazy-lock.json"
   '';
 }
