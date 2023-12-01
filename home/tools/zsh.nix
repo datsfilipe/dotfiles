@@ -20,7 +20,6 @@ let
     "gca"="git commit --amend";
     "root"="cd \"$(git rev-parse --show-toplevel)\"";
     "main"="git checkout main";
-    "lm"="list-manager";
     "nsh"="nix-set-shell";
     "cr"="curl-request";
     "wconn"="nmcli-wifi-connect";
@@ -68,12 +67,6 @@ in
         }
         zle -N tmux-sessionizer
         bindkey '^F' tmux-sessionizer
-
-        function list-manager-fzf() {
-          bash -c "~/.local/bin/lm-fzf"
-        }
-        zle -N list-manager-fzf
-        bindkey '^T' list-manager-fzf
 
         # utils
         function rm() {
