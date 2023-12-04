@@ -47,8 +47,6 @@ in {
     ghq
     gh
     buku
-    taskwarrior
-    taskwarrior-tui
 
     # services / daemons
     dunst
