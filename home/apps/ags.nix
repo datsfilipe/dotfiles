@@ -21,10 +21,32 @@ in {
   };
 
   xdg.configFile."ags/style.css".text = ''
+    /* unset styles */
+    box, centerbox, window{
+      all: unset;
+    }
+
+    /* general */
     label {
       font-weight: bold;
     }
 
+    progress, highlight {
+      background: ${theme.scheme.colors.red};
+      min-height: 4px;
+      border-radius: 4px;
+    }
+
+    slider {
+      box-shadow: none;
+      background-color: transparent;
+      border: 1px solid transparent;
+      border-radius: 1em;
+      min-height: 0.7em;
+      min-width: 0.7em;
+    }
+
+    /* bar */
     .bar {
       color: ${theme.scheme.colors.fg};
       background: ${theme.scheme.colors.bg};
@@ -61,12 +83,6 @@ in {
 
     .clock {
       margin: 0 6px;
-    }
-
-    progress, highlight {
-      background: ${theme.scheme.colors.red};
-      min-height: 4px;
-      border-radius: 4px;
     }
 
     .powermenu button {
@@ -120,13 +136,50 @@ in {
       background: transparent;
     }
 
-    slider {
-      box-shadow: none;
-      background-color: transparent;
-      border: 1px solid transparent;
-      border-radius: 1em;
-      min-height: 0.7em;
-      min-width: 0.7em;
+    /* launcher */
+    .launcher {
+      background-color: ${theme.scheme.colors.bg};
+      border-radius: 0;
+      padding: 1rem;
+      margin: 2rem;
+      min-width: 25rem;
+      min-height: 45rem;
+      font-family: JetBrainsMono Nerd Font;
+    }
+
+    .launcher .search-entry {
+      padding: 0.4rem;
+      border-radius: 0.5rem;
+      margin-bottom: 12px;
+      font-size: 1.1rem;
+    }
+
+    .launcher scrollbar, .launcher scrollbar * {
+      all: unset;
+    }
+
+    .launcher .app-button {
+      padding: 4px;
+      border-radius: 0.5rem;
+      margin-bottom: 10px;
+    }
+
+    .launcher .app-icon {
+      font-size: 3rem;
+      margin-right: 5px;
+    }
+    
+    .launcher .app-name {
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+
+    .launcher .app-description {
+      font-size: 0.8rem;
+    }
+
+    .launcher .app-description.focused {
+      background-color: ${theme.scheme.colors.altbg};
     }
   '';
 }
