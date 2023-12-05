@@ -30,7 +30,9 @@ const layouts = {
   center: (windowName, child, expand) =>
     Widget.CenterBox({
       className: "shader",
-      style: expand ? "min-width: 5000px; min-height: 3000px;" : "",
+      style: expand
+        ? "min-width: 5000px; min-height: 3000px; background-color: black;"
+        : "",
       children: [
         Padding(windowName),
         Widget.CenterBox({

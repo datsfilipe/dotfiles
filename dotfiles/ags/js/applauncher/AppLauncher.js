@@ -129,5 +129,6 @@ const SearchBox = () => {
 export default () =>
   PopupWindow({
     name: "launcher",
+    expand: false,
     content: SearchBox(),
   });
