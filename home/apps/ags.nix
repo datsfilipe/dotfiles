@@ -144,7 +144,6 @@ in {
       margin: 2rem;
       min-width: 25rem;
       min-height: 45rem;
-      font-family: JetBrainsMono Nerd Font;
     }
 
     .launcher .search-entry {
@@ -152,6 +151,7 @@ in {
       border-radius: 0.5rem;
       margin-bottom: 12px;
       font-size: 1.1rem;
+      font-family: JetBrainsMono Nerd Font;
     }
 
     .launcher scrollbar, .launcher scrollbar * {
