@@ -77,7 +77,7 @@ let
 
     bind=$mainMod,Return,exec,wezterm
     bind=$mainMod,A,exec,firefox
-    bind=$mainMod,P,exec,anyrun
+    bind=$mainMod,P,exec,ags --toggle-window launcher
     bind=$mainMod,O,exec,ags --toggle-window powermenu
     bind=,print,exec,${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp)" - | ${pkgs.swappy}/bin/swappy -f - -o ~/media/photos/$(date +%Hh_%Mm_%Ss_%d_%B_%Y).png && notify-send "Saved to ~/media/photos/$(date +%Hh_%Mm_%Ss_%d_%B_%Y).png"
     bind=$mainMod,Q,killactive
