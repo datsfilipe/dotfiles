@@ -1,4 +1,4 @@
-{ config, inputs, pkgs, hyprland, ... }:
+{ config, pkgs, hyprland, ... }:
 
 let exec = "exec Hyprland";
 in {
@@ -21,7 +21,6 @@ in {
     '';
 
     systemPackages = with pkgs; [
-      inputs.anyrun.packages.${pkgs.system}.anyrun
       wl-clipboard
       mpvpaper
       grim
