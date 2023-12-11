@@ -6,8 +6,7 @@ const SysButton = (action, label) => Widget.Button({
   onClicked: () => PowerMenu.action(action),
   child: Widget.Box({
     className: action,
-    vertical: true,
-    valign: 'center',
+    hpack: 'center',
     child: Widget.Label(label),
   }),
 });

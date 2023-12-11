@@ -49,7 +49,7 @@ in {
     .bar {
       color: ${theme.scheme.colors.fg};
       background: ${theme.scheme.colors.bg};
-      font-size: 12px;
+      font-size: 10px;
     }
 
     .tray {
@@ -63,8 +63,9 @@ in {
 
     .workspaces button {
       background: transparent;
-      margin: 4px;
+      margin: 2px;
       border-radius: 0;
+      padding: 0 0.4rem;
     }
 
     .workspaces button.focused {
@@ -83,6 +84,15 @@ in {
 
     .clock {
       margin: 0 6px;
+    }
+
+    .popup-bg {
+      min-width: 5000px;
+      min-height: 3000px;
+    }
+
+    .black {
+      background-color: rgba(0, 0, 0, 0.8);
     }
 
     .powermenu button {
@@ -111,7 +121,7 @@ in {
     }
 
     .verification {
-      min-height: 60px;
+      min-height: 80px;
     }
 
     .verification .description {
@@ -122,7 +132,7 @@ in {
     .verification .buttons button {
       background: ${theme.scheme.colors.bg};
       border: 1px solid ${theme.scheme.colors.altbg};
-      margin: 0 8px;
+      margin: 10px 8px;
       border-radius: 0;
     }
 
@@ -148,9 +158,9 @@ in {
     }
 
     .launcher .search-entry {
-      padding: 0.4rem;
-      border-radius: 0.5rem;
+      padding: 0.2rem 0.8rem;
       margin-bottom: 12px;
+      border-radius: 0px;
       font-size: 1.1rem;
       font-family: JetBrainsMono Nerd Font;
     }
@@ -161,7 +171,7 @@ in {
 
     .launcher .app-button {
       padding: 4px;
-      border-radius: 0.5rem;
+      border-radius: 0px;
       margin-bottom: 10px;
     }
 
@@ -172,7 +182,7 @@ in {
     
     .launcher .app-name {
       font-weight: bold;
-      font-size: 1.2rem;
+      font-size: 1rem;
     }
 
     .launcher .app-description {

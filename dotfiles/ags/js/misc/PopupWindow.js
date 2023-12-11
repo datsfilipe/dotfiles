@@ -29,7 +29,7 @@ const PopupRevealer = (windowName, transition, child) =>
 const layouts = {
   center: (windowName, child, expand) =>
     Widget.CenterBox({
-      className: "shader",
+      className: "shader" + expand ? " popup-bg black" : "",
       // style: expand ? "min-width: 5000px; min-height: 3000px; background-color: black;" : "",
       children: [
         Padding(windowName),
