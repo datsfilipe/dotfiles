@@ -1,10 +1,11 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
 let
   localPkgs = import ../pkgs { pkgs = pkgs; };
   customPkgs = with localPkgs; [
     spacedrive
   ];
+  nixpkgs = import <nixpkgs> { overlays = []; };
 in {
   services.openssh.enable = true;
 
@@ -19,7 +20,7 @@ in {
     # apps
     qbittorrent
     discord
-    wezterm
+    rio
     bitwarden
     obs-studio
 
@@ -64,5 +65,5 @@ in {
     xdg-user-dirs
     gtk-layer-shell
     gtk3
-  ] ++ customPkgs;
+  ];
 }

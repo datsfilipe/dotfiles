@@ -75,7 +75,7 @@ let
 
     $mainMod=SUPER
 
-    bind=$mainMod,Return,exec,wezterm
+    bind=$mainMod,Return,exec,rio
     bind=$mainMod,A,exec,firefox
     bind=$mainMod,P,exec,ags --toggle-window launcher
     bind=$mainMod,O,exec,ags --toggle-window powermenu
