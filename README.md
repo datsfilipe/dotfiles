@@ -28,7 +28,3 @@ $ git clone https://github.com/datsfilipe/dotfiles /mnt/etc/nixos/<name>
 $ cd /mnt/etc/nixos/<name>
 $ nixos-install --flake .?submodules=1#<host>
 ```
-
-## Note
-
-- Status: currently broken, safe commit is 626fee2.
