@@ -66,6 +66,8 @@ const Workspaces = () => Widget.Box({
 });
 
 const ClientTitle = () => Widget.Label({
+  max_width_chars: 56,
+  truncate: 'end',
   className: 'client-title',
   binds: [
     ['label', Hyprland.active.client, 'title'],
@@ -105,11 +107,12 @@ const Center = () => Widget.Box({
 });
 
 const Right = () => Widget.Box({
-  halign: 'end',
+  // halign: 'end',
+  hpack: 'end',
   children: [
     SysTray(),
-    Volume(),
     Microphone(),
+    Volume(),
     Clock(),
   ],
 });
@@ -118,8 +121,8 @@ const Bar = ({ monitor } = {}) => Widget.Window({
   name: `bar-${monitor}`,
   className: 'bar',
   monitor,
-  anchor: ['top', 'left', 'right'],
-  exclusive: true,
+  anchor: ['bottom', 'left', 'right'],
+  exclusivity: 'exclusive',
   child: Widget.CenterBox({
     startWidget: Left(),
     centerWidget: Center(),

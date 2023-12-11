@@ -11,7 +11,6 @@ in {
 
   programs.ags = {
     enable = true;
-    configDir = ../../dotfiles/ags;
     extraPackages = [ pkgs.libsoup_3 ];
   };
 
@@ -78,6 +77,7 @@ in {
     }
 
     .client-title {
+      margin-left: 1em;
       color: ${theme.scheme.colors.red};
     }
 
@@ -127,7 +127,8 @@ in {
     }
 
     .volume, .microphone {
-      min-width: 120px;
+      min-width: 14em;
+      min-width: 14em;
     }
 
     .volume button, .microphone button {

@@ -25,14 +25,12 @@ const PopupRevealer = (windowName, transition, child) =>
       ],
     }),
   });
-
+// "min-width: 5000px; min-height: 3000px; background-color: black;"
 const layouts = {
   center: (windowName, child, expand) =>
     Widget.CenterBox({
       className: "shader",
-      style: expand
-        ? "min-width: 5000px; min-height: 3000px; background-color: black;"
-        : "",
+      // style: expand ? "min-width: 5000px; min-height: 3000px; background-color: black;" : "",
       children: [
         Padding(windowName),
         Widget.CenterBox({
