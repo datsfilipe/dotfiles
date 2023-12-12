@@ -20,7 +20,7 @@ in {
     # apps
     qbittorrent
     discord
-    rio
+    alacritty
     bitwarden
     obs-studio
 
