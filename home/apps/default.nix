@@ -1,5 +1,5 @@
 [
-  ./wezterm.nix
+  ./alacritty.nix
   ./spicetify.nix
   ./ags.nix
   ./firefox.nix
