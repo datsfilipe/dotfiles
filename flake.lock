@@ -18,6 +18,23 @@
         "type": "github"
       }
     },
+    "datsnvim": {
+      "flake": false,
+      "locked": {
+        "dirtyRev": "572d891732f57b3e9116d5fcd1c26b0a55170015-dirty",
+        "dirtyShortRev": "572d891-dirty",
+        "lastModified": 1701931454,
+        "narHash": "sha256-nrsitMFhbbsBWb8Tb0m1SoWHJZVGkmO/SiRBeytHr3A=",
+        "shallow": true,
+        "type": "git",
+        "url": "file:///home/dtsf/.dotfiles/dotfiles/nvim"
+      },
+      "original": {
+        "shallow": true,
+        "type": "git",
+        "url": "file:///home/dtsf/.dotfiles/dotfiles/nvim"
+      }
+    },
     "flake-utils": {
       "inputs": {
         "systems": "systems"
@@ -107,9 +124,12 @@
     "root": {
       "inputs": {
         "ags": "ags",
+        "datsnvim": "datsnvim",
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs_2",
-        "spicetify-nix": "spicetify-nix"
+        "spicetify-nix": "spicetify-nix",
+        "unix-scripts": "unix-scripts",
+        "walls": "walls"
       }
     },
     "spicetify-nix": {
@@ -144,6 +164,40 @@
         "owner": "nix-systems",
         "repo": "default",
         "type": "github"
+      }
+    },
+    "unix-scripts": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1701271676,
+        "narHash": "sha256-ih8E2tTR3MwUfiwUD+bv4uldGPcFtp4tp7iVfGEq/ec=",
+        "ref": "07e30806770945691469c2659e4657096421b529",
+        "rev": "07e30806770945691469c2659e4657096421b529",
+        "shallow": true,
+        "type": "git",
+        "url": "file:///home/dtsf/.dotfiles/dotfiles/bin"
+      },
+      "original": {
+        "shallow": true,
+        "type": "git",
+        "url": "file:///home/dtsf/.dotfiles/dotfiles/bin"
+      }
+    },
+    "walls": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1701818647,
+        "narHash": "sha256-nBm1Fn0qleDWP7gSPBJdxlnYETaNSIMb0Ip68j1bTFk=",
+        "ref": "444a67a98dd04a7a122b99a6964e82d2a6b8690f",
+        "rev": "444a67a98dd04a7a122b99a6964e82d2a6b8690f",
+        "shallow": true,
+        "type": "git",
+        "url": "file:///home/dtsf/.dotfiles/modules/walls"
+      },
+      "original": {
+        "shallow": true,
+        "type": "git",
+        "url": "file:///home/dtsf/.dotfiles/modules/walls"
       }
     }
   },

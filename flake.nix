@@ -9,6 +9,18 @@
     };
     ags.url = "github:Aylur/ags";
     spicetify-nix.url = "github:the-argus/spicetify-nix";
+    datsnvim = {
+      url = "git+file:///home/dtsf/.dotfiles/dotfiles/nvim?shallow=1";
+      flake = false;
+    };
+    walls = {
+      url = "git+file:///home/dtsf/.dotfiles/modules/walls?shallow=1";
+      flake = false;
+    };
+    unix-scripts = {
+      url = "git+file:///home/dtsf/.dotfiles/dotfiles/bin?shallow=1";
+      flake = false;
+    };
   };
 
   outputs = inputs@{ self, nixpkgs, home-manager, ... }:

@@ -1,1 +1,1 @@
-[ ./wall.nix ]
+[ ./wall.nix ./scripts.nix ]

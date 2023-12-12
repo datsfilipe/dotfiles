@@ -1,8 +1,10 @@
+{ inputs, ... }:
+
 let
   theme = (import ../../modules/colorscheme).theme;
 in {
   xdg.configFile."nvim" = {
-    source = ../../dotfiles/nvim;
+    source = inputs.datsnvim;
     recursive = true;
   };
 
