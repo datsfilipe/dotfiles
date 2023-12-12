@@ -1,3 +1,3 @@
 {
-  theme = import ./gruvbox.nix;
+  theme = import ./eva.nix;
 }
