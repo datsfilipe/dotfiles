@@ -27,6 +27,7 @@ in {
       slurp
       swappy
       swaybg
+      swayimg
     ];
   };
 }
