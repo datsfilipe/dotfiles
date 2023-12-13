@@ -35,13 +35,14 @@ in {
     cmake
     libtool
     lsof
+    killall
+    efibootmgr
     
     # tools
     git
     jq
     curl
     htop
-    killall
     ripgrep
     fd
     fzf
