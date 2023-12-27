@@ -15,6 +15,12 @@ in {
   programs.steam.enable = true;
 
   environment.systemPackages = with pkgs; [
+    # system
+    xdg-utils
+    xdg-user-dirs
+    gtk-layer-shell
+    gtk3
+
     # apps
     qbittorrent
     discord
@@ -22,21 +28,7 @@ in {
     bitwarden
     obs-studio
 
-    # file management
-    unzip
-    zip
-    unar
-
     # utilities
-    gnumake
-    gcc
-    cmake
-    libtool
-    lsof
-    killall
-    efibootmgr
-    
-    # tools
     git
     jq
     curl
@@ -46,9 +38,18 @@ in {
     fzf
     ghq
     gh
-    buku
+    gnumake
+    gcc
+    cmake
+    libtool
+    lsof
+    killall
+    efibootmgr
+    unzip
+    zip
+    unar
 
-    # services / daemons
+    # services
     dunst
     libnotify
     inotify-tools
@@ -57,12 +58,5 @@ in {
     pavucontrol
     mpv
     ffmpeg
-
-    # system
-    nodejs
-    xdg-utils
-    xdg-user-dirs
-    gtk-layer-shell
-    gtk3
   ] ++ customPkgs;
 }
