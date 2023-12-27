@@ -1,4 +1,4 @@
-{ inputs, ... }:
+{ inputs, pkgs, ... }:
 
 let
   theme = (import ../../modules/colorscheme).theme;
@@ -15,4 +15,8 @@ in {
   xdg.configFile."nvim/lua/utils/nix_lazylock.lua".text = ''
     return vim.fn.expand("$HOME/.dotfiles/dotfiles/nvim") .. "/lazy-lock.json"
   '';
+
+  home.packages = with pkgs; [
+    nodejs # copilot needs it
+  ];
 }
