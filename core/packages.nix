@@ -1,6 +1,9 @@
 { pkgs, ... }:
 
-{
+let
+  localPkgs = import ../pkgs { pkgs = pkgs; };
+  customPkgs = with localPkgs; [];
+in {
   services.openssh.enable = true;
   services.udisks2.enable = true;
 
@@ -61,5 +64,5 @@
     xdg-user-dirs
     gtk-layer-shell
     gtk3
-  ];
+  ] ++ customPkgs;
 }
