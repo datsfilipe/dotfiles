@@ -36,7 +36,6 @@
   networking = {
     hostName = "dtsf-machine";
     networkmanager.enable = true;
-    nameservers = [ "1.1.1.1" "1.0.0.1" ];
   };
 
   time.timeZone = "America/Belem";

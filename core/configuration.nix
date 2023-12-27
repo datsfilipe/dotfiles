@@ -2,8 +2,9 @@
 
 {
   imports =
-    [ ./dtsf-machine ./packages.nix ]
-    ++ (import ../modules/desktops );
+    [ ./packages.nix ]
+    ++ (import ../modules/desktops)
+    ++ (import ../hosts);
 
   nixpkgs.config = {
     allowUnfree = true;

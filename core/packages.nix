@@ -1,12 +1,6 @@
-{ pkgs, lib, ... }:
+{ pkgs, ... }:
 
-let
-  localPkgs = import ../pkgs { pkgs = pkgs; };
-  customPkgs = with localPkgs; [
-    spacedrive
-  ];
-  nixpkgs = import <nixpkgs> { overlays = []; };
-in {
+{
   services.openssh.enable = true;
 
   programs.neovim = {

@@ -28,7 +28,7 @@
       vars = { user = "dtsf"; };
     in {
       nixosConfigurations = (
-        import ./hosts {
+        import ./core {
           inherit (nixpkgs) lib;
           inherit inputs nixpkgs home-manager vars;
       });
