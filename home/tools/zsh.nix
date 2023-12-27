@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 let
   aliases = {
@@ -34,58 +34,7 @@ in
       enableAutosuggestions = true;
       syntaxHighlighting.enable = true;
       initExtra = ''
-        zstyle ':completion:*' menu select
-        bindkey "^[[1;5C" forward-word
-        bindkey "^[[1;5D" backward-word
-        bindkey '^ ' autosuggest-accept
-
-        # spaceship theme
-        ZSH_THEME="spaceship"
-        SPACESHIP_PROMPT_ORDER=(
-          user
-          dir
-          host
-          git
-          hg
-          exec_time
-          jobs
-          line_sep
-          exit_code
-          char
-        )
-        SPACESHIP_USER_SHOW=always
-        SPACESHIP_PROMPT_ADD_NEWLINE=false
-        SPACESHIP_CHAR_SYMBOL="❯ "
-
-        # tmux
-        function ts() {
-          tmux new-session -d -s $1
-          tmux switch-client -t $1
-        }
-        function tmux-sessionizer() {
-          bash -c "~/.local/bin/tmux-sessionizer"
-        }
-        zle -N tmux-sessionizer
-        bindkey '^F' tmux-sessionizer
-
-        # utils
-        function rm() {
-          echo "Use trash instead of rm"
-        }
-        function dir() {
-          mkdir $1 && cd $1
-        }
-        function pr() {
-          if [ $1 = "ls" ]; then
-            gh pr list
-          else
-            gh pr checkout $1
-          fi
-        }
-
-        export WAKATIME_HOME="$HOME/.config"
-        export FZF_DEFAULT_COMMAND="fd --type f --hidden --follow --exclude .git --color=always"
-        export FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
+        ${lib.fileContents ../../dotfiles/zshrc}
       '';
       shellAliases = aliases;
 
