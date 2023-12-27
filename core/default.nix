@@ -20,7 +20,6 @@ in {
     modules = [
       ./configuration.nix
       ./packages.nix
-      ../home/services/udisks2.nix
       home-manager.nixosModules.home-manager {
         home-manager = {
           extraSpecialArgs = { inherit inputs; };
