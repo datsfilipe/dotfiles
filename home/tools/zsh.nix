@@ -24,6 +24,11 @@ let
     "cr"="curl-request";
     "wconn"="nmcli-wifi-connect";
     "td"="taskwarrior-tui";
+    "vl"="datsvault -l";
+    "vn"="datsvault -n";
+    "vd"="datsvault -d";
+    "vs"="datsvault -s";
+    "vu"="datsvault -u";
   };
 in
 { 
