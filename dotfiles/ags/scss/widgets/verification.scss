@@ -1,17 +1,15 @@
-window#verification .window-content {
-  .verification {
-    min-height: 80px;
-  }
+.verification {
+  min-height: 80px;
+}
 
-  .verification .description {
-    font-weight: bold;
-    color: $fg;
-  }
+.verification .description {
+  font-weight: bold;
+  color: $fg;
+}
 
-  .verification .buttons button {
-    background: $bg;
-    border: 1px solid $altbg;
-    margin: 10px 8px;
-    border-radius: 0;
-  }
+.verification .buttons button {
+  background: $bg;
+  border: 1px solid $altbg;
+  margin: 10px 8px;
+  border-radius: 0;
 }

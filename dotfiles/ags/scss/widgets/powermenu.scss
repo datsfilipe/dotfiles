@@ -1,26 +1,24 @@
-window#powermenu .window-content {
-  .powermenu button {
-    background: $bg;
-    border-radius: 0;
-    border: 1px solid $altbg;
-    margin: 0 8px;
-    min-height: 40px;
-    font-weight: bold;
-  }
+.powermenu button {
+  background: $bg;
+  border-radius: 0;
+  border: 1px solid $altbg;
+  margin: 0 8px;
+  min-height: 40px;
+  font-weight: bold;
+}
 
-  .sleep {
-    color: $green;
-  }
+.sleep {
+  color: $green;
+}
 
-  .reboot {
-    color: $blue;
-  }
+.reboot {
+  color: $blue;
+}
 
-  .shutdown {
-    color: $red;
-  }
+.shutdown {
+  color: $red;
+}
 
-  .logout {
-    color: $yellow;
-  }
+.logout {
+  color: $yellow;
 }
