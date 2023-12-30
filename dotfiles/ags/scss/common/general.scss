@@ -1,0 +1,18 @@
+label {
+  font-weight: bold;
+}
+
+progress, highlight {
+  background: $red;
+  min-height: 4px;
+  border-radius: 4px;
+}
+
+slider {
+  box-shadow: none;
+  background-color: transparent;
+  border: 1px solid transparent;
+  border-radius: 1em;
+  min-height: 0.7em;
+  min-width: 0.7em;
+}

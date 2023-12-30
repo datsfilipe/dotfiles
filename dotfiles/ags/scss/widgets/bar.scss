@@ -1,0 +1,52 @@
+window#bar-undefined .window-content {
+  .bar {
+    color: $fg;
+    background: $bg;
+    font-size: 10px;
+  }
+
+  .tray {
+    margin: 0 6px;
+  }
+
+  .tray button {
+    background: transparent;
+    border: none;
+  }
+
+  .workspaces button {
+    background: transparent;
+    margin: 2px;
+    border-radius: 0;
+    padding: 0 0.4rem;
+  }
+
+  .workspaces button.focused {
+    background: $blue;
+    color: $bg;
+  }
+
+  .workspaces button.occupied {
+    background: $altbg;
+  }
+
+  .client-title {
+    margin-left: 1em;
+    color: $red;
+  }
+
+  .clock {
+    margin: 0 6px;
+  }
+
+  .volume, .microphone {
+    min-width: 14em;
+    min-width: 14em;
+  }
+
+  .volume button, .microphone button {
+    border: 1px solid transparent;
+    outline: none;
+    background: transparent;
+  }
+}
