@@ -13,6 +13,8 @@ let
     bind=$mainMod,P,exec,ags --toggle-window launcher
     bind=$mainMod,O,exec,ags --toggle-window powermenu
     bind=$mainMod,N,exec,$HOME/.local/bin/datsvault -n
+    bind=$mainMod,K,exec,$HOME/.local/bin/switch-kb-variant
+    bind=$mainMod,I,exec,$HOME/.local/bin/switch-kb-variant intl
 
     bind=$mainMod,h,movefocus,l
     bind=$mainMod,l,movefocus,r
