@@ -169,10 +169,10 @@
     "unix-scripts": {
       "flake": false,
       "locked": {
-        "lastModified": 1703781931,
-        "narHash": "sha256-Yn9Jv6MUpC1bII7AbMNFO6j9aMqPLdC5eBSt2cIoxCQ=",
+        "lastModified": 1703949875,
+        "narHash": "sha256-bvZME0c3y6KrIKguY+CkGczr8g/9gL3/RViK27KJKJs=",
         "ref": "refs/heads/main",
-        "rev": "a8677b9c52ea6f92eb26a4fd4069aded169d4a01",
+        "rev": "3f06ddc662f5e345d0e9b8efd79de76d062f1d14",
         "shallow": true,
         "type": "git",
         "url": "file:///home/dtsf/.dotfiles/dotfiles/bin"
