@@ -1,6 +1,6 @@
-import PopupWindow from '../misc/PopupWindow.js';
-import PowerMenu from '../services/powermenu.js';
-import { Widget, App, Utils } from '../imports.js';
+import PopupWindow from '../misc/PopupWindow.js'
+import PowerMenu from '../services/powermenu.js'
+import { Widget, App, Utils } from '../imports.js'
 
 export default () => PopupWindow({
   name: 'verification',
@@ -31,4 +31,4 @@ export default () => PopupWindow({
       }),
     ],
   }),
-});
+})
