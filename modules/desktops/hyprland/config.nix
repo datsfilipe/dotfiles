@@ -1,6 +1,14 @@
 { pkgs, lib, ... }:
 
 let
+  hyprlandAutostart = ''
+    exec-once=dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
+    exec-once=systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
+    exec-once=dunst
+    exec-once=ags
+    exec-once=${pkgs.swaybg}/bin/swaybg -m fill -i $HOME/.config/wallpaper.png
+  '';
+
   hyprlandKeymaps = ''
     $mainMod=SUPER
 
@@ -66,13 +74,6 @@ let
 
     bindm = $mainMod, mouse:272, movewindow
     bindm = $mainMod, mouse:273, resizewindow
-  '';
-  hyprlandAutostart = ''
-    exec-once=dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
-    exec-once=systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
-    exec-once=dunst
-    exec-once=ags
-    exec-once=${pkgs.swaybg}/bin/swaybg -m fill -i $HOME/.config/wallpaper.png
   '';
 in {
   xdg.configFile."hypr/hyprland.conf".text = ''
