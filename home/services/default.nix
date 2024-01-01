@@ -1,1 +1,1 @@
-[ ./dunst.nix ./udiskie.nix ]
+[ ./dunst.nix ]

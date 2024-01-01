@@ -51,6 +51,7 @@ in {
 
     # services
     dunst
+    udiskie
     libnotify
     inotify-tools
     
