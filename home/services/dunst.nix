@@ -2,6 +2,8 @@
 
 let theme = (import ../../modules/colorscheme).theme;
 in {
+  services.dunst.enable = true;
+
   xdg.configFile."dunst/dunstrc".text = ''
     ${lib.fileContents ../../dotfiles/dunstrc}
       frame_color = "${theme.scheme.colors.altbg}"

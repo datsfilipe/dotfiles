@@ -50,7 +50,6 @@ in {
     unar
 
     # services
-    dunst
     udiskie
     libnotify
     inotify-tools
