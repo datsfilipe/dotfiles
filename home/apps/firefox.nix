@@ -17,19 +17,19 @@
         {
           name = "Todoist";
           url = "https://todoist.com/app";
-        },
+        }
         {
           name = "Weekly Schedule";
           url = "https://www.notion.so/Weekly-Schedule-ee87c94612f049f49c519f687d395a47";
-        },
+        }
         {
           name = "CS (Wyden)";
           url = "https://estudante.wyden.com.br/disciplinas";
-        },
+        }
         {
           name = "CS (UBL)";
           url = "https://github.com/Universidade-Livre/ciencia-da-computacao";
-        },
+        }
         {
           name = "Data Structures Course (FM)";
           url = "https://frontendmasters.com/courses/algorithms/";
