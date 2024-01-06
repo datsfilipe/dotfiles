@@ -23,7 +23,7 @@ font:
     family: JetBrainsMono Nerd Font
     style: Bold Italic
 
-  size: 12
+  size: 13
 window:
   padding:
     x: 25
