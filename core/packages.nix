@@ -27,6 +27,7 @@ in {
     alacritty
     bitwarden
     obs-studio
+    # zoom-us
 
     # utilities
     git
