@@ -3,7 +3,7 @@
 let
   theme = (import ../../modules/colorscheme).theme;
   statusLeft = "#[fg=${theme.scheme.colors.fg},bg=${theme.scheme.colors.bg}] #S ";
-  statusRight = "#[fg=${theme.scheme.colors.red},bg=${theme.scheme.colors.bg}] @#(whoami) ";
+  statusRight = "#[fg=${theme.scheme.colors.primary},bg=${theme.scheme.colors.bg}] @#(whoami) ";
 in {
   programs.tmux = {
     enable = true;
@@ -18,13 +18,13 @@ in {
 
       # THEME
       set -g status-bg "${theme.scheme.colors.bg}"
-      set -g status-fg "${theme.scheme.colors.red}"
+      set -g status-fg "${theme.scheme.colors.primary}"
 
       set -g status-left "${statusLeft}"
       set -g status-right "${statusRight}"
 
-      set -g pane-border-style "fg=${theme.scheme.colors.red}"
-      set -g pane-active-border-style "fg=${theme.scheme.colors.red}"
+      set -g pane-border-style "fg=${theme.scheme.colors.primary}"
+      set -g pane-active-border-style "fg=${theme.scheme.colors.primary}"
     '';
   };
 }

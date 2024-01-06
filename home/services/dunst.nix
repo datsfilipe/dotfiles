@@ -11,16 +11,16 @@ in {
 
     [urgency_low]
       background = "${theme.scheme.colors.altbg}"
-      foreground = "${theme.scheme.colors.red}"
+      foreground = "${theme.scheme.colors.primary}"
       timeout = 5
 
     [urgency_normal]
       background = "${theme.scheme.colors.altbg}"
-      foreground = "${theme.scheme.colors.red}"
+      foreground = "${theme.scheme.colors.primary}"
       timeout = 10
 
     [urgency_critical]
-      background = "${theme.scheme.colors.red}"
+      background = "${theme.scheme.colors.primary}"
       foreground = "${theme.scheme.colors.bg}"
       timeout = 20
   '';

@@ -21,6 +21,7 @@ in {
   };
 
   xdg.configFile."ags/scss/variables.scss".text = ''
+    $primary: ${theme.scheme.colors.primary};
     $bg: ${theme.scheme.colors.bg};
     $altbg: ${theme.scheme.colors.altbg};
     $fg: ${theme.scheme.colors.fg};
