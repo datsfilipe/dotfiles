@@ -15,7 +15,7 @@
   font-family: "JetBrainsMono Nerd Font";
 }
 
-.launcher scrollbar, .launcher scrollbar * {
+.launcher scrollbar, .launcher scrollbar *, .launcher button {
   all: unset;
 }
 
@@ -23,6 +23,7 @@
   padding: 4px;
   border-radius: 0;
   margin-bottom: 10px;
+  background-color: $bg;
 }
 
 .launcher .app-icon {
@@ -39,6 +40,7 @@
   font-size: 0.8rem;
 }
 
-.launcher .app-description.focused {
+.launcher .app-button.focused {
   background-color: $altbg;
+  border-left: 2px solid $black;
 }
