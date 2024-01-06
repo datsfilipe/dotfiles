@@ -93,7 +93,7 @@ const SearchBox = () => {
             const nameMarkup = nameChars
               .map((char, i) => {
                 if (entry.positions.has(i))
-                  return `<span foreground="red">${char}</span>`
+                  return `<span foreground="green">${char}</span>`
                 else return char
               })
               .join('')
