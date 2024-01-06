@@ -1,6 +1,7 @@
 {
   scheme = {
     colors = {
+      primary = "#2aa198";
       bg = "#00181e";
       altbg = "#002b36";
       fg = "#839496";
