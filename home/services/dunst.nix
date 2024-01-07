@@ -20,7 +20,7 @@ in {
       timeout = 10
 
     [urgency_critical]
-      background = "${theme.scheme.colors.primary}"
+      background = "${theme.scheme.colors.red}"
       foreground = "${theme.scheme.colors.bg}"
       timeout = 20
   '';
