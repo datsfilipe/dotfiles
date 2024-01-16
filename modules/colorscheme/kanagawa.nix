@@ -3,7 +3,7 @@
     colors = {
       primary = "#c4746e";
       bg = "#181616";
-      altbg = "#2D4F67";
+      altbg = "#363646";
       fg = "#c5c9c5";
       black = "#585858";
       red = "#c4746e";
