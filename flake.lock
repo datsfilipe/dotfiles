@@ -21,10 +21,10 @@
     "datsnvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1705157167,
-        "narHash": "sha256-ttmZmQNm79YhsxNoUMsk0CSc1fcYDJ4JpsH7eZRxJ1g=",
+        "lastModified": 1705417536,
+        "narHash": "sha256-OfAVW4TUht7s2FT0Ph+As0xtWasdTmzrFSoBpgyHFqg=",
         "ref": "refs/heads/main",
-        "rev": "476731c0ca830f37f8e616e296f509714cb06ccc",
+        "rev": "fab1c6401c9d8677c1b1d4a4e29ead2430c0dab3",
         "shallow": true,
         "type": "git",
         "url": "file:///home/dtsf/.dotfiles/dotfiles/nvim"
@@ -186,10 +186,10 @@
     "walls": {
       "flake": false,
       "locked": {
-        "lastModified": 1705115489,
-        "narHash": "sha256-gaDQTqnptcRWQD1k7hizF/eIAMnwUTSKY0DaW5ljGWU=",
+        "lastModified": 1705414526,
+        "narHash": "sha256-clL9YqauKCnk3hj8lQmsQe3ZTKulKh4MBjAAIbiOQtI=",
         "ref": "refs/heads/main",
-        "rev": "3c9acc2e0402fd16cf8b754105aeae20d9b38b85",
+        "rev": "288cc1d78dd8cee30dee465db2b5411fad52865c",
         "shallow": true,
         "type": "git",
         "url": "file:///home/dtsf/.dotfiles/modules/walls"
