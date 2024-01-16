@@ -48,13 +48,26 @@ const Microphone = () => Widget.Box({
   ],
 })
 
+const arrLabelsInJapanese = [
+  '一',
+  '二',
+  '三',
+  '四',
+  '五',
+  '六',
+  '七',
+  '八',
+  '九',
+  '十',
+]
+
 const Workspaces = () => Widget.Box({
   className: 'workspaces',
   connections: [[Hyprland.active.workspace, self => {
     const arr = Array.from({ length: 10 }, (_, i) => i + 1)
     self.children = arr.map(i => Widget.Button({
       onClicked: () => Utils.execAsync(`hyprctl dispatch workspace ${i}`),
-      child: Widget.Label(`${i}`),
+      child: Widget.Label(`${arrLabelsInJapanese[i - 1]}`),
       className: Hyprland.active.workspace.id == i
         ? 'focused'
         : Hyprland.getWorkspace(i)?.windows > 0
