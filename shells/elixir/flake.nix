@@ -13,7 +13,7 @@
 
         inputs = with pkgs; [
           erlang
-          elixir_1_14
+          elixir
         ];
       in with pkgs; {
         devShells.default = mkShell {
