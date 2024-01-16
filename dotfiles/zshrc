@@ -36,15 +36,27 @@ bindkey '^F' tmux-sessionizer
 function rm() {
   echo "Use trash instead of rm"
 }
+
 function dir() {
   mkdir $1 && cd $1
 }
+
 function pr() {
   if [ $1 = "ls" ]; then
     gh pr list
   else
     gh pr checkout $1
   fi
+}
+
+function vimcfg() {
+  cd ~/.config/datsnvim
+  ts vim
+}
+
+function vault() {
+  cd ~/.config/datsvault
+  ts vault
 }
 
 export WAKATIME_HOME="$HOME/.config"
