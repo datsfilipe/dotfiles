@@ -65,4 +65,6 @@ in
   };
 
   home = { packages = with pkgs; [ bat eza zoxide trash-cli ]; };
+
+  xdg.configFile."spaceship.zsh".source = ../../dotfiles/spaceship.zsh;
 }

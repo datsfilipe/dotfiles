@@ -5,21 +5,6 @@ bindkey '^ ' autosuggest-accept
 
 # spaceship theme
 ZSH_THEME="spaceship"
-SPACESHIP_PROMPT_ORDER=(
-  user
-  dir
-  host
-  git
-  hg
-  exec_time
-  jobs
-  line_sep
-  exit_code
-  char
-)
-SPACESHIP_USER_SHOW=always
-SPACESHIP_PROMPT_ADD_NEWLINE=false
-SPACESHIP_CHAR_SYMBOL="❯ "
 
 # tmux
 function ts() {
@@ -58,6 +43,15 @@ function vault() {
   cd ~/.config/datsvault
   ts vault
 }
+
+# fix clearing screen makes spaceship prompt appears in two lines
+function fix_prompt() {
+  clear
+  zle .reset-prompt && zle -R
+}
+
+zle -N fix_prompt
+bindkey '^L' fix_prompt
 
 export WAKATIME_HOME="$HOME/.config"
 export FZF_DEFAULT_COMMAND="fd --type f --hidden --follow --exclude .git --color=always"
