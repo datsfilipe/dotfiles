@@ -44,15 +44,6 @@ function vault() {
   ts vault
 }
 
-# fix clearing screen makes spaceship prompt appears in two lines
-function fix_prompt() {
-  clear
-  zle .reset-prompt && zle -R
-}
-
-zle -N fix_prompt
-bindkey '^L' fix_prompt
-
 export WAKATIME_HOME="$HOME/.config"
 export FZF_DEFAULT_COMMAND="fd --type f --hidden --follow --exclude .git --color=always"
 export FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
