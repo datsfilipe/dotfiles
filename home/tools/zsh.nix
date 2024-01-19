@@ -29,6 +29,8 @@ let
     "vd"="datsvault -d";
     "vs"="datsvault -s";
     "vu"="datsvault -u";
+    "top"="btop -p 1";
+    "topp"="btop";
   };
 in
 { 
