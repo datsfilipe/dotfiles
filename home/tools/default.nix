@@ -1,7 +1,7 @@
 [
   ./direnv.nix
   ./tmux.nix
-  ./htop.nix
+  ./btop.nix
   ./zsh.nix
   ./git.nix
 ]

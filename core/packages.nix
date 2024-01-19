@@ -33,7 +33,6 @@ in {
     git
     jq
     curl
-    htop
     ripgrep
     fd
     fzf
