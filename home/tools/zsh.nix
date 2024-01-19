@@ -31,6 +31,7 @@ let
     "vu"="datsvault -u";
     "top"="btop -p 1";
     "topp"="btop";
+    "sg"="ast-grep";
   };
 in
 { 
