@@ -5,4 +5,5 @@
   ./firefox.nix
   ./nvim.nix
   ./mpv.nix
+  ./tomato.nix
 ]
