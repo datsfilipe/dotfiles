@@ -1,0 +1,40 @@
+import = ["/home/dtsf/.config/alacritty/colors.toml"]
+
+[cursor]
+style = { shape = "Block", blinking = "On" }
+blink_interval = 500
+
+[font]
+size = 13
+
+[font.bold]
+family = "JetBrainsMono Nerd Font"
+style = "Bold"
+
+[font.bold_italic]
+family = "JetBrainsMono Nerd Font"
+style = "Bold Italic"
+
+[font.italic]
+family = "JetBrainsMono Nerd Font"
+style = "Italic"
+
+[font.normal]
+family = "JetBrainsMono Nerd Font"
+style = "Regular"
+
+[keyboard]
+bindings = [
+  { key = "V", mods = "Shift", action = "ToggleViMode" },
+]
+
+[shell]
+args = ["-l", "-c", "tmux attach || tmux new-session -s dtsf"]
+program = "zsh"
+
+[window]
+opacity = 0.8
+
+[window.padding]
+x = 25
+y = 25
