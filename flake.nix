@@ -21,7 +21,6 @@
       url = "git+file:///home/dtsf/.dotfiles/dotfiles/bin?shallow=1";
       flake = false;
     };
-    tomato-c.url = "github:gabrielzschmitz/Tomato.C";
   };
 
   outputs = inputs@{ self, nixpkgs, home-manager, ... }:
