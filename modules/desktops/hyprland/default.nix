@@ -21,7 +21,6 @@ in {
 
     systemPackages = with pkgs; [
       wl-clipboard
-      mpvpaper
       grim
       slurp
       swappy
