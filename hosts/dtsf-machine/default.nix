@@ -6,7 +6,7 @@
     ++ (import ../../modules/desktops/virtualisation);
 
   boot = {
-    kernelPackages = pkgs.linuxPackages_latest;
+    kernelPackages = pkgs.linuxPackages_6_6_hardened;
 
     loader = {
       systemd-boot.enable = false;
@@ -37,6 +37,9 @@
     hostName = "dtsf-machine";
     networkmanager.enable = true;
   };
+
+  # disable networkmanager-wait-online
+  systemd.services.NetworkManager-wait-online.enable = false;
 
   time.timeZone = "America/Belem";
   i18n = {
