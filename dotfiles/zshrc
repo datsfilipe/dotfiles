@@ -1,7 +1,8 @@
+bindkey -v
 zstyle ':completion:*' menu select
-bindkey "^[[1;5C" forward-word
-bindkey "^[[1;5D" backward-word
-bindkey '^ ' autosuggest-accept
+bindkey -M viins "^[[1;5C" forward-word
+bindkey -M viins "^[[1;5D" backward-word
+bindkey -M viins '^ ' autosuggest-accept
 
 # spaceship theme
 ZSH_THEME="spaceship"
@@ -15,7 +16,7 @@ function tmux-sessionizer() {
   bash -c "~/.local/bin/tmux-sessionizer"
 }
 zle -N tmux-sessionizer
-bindkey '^F' tmux-sessionizer
+bindkey -M viins '^F' tmux-sessionizer
 
 # utils
 function rm() {
