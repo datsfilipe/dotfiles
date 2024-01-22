@@ -6,7 +6,7 @@
     ++ (import ../../modules/desktops/virtualisation);
 
   boot = {
-    kernelPackages = pkgs.linuxPackages_6_6_hardened;
+    kernelPackages = pkgs.linuxPackages_6_6;
 
     loader = {
       systemd-boot.enable = false;
