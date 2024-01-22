@@ -56,7 +56,6 @@ in {
     
     # media
     pavucontrol
-    mpv
     ffmpeg
   ] ++ customPkgs;
 }
