@@ -7,7 +7,6 @@ in {
       enable = true;
 
       xwayland.enable = true;
-      enableNvidiaPatches = false;
     };
 
     waybar.enable = false;
