@@ -9,9 +9,10 @@ config.color_schemes = {
   ["datstheme"] = require("theme"),
 }
 config.color_scheme = "datstheme";
-config.default_prog = { "tmux" }
+config.default_prog = { "bash", "-c", "tmux attach || tmux new-session -s dtsf" }
 config.window_close_confirmation = "NeverPrompt"
 config.hide_tab_bar_if_only_one_tab = true
+config.enable_wayland = false
 
 config.window_padding = {
   top = "2cell",
