@@ -2,9 +2,12 @@
 
 let theme = (import ../../modules/colorscheme).theme;
 in {
-  xdg.configFile."wezterm/wezterm.lua".text = ''
-    ${lib.fileContents ../../dotfiles/wezterm.lua}
-  '';
+  programs.wezterm = {
+    enable = true;
+    extraConfig = ''
+      ${lib.fileContents ../../dotfiles/wezterm.lua}
+    '';
+  };
 
   xdg.configFile."wezterm/theme.lua".text = ''
     return {

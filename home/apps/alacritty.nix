@@ -2,6 +2,8 @@
 
 let theme = (import ../../modules/colorscheme).theme;
 in {
+  programs.alacritty.enable = true;
+
   xdg.configFile."alacritty/alacritty.toml".text = ''
     ${lib.fileContents ../../dotfiles/alacritty.toml}
   '';
