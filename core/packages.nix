@@ -24,7 +24,6 @@ in {
     # apps
     qbittorrent
     discord
-    alacritty
     bitwarden
     obs-studio
     # zoom-us
