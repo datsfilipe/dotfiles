@@ -20,18 +20,18 @@ let
     "gca"="git commit --amend";
     "root"="cd \"$(git rev-parse --show-toplevel)\"";
     "main"="git checkout main";
+    "top"="btop -p 1";
+    "topp"="btop";
+    "sg"="ast-grep";
+    # scripts
     "nsh"="nix-set-shell";
     "cr"="curl-request";
     "wconn"="nmcli-wifi-connect";
-    "td"="taskwarrior-tui";
     "vl"="datsvault -l";
     "vn"="datsvault -n";
     "vd"="datsvault -d";
     "vs"="datsvault -s";
     "vu"="datsvault -u";
-    "top"="btop -p 1";
-    "topp"="btop";
-    "sg"="ast-grep";
   };
 in
 { 
