@@ -23,6 +23,11 @@ style = "Italic"
 family = "JetBrainsMono Nerd Font"
 style = "Regular"
 
+[keyboard]
+bindings = [
+  { key = "X", mods = "Control", action = "ToggleViMode" },
+]
+
 [shell]
 args = ["-l", "-c", "tmux attach || tmux new-session -s dtsf"]
 program = "zsh"
