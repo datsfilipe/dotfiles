@@ -11,7 +11,7 @@ in {
     escapeTime = 10;
     keyMode = "vi";
     mouse = false;
-    shell = "${pkgs.zsh}/bin/zsh";
+    shell = "${pkgs.fish}/bin/fish";
     historyLimit = 64096;
     extraConfig = ''
       ${lib.fileContents ../../dotfiles/tmux.conf}

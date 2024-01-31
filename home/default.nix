@@ -4,4 +4,5 @@
   ++ import ./services
   ++ import ./custom
   ++ import ./tools
+  ++ import ./shell
 )

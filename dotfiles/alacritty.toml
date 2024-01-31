@@ -30,7 +30,7 @@ bindings = [
 
 [shell]
 args = ["-l", "-c", "tmux attach || tmux new-session -s dtsf"]
-program = "zsh"
+program = "fish"
 
 [window]
 opacity = 0.8

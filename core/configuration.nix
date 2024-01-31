@@ -32,9 +32,11 @@
     '';
   };
 
-  users.users.dtsf = {
+  users.users.${vars.user} = {
     isNormalUser = true;
     extraGroups = [ "wheel" ];
+    shell = pkgs.fish;
+    ignoreShellProgramCheck = true;
   };
 
   fonts = {
