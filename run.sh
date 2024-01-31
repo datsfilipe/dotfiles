@@ -25,4 +25,7 @@ fi
 # remove spaceship prompt file
 rm "$HOME/.config/spaceship.zsh.zwc"
 
+# rebuild bat cache
+bat cache --build
+
 popd || exit 1
