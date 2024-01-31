@@ -1,6 +1,12 @@
+{ pkgs, ... }:
+
 let
   theme = (import ../../modules/colorscheme).theme;
 in {
+  home.packages = with pkgs; [
+    bat
+  ];
+
   xdg.configFile."bat/config".text = ''
     --theme="theme"
   '';
