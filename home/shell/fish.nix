@@ -1,6 +1,54 @@
+{ pkgs, lib, ... }:
+
 let
-  theme = (import ../../../modules/colorscheme).theme;
+  theme = (import ../../modules/colorscheme).theme;
+  aliases = (import ./aliases.nix);
 in {
+  programs.fish = {
+    enable = true;
+    shellAliases = aliases;
+
+    functions = {
+      fish_user_key_bindings = ''
+        bind --preset -M insert \cl 'clear; commandline -f repaint'
+        bind --preset -M insert \cf tmux-sessionizer
+        bind --preset -M insert -k nul accept-autosuggestion
+      '';
+    };
+
+    shellInit = ''
+      source ~/.config/fish/conf.d/colorscheme.fish
+
+      ${lib.fileContents ../../dotfiles/fish/config.fish}
+
+      set -gx ZF_DEFAULT_COMMAND "fd --type f --hidden --follow --exclude .git --color=always"
+      set -gx ZF_CTRL_T_COMMAND $FZF_DEFAULT_COMMAND
+
+      # plugins
+      zoxide init fish | source
+      set -gx zoxide_cmd z
+    '';
+  };
+
+  # plugins
+  home.packages = with pkgs; [
+    fishPlugins.hydro
+    fishPlugins.done
+  ];
+
+  xdg.configFile."fish/conf.d/hydro.fish".text = ''
+    set -l plugin_dir ${pkgs.fishPlugins.hydro}/share/fish
+
+    ${lib.fileContents ../../dotfiles/fish/conf.d/hydro.fish}
+  '';
+
+  xdg.configFile."fish/conf.d/done.fish".text = ''
+    set -l plugin_dir ${pkgs.fishPlugins.done}/share/fish
+
+    ${lib.fileContents ../../dotfiles/fish/conf.d/done.fish}
+  '';
+
+  # colorscheme
   xdg.configFile."fish/conf.d/colorscheme.fish".text = ''
     set -g fish_color_normal "${theme.scheme.colors.blue}"
     set -g fish_color_command "${theme.scheme.colors.yellow}"
@@ -28,5 +76,12 @@ in {
     set -g fish_pager_color_prefix "${theme.scheme.colors.blue}"
     set -g fish_pager_color_description "${theme.scheme.colors.blue}"
     set -g fish_pager_color_completion "${theme.scheme.colors.blue}"
+
+    # hydro colors
+    set -g hydro_color_prompt blue
+    set -g hydro_color_pwd blue
+    set -g hydro_color_git red
+    set -g hydro_color_error red
+    set -g hydro_color_duration green
   '';
 }
