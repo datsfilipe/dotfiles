@@ -14,6 +14,10 @@ in {
         bind --preset -M insert \cf tmux-sessionizer
         bind --preset -M insert -k nul accept-autosuggestion
       '';
+      ts = ''
+        tmux new-session -d -s $argv[1]
+        tmux switch-client -t $argv[1]
+      '';
     };
 
     shellInit = ''
