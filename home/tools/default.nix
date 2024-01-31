@@ -4,4 +4,5 @@
   ./btop.nix
   ./zsh.nix
   ./git.nix
+  ./bat.nix
 ]
