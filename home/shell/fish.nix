@@ -78,10 +78,10 @@ in {
     set -g fish_pager_color_completion "${theme.scheme.colors.blue}"
 
     # hydro colors
-    set -g hydro_color_prompt blue
-    set -g hydro_color_pwd blue
-    set -g hydro_color_git red
-    set -g hydro_color_error red
-    set -g hydro_color_duration green
+    set -g hydro_color_prompt "${theme.scheme.colors.primary}"
+    set -g hydro_color_pwd "${theme.scheme.colors.primary}"
+    set -g hydro_color_git "${theme.scheme.colors.magenta}" 
+    set -g hydro_color_error "${theme.scheme.colors.red}" 
+    set -g hydro_color_duration "${theme.scheme.colors.green}" 
   '';
 }
