@@ -18,11 +18,6 @@ function tmux-sessionizer() {
 zle -N tmux-sessionizer
 bindkey -M viins '^F' tmux-sessionizer
 
-# utils
-function rm() {
-  echo "Use trash instead of rm"
-}
-
 function dir() {
   mkdir $1 && cd $1
 }
