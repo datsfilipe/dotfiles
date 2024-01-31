@@ -3,8 +3,8 @@
 git_root=$(git rev-parse --show-toplevel)
 
 if [ "$PWD" != "$git_root" ]; then
-    echo "please run this script from the root of the git repo"
-    exit 1
+  echo "please run this script from the root of the git repo"
+  exit 1
 fi
 
 # update config submodules
@@ -23,9 +23,9 @@ if [ ! -d "$ags_root/node_modules" ]; then
 fi
 
 # remove spaceship prompt file
-rm "$HOME/.config/spaceship.zsh.zwc"
+# rm "$HOME/.config/spaceship.zsh.zwc"
 
 # rebuild bat cache
-bat cache --build
+# bat cache --build
 
 popd || exit 1
