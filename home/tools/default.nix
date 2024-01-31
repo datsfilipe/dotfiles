@@ -1,4 +1,5 @@
 [
+  ./fish
   ./direnv.nix
   ./tmux.nix
   ./btop.nix
