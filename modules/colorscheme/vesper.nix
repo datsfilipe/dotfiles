@@ -9,7 +9,7 @@
       red = "#FF8080";
       green = "#82D9C2";
       yellow = "#FFCFA8";
-      blue = "#65737E";
+      blue = "#8B8B8B";
       magenta = "#FFCFA8";
       cyan = "#FFCFA8";
       white = "#FFFFFF";
@@ -21,4 +21,5 @@
     package = "flat-remix-gtk";
     name = "Flat-Remix-GTK-Grey-Darkest-Solid";
   };
+  tmux-border-color = "#343434";
 }

@@ -21,4 +21,5 @@
     package = "flat-remix-gtk";
     name = "Flat-Remix-GTK-Yellow-Darkest-Solid";
   };
+  tmux-border-color = "#d79921";
 }

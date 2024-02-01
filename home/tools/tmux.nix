@@ -23,8 +23,8 @@ in {
       set -g status-left "${statusLeft}"
       set -g status-right "${statusRight}"
 
-      set -g pane-border-style "fg=${theme.scheme.colors.primary}"
-      set -g pane-active-border-style "fg=${theme.scheme.colors.primary}"
+      set -g pane-border-style "fg=${theme.tmux-border-color}"
+      set -g pane-active-border-style "fg=${theme.tmux-border-color}"
     '';
   };
 }
