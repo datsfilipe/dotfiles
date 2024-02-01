@@ -1,3 +1,3 @@
 {
-  theme = import ./kanagawa.nix;
+  theme = import ./vesper.nix;
 }
