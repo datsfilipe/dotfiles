@@ -15,3 +15,27 @@ slider {
   border-radius: 6px;
   min-height: 7px;
 }
+
+menu {
+  background: $bg;
+  padding: 4px 8px;
+  border-radius: 4px;
+
+  separator {
+    background: transparent;
+  }
+
+  menuitem {
+    padding: 4px 2px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    margin: 2px 0;
+    &:first-child { margin-top: 0; }
+    &:last-child { margin-bottom: 0; }
+
+    &:hover {
+      background: $altbg;
+      border: 1px solid $black;
+    }
+  }
+}
