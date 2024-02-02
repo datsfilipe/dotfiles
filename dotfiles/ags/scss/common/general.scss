@@ -4,15 +4,14 @@ label {
 
 progress, highlight {
   background: $primary;
-  min-height: 4px;
+  min-height: 7px;
   border-radius: 4px;
 }
 
 slider {
   box-shadow: none;
-  background-color: transparent;
-  border: 1px solid transparent;
-  border-radius: 1em;
-  min-height: 0.7em;
-  min-width: 0.7em;
+  background-color: $primary;
+  outline: 1px solid $altbg;
+  border-radius: 6px;
+  min-height: 7px;
 }

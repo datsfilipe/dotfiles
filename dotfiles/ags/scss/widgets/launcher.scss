@@ -19,7 +19,7 @@
   border: 1px solid $altbg;
 }
 
-.launcher .search-entry:not(:focused) {
+.launcher .search-entry:not(:focus) {
   border: 1px solid $altbg;
   background: transparent;
 }
