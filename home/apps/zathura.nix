@@ -13,6 +13,7 @@ in {
 
       set adjust-open width
       set recolor true
+      set recolor-keephue true
       map <C-Tab> toggle_statusbar
       set guioptions ""
 
