@@ -1,29 +1,35 @@
 .launcher {
   background-color: $bg;
-  border-radius: 0;
+  border-radius: 4px;
   padding: 1rem;
   margin: 2rem;
   min-width: 25rem;
   min-height: 45rem;
+  font-size: 12px;
 }
 
 .launcher .search-entry {
-  padding: 0.2rem 0.8rem;
-  margin-bottom: 12px;
-  border-radius: 0;
-  font-size: 1.1rem;
+  padding: 8px 12px;
+  margin-top: 8px;
+  margin-bottom: 15px;
+  border-radius: 6px;
+  font-size: 18px;
   font-family: "JetBrainsMono Nerd Font";
+  background: $altbg;
+  border: 1px solid $altbg;
 }
 
-.launcher scrollbar, .launcher scrollbar *, .launcher button {
-  all: unset;
+.launcher .search-entry:not(:focused) {
+  border: 1px solid $altbg;
+  background: transparent;
 }
 
 .launcher .app-button {
-  padding: 4px;
-  border-radius: 0;
+  padding: 4px 10px;
+  border-radius: 6px;
   margin-bottom: 10px;
   background-color: $bg;
+  border: 1px solid transparent;
 }
 
 .launcher .app-icon {
@@ -42,5 +48,5 @@
 
 .launcher .app-button.focused {
   background-color: $altbg;
-  border-left: 2px solid $black;
+  border: 1px solid $black;
 }

@@ -132,9 +132,10 @@ const Bar = ({ monitor } = {}) => Widget.Window({
   name: `bar-${monitor}`,
   className: 'bar',
   monitor,
-  anchor: ['bottom', 'left', 'right'],
+  anchor: ['top', 'left', 'right'],
   exclusivity: 'exclusive',
   child: Widget.CenterBox({
+    className: 'body',
     startWidget: Left(),
     centerWidget: Center(),
     endWidget: Right(),

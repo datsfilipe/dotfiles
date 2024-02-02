@@ -1,10 +1,16 @@
 .powermenu button {
   background: $bg;
-  border-radius: 0;
   border: 1px solid $altbg;
   margin: 0 8px;
   min-height: 40px;
   font-weight: bold;
+  padding: 0 8px;
+  border-radius: 6px;
+}
+
+.powermenu button:focused {
+  background: $altbg;
+  border: 1px solid $black;
 }
 
 .sleep {

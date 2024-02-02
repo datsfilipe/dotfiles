@@ -1,23 +1,31 @@
 .bar {
   color: $fg;
+  font-size: 12px;
+  background: transparent;
+}
+
+.body {
   background: $bg;
-  font-size: 10px;
+  padding: 6px 8px;
+  margin: 4px 4px 0 4px;
+  border-radius: 4px;
 }
 
 .tray {
-  margin: 0 6px;
+  margin-right: 12px;
 }
 
 .tray button {
   background: transparent;
   border: none;
+  margin-left: 12px;
 }
 
 .workspaces button {
   background: transparent;
-  margin: 2px;
-  border-radius: 0;
-  padding: 0 0.4rem;
+  margin: 0 4px;
+  border-radius: 6px;
+  padding: 4px 8px;
 }
 
 .workspaces button.focused {
@@ -35,15 +43,17 @@
 }
 
 .clock {
-  margin: 0 6px;
+  font-size: 10px;
 }
 
 .volume, .microphone {
-  min-width: 14em;
+  min-width: 90px;
+  margin-right: 12px;
 }
 
 .volume button, .microphone button {
   border: 1px solid transparent;
   outline: none;
   background: transparent;
+  margin-right: 12px;
 }

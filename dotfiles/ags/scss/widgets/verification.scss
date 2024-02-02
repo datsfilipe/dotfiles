@@ -11,5 +11,11 @@
   background: $bg;
   border: 1px solid $altbg;
   margin: 10px 8px;
-  border-radius: 0;
+  border-radius: 6px;
+  padding: 0 8px;
+}
+
+.verification .buttons button:focused {
+  background: $altbg;
+  border: 1px solid $black;
 }
