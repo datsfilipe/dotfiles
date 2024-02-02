@@ -5,4 +5,5 @@
   ./nvim.nix
   ./mpv.nix
   ./wezterm.nix
+  ./zathura.nix
 ]
