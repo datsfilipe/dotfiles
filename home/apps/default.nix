@@ -1,7 +1,7 @@
 [
   ./spicetify.nix
   ./ags.nix
-  ./firefox.nix
+  ./chromium.nix
   ./nvim.nix
   ./mpv.nix
   ./wezterm.nix
