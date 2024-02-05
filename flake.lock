@@ -21,10 +21,10 @@
     "datsnvim": {
       "flake": false,
       "locked": {
+        "dirtyRev": "7474efb4940585509dce2204aed6af11418b96c0-dirty",
+        "dirtyShortRev": "7474efb-dirty",
         "lastModified": 1706891409,
-        "narHash": "sha256-Y8blnvKW4iZ3QxQW63YeIhzcMPiuwDNSHWD6syVS03E=",
-        "ref": "refs/heads/main",
-        "rev": "7474efb4940585509dce2204aed6af11418b96c0",
+        "narHash": "sha256-/wfxh7jcuQspd52oCGn4kMCnNVDah+nWlykd04HrQBM=",
         "shallow": true,
         "type": "git",
         "url": "file:///home/dtsf/.dotfiles/dotfiles/nvim"
@@ -91,11 +91,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1705677747,
-        "narHash": "sha256-eyM3okYtMgYDgmYukoUzrmuoY4xl4FUujnsv/P6I/zI=",
+        "lastModified": 1706913249,
+        "narHash": "sha256-x3M7iV++CsvRXI1fpyFPduGELUckZEhSv0XWnUopAG8=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "bbe7d8f876fbbe7c959c90ba2ae2852220573261",
+        "rev": "e92b6015881907e698782c77641aa49298330223",
         "type": "github"
       },
       "original": {
