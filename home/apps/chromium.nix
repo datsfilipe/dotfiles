@@ -15,7 +15,7 @@
       { id = "cjpalhdlnbpafiamejdnhcphjbkeiagm"; } # ublock origin
      
       { id = "lbhnkgjaoonakhladmcjkemebepeohkn"; } # vim tips in new tab
-      { id = "cdfcbpndhmollmcmlehepbodcleebfen"; } # simple scroll with j/k
+      { id = "hfjbmagddngcpeloejdejnfgbamkjaeg"; } # vimium-C
     ];
   };
 }
