@@ -37,7 +37,6 @@ let
     bind=$mainMod,N,exec,$HOME/.local/bin/datsvault -n
     bind=$mainMod,K,exec,$HOME/.local/bin/switch-kb-variant
     bind=$mainMod,I,exec,$HOME/.local/bin/switch-kb-variant intl
-    bind=$mainMod,H,exec,$HOME/.local/bin/shimeji
 
     bind=$mainMod,h,movefocus,l
     bind=$mainMod,l,movefocus,r
