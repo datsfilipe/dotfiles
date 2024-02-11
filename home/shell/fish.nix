@@ -18,6 +18,11 @@ in {
         tmux new-session -d -s $argv[1]
         tmux switch-client -t $argv[1]
       '';
+      v = ''
+        cd ~/.config/datsvault
+        tmux new-session -d -s vault
+        tmux switch-client -t vault
+      '';
     };
 
     shellInit = ''
