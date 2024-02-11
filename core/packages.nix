@@ -26,6 +26,7 @@ in {
     discord
     bitwarden
     obs-studio
+    slack
     # zoom-us
 
     # utilities
