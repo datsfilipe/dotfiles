@@ -27,7 +27,7 @@ in {
     bitwarden
     obs-studio
     slack
-    # zoom-us
+    zoom-us
 
     # utilities
     git
