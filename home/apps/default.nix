@@ -4,6 +4,6 @@
   ./chromium.nix
   ./nvim.nix
   ./mpv.nix
-  ./wezterm.nix
+  ./alacritty.nix
   ./zathura.nix
 ]

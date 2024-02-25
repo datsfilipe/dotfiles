@@ -26,7 +26,7 @@ let
   hyprlandKeymaps = ''
     $mainMod=SUPER
 
-    bind=$mainMod,Return,exec,wezterm
+    bind=$mainMod,Return,exec,alacritty
     bind=$mainMod,A,exec,chromium
     bind=,print,exec,${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp)" - | ${pkgs.swappy}/bin/swappy -f - -o ~/media/photos/$(date +%Hh_%Mm_%Ss_%d_%B_%Y).png && notify-send "Saved to ~/media/photos/$(date +%Hh_%Mm_%Ss_%d_%B_%Y).png"
     bind=$mainMod,Q,killactive
