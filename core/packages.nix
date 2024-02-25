@@ -2,7 +2,9 @@
 
 let
   localPkgs = import ../pkgs { pkgs = pkgs; };
-  customPkgs = with localPkgs; [];
+  customPkgs = with localPkgs; [
+    devtunnel
+  ];
 in {
   services.openssh.enable = true;
   services.udisks2.enable = true;
