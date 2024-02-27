@@ -1,5 +1,5 @@
 { inputs, ... }:
 
 {
-  xdg.configFile."wallpaper.png".source = "${inputs.walls}/21.png";
+  xdg.configFile."wallpaper.png".source = "${inputs.walls}/12.png";
 }

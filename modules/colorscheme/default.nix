@@ -1,3 +1,3 @@
 {
-  theme = import ./vesper.nix;
+  theme = import ./solzarized.nix;
 }
