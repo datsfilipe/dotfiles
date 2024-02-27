@@ -63,6 +63,11 @@ in {
     ${lib.fileContents ../../dotfiles/fish/conf.d/done.fish}
   '';
 
+  # tmuxinator completions
+  xdg.configFile."fish/completions/tmuxinator.fish".text = ''
+    source ${pkgs.tmuxinator}/share/fish/vendor_completions.d/tmuxinator.fish
+  '';
+
   # colorscheme
   xdg.configFile."fish/conf.d/colorscheme.fish".text = ''
     set -g fish_color_normal "${theme.scheme.colors.blue}"

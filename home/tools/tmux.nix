@@ -26,5 +26,7 @@ in {
       set -g pane-border-style "fg=${theme.tmux-border-color}"
       set -g pane-active-border-style "fg=${theme.tmux-border-color}"
     '';
+
+    tmuxinator.enable = true;
   };
 }
