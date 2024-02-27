@@ -20,6 +20,7 @@
   "top"="btop -p 1";
   "topp"="btop";
   "sg"="ast-grep";
+  "dt"="devtunnel";
   # scripts
   "nsh"="nix-set-shell";
   "cr"="curl-request";
