@@ -30,6 +30,7 @@ in {
     obs-studio
     slack
     zoom-us
+    beekeeper-studio
 
     # utilities
     git
