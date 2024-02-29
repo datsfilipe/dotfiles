@@ -30,4 +30,12 @@
   "vd"="datsvault -d";
   "vs"="datsvault -s";
   "vu"="datsvault -u";
+  "dnames"="docker-helpers names";
+  "dips"="docker-helpers ips";
+  "dex"="docker-helpers ex";
+  "dlogs"="docker-helpers logs";
+  "dsrm"="docker-helpers srm";
+  "dsall"="docker-helpers sall";
+  "drall"="docker-helpers rall";
+  "driall"="docker-helpers riall";
 }
