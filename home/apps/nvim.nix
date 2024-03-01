@@ -8,6 +8,11 @@ in {
     recursive = true;
   };
 
+  programs.neovim = {
+    enable = true;
+    vimAlias = true;
+  };
+
   xdg.configFile."nvim/lua/utils/nix_colorscheme.lua".text = ''
     return "${theme.nvim-colorscheme}"
   '';
