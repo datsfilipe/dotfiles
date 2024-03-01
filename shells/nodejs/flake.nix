@@ -12,9 +12,9 @@
         pkgs = import nixpkgs { inherit system; };
 
         inputs = with pkgs; [
-          nodejs_21
-          nodejs_21.pkgs.pnpm
-          nodejs_21.pkgs.yarn
+          nodejs_latest
+          nodejs_latest.pkgs.pnpm
+          nodejs_latest.pkgs.yarn
         ];
       in with pkgs; {
         devShells.default = mkShell {
