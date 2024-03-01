@@ -4,15 +4,11 @@ let
   localPkgs = import ../pkgs { pkgs = pkgs; };
   customPkgs = with localPkgs; [
     devtunnel
+    fetch
   ];
 in {
   services.openssh.enable = true;
   services.udisks2.enable = true;
-
-  programs.neovim = {
-    enable = true;
-    vimAlias = true;
-  };
 
   programs.steam.enable = true;
 
