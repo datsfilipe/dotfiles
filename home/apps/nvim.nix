@@ -24,5 +24,6 @@ in {
   home.packages = with pkgs; [
     nodejs # copilot needs it
     ast-grep
+    silicon # for code screenshots
   ];
 }
