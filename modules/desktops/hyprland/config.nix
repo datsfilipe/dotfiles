@@ -2,6 +2,13 @@
 
 let
   theme = (import ../../colorscheme).theme;
+  shimejiScriptPath = ../../../dotfiles/hyprland/scripts/shimeji.sh;
+  installScript = scriptPath: ''
+    mkdir -p $out/bin
+    cp ${scriptPath} $out/bin/shimeji.sh
+    chmod +x $out/bin/shimeji.sh
+  '';
+  shimejiScript = pkgs.runCommand "install-shimeji-script" {} (installScript shimejiScriptPath);
 
   removeHash = str: builtins.replaceStrings ["#"] [""] str;
 
@@ -37,6 +44,7 @@ let
     bind=$mainMod,N,exec,$HOME/.local/bin/datsvault -n
     bind=$mainMod,K,exec,$HOME/.local/bin/switch-kb-variant
     bind=$mainMod,I,exec,$HOME/.local/bin/switch-kb-variant intl
+    bind=$mainMod,H,exec,${shimejiScript}/bin/shimeji.sh
 
     bind=$mainMod,h,movefocus,l
     bind=$mainMod,l,movefocus,r
@@ -59,7 +67,7 @@ let
     bind=$mainMod,9,workspace,9
     bind=$mainMod,0,workspace,10
 
-    # Move window, doesnt switch to the workspace
+    # Move window, doesn't switch to the workspace
     bind = $mainMod SHIFT, 1, movetoworkspacesilent, 1
     bind = $mainMod SHIFT, 2, movetoworkspacesilent, 2
     bind = $mainMod SHIFT, 3, movetoworkspacesilent, 3
@@ -91,7 +99,7 @@ let
   '';
 in {
   xdg.configFile."hypr/hyprland.conf".text = ''
-    ${lib.fileContents ../../../dotfiles/hyprland.conf}
+    ${lib.fileContents ../../../dotfiles/hyprland/hyprland.conf}
     ${hyprlandKeymaps}
     ${hyprlandAutostart}
     ${hyprlandThemeConfig}
