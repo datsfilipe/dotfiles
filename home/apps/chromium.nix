@@ -13,6 +13,7 @@
       { id = "fmkadmapgofadopljbjfkapdkoienihi"; } # react devtools
       { id = "aapbdbdomjkkjkaonfhkkikfgjllcleb"; } # google translate
       { id = "cjpalhdlnbpafiamejdnhcphjbkeiagm"; } # ublock origin
+      { id = "pobhoodpcipjmedfenaigbeloiidbflp"; } # twitter minimal
      
       { id = "lbhnkgjaoonakhladmcjkemebepeohkn"; } # vim tips in new tab
       { id = "hfjbmagddngcpeloejdejnfgbamkjaeg"; } # vimium-C
