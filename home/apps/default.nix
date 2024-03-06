@@ -6,4 +6,5 @@
   ./mpv.nix
   ./alacritty.nix
   ./zathura.nix
+  ./discord.nix
 ]

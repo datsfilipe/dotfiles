@@ -21,7 +21,6 @@ in {
 
     # apps
     qbittorrent
-    discord
     bitwarden
     obs-studio
     slack
