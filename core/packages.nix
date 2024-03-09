@@ -43,9 +43,6 @@ in {
     lsof
     killall
     efibootmgr
-    unzip
-    zip
-    unar
 
     # services
     udiskie

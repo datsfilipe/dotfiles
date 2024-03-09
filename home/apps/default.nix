@@ -7,4 +7,5 @@
   ./alacritty.nix
   ./zathura.nix
   ./discord.nix
+  ./lf.nix
 ]
