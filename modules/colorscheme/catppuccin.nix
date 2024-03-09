@@ -2,17 +2,17 @@
   scheme = {
     colors = {
       primary = "#ab9df2";
-      bg = "#070707";
-      altbg = "#181818";
-      fg = "#f8f8f2";
-      black = "#1e1e1e";
-      red = "#ff6188";
-      green = "#a9dc76";
-      yellow = "#ffd866";
-      blue = "#78dce8";
+      bg = "#111111";
+      altbg = "#303446";
+      fg = "#e6e9ef";
+      black = "#626880";
+      red = "#e78284";
+      green = "#a6d189";
+      yellow = "#e5c890";
+      blue = "#8caaee";
       magenta = "#ab9df2";
-      cyan = "#66cccc";
-      white = "#9e9e9e";
+      cyan = "#99d1db";
+      white = "#dce0e8";
     };
   };
 
