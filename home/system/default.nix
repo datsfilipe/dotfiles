@@ -1,1 +1,6 @@
-[ ./hyprland.nix ./gtk.nix ./xdg-home.nix ]
+[
+  ./hyprland.nix
+  ./gtk.nix
+  ./xdg-home.nix
+  ./mimeapps.nix
+]
