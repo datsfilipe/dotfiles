@@ -45,6 +45,7 @@ let
     bind=ALT,K,exec,$HOME/.local/bin/switch-kb-variant
     bind=ALT,I,exec,$HOME/.local/bin/switch-kb-variant intl
     bind=ALT,H,exec,${shimejiScript}/bin/shimeji.sh
+    bind=ALT,P,pin
 
     bind=$mainMod,h,movefocus,l
     bind=$mainMod,l,movefocus,r
