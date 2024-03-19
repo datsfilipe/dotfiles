@@ -33,3 +33,13 @@ $ nixos-install --flake .?submodules=1#<host>
 
 - Use `nixos-generate-config` to generate the `/etc/nixos/hardware-configuration.nix` for your machine, then replace the file `hosts/dtsf-machine/hardware-configuration.nix` inside the flake (the repository you just cloned).
 - The submodule url configured in this repository uses `ssh` schema, you can change it to use `https` schema, just update the links in `.gitmodules` inside the flake (the repository you just cloned).
+
+## Star History
+
+<a href="https://star-history.com/#datsfilipe/dotfiles&Date">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=datsfilipe/dotfiles&type=Date&theme=dark" />
+    <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=datsfilipe/dotfiles&type=Date" />
+    <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=datsfilipe/dotfiles&type=Date" />
+  </picture>
+</a>
