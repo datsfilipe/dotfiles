@@ -15,6 +15,7 @@
       { id = "cjpalhdlnbpafiamejdnhcphjbkeiagm"; } # ublock origin
       { id = "pobhoodpcipjmedfenaigbeloiidbflp"; } # twitter minimal
       { id = "liecbddmkiiihnedobmlmillhodjkdmb"; } # loom
+      { id = "dhdgffkkebhmkfjojejmpbldmpobfkfo"; } # tampermonkey
      
       { id = "lbhnkgjaoonakhladmcjkemebepeohkn"; } # vim tips in new tab
       { id = "hfjbmagddngcpeloejdejnfgbamkjaeg"; } # vimium-C
