@@ -3,6 +3,7 @@ import Bar from './js/bar/Bar.js'
 import PowerMenu from './js/powermenu/PowerMenu.js'
 import Verification from './js/powermenu/Verification.js'
 import AppLauncher from './js/applauncher/AppLauncher.js'
+import NotificationPopups from './js/notifications/Notification.js'
 import { Utils } from './js/imports.js'
 
 App.resetCss()
@@ -14,5 +15,5 @@ Utils.exec(`sassc ${scss} ${css}`)
 App.applyCss(css)
 
 App.config({
-  windows: [Bar(), PowerMenu(), Verification(), AppLauncher()],
+  windows: [Bar(), PowerMenu(), Verification(), AppLauncher(), NotificationPopups()],
 })
