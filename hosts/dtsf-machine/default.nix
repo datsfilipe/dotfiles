@@ -36,10 +36,6 @@
   networking = {
     hostName = "dtsf-machine";
     networkmanager.enable = true;
-    firewall = {
-      enable = true;
-      allowedTCPPortRanges = [ { from = 0; to = 65535; } ];
-    };
     extraHosts = ''
       127.0.0.1 host.docker.internal
     '';
