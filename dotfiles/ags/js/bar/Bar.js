@@ -89,7 +89,7 @@ const ClientTitle = () => Widget.Label({
 const Clock = () => Widget.Label({
   className: 'clock',
   connections: [
-    [1000, self => Utils.execAsync(['date', '+%b %e. - %H:%M:%S'])
+    [1000, self => Utils.execAsync(['date', '+%a. %b %e - %H:%M:%S'])
       .then(date => self.label = date).catch(console.error)],
   ],
 })
