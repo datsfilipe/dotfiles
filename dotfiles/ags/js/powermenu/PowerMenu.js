@@ -17,7 +17,6 @@ export default () => PopupWindow({
   content: Widget.Box({
     className: 'powermenu',
     vexpand: true,
-    valign: 'end',
     homogeneous: true,
     children: [
       SysButton('sleep', 'Sleep'),

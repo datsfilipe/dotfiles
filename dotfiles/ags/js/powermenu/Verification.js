@@ -16,7 +16,6 @@ export default () => PopupWindow({
       Widget.Box({
         className: 'buttons',
         vexpand: true,
-        valign: 'end',
         homogeneous: true,
         children: [
           Widget.Button({
