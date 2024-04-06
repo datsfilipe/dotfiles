@@ -6,7 +6,7 @@
     ++ (import ../../modules/desktops/virtualisation);
 
   boot = {
-    kernelPackages = pkgs.linuxPackages_6_6;
+    kernelPackages = pkgs.linuxPackages_latest;
 
     loader = {
       systemd-boot.enable = false;
@@ -23,8 +23,8 @@
     };
 
     # wifi adapter driver
-    initrd.kernelModules = [ "8821cu" ];
-    extraModulePackages = [ config.boot.kernelPackages.rtl8821cu ];
+    initrd.kernelModules = [ "8821ce" ];
+    extraModulePackages = [ config.boot.kernelPackages.rtl8821ce ];
   };
 
   hardware.opengl = {
