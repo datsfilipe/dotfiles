@@ -13,6 +13,6 @@ Utils.exec(`sassc ${scss} ${css}`)
 
 App.applyCss(css)
 
-export default {
+App.config({
   windows: [Bar(), PowerMenu(), Verification(), AppLauncher()],
-}
+})
