@@ -9,7 +9,7 @@ window.notification-popups box.notifications {
 }
 
 .icon image {
-  font-size: 45px;
+  font-size: 40px;
   margin: 5px;
   color: $fg;
 }
@@ -47,8 +47,12 @@ window.notification-popups box.notifications {
 }
 
 .actions .action-button {
-  margin: 0 .4em;
-  margin-top: .8em;
+  margin-right: .4em;
+  margin-left: .4em;
+  padding: 4px;
+  background-color: $altbg;
+  border-radius: 4px;
+  border: 1px solid $black;
 }
 
 .actions .action-button:first-child {

@@ -76,6 +76,9 @@ function Notification(n) {
       {
         className: `notification ${n.urgency}`,
         vertical: true,
+        vexpand: true,
+        homogeneous: false,
+        spacing: 8,
       },
       Widget.Box([
         icon,
