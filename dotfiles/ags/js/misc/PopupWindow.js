@@ -1,13 +1,5 @@
 import { App, Widget } from '../imports.js'
 
-const Padding = (windowName) =>
-  Widget.EventBox({
-    className: 'padding',
-    hexpand: true,
-    vexpand: true,
-    setup: () => App.toggleWindow(windowName),
-  })
-
 const PopupRevealer = (windowName, transition, child) =>
   Widget.Box({
     css: 'padding: 1px;',
@@ -21,7 +13,7 @@ const PopupRevealer = (windowName, transition, child) =>
       }),
     })
   })
-// "min-width: 5000px; min-height: 3000px; background-color: black;"
+
 const layouts = {
   center: (_, child, expand) =>
     Widget.CenterBox({
@@ -39,20 +31,6 @@ const layouts = {
           PopupRevealer(windowName, 'slide_down', child),
         ],
       }),
-    }),
-  'top right': (windowName, child) =>
-    Widget.Box({
-      children: [
-        Padding(windowName),
-        Widget.Box({
-          hexpand: false,
-          vertical: true,
-          children: [
-            PopupRevealer(windowName, 'slide_down', child),
-            Padding(windowName),
-          ],
-        }),
-      ],
     }),
 }
 
