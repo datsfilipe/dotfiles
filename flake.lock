@@ -188,11 +188,11 @@
     "walls": {
       "flake": false,
       "locked": {
-        "lastModified": 1713763940,
-        "narHash": "sha256-OwGi6d/leDuwgEQJLdH8G47o7hg5smL1TyroYnbsQ7g=",
+        "lastModified": 1715388221,
+        "narHash": "sha256-PQ5+0cdoDn5enEROWrlYZ7yCYxd5+mz1gUemIXAuPCo=",
         "ref": "refs/heads/main",
-        "rev": "18fb8d77392b8840d9bfb2d8640c76b53a423eef",
-        "revCount": 18,
+        "rev": "0d07b0a7bd575c07e8c7b162d2885194212f544b",
+        "revCount": 21,
         "shallow": true,
         "type": "git",
         "url": "file:///home/dtsf/.dotfiles/modules/walls"
