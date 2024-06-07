@@ -23,7 +23,6 @@
   tool = nvimdiff
 [difftool "nvimdiff"]
   cmd = nvim -d \"$LOCAL\" \"$REMOTE\"
-  path = 
 [merge]
   tool = nvimdiff
 [mergetool "nvimdiff"]
@@ -31,7 +30,7 @@
   trustExitCode = true
 [ghq]
   root = ~/www/s
-[ghq "work-repos-link"]
+[ghq "ssh://git@github.com/d3-inc"]
   root = ~/www/w
 [alias]
   d = diff
