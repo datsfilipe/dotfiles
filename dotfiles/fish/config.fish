@@ -11,3 +11,6 @@ set fish_cursor_visual block blink
 # vi mode
 function fish_mode_prompt; end
 set -x fish_key_bindings fish_vi_key_bindings
+
+# hydro prompt symbol
+set -g hydro_symbol_prompt "💀"
