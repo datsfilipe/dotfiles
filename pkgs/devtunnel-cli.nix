@@ -11,11 +11,11 @@
 
 stdenv.mkDerivation {
   pname = "devtunnel";
-  version = "0.1.0";
+  version = "0.2.0";
 
   src = fetchurl {
     url = "https://aka.ms/TunnelsCliDownload/linux-x64";
-    sha256 = "sha256-3DlTvpwv+pxKYhs/+bNzwws4TjY5W/iMn4J65uLPvFY=";
+    sha256 = "sha256-R89C2vdrgEWhAGQiiCew4cpn5w85QcH6LkyVfHHA/P0=";
   };
 
   meta = with lib; {

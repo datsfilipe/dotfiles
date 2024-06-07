@@ -2,8 +2,8 @@
   ./spicetify.nix
   ./ags.nix
   ./chromium.nix
-  ./nvim.nix
   ./mpv.nix
+  ./nvim.nix
   ./alacritty.nix
   ./zathura.nix
   ./discord.nix
