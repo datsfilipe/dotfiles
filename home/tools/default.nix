@@ -5,4 +5,5 @@
   ./git.nix
   ./bat.nix
   ./cli-tools.nix
+  ./file-operation-tools.nix
 ]
