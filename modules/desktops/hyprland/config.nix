@@ -2,7 +2,7 @@
 
 let
   theme = (import ../../colorscheme).theme;
-  shimejiScriptPath = ../../../dotfiles/hyprland/scripts/shimeji.sh;
+  shimejiScriptPath = ../../../dotfiles/scripts/shimeji.sh;
   installScript = scriptPath: ''
     mkdir -p $out/bin
     cp ${scriptPath} $out/bin/shimeji.sh

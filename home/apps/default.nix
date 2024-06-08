@@ -1,11 +1,10 @@
 [
+  ./rofi.nix
   ./spicetify.nix
-  ./ags.nix
   ./chromium.nix
   ./mpv.nix
   ./nvim.nix
   ./alacritty.nix
   ./zathura.nix
   ./discord.nix
-  ./lf.nix
 ]

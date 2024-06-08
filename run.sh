@@ -15,13 +15,13 @@ nix flake update walls
 sudo nixos-rebuild switch --impure --flake .#dtsf-machine
 
 # update ags dependencies
-ags_root="$HOME/.config/ags"
-pushd $ags_root || exit 1
+# ags_root="$HOME/.config/ags"
+# pushd $ags_root || exit 1
 
-if [ ! -d "$ags_root/node_modules" ]; then
-  direnv exec "$HOME/.config/ags" pnpm i
-fi
+# if [ ! -d "$ags_root/node_modules" ]; then
+#   direnv exec "$HOME/.config/ags" pnpm i
+# fi
 
 bat cache --build
 
-popd || exit 1
+# popd || exit 1

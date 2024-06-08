@@ -23,7 +23,6 @@
       "locked": {
         "lastModified": 1717849389,
         "narHash": "sha256-nq6TO2mch7tkmS0h+/xOHjvzzsREuTf8klb0FAWVmv4=",
-        "ref": "refs/heads/main",
         "rev": "e909d72d51eea4998a91e62e77fb9ce963988630",
         "revCount": 515,
         "shallow": true,
@@ -390,7 +389,6 @@
       "locked": {
         "lastModified": 1717826939,
         "narHash": "sha256-t/mqF7ArZ6aV63pczgegK2lOwZXht3HQa3YrRkEORlg=",
-        "ref": "refs/heads/main",
         "rev": "bbc2bb0f06da2007b6a091aa49fd32f3b8b70a1f",
         "revCount": 22,
         "shallow": true,

@@ -1,0 +1,26 @@
+general {
+  colors = true
+  interval = 5
+}
+
+order += "disk /"
+order += "wireless _first_"
+order += "load"
+order += "tztime local"
+
+wireless _first_ {
+  format_up = "W: (%quality at %essid) %ip"
+  format_down = "W: down"
+}
+
+tztime local {
+  format = "%Y-%m-%d %H:%M:%S"
+}
+
+load {
+  format = "%1min"
+}
+
+disk "/" {
+  format = "%avail"
+}
