@@ -21,10 +21,11 @@
     "datsnvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1717849389,
-        "narHash": "sha256-nq6TO2mch7tkmS0h+/xOHjvzzsREuTf8klb0FAWVmv4=",
-        "rev": "e909d72d51eea4998a91e62e77fb9ce963988630",
-        "revCount": 515,
+        "lastModified": 1717884510,
+        "narHash": "sha256-GZWJu0B6nAm/d5S6TdoS15LS8kFoxqopYGeP/pTgUZs=",
+        "ref": "refs/heads/main",
+        "rev": "247f0f3317c2cefd00c237c0ded4056d562cc08c",
+        "revCount": 516,
         "shallow": true,
         "type": "git",
         "url": "file:///home/dtsf/.dotfiles/dotfiles/nvim"
@@ -370,10 +371,11 @@
     "unix-scripts": {
       "flake": false,
       "locked": {
-        "lastModified": 1709218927,
-        "narHash": "sha256-Rkkf+wXnE3Ex3qYg8so1Z5kXbFTdcMDQyPegEy8gHiQ=",
-        "rev": "01fda7a09b725924741c00363d1bff4a5c9b7e28",
-        "revCount": 25,
+        "lastModified": 1717884277,
+        "narHash": "sha256-AsF6uo/n79cn0kt/f7H60mz0+6BoStgQ3eDin1Xu2ng=",
+        "ref": "refs/heads/main",
+        "rev": "9b4b985f8cd9cd8914f349ab91d9ef7429d60aec",
+        "revCount": 28,
         "shallow": true,
         "type": "git",
         "url": "file:///home/dtsf/.dotfiles/dotfiles/bin"
