@@ -103,8 +103,8 @@ let
     bindsym $mod+Shift+9 move container to workspace 9
     bindsym $mod+Shift+0 move container to workspace 10
 
-    bindsym Shift+comma focus parent
-    bindsym Shift+period focus child
+    bindsym $mod+comma focus parent
+    bindsym $mod+period focus child
 
     bindsym $mod+p exec rofi -show
     bindsym $mod+o exec powermenu
