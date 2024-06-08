@@ -1,4 +1,4 @@
-@import "~/.config/rofi/powermenu.rasi"
+@import "~/.config/rofi/colors.rasi"
 
 configuration {
   modi: "drun";

@@ -10,7 +10,7 @@ in {
     recursive = true;
   };
 
-  xdg.configFile."rofi/colros.rasi".text = ''
+  xdg.configFile."rofi/colors.rasi".text = ''
     @theme "/dev/null"
 
     * {
