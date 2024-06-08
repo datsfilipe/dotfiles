@@ -44,12 +44,12 @@ let
     set $color6         ${theme.scheme.colors.green}
     set $color14        ${theme.scheme.colors.green}
 
-    set $color7         ${theme.scheme.colors.black}
+    set $color7         ${theme.scheme.colors.fg}
     set $color15        ${theme.scheme.colors.fg}
 
-    set $color16        ${theme.scheme.colors.black}
-    set $borderInactive ${theme.scheme.colors.altbg}
-    set $borderActive   ${theme.scheme.colors.black}
+    set $color16        ${theme.scheme.colors.bg}
+    set $borderInactive ${theme.scheme.colors.bg}
+    set $borderActive   ${theme.scheme.colors.altbg}
 
     client.focused $borderActive $borderActive $color7 $borderActive
     client.focused_inactive $borderInactive $borderInactive $color7	$borderInactive
