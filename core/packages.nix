@@ -10,8 +10,6 @@ in {
   services.openssh.enable = true;
   services.udisks2.enable = true;
 
-  programs.steam.enable = true;
-
   environment.systemPackages = with pkgs; [
     # system
     xdg-utils
@@ -42,7 +40,6 @@ in {
     libtool
     lsof
     killall
-    efibootmgr
 
     # services
     udiskie

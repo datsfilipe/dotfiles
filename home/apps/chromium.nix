@@ -16,6 +16,7 @@
       { id = "pobhoodpcipjmedfenaigbeloiidbflp"; } # twitter minimal
       { id = "liecbddmkiiihnedobmlmillhodjkdmb"; } # loom
       { id = "dhdgffkkebhmkfjojejmpbldmpobfkfo"; } # tampermonkey
+      { id = "edacconmaakjimmfgnblocblbcdcpbko"; } # session buddy
      
       { id = "lbhnkgjaoonakhladmcjkemebepeohkn"; } # vim tips in new tab
       { id = "hfjbmagddngcpeloejdejnfgbamkjaeg"; } # vimium-C

@@ -1,1 +1,1 @@
-[ ./docker.nix ./virtualbox.nix ]
+[ ./docker.nix ]

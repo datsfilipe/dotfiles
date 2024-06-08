@@ -1,4 +1,4 @@
-{ inputs, pkgs, ... }:
+{ inputs, pkgs, lib, ... }:
 
 let
   theme = (import ../../modules/colorscheme).theme;
@@ -11,6 +11,17 @@ in {
   programs.neovim = {
     enable = true;
     vimAlias = true;
+    package = inputs.neovim-nightly-overlay.packages.${pkgs.system}.default;
+    extraWrapperArgs = [
+      "--suffix"
+      "LIBRARY_PATH"
+      ":"
+      "${lib.makeLibraryPath [ pkgs.stdenv.cc.cc pkgs.zlib ]}"
+      "--suffix"
+      "PKG_CONFIG_PATH"
+      ":"
+      "${lib.makeSearchPathOutput "dev" "lib/pkgconfig" [ pkgs.stdenv.cc.cc pkgs.zlib ]}"
+    ];
   };
 
   xdg.configFile."nvim/lua/utils/nix_colorscheme.lua".text = ''
@@ -22,7 +33,6 @@ in {
   '';
 
   home.packages = with pkgs; [
-    nodejs # copilot needs it
     ast-grep
     silicon # for code screenshots
   ];
