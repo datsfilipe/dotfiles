@@ -1,3 +1,3 @@
 {
-  theme = import ./catppuccin.nix;
+  theme = import ./vesper.nix;
 }
