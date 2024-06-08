@@ -155,4 +155,8 @@ in {
   xdg.configFile."i3status/config".text = ''
     ${lib.fileContents ../../../dotfiles/i3/i3status/config}
   '';
+
+  home.file.".xinitrc".text = ''
+    ${lib.fileContents ../../../dotfiles/.xinitrc}
+  '';
 }
