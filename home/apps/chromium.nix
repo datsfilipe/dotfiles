@@ -20,6 +20,8 @@
      
       { id = "lbhnkgjaoonakhladmcjkemebepeohkn"; } # vim tips in new tab
       { id = "hfjbmagddngcpeloejdejnfgbamkjaeg"; } # vimium-C
+
+      { id = "nkbihfbeogaeaoehlefnkodbefgpgknn"; } # metamask
     ];
   };
 }
