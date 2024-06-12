@@ -29,7 +29,7 @@ bindings = [
 ]
 
 [shell]
-args = ["-l", "-c", "tmux attach || tmux new-session -s dtsf"]
+args = ["-l", "-c", "zellij attach --create dtsf"]
 program = "fish"
 
 [window]

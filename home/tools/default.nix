@@ -1,6 +1,6 @@
 [
   ./direnv.nix
-  ./tmux.nix
+  ./zellij.nix
   ./btop.nix
   ./git.nix
   ./bat.nix
