@@ -12,11 +12,11 @@ function ts() {
   tmux new-session -d -s $1
   tmux switch-client -t $1
 }
-function tmux-sessionizer() {
-  bash -c "~/.local/bin/tmux-sessionizer"
+function zellij-sessionizer() {
+  bash -c "~/.local/bin/zellij-sessionizer"
 }
-zle -N tmux-sessionizer
-bindkey -M viins '^F' tmux-sessionizer
+zle -N zellij-sessionizer
+bindkey -M viins '^F' zellij-sessionizer
 
 function dir() {
   mkdir $1 && cd $1

@@ -11,7 +11,7 @@ in {
     functions = {
       fish_user_key_bindings = ''
         bind --preset -M insert \cl 'clear; commandline -f repaint'
-        bind --preset -M insert \cf tmux-sessionizer
+        bind --preset -M insert \cf zellij-sessionizer
         bind --preset -M insert -k nul accept-autosuggestion
       '';
       ts = ''
