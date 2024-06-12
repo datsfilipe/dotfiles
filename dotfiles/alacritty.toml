@@ -29,7 +29,7 @@ bindings = [
 ]
 
 [shell]
-args = ["-l", "-c", "zellij attach --create dtsf"]
+args = ["-l", "-c", "zellij attach dtsf -c"]
 program = "fish"
 
 [window]

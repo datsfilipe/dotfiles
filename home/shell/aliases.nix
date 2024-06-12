@@ -38,4 +38,5 @@
   "dsall"="docker-helpers sall";
   "drall"="docker-helpers rall";
   "driall"="docker-helpers riall";
+  "zj"="zellij";
 }
