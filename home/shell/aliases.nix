@@ -24,6 +24,8 @@
   # scripts
   "nsh"="nix-set-shell";
   "cr"="curl-request";
+  "ext"="extract";
+  "zp"="zip";
   "wconn"="nmcli-wifi-connect";
   "vl"="datsvault -l";
   "vn"="datsvault -n";
