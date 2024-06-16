@@ -39,4 +39,5 @@
   "drall"="docker-helpers rall";
   "driall"="docker-helpers riall";
   "zj"="zellij";
+  "ssha"="eval $(ssh-agent -c) && ssh-add";
 }
