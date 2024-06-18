@@ -12,6 +12,7 @@ in {
 
   environment.systemPackages = with pkgs; [
     # system
+    util-linux
     xdg-utils
     xdg-user-dirs
     gtk-layer-shell
@@ -19,8 +20,6 @@ in {
 
     # apps
     qbittorrent
-    bitwarden
-    obs-studio
     slack
     zoom-us
     beekeeper-studio
