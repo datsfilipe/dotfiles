@@ -23,6 +23,7 @@ in {
     slack
     zoom-us
     beekeeper-studio
+    steam
 
     # utilities
     git
