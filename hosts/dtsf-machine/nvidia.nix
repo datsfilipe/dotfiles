@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 {
-  boot.extraModProbConfig = "options nvidia-drm modeset=1";
+  boot.extraModprobeConfig = "options nvidia-drm modeset=1";
   boot.initrd.kernelModules = config.boot.kernelModules ++ [
     "nvidia"
     "nvidia_modeset"
@@ -13,6 +13,7 @@
     package = config.boot.kernelPackages.nvidiaPackages.production;
     modesetting.enable = true;
     powerManagement.enable = true;
+    forceFullCompositionPipeline = true;
     nvidiaSettings = true;
     open = false;
   };
