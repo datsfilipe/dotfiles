@@ -7,6 +7,14 @@ in {
       defaultSession = "none+i3";
     };
 
+    libinput = {
+      enable = true;
+      mouse = {
+        accelProfile = "flat";
+        accelSpeed = "0";
+      };
+    };
+
     xserver = {
       enable = true;
 

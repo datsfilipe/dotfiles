@@ -14,7 +14,7 @@ let
     exec --no-startup-id feh --bg-fill $HOME/.config/wallpaper.png
     exec --no-startup-id dex --autostart --environment i3
     exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
-    exec --autostart udiskie --tray --notify
+    exec --no-startup-id udiskie --tray --notify
   '';
 
   i3ThemeConfig = ''
