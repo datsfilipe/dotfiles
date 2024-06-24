@@ -1,0 +1,3 @@
+{
+  programs.autorandr.enable = true;
+}

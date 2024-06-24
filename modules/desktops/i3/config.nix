@@ -15,6 +15,7 @@ let
     exec --no-startup-id dex --autostart --environment i3
     exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
     exec --no-startup-id udiskie --tray --notify
+    exec --no-startup-id autorandr --load desktop
   '';
 
   i3ThemeConfig = ''
