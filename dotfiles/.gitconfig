@@ -62,3 +62,4 @@
   undo = checkout --
   rollback = reset --soft HEAD~1
   whoami = config user.name
+  cbase = "!f() { git rebase --onto=$1 $2 $(git symbolic-ref --short HEAD); }; f"
