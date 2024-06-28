@@ -110,7 +110,7 @@ let
     bindsym $mod+p exec rofi -show
     bindsym $mod+o exec powermenu
     bindsym $mod+n exec $HOME/.local/bin/datsvault -n
-    bindsym $alt+s exec ${shimejiScript}/.local/bin/shimeji.sh
+    bindsym $alt+s exec ${shimejiScript}/bin/shimeji.sh
 
     bindsym $alt+h split h
     bindsym $alt+l split v
