@@ -33,7 +33,7 @@ args = ["-l", "-c", "zellij attach dtsf -c"]
 program = "fish"
 
 [window]
-opacity = 0.6
+opacity = 0.8
 
 [window.padding]
 x = 25
