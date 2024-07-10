@@ -1,3 +1,3 @@
 {
-  theme = import ./solzarized.nix;
+  theme = import ./gruvbox.nix;
 }
