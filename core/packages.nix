@@ -24,6 +24,7 @@ in {
     zoom-us
     beekeeper-studio
     steam
+    prismlauncher
 
     # utilities
     git
