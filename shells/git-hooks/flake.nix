@@ -30,23 +30,42 @@
             name = hook.name;
             runOn = hook.run-on;
             command = hook.command;
-          in ''
+          in if hook == {} then "" else ''
             ${runOn}:
               commands:
                 ${name}:
                   run: ${command}
           '';
+        getHook = name:
+          let
+            filteredHooks = builtins.filter (hook: hook.name == name) hooks;
+          in if builtins.length filteredHooks > 0
+            then builtins.elemAt filteredHooks 0
+          else {};
         installHook = pkgs.writeShellScriptBin "install-hook" ''
-          hookName=$1
-          gitRoot=$(git rev-parse --show-toplevel)
-
-          if [ -z "$hookName" ]; then
-            echo "Please provide a hook name"
+          if [ "$#" -lt 1 ]; then
+            echo "Please provide at least one hook name"
             exit 1
           fi
 
+          gitRoot=$(git rev-parse --show-toplevel)
           hookFile=$(mktemp)
-          echo "${transformHookToYaml { name = "$hookName"; run-on = "pre-commit"; command = "npm run lint"; }}" > $hookFile
+
+          for hookName in "$@"; do
+            case "$hookName" in
+              "lint")
+                echo "${transformHookToYaml (getHook "lint")}"
+                ;;
+              "build")
+                echo "${transformHookToYaml (getHook "build")}"
+                ;;
+              *)
+                echo "Hook $hookName not found"
+                exit 1
+                ;;
+            esac
+          done > $hookFile
+
           cp $hookFile $gitRoot/lefthook.yml
           lefthook install
         '';
