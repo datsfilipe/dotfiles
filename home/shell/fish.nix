@@ -13,6 +13,19 @@ in {
         bind --preset -M insert \cl 'clear; commandline -f repaint'
         bind --preset -M insert \cf zellij-sessionizer
         bind --preset -M insert -k nul accept-autosuggestion
+
+        # binds for zellij-session-nav custom script
+        bind --preset -M insert \ef zellij-session-nav
+        bind --preset -M insert \e0 'zellij-session-nav --headless 0'
+        bind --preset -M insert \e1 'zellij-session-nav --headless 1'
+        bind --preset -M insert \e2 'zellij-session-nav --headless 2'
+        bind --preset -M insert \e3 'zellij-session-nav --headless 3'
+        bind --preset -M insert \e4 'zellij-session-nav --headless 4'
+        bind --preset -M insert \e5 'zellij-session-nav --headless 5'
+        bind --preset -M insert \e6 'zellij-session-nav --headless 6'
+        bind --preset -M insert \e7 'zellij-session-nav --headless 7'
+        bind --preset -M insert \e8 'zellij-session-nav --headless 8'
+        bind --preset -M insert \e9 'zellij-session-nav --headless 9'
       '';
       ts = ''
         tmux new-session -d -s $argv[1]
