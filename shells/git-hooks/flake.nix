@@ -43,6 +43,9 @@
 
           for hookName in "$@"; do
             case "$hookName" in
+              "eslint")
+                echo "${transformHookToYaml (getHook "eslint")}"
+                ;;
               "lint")
                 echo "${transformHookToYaml (getHook "lint")}"
                 ;;
