@@ -13,18 +13,8 @@
         inputs = with pkgs; [
           lefthook
         ];
-        hooks = [
-          {
-            name = "lint";
-            run-on = "pre-commit";
-            command = "npm run lint {staged_files}";
-          }
-          {
-            name = "build";
-            run-on = "pre-push";
-            command = "npm run build";
-          }
-        ];
+        hooksModule = import ./hooks.nix;
+        hooks = hooksModule.hooks;
         transformHookToYaml = hook:
           let
             name = hook.name;
