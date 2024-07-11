@@ -371,11 +371,11 @@
     "unix-scripts": {
       "flake": false,
       "locked": {
-        "lastModified": 1720671117,
-        "narHash": "sha256-YJ6rI08LI3qDyZ10WK7qXGm2RTBxqspVeqC7+6VGK0Q=",
+        "lastModified": 1720679090,
+        "narHash": "sha256-s9iruFJlAQ30M+EZAmO1ifhrakxDasCwzIOSS2EThlQ=",
         "ref": "refs/heads/main",
-        "rev": "465c862faad2876fb4f1ba6596d7513c75a258b0",
-        "revCount": 33,
+        "rev": "24e46f13470320277b6b8eafefecf9892483553c",
+        "revCount": 34,
         "shallow": true,
         "type": "git",
         "url": "file:///home/dtsf/.dotfiles/dotfiles/bin"
