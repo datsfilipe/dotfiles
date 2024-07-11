@@ -2,23 +2,28 @@
   description = "dats rust shell";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    flake-utils.url = "github:numtide/flake-utils";
+    nixpkgs.url      = "github:NixOS/nixpkgs/nixos-unstable";
+    rust-overlay.url = "github:oxalica/rust-overlay";
+    flake-utils.url  = "github:numtide/flake-utils";
   };
 
-  outputs = { self, nixpkgs, flake-utils }:
+  outputs = { self, nixpkgs, rust-overlay, flake-utils, ... }:
     flake-utils.lib.eachDefaultSystem (system:
       let
-        pkgs = import nixpkgs { inherit system; };
-
-        inputs = with pkgs; [
-          rustc
-          cargo
-        ];
-      in with pkgs; {
-        devShells.default = mkShell {
-          name = "rust";
-          packages = inputs;
+        overlays = [ (import rust-overlay) ];
+        pkgs = import nixpkgs {
+          inherit system overlays;
         };
-      });
+      in
+      {
+        devShells.default = with pkgs; mkShell {
+          buildInputs = [
+            (rust-bin.beta.latest.default.override {
+              extensions = [ "rust-src" ];
+              targets = [ "wasm32-wasi" ];
+            })
+          ];
+        };
+      }
+    );
 }
