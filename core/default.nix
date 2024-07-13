@@ -22,7 +22,7 @@ in {
       ./packages.nix
       home-manager.nixosModules.home-manager {
         home-manager = {
-          extraSpecialArgs = { inherit inputs; };
+          extraSpecialArgs = { inherit inputs vars; };
           useGlobalPkgs = true;
           useUserPackages = true;
           users.${vars.user} = {

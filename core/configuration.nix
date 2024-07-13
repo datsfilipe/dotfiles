@@ -2,7 +2,7 @@
 
 {
   imports =
-    [ ./packages.nix ]
+    [ ./packages.nix ../home/services/cron.nix ]
     ++ (import ../modules/desktops)
     ++ (import ../hosts);
 
