@@ -4,7 +4,6 @@ let
   localPkgs = import ../../pkgs { pkgs = pkgs; };
   customPkgs = with localPkgs; [
     devtunnel
-    fetch
   ];
 in
 {
