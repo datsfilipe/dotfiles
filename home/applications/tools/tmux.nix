@@ -1,17 +1,17 @@
-{ pkgs, lib, theme, ... }:
+{ pkgs, lib, theme, vars, ... }:
 
 with lib; let
   statusLeft = "#[fg=${theme.scheme.colors.fg},bg=${theme.scheme.colors.bg}] #S ";
   statusRight = "#[fg=${theme.scheme.colors.primary},bg=${theme.scheme.colors.bg}] @#(whoami) ";
 in
-{
+mkIf (vars.environment.multiplexer == "tmux") {
   programs.tmux = {
     enable = true;
     prefix = "C-a";
     escapeTime = 10;
     keyMode = "vi";
     mouse = false;
-    shell = "${pkgs.fish}/bin/fish";
+    shell = "${vars.environment.shell}";
     historyLimit = 64096;
     extraConfig = ''
       ${fileContents ../../../dotfiles/tmux.conf}

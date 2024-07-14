@@ -1,6 +1,6 @@
 { lib, theme, vars, ... }:
 
-with lib; {
+with lib; mkIf (vars.environment.multiplexer == "zellij") {
   programs.zellij = {
     enable = true;
     enableFishIntegration = true;

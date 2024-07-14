@@ -4,6 +4,7 @@
   environment = {
     term = "wezterm";
     shell = "fish";
+    multiplexer = "zellij";
     wm = "i3";
   };
   appearance = {
