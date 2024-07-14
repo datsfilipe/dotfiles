@@ -65,8 +65,8 @@ with lib; let
     floating_modifier $mod
 
     bindsym $mod+q kill
-    bindsym $mod+Return exec alacritty
-    bindsym $mod+a exec chromium
+    bindsym $mod+Return exec ${vars.environment.term}
+    bindsym $mod+a exec ${vars.applications.browser}
     bindsym Print exec exec flameshot gui
     bindsym $alt+k exec $HOME/.local/bin/switch-kb-variant
     bindsym $alt+i exec $HOME/.local/bin/switch-kb-variant intl
