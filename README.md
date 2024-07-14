@@ -14,11 +14,15 @@
 
 ## Description
 
+> Note: The wallpapers I use are here: [https://drive.google.com/drive/folders/walls](https://drive.google.com/drive/folders/1WnRYODfInBXOFI8MJjBgD2rFTosjzVRh?usp=sharing).
+
 This repository contains personal configuration files for Linux-based systems, specifically tailored for NixOS. This is where I do my rices =D
 
 If you wanna see my past rices, take a look [here](https://myrices.datsfilipe.dev) (this website is awful, I know. I'll improve it soon).
 
 ## Installation
+
+> An observation: There's probably a better and easier way to do this installation, so if you know a better way, please let me know, I'm not an expert in NixOS.
 
 Some notes before we start:
 
