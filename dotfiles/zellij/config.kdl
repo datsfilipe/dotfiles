@@ -1,0 +1,48 @@
+copy_on_select false
+default_layout "compact"
+pane_frames false
+session_serialization false
+simplified_ui true
+keybinds {
+  unbind "Ctrl g" "Ctrl o" "Ctrl p" "Ctrl t" "Ctrl s" "Ctrl n" "Backspace"
+  shared_except "session" {
+    bind "Alt o" { SwitchToMode "Session"; }
+  }
+  shared_except "scroll" {
+    bind "Alt [" { SwitchToMode "Scroll"; }
+  }
+  shared_except "locked" {
+    bind "Alt l" { SwitchToMode "Locked"; }
+  }
+  shared_except "tab" {
+    bind "Alt t" { SwitchToMode "Tab"; }
+  }
+  shared_except "pane" {
+    bind "Alt p" { SwitchToMode "Pane"; }
+  }
+  shared_except "resize" {
+    bind "Alt r" { SwitchToMode "Resize"; }
+  }
+  tab {
+    bind "Alt t" { SwitchToMode "Normal"; }
+    bind ">" { GoToNextTab; }
+    bind "<" { GoToPreviousTab; }
+  }
+  pane {
+    bind "Alt p" { SwitchToMode "Normal"; }
+    bind "Space [" { NewPane "Right"; }
+    bind "Space ]" { NewPane "Left"; }
+  }
+  session {
+    bind "Alt o" { SwitchToMode "Normal"; }
+  }
+  locked {
+    bind "Alt l" { SwitchToMode "Normal"; }
+  }
+  scroll {
+    bind "Alt [" { SwitchToMode "Normal"; }
+  }
+  resize {
+    bind "Alt r" { SwitchToMode "Normal"; }
+  }
+}
