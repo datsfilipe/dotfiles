@@ -1,6 +1,3 @@
-[submodule "modules/walls"]
-	path = modules/walls
-	url = git@github.com:datsfilipe/walls
 [submodule "dotfiles/bin"]
 	path = dotfiles/bin
 	url = git@github.com:datsfilipe/unix-scripts
