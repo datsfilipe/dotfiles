@@ -25,6 +25,7 @@ in
     beekeeper-studio
     steam
     prismlauncher
+    fastfetch
 
     # utilities
     git
