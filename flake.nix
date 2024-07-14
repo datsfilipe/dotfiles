@@ -13,10 +13,6 @@
       url = "git+file:///home/dtsf/.dotfiles/dotfiles/nvim?shallow=1";
       flake = false;
     };
-    walls = {
-      url = "git+file:///home/dtsf/.dotfiles/modules/walls?shallow=1";
-      flake = false;
-    };
     unix-scripts = {
       url = "git+file:///home/dtsf/.dotfiles/dotfiles/bin?shallow=1";
       flake = false;
@@ -40,7 +36,10 @@
           wm = "i3";
         };
         appearance = {
-          wall = "19.png";
+          bg = {
+            wall = "19.png";
+            folder = "/run/media/dtsf/DATSFILES/wallpapers";
+          };
           colorscheme = "gruvbox";
         };
         applications = {

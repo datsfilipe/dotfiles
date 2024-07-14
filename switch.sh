@@ -9,7 +9,6 @@ fi
 
 nix flake update datsnvim
 nix flake update unix-scripts
-nix flake update walls
 
 case "$1" in
   '--debug')

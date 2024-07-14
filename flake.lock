@@ -23,7 +23,6 @@
       "locked": {
         "lastModified": 1720907184,
         "narHash": "sha256-+soZEzpT674LN9mMTw+moWN+LmZGDmU0P66+OBPF6Fk=",
-        "ref": "refs/heads/main",
         "rev": "3db6de7ece406c4370ce94ae81471dcf86c76c81",
         "revCount": 535,
         "shallow": true,
@@ -366,8 +365,7 @@
         "neovim-nightly-overlay": "neovim-nightly-overlay",
         "nixpkgs": "nixpkgs_4",
         "spicetify-nix": "spicetify-nix",
-        "unix-scripts": "unix-scripts",
-        "walls": "walls"
+        "unix-scripts": "unix-scripts"
       }
     },
     "spicetify-nix": {
@@ -409,7 +407,6 @@
       "locked": {
         "lastModified": 1720843349,
         "narHash": "sha256-lF/w30qFVmQ1qBpOUaIFLJqqCcpzmK3jgxH0k2w0ohE=",
-        "ref": "refs/heads/main",
         "rev": "f82a895ebb730c6942a171be66cef18865968db5",
         "revCount": 37,
         "shallow": true,
@@ -420,24 +417,6 @@
         "shallow": true,
         "type": "git",
         "url": "file:///home/dtsf/.dotfiles/dotfiles/bin"
-      }
-    },
-    "walls": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1720529672,
-        "narHash": "sha256-FANS3ZZ11xTv+t9Y0NEZ5QKg97htldkX3sSraIH4al0=",
-        "ref": "refs/heads/main",
-        "rev": "aee5d81fe24bf078f6e1e7727464bdc31fbd2495",
-        "revCount": 23,
-        "shallow": true,
-        "type": "git",
-        "url": "file:///home/dtsf/.dotfiles/modules/walls"
-      },
-      "original": {
-        "shallow": true,
-        "type": "git",
-        "url": "file:///home/dtsf/.dotfiles/modules/walls"
       }
     }
   },
