@@ -27,4 +27,6 @@ with lib; mkIf (vars.environment.multiplexer == "zellij") {
 
     ${fileContents ../../../dotfiles/zellij/config.kdl}
   '';
+
+  xdg.configFile."zellij/layouts/default.kdl".source = ../../../dotfiles/zellij/layouts/default.kdl;
 }
