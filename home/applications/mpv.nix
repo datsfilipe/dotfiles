@@ -10,4 +10,6 @@
     enable = true;
     package = pkgs.mpv;
   };
+
+  home.packages = with pkgs; [ socat ];
 }
