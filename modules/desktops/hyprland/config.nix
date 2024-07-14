@@ -1,16 +1,13 @@
-{ pkgs, lib, ... }:
+{ pkgs, lib, mylib, vars, builtins, theme, ... }:
 
-let
-  theme = (import ../../colorscheme).theme;
+with lib; let
   shimejiScriptPath = ../../../dotfiles/scripts/shimeji.sh;
   installScript = scriptPath: ''
     mkdir -p $out/bin
     cp ${scriptPath} $out/bin/shimeji.sh
     chmod +x $out/bin/shimeji.sh
   '';
-  shimejiScript = pkgs.runCommand "install-shimeji-script" {} (installScript shimejiScriptPath);
-
-  removeHash = str: builtins.replaceStrings ["#"] [""] str;
+  shimejiScript = pkgs.runCommand "install-shimeji-script" { } (installScript shimejiScriptPath);
 
   hyprlandAutostart = ''
     exec-once=dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
@@ -22,11 +19,11 @@ let
 
   hyprlandThemeConfig = ''
     general {
-      col.active_border=rgba(${removeHash theme.scheme.colors.primary}ff)
-      col.inactive_border=rgba(${removeHash theme.scheme.colors.bg}ee)
+      col.active_border=rgba(${utils.removeHash theme.scheme.colors.primary}ff)
+      col.inactive_border=rgba(${utils.removeHash theme.scheme.colors.bg}ee)
     }
     decoration {
-      col.shadow=rgba(${removeHash theme.scheme.colors.bg}ee)
+      col.shadow=rgba(${utils.removeHash theme.scheme.colors.bg}ee)
     }
   '';
 
@@ -98,7 +95,8 @@ let
     bindm = $mainMod, mouse:272, movewindow
     bindm = $mainMod, mouse:273, resizewindow
   '';
-in {
+in
+mkIf (vars.environment.wm == "hyprland") {
   xdg.configFile."hypr/hyprland.conf".text = ''
     ${lib.fileContents ../../../dotfiles/hyprland/hyprland.conf}
     ${hyprlandKeymaps}

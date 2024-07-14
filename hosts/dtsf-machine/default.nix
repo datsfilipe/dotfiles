@@ -1,6 +1,6 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, vars, ... }:
 
-{
+with lib; {
   imports =
     [
       ./hardware-configuration.nix
@@ -17,8 +17,15 @@
       grub = {
         enable = true;
         efiSupport = true;
-        devices = ["nodev"];
+        devices = [ "nodev" ];
         useOSProber = true;
+        gfxmodeEfi = "1920x1080";
+
+        minegrub-theme = {
+          enable = true;
+          splash = "dtsf-machine!";
+          boot-options-count = 4;
+        };
       };
 
       timeout = 4;

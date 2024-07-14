@@ -1,4 +1,0 @@
-[
-  ./fish.nix
-  ./bash.nix
-]

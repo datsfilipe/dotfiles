@@ -6,7 +6,7 @@ if [ $IS_RUNNING -gt 0 ]; then
   pkill -f "Shimeji"
 else
   DIR=$PWD
-  SHIMEJI_DIR=$HOME/.dotfiles/shells/shimeji/linux-shimeji
+  SHIMEJI_DIR=$HOME/.dotfiles/modules/shells/shimeji/linux-shimeji
 
   if [ -d "${SHIMEJI_DIR}" ]; then
     cd $SHIMEJI_DIR

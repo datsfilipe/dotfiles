@@ -1,7 +1,7 @@
-{ config, pkgs, hyprland, ... }:
+{ config, lib, pkgs, hyprland, vars, ... }:
 
-let exec = "exec Hyprland";
-in {
+with lib; let exec = "exec Hyprland";
+in mkIf (vars.environment.wm == "hyprland") {
   programs = {
     hyprland = {
       enable = true;

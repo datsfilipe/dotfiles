@@ -1,6 +1,6 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, vars, ... }:
 
-{
+with lib; mkIf (vars.system.load_nvidia_module) {
   boot.extraModprobeConfig = "options nvidia-drm modeset=1";
   boot.initrd.kernelModules = config.boot.kernelModules ++ [
     "nvidia"

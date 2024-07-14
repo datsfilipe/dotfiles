@@ -1,7 +1,7 @@
-{ config, pkgs, ... }:
+{ config, lib, vars, pkgs, ... }:
 
-let exec = "startx";
-in {
+with lib; let exec = "startx";
+in mkIf (vars.environment.wm == "i3") {
   services = {
     displayManager = {
       defaultSession = "none+i3";
@@ -34,7 +34,7 @@ in {
           i3status
           i3lock
           dconf
-       ];
+        ];
       };
     };
   };

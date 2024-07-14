@@ -1,11 +1,10 @@
-{ lib, ... }:
+{ lib, vars, theme, ... }:
 
-let theme = (import ../../modules/colorscheme).theme;
-in {
+with lib; mkIf (vars.environment.wm == "i3") {
   services.dunst.enable = true;
 
   xdg.configFile."dunst/dunstrc".text = ''
-    ${lib.fileContents ../../dotfiles/dunstrc}
+    ${fileContents ../../dotfiles/dunstrc}
       frame_color = "${theme.scheme.colors.altbg}"
       separator_color = "${theme.scheme.colors.altbg}"
 

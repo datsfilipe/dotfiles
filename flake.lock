@@ -21,11 +21,11 @@
     "datsnvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1720573982,
-        "narHash": "sha256-Zv1ElctD2cbO/6NfZ5L3al3gp5+TMwAhHocmveTUxlk=",
+        "lastModified": 1720907184,
+        "narHash": "sha256-+soZEzpT674LN9mMTw+moWN+LmZGDmU0P66+OBPF6Fk=",
         "ref": "refs/heads/main",
-        "rev": "8f573c878ce558950ba3a86117e952dc5e8da871",
-        "revCount": 533,
+        "rev": "3db6de7ece406c4370ce94ae81471dcf86c76c81",
+        "revCount": 535,
         "shallow": true,
         "type": "git",
         "url": "file:///home/dtsf/.dotfiles/dotfiles/nvim"
@@ -219,6 +219,25 @@
         "type": "github"
       }
     },
+    "minegrub-theme": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_2"
+      },
+      "locked": {
+        "lastModified": 1694029999,
+        "narHash": "sha256-uOlt/bip36q0wm/beiPPNqw33Z+urPpdr9gDuULejj8=",
+        "owner": "Lxtharia",
+        "repo": "minegrub-theme",
+        "rev": "9644b8b30e5323df3d61cb6a1284dd0be1cf73b6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Lxtharia",
+        "repo": "minegrub-theme",
+        "rev": "9644b8b30e5323df3d61cb6a1284dd0be1cf73b6",
+        "type": "github"
+      }
+    },
     "neovim-nightly-overlay": {
       "inputs": {
         "flake-compat": "flake-compat",
@@ -226,7 +245,7 @@
         "git-hooks": "git-hooks",
         "hercules-ci-effects": "hercules-ci-effects",
         "neovim-src": "neovim-src",
-        "nixpkgs": "nixpkgs_2"
+        "nixpkgs": "nixpkgs_3"
       },
       "locked": {
         "lastModified": 1717737574,
@@ -276,6 +295,22 @@
     },
     "nixpkgs_2": {
       "locked": {
+        "lastModified": 1689850295,
+        "narHash": "sha256-fUYf6WdQlhd2H+3aR8jST5dhFH1d0eE22aes8fNIfyk=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "5df4d78d54f7a34e9ea1f84a22b4fd9baebc68d0",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_3": {
+      "locked": {
         "lastModified": 1717646450,
         "narHash": "sha256-KE+UmfSVk5PG8jdKdclPVcMrUB8yVZHbsjo7ZT1Bm3c=",
         "owner": "NixOS",
@@ -290,7 +325,7 @@
         "type": "github"
       }
     },
-    "nixpkgs_3": {
+    "nixpkgs_4": {
       "locked": {
         "lastModified": 1717602782,
         "narHash": "sha256-pL9jeus5QpX5R+9rsp3hhZ+uplVHscNJh8n8VpqscM0=",
@@ -306,7 +341,7 @@
         "type": "github"
       }
     },
-    "nixpkgs_4": {
+    "nixpkgs_5": {
       "locked": {
         "lastModified": 1686020360,
         "narHash": "sha256-Wee7lIlZ6DIZHHLiNxU5KdYZQl0iprENXa/czzI6Cj4=",
@@ -327,8 +362,9 @@
         "ags": "ags",
         "datsnvim": "datsnvim",
         "home-manager": "home-manager",
+        "minegrub-theme": "minegrub-theme",
         "neovim-nightly-overlay": "neovim-nightly-overlay",
-        "nixpkgs": "nixpkgs_3",
+        "nixpkgs": "nixpkgs_4",
         "spicetify-nix": "spicetify-nix",
         "unix-scripts": "unix-scripts",
         "walls": "walls"
@@ -337,7 +373,7 @@
     "spicetify-nix": {
       "inputs": {
         "flake-utils": "flake-utils",
-        "nixpkgs": "nixpkgs_4"
+        "nixpkgs": "nixpkgs_5"
       },
       "locked": {
         "lastModified": 1704167711,
@@ -371,11 +407,11 @@
     "unix-scripts": {
       "flake": false,
       "locked": {
-        "lastModified": 1720699259,
-        "narHash": "sha256-uXh1KWeMWx9eBRjigHV8nwXaXAEKOFb5TkyQ+7pF+0A=",
+        "lastModified": 1720843349,
+        "narHash": "sha256-lF/w30qFVmQ1qBpOUaIFLJqqCcpzmK3jgxH0k2w0ohE=",
         "ref": "refs/heads/main",
-        "rev": "07819c659025c05c1b4027c5ee599e0bf11cca67",
-        "revCount": 35,
+        "rev": "f82a895ebb730c6942a171be66cef18865968db5",
+        "revCount": 37,
         "shallow": true,
         "type": "git",
         "url": "file:///home/dtsf/.dotfiles/dotfiles/bin"

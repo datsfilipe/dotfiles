@@ -1,8 +1,7 @@
 (
   import ./system
-  ++ import ./apps
+  ++ import ./appearance
+  ++ import ./applications
   ++ import ./services
-  ++ import ./custom
-  ++ import ./tools
-  ++ import ./shell
+  ++ import ./environment
 )

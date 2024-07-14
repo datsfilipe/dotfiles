@@ -1,14 +1,13 @@
-{ pkgs, lib, ... }:
+{ pkgs, lib, vars, theme, ... }:
 
-let
-  theme = (import ../../colorscheme).theme;
+with lib; let
   shimejiScriptPath = ../../../dotfiles/scripts/shimeji.sh;
   installScript = scriptPath: ''
     mkdir -p $out/bin
     cp ${scriptPath} $out/bin/shimeji.sh
     chmod +x $out/bin/shimeji.sh
   '';
-  shimejiScript = pkgs.runCommand "install-shimeji-script" {} (installScript shimejiScriptPath);
+  shimejiScript = pkgs.runCommand "install-shimeji-script" { } (installScript shimejiScriptPath);
 
   i3Autostart = ''
     exec --no-startup-id feh --bg-fill $HOME/.config/wallpaper.png
@@ -144,20 +143,23 @@ let
       }
     }
   '';
-in {
+in
+mkIf (vars.environment.wm == "i3") {
   xdg.configFile."i3/config".text = ''
     ${i3Autostart}
-    ${lib.fileContents ../../../dotfiles/i3/config}
+    ${fileContents ../../../dotfiles/i3/config}
     ${i3Keymaps}
     ${i3ThemeConfig}
     ${i3Bar}
   '';
 
   xdg.configFile."i3status/config".text = ''
-    ${lib.fileContents ../../../dotfiles/i3/i3status/config}
+    ${fileContents ../../../dotfiles/i3/i3status/config}
   '';
 
   home.file.".xinitrc".text = ''
-    ${lib.fileContents ../../../dotfiles/.xinitrc}
+    ${fileContents ../../../dotfiles/.xinitrc}
   '';
+
+  programs.autorandr.enable = true;
 }

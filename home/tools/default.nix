@@ -1,9 +1,0 @@
-[
-  ./direnv.nix
-  ./zellij.nix
-  ./btop.nix
-  ./git.nix
-  ./bat.nix
-  ./cli-tools.nix
-  ./file-operation-tools.nix
-]
