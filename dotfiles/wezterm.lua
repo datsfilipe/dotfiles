@@ -13,6 +13,7 @@ config.default_prog = { "bash", "-c", "zellij attach dtsf -c" }
 config.window_close_confirmation = "NeverPrompt"
 config.hide_tab_bar_if_only_one_tab = true
 config.enable_wayland = false
+config.enable_tab_bar = false
 
 config.window_padding = {
 	top = "1cell",
