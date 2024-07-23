@@ -32,10 +32,9 @@ with lib; {
     };
   };
 
-  hardware.opengl = {
+  hardware.graphics = {
     enable = true;
-    driSupport = true;
-    driSupport32Bit = true;
+    enable32Bit = true;
   };
 
   networking = {
@@ -62,7 +61,6 @@ with lib; {
     keyMap = "us";
   };
 
-  sound.enable = true;
   hardware.pulseaudio.enable = false;
   security = {
     rtkit.enable = true;
