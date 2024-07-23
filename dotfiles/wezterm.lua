@@ -35,6 +35,7 @@ config.use_fancy_tab_bar = false
 config.window_decorations = "RESIZE"
 
 config.font = wezterm.font("JetBrainsMono Nerd Font", { weight = "Regular" })
+config.harfbuzz_features = { "calt=0", "clig=0", "liga=0" }
 config.font_size = 11.0
 
 config.audible_bell = "Disabled"
