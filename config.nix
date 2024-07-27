@@ -9,7 +9,7 @@
   };
   appearance = {
     bg = {
-      wall = "16.png";
+      wall = "21.png";
       folder = "/run/media/dtsf/DATSFILES/wallpapers";
     };
     colorscheme = "eva";
