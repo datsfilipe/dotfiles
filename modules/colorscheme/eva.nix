@@ -1,9 +1,9 @@
 {
   scheme = {
     colors = {
-      primary = "#ff7a84";
-      bg = "#151515";
-      altbg = "#252525";
+      primary = "#ffab70";
+      bg = "#212121";
+      altbg = "#383838";
       fg = "#c1c1c1";
       black = "#585858";
       red = "#ff7a84";
