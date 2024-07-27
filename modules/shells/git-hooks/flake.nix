@@ -49,8 +49,14 @@
               "lint")
                 echo "${transformHookToYaml (getHook "lint")}"
                 ;;
-              "build")
-                echo "${transformHookToYaml (getHook "build")}"
+              "prettier")
+                echo "${transformHookToYaml (getHook "prettier")}"
+                ;;
+              "normalize-filenames")
+                echo "${transformHookToYaml (getHook "normalize-filenames")}"
+                ;;
+              "normalize-filenames-on-push")
+                echo "${transformHookToYaml (getHook "normalize-filenames-on-push")}"
                 ;;
               *)
                 echo "Hook $hookName not found"
