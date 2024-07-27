@@ -1,7 +1,7 @@
 { lib, builtins, ... }:
 
 with lib; let
-  if_let = v: t: f: if v != null then t else f;
+  if_let = v: p: if attrsets.matchAttrs p v then v else null;
   match = v: l: builtins.elemAt
     (
       lists.findFirst
