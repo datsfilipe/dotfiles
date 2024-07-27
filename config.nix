@@ -9,10 +9,10 @@
   };
   appearance = {
     bg = {
-      wall = "19.png";
+      wall = "16.png";
       folder = "/run/media/dtsf/DATSFILES/wallpapers";
     };
-    colorscheme = "gruvbox";
+    colorscheme = "eva";
   };
   applications = {
     browser = "chromium";
