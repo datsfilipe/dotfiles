@@ -21,7 +21,7 @@
     # third party
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
     spicetify-nix.url = "github:the-argus/spicetify-nix";
-    minegrub-theme.url = "github:Lxtharia/minegrub-theme?rev=9644b8b30e5323df3d61cb6a1284dd0be1cf73b6";
+    minegrub-theme.url = "github:Lxtharia/minegrub-theme";
     ags.url = "github:Aylur/ags";
   };
 
