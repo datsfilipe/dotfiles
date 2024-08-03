@@ -22,11 +22,11 @@
     "datsnvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1722040588,
-        "narHash": "sha256-rigdyeGg4/B52a7Au33dPmXHvEjClIQ0EJd3RatKvBQ=",
+        "lastModified": 1722661530,
+        "narHash": "sha256-70+2D/1MawBmCvagArDY4HEN+m27fxMj4ueeo5sL+Yw=",
         "ref": "refs/heads/main",
-        "rev": "246990e56fde825433443f27feb63f5735e107cb",
-        "revCount": 544,
+        "rev": "58e845eb36aab21e6b488aa10468fedbfb47a399",
+        "revCount": 552,
         "shallow": true,
         "type": "git",
         "url": "file:///home/dtsf/.dotfiles/dotfiles/nvim"
@@ -225,17 +225,16 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1694029999,
-        "narHash": "sha256-uOlt/bip36q0wm/beiPPNqw33Z+urPpdr9gDuULejj8=",
+        "lastModified": 1722290726,
+        "narHash": "sha256-8IZbkt63MtLJkpOJ+tFuJEJjo8nOFQyf9gpVwFJ44I0=",
         "owner": "Lxtharia",
         "repo": "minegrub-theme",
-        "rev": "9644b8b30e5323df3d61cb6a1284dd0be1cf73b6",
+        "rev": "1a6ed464c22130e45041257e5cd1f3b8976dab9f",
         "type": "github"
       },
       "original": {
         "owner": "Lxtharia",
         "repo": "minegrub-theme",
-        "rev": "9644b8b30e5323df3d61cb6a1284dd0be1cf73b6",
         "type": "github"
       }
     },
