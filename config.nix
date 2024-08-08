@@ -10,7 +10,7 @@
   appearance = {
     bg = {
       wall = "22.png";
-      folder = "/run/media/dtsf/dats-ext-ssd/wallpapers";
+      folder = "/run/media/dtsf/dats-ext-files/wallpapers";
     };
     colorscheme = "vesper";
   };
