@@ -26,6 +26,7 @@ in
     steam
     prismlauncher
     fastfetch
+    bitwarden
 
     # utilities
     git
