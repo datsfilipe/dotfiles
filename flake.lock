@@ -22,11 +22,11 @@
     "datsnvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1725131214,
-        "narHash": "sha256-on4pMBvCtFuKmL1nSJVBDEzDQtSfnTyXqQ/JEOYQdzU=",
+        "lastModified": 1725145294,
+        "narHash": "sha256-Zdmo8KeA9fYdd6xsGg8yW+oNf6ntokUM7ZOkhAMEFPI=",
         "ref": "refs/heads/main",
-        "rev": "68371608e0515906b43ad597e68458606d3366cf",
-        "revCount": 568,
+        "rev": "8bbbffc6bc71f196d54649312db5234b6610cf74",
+        "revCount": 569,
         "shallow": true,
         "type": "git",
         "url": "file:///home/dtsf/.dotfiles/dotfiles/nvim"
