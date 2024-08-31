@@ -9,10 +9,10 @@
   };
   appearance = {
     bg = {
-      wall = "23.png";
+      wall = "24.png";
       folder = "/run/media/dtsf/dats-ext-files/wallpapers";
     };
-    colorscheme = "catppuccin";
+    colorscheme = "vesper";
   };
   applications = {
     browser = "chromium";
