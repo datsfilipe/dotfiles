@@ -2,6 +2,7 @@
 , nixpkgs
 , vars
 , home-manager
+, lib
 , ...
 }:
 let
@@ -9,6 +10,7 @@ let
   pkgs = import nixpkgs {
     inherit system;
     config.allowUnfree = true;
+    config.cudaSupport = lib.mkIf (vars.system.load_nvidia_module) true;
   };
 
   lib = nixpkgs.lib;
