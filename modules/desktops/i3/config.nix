@@ -161,5 +161,10 @@ mkIf (vars.environment.wm == "i3") {
     ${fileContents ../../../dotfiles/.xinitrc}
   '';
 
+  home.file.".Xresources".text = ''
+    *dpi: ${vars.system.dpi}
+    Xft.dpi: ${vars.system.dpi}
+  '';
+
   programs.autorandr.enable = true;
 }

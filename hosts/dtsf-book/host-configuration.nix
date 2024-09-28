@@ -10,6 +10,7 @@ lib.recursiveUpdate common {
   system.load_nvidia_module = false;
   system.ollama = false;
   system.boot = "systemd";
+  system.dpi = "144";
   appearance.bg.wall = "25.png";
   appearance.bg.folder = "/home/${user}/media/photos/wallpapers";
 }

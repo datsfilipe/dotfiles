@@ -20,5 +20,6 @@
     load_nvidia_module = true;
     ollama = true;
     boot = "grub";
+    dpi = "96";
   };
 }
