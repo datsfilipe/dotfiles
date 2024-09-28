@@ -43,6 +43,7 @@ in
     libtool
     lsof
     killall
+    brightnessctl
 
     # services
     udiskie

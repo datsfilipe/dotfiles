@@ -124,6 +124,9 @@ with lib; let
     bindsym $mod+Shift+c reload
     bindsym $mod+Shift+r exec i3-msg restart
     bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+
+    bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl set +5%
+    bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 5%-
   '';
 
   i3Bar = ''
