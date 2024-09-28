@@ -10,12 +10,12 @@ fi
 nix flake update datsnvim
 nix flake update unix-scripts
 
-case "$1" in
+case "$2" in
   '--debug')
-    sudo nixos-rebuild switch --impure --flake .#dtsf-machine --show-trace -L -v
+    sudo nixos-rebuild switch --impure --flake .\#$1 --show-trace -L -v
   ;;
   *)
-    sudo nixos-rebuild switch --impure --flake .#dtsf-machine
+    sudo nixos-rebuild switch --impure --flake .\#$1
   ;;
 esac
 
