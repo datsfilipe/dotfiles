@@ -6,15 +6,15 @@
         "systems": "systems"
       },
       "locked": {
-        "lastModified": 1721306136,
-        "narHash": "sha256-VKPsIGf3/a+RONBipx4lEE4LXG2sdMNkWQu22LNQItg=",
-        "owner": "Aylur",
+        "lastModified": 1727303518,
+        "narHash": "sha256-lO5JMynTxNZxg/+E4/Y9reeLGIz/M8cEue+Re4cP6qo=",
+        "owner": "aylur",
         "repo": "ags",
-        "rev": "344ea72cd3b8d4911f362fec34bce7d8fb37028c",
+        "rev": "cd543afec4d9ed708990e5ba52184716809bf248",
         "type": "github"
       },
       "original": {
-        "owner": "Aylur",
+        "owner": "aylur",
         "repo": "ags",
         "type": "github"
       }
@@ -225,15 +225,15 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1722290726,
-        "narHash": "sha256-8IZbkt63MtLJkpOJ+tFuJEJjo8nOFQyf9gpVwFJ44I0=",
-        "owner": "Lxtharia",
+        "lastModified": 1725224104,
+        "narHash": "sha256-oa2Ifjv3WvlL3KqmSpvkZsPeCi5QEHtAQV/w86aSqwg=",
+        "owner": "lxtharia",
         "repo": "minegrub-theme",
-        "rev": "1a6ed464c22130e45041257e5cd1f3b8976dab9f",
+        "rev": "69e492e73c5f24f8be563c576a89f828b67240ec",
         "type": "github"
       },
       "original": {
-        "owner": "Lxtharia",
+        "owner": "lxtharia",
         "repo": "minegrub-theme",
         "type": "github"
       }
