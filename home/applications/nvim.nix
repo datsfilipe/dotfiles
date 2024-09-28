@@ -30,5 +30,5 @@ with lib; {
     return vim.fn.expand("$HOME/.dotfiles/dotfiles/nvim") .. "/lazy-lock.json"
   '';
 
-  home.packages = with pkgs; [ ast-grep ];
+  home.packages = with pkgs; [ ast-grep tree-sitter ];
 }
