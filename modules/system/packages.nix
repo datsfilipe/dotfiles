@@ -44,6 +44,7 @@ in
     lsof
     killall
     brightnessctl
+    blueberry
 
     # services
     udiskie
