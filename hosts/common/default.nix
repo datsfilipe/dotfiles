@@ -3,7 +3,7 @@
 with lib; {
   imports =
     [
-      ../ + "${vars.host}" + /hardware-configuration.nix
+      (./. + "/../${vars.host}/hardware-configuration.nix")
       ./nvidia.nix
     ] ++ (import ../../modules/desktops/virtualisation);
 

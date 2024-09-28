@@ -1,4 +1,5 @@
 {
+  user = "dtsf";
   environment = {
     term = "wezterm";
     shell = "fish";
