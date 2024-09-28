@@ -6,6 +6,7 @@ general {
 order += "disk /"
 order += "wireless _first_"
 order += "load"
+order += "battery 0"
 order += "tztime local"
 
 wireless _first_ {
@@ -23,4 +24,18 @@ load {
 
 disk "/" {
   format = "%avail"
+}
+
+battery 0 {
+	format = "%status %percentage"
+	format_down = "no batt."
+	status_chr = "+ --"
+	status_bat = "-"
+	status_unk = "unk"
+	status_full = "! --"
+	low_threshold = 10
+	threshold_type = percentage
+	last_full_capacity = false
+	hide_seconds = true
+	path = "/sys/class/power_supply/BAT1/uevent"
 }
