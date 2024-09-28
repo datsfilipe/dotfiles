@@ -1,1 +1,1 @@
-[ ../common ]
+( import ../common )

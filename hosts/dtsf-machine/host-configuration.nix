@@ -1,7 +1,7 @@
 { lib, ... }:
 
 let
-  common = import ../common.nix;
+  common = import ../common/configuration.nix;
 in
 lib.recursiveUpdate common {
   host = "dtsf-machine";
