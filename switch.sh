@@ -10,6 +10,11 @@ fi
 nix flake update datsnvim
 nix flake update unix-scripts
 
+if [ -z "$1" ]; then
+  echo "please specify a host to switch to"
+  exit 1
+fi
+
 case "$2" in
   '--debug')
     sudo nixos-rebuild switch --impure --flake .\#$1 --show-trace -L -v
