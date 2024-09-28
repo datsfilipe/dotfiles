@@ -5,7 +5,6 @@ let
 in
 lib.recursiveUpdate common {
   host = "dtsf-book";
-  environment.term = "alacritty";
-  environment.wm = "hyprland";
   system.load_nvidia_module = false;
+  system.ollama = true;
 }

@@ -18,5 +18,6 @@
   };
   system = {
     load_nvidia_module = true;
+    ollama = true;
   };
 }

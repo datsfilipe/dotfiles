@@ -9,11 +9,11 @@
   };
 
   services.ollama = {
-    enable = true;
+    enable = lib.mkIf vars.system.ollama true;
     acceleration = "cuda";
     home = "/home/${vars.user}/www/.var/lib/ollama";
     models = "/home/${vars.user}/www/.var/lib/ollama/models";
   };
 
-  systemd.services.ollama.serviceConfig.DynamicUser = lib.mkForce false;
+  systemd.services.ollama.serviceConfig.DynamicUser = lib.mkIf vars.system.ollama (lib.mkForce false);
 }
