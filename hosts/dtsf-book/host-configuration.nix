@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ lib, vars, ... }:
 
 let
   common = import ../common/configuration.nix;
@@ -8,4 +8,6 @@ lib.recursiveUpdate common {
   system.load_nvidia_module = false;
   system.ollama = true;
   system.boot = "systemd";
+  appearance.bg.wall = "25.png";
+  appearance.bg.folder = "/home/${vars.user}/media/photos/wallpapers";
 }
