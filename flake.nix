@@ -27,14 +27,28 @@
 
   outputs = inputs@{ self, nixpkgs, home-manager, ... }:
     let
-      vars = import ./config.nix;
+      system = "x86_64-linux";
+      pkgs = import nixpkgs {
+        inherit system;
+        config.allowUnfree = true;
+      };
+      lib = nixpkgs.lib;
+      helpers = import ./helpers.nix { inherit lib; };
+
+      mkHost = hostname:
+        let
+          vars = import (./hosts + "/${hostname}/host-configuration.nix") { inherit lib; };
+        in
+        lib.nixosSystem (
+          import ./modules/system {
+            inherit nixpkgs lib inputs home-manager vars;
+          }
+        );
     in
     {
-      nixosConfigurations = (
-        import ./modules/system {
-          inherit (nixpkgs) lib;
-          inherit inputs nixpkgs home-manager vars;
-        }
-      );
+      nixosConfigurations = {
+        "dtsf-machine" = mkHost "dtsf-machine";
+        "dtsf-book" = mkHost "dtsf-book";
+      };
     };
 }
