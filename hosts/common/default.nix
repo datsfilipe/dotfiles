@@ -11,7 +11,7 @@ with lib; {
     kernelPackages = pkgs.linuxPackages_latest;
 
     loader = {
-      systemd-boot.enable = mkIf (vars.system.boot == "grub") true;
+      systemd-boot.enable = mkIf (vars.system.boot == "systemd") true;
       efi.canTouchEfiVariables = true;
 
       grub = {
