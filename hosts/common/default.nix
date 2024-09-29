@@ -12,13 +12,13 @@ with lib; {
 
     loader = {
       systemd-boot.enable = vars.system.boot == "systemd";
-      grub.enable = vars.system.boot == "grub";
       efi.canTouchEfiVariables = true;
       timeout = 4;
     };
   };
 
   boot.loader.grub = mkIf (vars.system.boot == "grub") {
+    enable = vars.system.boot == "grub";
     efiSupport = true;
     devices = [ "nodev" ];
     useOSProber = true;
