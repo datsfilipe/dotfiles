@@ -11,11 +11,13 @@ with lib; {
     kernelPackages = pkgs.linuxPackages_latest;
 
     loader = {
-      systemd-boot.enable = mkIf (vars.system.boot == "systemd") true;
+      systemd-boot = mkIf (vars.system.boot == "systemd") {
+        enable = true;
+      };
       efi.canTouchEfiVariables = true;
 
-      grub = {
-        enable = mkIf (vars.system.boot == "grub") true;
+      grub = mkIf (vars.system.boot == "grub") {
+        enable = true;
         efiSupport = true;
         devices = [ "nodev" ];
         useOSProber = true;
