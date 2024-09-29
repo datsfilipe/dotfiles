@@ -11,26 +11,22 @@ with lib; {
     kernelPackages = pkgs.linuxPackages_latest;
 
     loader = {
-      systemd-boot = mkIf (vars.system.boot == "systemd") {
-        enable = true;
-      };
+      systemd-boot.enable = vars.system.boot == "systemd";
+      grub.enable = vars.system.boot == "grub";
       efi.canTouchEfiVariables = true;
-
-      grub = mkIf (vars.system.boot == "grub") {
-        enable = true;
-        efiSupport = true;
-        devices = [ "nodev" ];
-        useOSProber = true;
-        gfxmodeEfi = "1920x1080";
-
-        minegrub-theme = {
-          enable = true;
-          splash = "dtsf-machine!";
-          boot-options-count = 4;
-        };
-      };
-
       timeout = 4;
+    };
+  };
+
+  boot.loader.grub = mkIf (vars.system.boot == "grub") {
+    efiSupport = true;
+    devices = [ "nodev" ];
+    useOSProber = true;
+    gfxmodeEfi = "1920x1080";
+    minegrub-theme = {
+      enable = true;
+      splash = vars.host;
+      boot-options-count = 4;
     };
   };
 
