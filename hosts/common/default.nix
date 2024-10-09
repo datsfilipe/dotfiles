@@ -41,6 +41,12 @@ with lib; {
     extraHosts = ''
       127.0.0.1 host.docker.internal
     '';
+    nameservers = [ "1.1.1.1" "1.0.0.1" ];
+  };
+
+  services.resolved = {
+    enable = true;
+    fallbackDns = [ "1.1.1.1" "1.0.0.1" ];
   };
 
   # disable networkmanager-wait-online
