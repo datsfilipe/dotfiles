@@ -15,9 +15,7 @@ lib.recursiveUpdate common {
   };
   appearance = {
     bg = {
-      wall = "26.png";
       folder = "/home/${user}/media/photos/wallpapers";
     };
-    colorscheme = "eva";
   };
 }

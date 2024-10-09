@@ -8,10 +8,10 @@
   };
   appearance = {
     bg = {
-      wall = "25.png";
+      wall = "26.png";
       folder = "/run/media/dtsf/dats-ext-files/wallpapers";
     };
-    colorscheme = "solarized";
+    colorscheme = "eva";
   };
   applications = {
     browser = "chromium";
