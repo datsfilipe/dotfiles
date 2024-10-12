@@ -14,5 +14,5 @@ lib.mkIf (vars.environment.desktop == "gnome") {
   programs.dconf.enable = true;
   environment.systemPackages = with pkgs; [
     gnome.gnome-tweaks
-  ]
+  ];
 }
