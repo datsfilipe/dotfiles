@@ -8,11 +8,23 @@ lib.mkIf (vars.environment.desktop == "gnome") {
     gnome-photos
     gnome-tour
     gedit
-  ]) ++ (with pkgs.gnome; [
-    hitori # sudoku game
+    cheese
+    gnome-music
+    gedit
+    epiphany
+    geary
+    gnome-characters
+    tali
+    iagno
+    hitori
+    atomix
+    yelp
+    gnome-contacts
+    gnome-initial-setup
   ]);
   programs.dconf.enable = true;
   environment.systemPackages = with pkgs; [
-    gnome.gnome-tweaks
+    gnome-tweaks
+    hitori # sudoku game
   ];
 }
