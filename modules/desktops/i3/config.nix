@@ -147,7 +147,7 @@ with lib; let
     }
   '';
 in
-mkIf (vars.environment.wm == "i3") {
+mkIf (vars.environment.desktop == "i3") {
   xdg.configFile."i3/config".text = ''
     ${i3Autostart}
     ${fileContents ../../../dotfiles/i3/config}

@@ -18,4 +18,7 @@ lib.recursiveUpdate common {
       folder = "/home/${user}/media/photos/wallpapers";
     };
   };
+  environment = {
+    desktop = "gnome";
+  };
 }

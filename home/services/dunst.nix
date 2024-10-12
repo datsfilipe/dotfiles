@@ -1,6 +1,6 @@
 { lib, vars, theme, ... }:
 
-with lib; mkIf (vars.environment.wm == "i3") {
+with lib; mkIf (vars.environment.desktop == "i3") {
   services.dunst.enable = true;
 
   xdg.configFile."dunst/dunstrc".text = ''

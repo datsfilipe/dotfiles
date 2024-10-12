@@ -1,7 +1,7 @@
 { config, lib, pkgs, hyprland, vars, ... }:
 
 with lib; let exec = "exec Hyprland";
-in mkIf (vars.environment.wm == "hyprland") {
+in mkIf (vars.environment.desktop == "hyprland") {
   programs = {
     hyprland = {
       enable = true;

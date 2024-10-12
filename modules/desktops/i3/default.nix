@@ -1,7 +1,7 @@
 { config, lib, vars, pkgs, ... }:
 
 with lib; let exec = "startx";
-in mkIf (vars.environment.wm == "i3") {
+in mkIf (vars.environment.desktop == "i3") {
   services = {
     displayManager = {
       defaultSession = "none+i3";

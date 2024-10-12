@@ -5,17 +5,17 @@ with lib; {
     inputs.ags.homeManagerModules.default
   ];
 
-  home.packages = with pkgs; mkIf (vars.environment.wm == "hyprland") [
+  home.packages = with pkgs; mkIf (vars.environment.desktop == "hyprland") [
     (python311.withPackages (p: [ p.python-pam ]))
     sassc
   ];
 
   programs.ags = {
-    enable = mkIf (vars.environment.wm == "hyprland") true;
+    enable = mkIf (vars.environment.desktop == "hyprland") true;
     extraPackages = [ pkgs.libsoup_3 ];
   };
 
-  xdg.configFile = mkIf (vars.environment.wm == "hyprland") {
+  xdg.configFile = mkIf (vars.environment.desktop == "hyprland") {
     "ags" = {
       source = ../../dotfiles/ags;
       recursive = true;

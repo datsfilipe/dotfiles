@@ -4,7 +4,7 @@
     term = "wezterm";
     shell = "fish";
     multiplexer = "zellij";
-    wm = "i3";
+    desktop = "i3";
   };
   appearance = {
     bg = {

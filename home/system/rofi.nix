@@ -1,6 +1,6 @@
 { lib, vars, theme, ... }:
 
-with lib; mkIf (vars.environment.wm == "i3") {
+with lib; mkIf (vars.environment.desktop == "i3") {
   programs.rofi.enable = true;
 
   xdg.configFile."rofi" = {

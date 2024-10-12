@@ -96,7 +96,7 @@ with lib; let
     bindm = $mainMod, mouse:273, resizewindow
   '';
 in
-mkIf (vars.environment.wm == "hyprland") {
+mkIf (vars.environment.desktop == "hyprland") {
   xdg.configFile."hypr/hyprland.conf".text = ''
     ${lib.fileContents ../../../dotfiles/hyprland/hyprland.conf}
     ${hyprlandKeymaps}
