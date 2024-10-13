@@ -6,4 +6,5 @@
   ./chromium.nix
   ./wezterm.nix
   ./alacritty.nix
+  ./cava.nix
 ] ++ import ./tools
