@@ -1,11 +1,11 @@
 { lib, vars, ... }:
 
-lib.mkIf (vars.environment.desktop == "gnome") {
+lib.mkIf (vars.environment.desktop == "cinnamon") {
   dconf.settings = {
-    "org/gnome/desktop/interface" = {
+    "org/cinnamon/desktop/interface" = {
       color-scheme = "prefer-dark";
     };
-    "org/gnome/desktop/background" = {
+    "org/cinnamon/desktop/background" = {
       picture-uri = "file:///home/${vars.user}/.config/wallpaper.png";
       picture-uri-dark = "file:///home/${vars.user}/.config/wallpaper.png";
     };

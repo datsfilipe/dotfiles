@@ -17,9 +17,8 @@ lib.mkIf (vars.environment.desktop == "cinnamon") {
     xserver = {
       enable = true;
       displayManager.lightdm.enable = true;
-      desktopManager = {
-        cinnamon.enable = true;
-      };
+      desktopManager.cinnamon.enable = true;
     };
   };
+  programs.dconf.enable = true;
 }
