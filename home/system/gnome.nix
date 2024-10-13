@@ -1,5 +1,5 @@
 {
   imports = [
-    ../../modules/desktops/gnome/xorg-config.nix
+    ../../modules/desktops/gnome/config.nix
   ];
 }
