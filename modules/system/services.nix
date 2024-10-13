@@ -1,4 +1,4 @@
-{ lib, vars, ... }:
+{ lib, config, vars, ... }:
 
 {
   services.cron = {
@@ -9,11 +9,16 @@
   };
 
   services.ollama = {
-    enable = lib.mkIf vars.system.ollama true;
-    acceleration = "cuda";
+    enable = false;
+    acceleration = lib.mkIf vars.system.load_nvidia_module "cuda";
     home = "/home/${vars.user}/www/.var/lib/ollama";
     models = "/home/${vars.user}/www/.var/lib/ollama/models";
   };
 
-  systemd.services.ollama.serviceConfig.DynamicUser = lib.mkIf vars.system.ollama (lib.mkForce false);
+  systemd.services.ollama = {
+    enable = lib.mkIf config.services.ollama.enable true;
+    serviceConfig = lib.mkIf config.services.ollama.enable {
+      DynamicUser = lib.mkForce false;
+    };
+  };
 }
