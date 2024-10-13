@@ -19,6 +19,6 @@ lib.recursiveUpdate common {
     };
   };
   environment = {
-    desktop = "gnome";
+    desktop = "cinnamon";
   };
 }

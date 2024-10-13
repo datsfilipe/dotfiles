@@ -1,11 +1,25 @@
-{
-  services.xserver = {
-		enable = true;
-		libinput.enable = true;
-		displayManager.lightdm.enable = true;
-		desktopManager = {
-			cinnamon.enable = true;
-		};
-    displayManager.defaultSession = "cinnamon";
+{ lib, vars, ... }:
+
+lib.mkIf (vars.environment.desktop == "cinnamon") {
+  services = {
+    displayManager = {
+      defaultSession = "cinnamon";
+    };
+
+    libinput = {
+      enable = true;
+      mouse = {
+        accelProfile = "flat";
+        accelSpeed = "0";
+      };
+    };
+
+    xserver = {
+      enable = true;
+      displayManager.lightdm.enable = true;
+      desktopManager = {
+        cinnamon.enable = true;
+      };
+    };
   };
 }
