@@ -8,16 +8,16 @@
   };
   appearance = {
     bg = {
-      wall = "26.png";
+      wall = "27.png";
       folder = "/run/media/dtsf/dats-ext-files/wallpapers";
     };
-    colorscheme = "eva";
+    colorscheme = "catppuccin";
   };
   applications = {
     browser = "chromium";
   };
   system = {
-    load_nvidia_module = true;
+    load_nvidia_module = false;
     boot = "grub";
     dpi = "96";
   };
