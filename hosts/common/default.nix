@@ -37,9 +37,14 @@ with lib; {
 
   networking = {
     hostName = "dtsf-machine";
-    networkmanager.enable = true;
+    useHostResolvConf = false;
+    networkmanager = {
+      enable = true;
+      insertNameservers = [ "1.1.1.1" "1.0.0.1" ];
+    };
     extraHosts = ''
       127.0.0.1 host.docker.internal
+      127.0.0.1 localhost ote.identitydigital.services
     '';
   };
 

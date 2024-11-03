@@ -1,7 +1,7 @@
 {
   user = "dtsf";
   environment = {
-    term = "wezterm";
+    term = "alacritty";
     shell = "fish";
     multiplexer = "zellij";
     desktop = "i3";
