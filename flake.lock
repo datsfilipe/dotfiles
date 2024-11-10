@@ -24,7 +24,6 @@
       "locked": {
         "lastModified": 1728774546,
         "narHash": "sha256-1cwXjQapwI4+xZFbYIEU2J8vPRGdFkemJ8rBYAN46b0=",
-        "ref": "refs/heads/main",
         "rev": "b34f03aeab0a8e299581cc8130bad119ef64c126",
         "revCount": 578,
         "shallow": true,
