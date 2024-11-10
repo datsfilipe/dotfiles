@@ -17,8 +17,9 @@
     browser = "chromium";
   };
   system = {
+    boot = "systemd";
+    boot_timeout = 0;
     load_nvidia_module = false;
-    boot = "grub";
     dpi = "96";
   };
 }

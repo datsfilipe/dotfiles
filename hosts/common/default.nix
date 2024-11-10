@@ -13,7 +13,7 @@ with lib; {
     loader = {
       systemd-boot.enable = vars.system.boot == "systemd";
       efi.canTouchEfiVariables = true;
-      timeout = 4;
+      timeout = vars.system.boot_timeout;
     };
   };
 
@@ -26,7 +26,7 @@ with lib; {
     minegrub-theme = {
       enable = true;
       splash = vars.host;
-      boot-options-count = 4;
+      boot-options-count = vars.system.boot_timeout;
     };
   };
 
