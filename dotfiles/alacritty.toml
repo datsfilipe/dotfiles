@@ -26,7 +26,7 @@ style = "Regular"
 
 [keyboard]
 bindings = [
-  { key = "X", mods = "Control", action = "ToggleViMode" },
+  { key = "X", mods = "Control | Shift", action = "ToggleViMode" },
 ]
 
 [terminal.shell]
