@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
 
+sudo nix-channel --update
 sudo nix flake update
-./rebuild.sh
+./switch.sh $1
