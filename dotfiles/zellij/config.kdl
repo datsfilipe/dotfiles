@@ -30,8 +30,6 @@ keybinds {
   }
   pane {
     bind "Alt p" { SwitchToMode "Normal"; }
-    bind "Space [" { NewPane "Right"; }
-    bind "Space ]" { NewPane "Left"; }
   }
   session {
     bind "Alt o" { SwitchToMode "Normal"; }
