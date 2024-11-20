@@ -38,7 +38,7 @@ in lib.nixosSystem {
             "$HOME/.local/bin"
           ];
 
-          home.stateVersion = "24.11";
+          home.stateVersion = "25.05";
           programs.home-manager.enable = true;
         };
       };
