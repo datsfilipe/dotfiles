@@ -43,9 +43,6 @@ in lib.nixosSystem {
         };
       };
     }
-
-    # grub theme
-    inputs.minegrub-theme.nixosModules.default
   ];
 }
 

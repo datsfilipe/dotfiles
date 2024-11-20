@@ -23,11 +23,6 @@ with lib; {
     devices = [ "nodev" ];
     useOSProber = true;
     gfxmodeEfi = "1920x1080";
-    minegrub-theme = {
-      enable = true;
-      splash = vars.host;
-      boot-options-count = vars.system.boot_timeout;
-    };
   };
 
   hardware.graphics = {
