@@ -9,6 +9,9 @@ with lib; {
 
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
+    blacklistedKernelModules = [ "rtw_8821cu" ];
+    initrd.kernelModules = [ "8821cu" ];
+    extraModulePackages = with config.boot.kernelPackages; [ rtl8821cu ];
 
     loader = {
       systemd-boot.enable = vars.system.boot == "systemd";
