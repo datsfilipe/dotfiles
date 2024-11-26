@@ -69,13 +69,13 @@ keybinds clear-defaults=true {
     bind "Alt o" { SwitchToMode "Session"; }
   }
   shared_except "scroll" {
-    bind "Alt s" { SwitchToMode "Scroll"; }
+    bind "Alt l" { SwitchToMode "Scroll"; }
   }
   shared_except "locked" {
-    bind "Alt l" { SwitchToMode "Locked"; }
+    bind "Alt ;" { SwitchToMode "Locked"; }
   }
   shared_except "tab" {
-    bind "Alt t" { SwitchToMode "Tab"; }
+    bind "Alt g" { SwitchToMode "Tab"; }
   }
   shared_except "pane" {
     bind "Alt p" { SwitchToMode "Pane"; }

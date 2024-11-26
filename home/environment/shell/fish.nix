@@ -11,7 +11,7 @@ mkIf (vars.environment.shell == "fish") {
     functions = {
       fish_user_key_bindings = ''
         bind --preset -M insert \cl 'clear; commandline -f repaint'
-        bind --preset -M insert -k nul accept-autosuggestion
+        bind --preset -M insert \a accept-autosuggestion
       '';
       ts = ''
         tmux new-session -d -s $argv[1]
