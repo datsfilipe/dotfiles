@@ -30,6 +30,11 @@ with lib; let
 
   importAll = paths:
     map (p: import p) paths;
+
+  removeSuffix = suffix: str:
+    if lib.strings.hasSuffix suffix str
+    then lib.strings.substring 0 (builtins.stringLength str - builtins.stringLength suffix) str
+    else str;
 in
 {
   nixosSystem = import ./nixosSystem.nix;
@@ -41,4 +46,5 @@ in
   relativeToRoot = lib.path.append ../.;
   getFiles = getFiles;
   importAll = importAll;
+  removeSuffix = removeSuffix;
 }
