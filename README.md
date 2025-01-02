@@ -46,3 +46,12 @@
 ├── README.md
 └── LICENSE
 ```
+## Star History
+
+<a href="https://star-history.com/#datsfilipe/dotfiles&Date">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=datsfilipe/dotfiles&type=Date&theme=dark" />
+    <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=datsfilipe/dotfiles&type=Date" />
+    <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=datsfilipe/dotfiles&type=Date" />
+  </picture>
+</a>
