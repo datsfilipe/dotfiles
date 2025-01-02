@@ -31,15 +31,15 @@
 │       ├── gui.nix
 │       └── tui.nix
 ├── modules
-│   ├── nix-user-pkgs
 │   ├── nixos
 │   │   ├── base
 │   │   └── desktop
 │   └── shared
 │       ├── base
+│       ├── pkgs
 │       ├── theme
 │       ├── config
-│       └── shells
+│       └── dev-envs
 ├── vars
 │   └── default.nix
 ├── flake.nix
