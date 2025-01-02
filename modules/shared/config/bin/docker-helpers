@@ -1,0 +1,65 @@
+#!/bin/sh
+
+function docker_names() {
+  for ID in $(docker ps | awk '{print $1}' | grep -v 'CONTAINER'); do
+    docker inspect $ID | grep Name | head -1 | awk '{print $2}' | sed 's/,//g' | sed 's%/%%g' | sed 's/"//g'
+	done
+}
+
+function docker_ips() {
+  if [ -z "$(docker_names)" ]; then
+    echo "No containers running"
+    return
+  fi
+
+  OUT+=$'\033[1;35mName\t\033[0m\033[1;36mIP\033[0m\n'
+  OUT+=$'\033[1;35m----\t\033[0m\033[1;36m--\033[0m\n'
+
+  for DOC in $(docker_names); do
+    IP=$(docker inspect --format='{{range .NetworkSettings.Networks}}{{.IPAddress}} {{end}}' "$DOC")
+    OUT+=$DOC'\t'$IP'\n'
+  done
+  echo -e "$OUT" | column -t
+  unset OUT
+}
+
+function docker_exec() {
+  docker exec -it $1 ${2:-bash}
+}
+
+function docker_logs() {
+  docker logs -f $1
+}
+
+function docker_stop_and_rm() {
+  docker stop $1
+  docker rm $1
+}
+
+function docker_stop_all() {
+  docker stop $(docker ps -a -q)
+}
+
+function docker_rm_all() {
+  docker rm $(docker ps -a -q)
+}
+
+function docker_rmi_all() {
+  docker rmi $(docker images -q)
+}
+
+function main() {
+  case $1 in
+    names) docker_names ;;
+    ips) docker_ips ;;
+    ex) docker_exec $2 $3 ;;
+    logs) docker_logs $2 ;;
+    srm) docker_stop_and_rm $2 ;;
+    sall) docker_stop_all ;;
+    rall) docker_rm_all ;;
+    riall) docker_rmi_all ;;
+    *) echo "Invalid command" ;;
+  esac
+}
+
+main "$@"

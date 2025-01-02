@@ -1,0 +1,33 @@
+#!/bin/sh
+
+if [ -z "$1" ]; then
+  echo "Usage: [playlist|audio|video]" $2
+  exit 1
+fi
+
+ytdl=$(which youtube-dl)
+
+if [ -z "$ytdl" ]; then
+  cmd="yt-dlp"
+else
+  cmd="youtube-dl"
+fi
+
+case $1 in
+  'playlist')
+    echo "Downloading playlist..."
+    $cmd -i -f bestaudio --extract-audio --audio-format mp3 --audio-quality 0 --yes-playlist --embed-thumbnail --add-metadata --output '%(title)s.%(ext)s' $2
+  ;;
+  'audio')
+    echo "Downloading audio..."
+    $cmd -i -f bestaudio --extract-audio --audio-format mp3 --audio-quality 0 --no-playlist --embed-thumbnail --add-metadata --output '%(title)s.%(ext)s' $2
+  ;;
+  'video')
+    echo "Downloading video..."
+    $cmd -i -f bestvideo --format mp4 --no-playlist --embed-thumbnail --add-metadata --output '%(title)s.%(ext)s' $2
+  ;;
+  *)
+    echo "Usage: [playlist|audio|video]" $1
+    exit 1
+  ;;
+esac

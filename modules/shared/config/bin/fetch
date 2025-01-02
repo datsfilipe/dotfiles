@@ -1,0 +1,3 @@
+#!/bin/sh
+
+fastfetch --logo-type none

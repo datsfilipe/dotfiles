@@ -38,6 +38,7 @@
 │   └── shared
 │       ├── base
 │       ├── theme
+│       ├── config
 │       └── shells
 ├── vars
 │   └── default.nix

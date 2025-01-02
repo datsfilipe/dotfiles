@@ -1,0 +1,24 @@
+#!/run/current-system/sw/bin/bash
+
+plugin="file://$HOME/.dotfiles/dotfiles/zellij/plugins/zellij-switch.wasm"
+
+if [[ $# -eq 1 ]]; then
+  selected=$1
+else
+  selected=$(fd --type d --max-depth 1 --min-depth 1 . ~/www/s/**/* ~/www/w/**/* | fzf)
+fi
+
+if [[ -z $selected ]]; then
+  exit 0
+fi
+
+session_name=$(basename "$selected" | tr . _)
+zellij_running=$(pgrep zellij)
+
+if [[ -z $ZELLIJ ]] && [[ -z $zellij_running ]]; then
+  cd $selected
+  zellij attach $session_name -c
+  exit 0
+fi
+
+zellij pipe --plugin $plugin -- "$session_name::$selected"

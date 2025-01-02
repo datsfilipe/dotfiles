@@ -1,0 +1,25 @@
+{
+  "$schema": "https://raw.githubusercontent.com/sumneko/vscode-lua/master/setting/schema.json",
+  "runtime": {
+    "version": "LuaJIT"
+  },
+  "workspace": {
+    "checkThirdParty": false,
+    "library": [
+      "$VIMRUNTIME/lua",
+      "${3rd}/luv/library",
+      "lua/plugins/nvim_lspconfig/server_config",
+      // plugins
+      "$XDG_DATA_HOME/nvim/lazy/blink.cmp/lua",
+      "$XDG_DATA_HOME/nvim/lazy/conform.nvim/lua",
+      "$XDG_DATA_HOME/nvim/lazy/fzf.lua/lua",
+      "$XDG_DATA_HOME/nvim/lazy/mini-git/lua",
+      "$XDG_DATA_HOME/nvim/lazy/lazy.nvim/lua",
+      "$XDG_DATA_HOME/nvim/lazy/mini.minihipatterns/lua",
+      "$XDG_DATA_HOME/nvim/lazy/mini.statusline/lua",
+      "$XDG_DATA_HOME/nvim/lazy/nvim-lint/lua",
+      "$XDG_DATA_HOME/nvim/lazy/oil.nvim/lua",
+      "$XDG_DATA_HOME/nvim/lazy/treesitter-nvim/lua",
+    ]
+  }
+}
