@@ -1,9 +1,0 @@
-[
-  ./direnv.nix
-  ./zellij.nix
-  ./tmux.nix
-  ./btop.nix
-  ./git.nix
-  ./bat.nix
-  ./others.nix
-]

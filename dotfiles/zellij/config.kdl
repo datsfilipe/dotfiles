@@ -75,7 +75,7 @@ keybinds clear-defaults=true {
     bind "Alt ;" { SwitchToMode "Locked"; }
   }
   shared_except "tab" {
-    bind "Alt g" { SwitchToMode "Tab"; }
+    bind "Alt t" { SwitchToMode "Tab"; }
   }
   shared_except "pane" {
     bind "Alt p" { SwitchToMode "Pane"; }

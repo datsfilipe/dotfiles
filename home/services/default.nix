@@ -1,1 +1,0 @@
-[ ./dunst.nix ./picom.nix ]
