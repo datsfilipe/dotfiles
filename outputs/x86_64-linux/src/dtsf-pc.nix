@@ -18,21 +18,21 @@
   };
 
   modules-i3 = {
-    nixos-modules =
-      [
-        {
-          modules.desktop.xserver.enable = true;
-        }
-      ]
-      ++ base-modules.nixos-modules;
-    home-modules =
-      [
-        {modules.desktop.i3.enable = true;}
-      ]
-      ++ base-modules.home-modules;
+    nixos-modules = base-modules.nixos-modules;
+      # [
+      #   {
+      #     modules.desktop.xserver.enable = true;
+      #   }
+      # ]
+      # ++ base-modules.nixos-modules;
+    home-modules = base-modules.home-modules;
+      # [
+      #   {modules.desktop.i3.enable = true;}
+      # ]
+      # ++ base-modules.home-modules;
   };
 in {
   nixosConfigurations = {
-    "${name}-hyprland" = mylib.nixosSystem (modules-i3 // args);
+    "${name}" = mylib.nixosSystem (modules-i3 // args);
   };
 }
