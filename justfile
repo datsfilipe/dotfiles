@@ -15,9 +15,6 @@ gc:
   sudo nix-collect-garbage --delete-older-than 7d
   nix-collect-garbage --delete-older-than 7d
 
-shell:
-  nix shell nixpkgs#git nixpkgs#just
-
 verify-store:
   nix store verify --all
 
