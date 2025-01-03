@@ -23,14 +23,6 @@
   #   ''
   #   + builtins.readFile "${nur-ryan4yin.packages.${pkgs.system}.catppuccin-cava}/mocha.cava";
 
-  programs = {
-    mpv = {
-      enable = true;
-      defaultProfiles = ["gpu-hq"];
-      scripts = [pkgs.mpvScripts.mpris];
-    };
-  };
-
   services = {
     playerctld.enable = true;
   };

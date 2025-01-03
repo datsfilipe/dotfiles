@@ -1,3 +1,4 @@
+---@diagnostic disable: undefined-global
 local utils = require("mp.utils")
 
 local cover_filenames = {
@@ -12,7 +13,7 @@ local cover_filenames = {
 	"AlbumArtwork.jpeg",
 }
 
-function notify(summary, body, options)
+local function notify(summary, body, options)
 	local option_args = {}
 	for key, value in pairs(options or {}) do
 		table.insert(option_args, string.format("--%s=%s", key, value))
@@ -20,19 +21,20 @@ function notify(summary, body, options)
 	return mp.command_native({
 		"run",
 		"notify-send",
+		---@diagnostic disable-next-line: deprecated
 		unpack(option_args),
 		summary,
 		body,
 	})
 end
 
-function escape_pango_markup(str)
+local function escape_pango_markup(str)
 	return string.gsub(str, "([\"'<>&])", function(char)
 		return string.format("&#%d;", string.byte(char))
 	end)
 end
 
-function notify_media(title, origin, thumbnail)
+local function notify_media(title, origin, thumbnail)
 	return notify(escape_pango_markup(title), origin, {
 		-- For some inscrutable reason, GNOME 3.24.2
 		-- nondeterministically fails to pick up the notification icon
@@ -50,12 +52,12 @@ function notify_media(title, origin, thumbnail)
 	})
 end
 
-function file_exists(path)
+local function file_exists(path)
 	local info, _ = utils.file_info(path)
 	return info ~= nil
 end
 
-function find_cover(dir)
+local function find_cover(dir)
 	-- make dir an absolute path
 	if dir[1] ~= "/" then
 		dir = utils.join_path(utils.getcwd(), dir)
@@ -86,7 +88,7 @@ function notify_current_media()
 
 	local metadata = mp.get_property_native("metadata")
 	if metadata then
-		function tag(name)
+		local function tag(name)
 			return metadata[string.upper(name)] or metadata[name]
 		end
 
