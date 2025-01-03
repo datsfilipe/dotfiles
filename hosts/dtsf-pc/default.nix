@@ -4,6 +4,7 @@ let
 in {
   imports = [
     ./hardware-configuration.nix
+    ./boot.nix
   ];
 
   networking = {
