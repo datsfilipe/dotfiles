@@ -2,7 +2,9 @@
 let
   hostName = "dtsf-pc";
 in {
-  imports = [];
+  imports = [
+    ./hardware-configuration.nix
+  ];
 
   networking = {
     inherit hostName;
