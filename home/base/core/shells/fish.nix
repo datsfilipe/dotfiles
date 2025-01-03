@@ -1,4 +1,4 @@
-{ pkgs, lib, vars, path, ... }:
+{ pkgs, lib, path, ... }:
 
 with lib; {
   programs.fish = {
@@ -19,8 +19,6 @@ with lib; {
     shellInit = ''
       # source ~/.config/fish/conf.d/colorscheme.fish
 
-      ${fileContents ../../../dotfiles/fish/config.fish}
-
       set -gx ZF_DEFAULT_COMMAND "fd --type f --hidden --follow --exclude .git --color=always"
       set -gx ZF_CTRL_T_COMMAND $FZF_DEFAULT_COMMAND
       zoxide init fish | source
@@ -36,12 +34,10 @@ with lib; {
 
   xdg.configFile."fish/conf.d/hydro.fish".text = ''
     set -l plugin_dir ${pkgs.fishPlugins.hydro}/share/fish
-    ${fileContents ../../../dotfiles/fish/conf.d/hydro.fish}
   '';
 
   xdg.configFile."fish/conf.d/done.fish".text = ''
     set -l plugin_dir ${pkgs.fishPlugins.done}/share/fish
-    ${fileContents ../../../dotfiles/fish/conf.d/done.fish}
   '';
 
   # xdg.configFile."fish/conf.d/colorscheme.fish".text = ''

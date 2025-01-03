@@ -8,9 +8,7 @@
 with lib; let
   cfg = config.modules.desktop.i3;
 in {
-  imports = [
-    ./options
-  ];
+  imports = [];
 
   options.modules.desktop.i3 = {
     enable = mkEnableOption "i3 wm";
@@ -38,7 +36,7 @@ in {
   config = mkIf cfg.enable (
     mkMerge ([
         {
-          services.xserver.windowManager.i3 = cfg.settings;
+          xsession.windowManager.i3.config = cfg.settings;
         }
       ]
       ++ (import ./values args))

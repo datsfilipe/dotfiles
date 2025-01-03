@@ -10,7 +10,7 @@
   programs.gnupg.agent = {
     enable = true;
     pinentryPackage = pkgs.pinentry-qt;
-    enableSSHSupport = true;
+    enableSSHSupport = false;
     settings.default-cache-ttl = 4 * 60 * 60;
   };
 }

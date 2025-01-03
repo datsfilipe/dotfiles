@@ -46,10 +46,5 @@
       #   "hl+" = "#f38ba8";
       # };
     };
-
-    direnv = {
-      enable = true;
-      nix-direnv.enable = true;
-    };
   };
 }

@@ -1,4 +1,4 @@
-{pkgs, lib, ...}: {
+{pkgs, ...}: {
   environment.systemPackages = with pkgs; [
     pulseaudio
   ];
@@ -14,10 +14,4 @@
 
   security.rtkit.enable = true;
   hardware.pulseaudio.enable = false;
-
-  options.bluetooth.enable = lib.mkDefault false;
-  config = lib.mkIf options.bluetooth.enable {
-    hardware.bluetooth.enable = true;
-    services.blueman.enable = true;
-  };
 }

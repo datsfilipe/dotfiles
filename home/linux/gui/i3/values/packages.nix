@@ -1,6 +1,5 @@
 {
   pkgs,
-  pkgs-unstable,
   ...
 }: {
   home.packages = with pkgs; [
@@ -13,6 +12,4 @@
     dconf
     networkmanagerapplet
   ];
-
-  services.xserver.desktopManager.xterm.enable = false;
 }

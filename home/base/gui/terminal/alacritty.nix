@@ -1,9 +1,8 @@
-{ vars, lib, pkgs-unstable, ... }:
+{ vars, lib, ... }:
 
 with lib; {
   programs.alacritty = {
     enable = true;
-    package = pkgs-unstable.alacritty;
   };
 
   # xdg.configFile."alacritty/alacritty.toml".text = ''

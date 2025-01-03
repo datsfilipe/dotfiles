@@ -44,13 +44,44 @@ in {
       services = {
         gvfs.enable = true;
 
+        displayManager = {
+          defaultSession = "hm-session";
+        };
+
+        libinput = {
+          enable = true;
+          mouse = {
+            accelProfile = "flat";
+            accelSpeed = "0";
+          };
+        };
+
         xserver = {
           enable = true;
-          displayManager = {
-            defaultSession = "hm-session";
-          };
           xkb.layout = "us";
+          desktopManager = {
+            xterm.enable = false;
+            session = [
+              {
+                name = "hm-session";
+                manage = "window";
+                start = ''
+                  ${pkgs.runtimeShell} $HOME/.xsession &
+                  waitPID=$!
+                '';
+              }
+            ];
+          };
         };
+      };
+
+      environment = {
+        pathsToLink = [ "/libexec" ];
+        loginShellInit = ''
+          if [ -z $DISPLAY ] && [ "$(tty)" = "/dev/tty1" ]; then
+            exec startx
+          fi
+        '';
       };
     })
   ];

@@ -1,4 +1,4 @@
-{
+{pkgs, ...}: {
   boot.kernelModules = ["vfio-pci"];
 
   virtualisation = {

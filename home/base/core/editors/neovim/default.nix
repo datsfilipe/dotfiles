@@ -1,4 +1,4 @@
-{ inputs, pkgs, lib, ... }:
+{ neovim-nightly-overlay, pkgs, lib, ... }:
 
 with lib; {
   # xdg.configFile."nvim" = {
@@ -9,7 +9,7 @@ with lib; {
   programs.neovim = {
     enable = true;
     vimAlias = true;
-    package = inputs.neovim-nightly-overlay.packages.${pkgs.system}.default;
+    package = neovim-nightly-overlay.packages.${pkgs.system}.default;
     extraWrapperArgs = [
       "--suffix"
       "LIBRARY_PATH"

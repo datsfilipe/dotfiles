@@ -7,7 +7,6 @@
 }: {
   environment.shells = with pkgs; [
     bashInteractive
-    pkgs-unstable.alacritty
   ];
 
   users.defaultUserShell = pkgs.bashInteractive;

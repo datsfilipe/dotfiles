@@ -1,8 +1,10 @@
 {
+  lib,
   config,
   pkgs-unstable,
   ...
 }: let
+  pkgs = pkgs-unstable;
   shellAliases = import ./aliases.nix;
   localbin = "${config.home.homeDirectory}/.local/bin";
   gobin = "${config.home.homeDirectory}/go/bin";
@@ -10,7 +12,7 @@
   path = "PATH=\"$PATH:${localbin}:${gobin}:${rustbin}\"";
 in {
   imports = [
-    (import ./fish.nix { inherit path; })
+    (import ./fish.nix { inherit lib pkgs path; })
   ];
 
   home.shellAliases = shellAliases;
