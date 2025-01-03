@@ -1,5 +1,23 @@
 {
   "nodes": {
+    "datsnvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1735729206,
+        "narHash": "sha256-7rw4yp+Wk6CVo1uK4xg28i3orCOSOnDQqYavpmwLd/w=",
+        "ref": "refs/heads/main",
+        "rev": "f83f36ea51f3231e10995cadfffe409824dea4ab",
+        "revCount": 703,
+        "shallow": true,
+        "type": "git",
+        "url": "file:///home/dtsf/.dotfiles/home/base/tui/editors/neovim/conf"
+      },
+      "original": {
+        "shallow": true,
+        "type": "git",
+        "url": "file:///home/dtsf/.dotfiles/home/base/tui/editors/neovim/conf"
+      }
+    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -272,11 +290,13 @@
     },
     "root": {
       "inputs": {
+        "datsnvim": "datsnvim",
         "home-manager": "home-manager",
         "neovim-nightly-overlay": "neovim-nightly-overlay",
         "nixpkgs": "nixpkgs_2",
         "nixpkgs-stable": "nixpkgs-stable",
-        "nixpkgs-unstable": "nixpkgs-unstable"
+        "nixpkgs-unstable": "nixpkgs-unstable",
+        "unix-scripts": "unix-scripts"
       }
     },
     "treefmt-nix": {
@@ -298,6 +318,24 @@
         "owner": "numtide",
         "repo": "treefmt-nix",
         "type": "github"
+      }
+    },
+    "unix-scripts": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1731263977,
+        "narHash": "sha256-CPo/itO3RqgFzMGtKd+nThxWEU+gxrx9ELlI7vCjZuY=",
+        "ref": "refs/heads/main",
+        "rev": "81f3f24c1601d47606d60853fe22c32149f144c0",
+        "revCount": 46,
+        "shallow": true,
+        "type": "git",
+        "url": "file:///home/dtsf/.dotfiles/home/linux/base/scripts/conf"
+      },
+      "original": {
+        "shallow": true,
+        "type": "git",
+        "url": "file:///home/dtsf/.dotfiles/home/linux/base/scripts/conf"
       }
     }
   },
