@@ -5,7 +5,7 @@
 } @ inputs: let
   inherit (inputs.nixpkgs) lib;
   mylib = import ../lib {inherit lib; inherit (builtins) builtins;};
-  myvars = import ../vars {inherit lib;};
+  myvars = import ../vars;
 
   genSpecialArgs = system:
     inputs
