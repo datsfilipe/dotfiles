@@ -59,6 +59,8 @@ in {
         xserver = {
           enable = true;
           xkb.layout = "us";
+          displayManager.startx.enable = true;
+
           desktopManager = {
             xterm.enable = false;
             session = [
