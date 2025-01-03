@@ -35,6 +35,21 @@ with lib; let
     if lib.strings.hasSuffix suffix str
     then lib.strings.substring 0 (builtins.stringLength str - builtins.stringLength suffix) str
     else str;
+
+  scanPaths = path:
+    builtins.map
+    (f: (path + "/${f}"))
+    (builtins.attrNames
+      (lib.attrsets.filterAttrs
+        (
+          path: _type:
+            (_type == "directory") # include directories
+            || (
+              (path != "default.nix") # ignore default.nix
+              && (lib.strings.hasSuffix ".nix" path) # include .nix files
+            )
+        )
+        (builtins.readDir path)));
 in
 {
   nixosSystem = import ./nixosSystem.nix;
@@ -47,4 +62,5 @@ in
   getFiles = getFiles;
   importAll = importAll;
   removeSuffix = removeSuffix;
+  scanPaths = scanPaths;
 }
