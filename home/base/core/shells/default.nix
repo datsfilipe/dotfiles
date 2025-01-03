@@ -5,7 +5,7 @@
   ...
 }: let
   pkgs = pkgs-unstable;
-  shellAliases = import ./aliases.nix;
+  shellAliases = import ./shellAliases.nix;
   localbin = "${config.home.homeDirectory}/.local/bin";
   gobin = "${config.home.homeDirectory}/go/bin";
   rustbin = "${config.home.homeDirectory}/.cargo/bin";
