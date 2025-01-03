@@ -1,6 +1,6 @@
 #!/run/current-system/sw/bin/bash
 
-plugin="file://$HOME/.dotfiles/dotfiles/zellij/plugins/zellij-switch.wasm"
+plugin="$ZELLIJ_SWITCH_PATH"
 
 if [[ $# -eq 1 ]]; then
   selected=$1
@@ -21,4 +21,4 @@ if [[ -z $ZELLIJ ]] && [[ -z $zellij_running ]]; then
   exit 0
 fi
 
-zellij pipe --plugin $plugin -- "$session_name::$selected"
+zellij pipe --plugin $plugin --  -s "$session_name" -c "$selected"

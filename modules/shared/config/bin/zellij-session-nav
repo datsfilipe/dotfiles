@@ -1,6 +1,6 @@
 #!/run/current-system/sw/bin/bash
 
-plugin="file://$HOME/.dotfiles/dotfiles/zellij/plugins/zellij-switch.wasm"
+plugin="$ZELLIJ_SWITCH_PATH"
 
 list_sessions() {
   if [ "$1" == "true" ]; then
@@ -32,17 +32,16 @@ if $HEADLESS_MODE; then
       echo "Already in session $SESSION_NUMBER ($session_name)"
       exit 0
     else
-      zellij pipe --plugin $plugin -- "$session_name"
+      zellij pipe --plugin $plugin -- -s "$session_name"
     fi
   else
     echo "Invalid session number: $SESSION_NUMBER"
     exit 1
   fi
 else
-  # Interactive mode with fzf
   session_name=$(echo "$sessions" | fzf)
   if [ -n "$session_name" ]; then
-    zellij pipe --plugin $plugin -- "$session_name"
+    zellij pipe --plugin $plugin -- -s "$session_name"
   else
     exit 0
   fi
