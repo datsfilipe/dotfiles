@@ -23,3 +23,6 @@ switch target mode="default":
 upgrade target mode="update":
   sudo nix-channel --update
   nixos_switch {{target}} {{mode}}
+
+generate-flake:
+  generate_flake

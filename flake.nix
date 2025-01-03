@@ -1,26 +1,22 @@
 {
-  description = "datsfilipe's dotfiles";
-
-  outputs = inputs: import ./outputs inputs;
-
+  description = "description";
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
-
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager = {
-      url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:nix-community/home-manager/master";
     };
-
-    # datsnvim = {
-    #   url = "git+file:///home/dtsf/.dotfiles/dotfiles/nvim?shallow=1";
-    #   flake = false;
-    # };
-    # unix-scripts = {
-    #   url = "git+file:///home/dtsf/.dotfiles/dotfiles/bin?shallow=1";
-    #   flake = false;
-    # };
+    datsnvim = {
+      flake = false;
+      url = "git+file:///home/dtsf/.dotfiles/home/base/tui/editors/neovim/conf?shallow=1";
+    };
+    unix-scripts = {
+      flake = false;
+      url = "git+file:///home/dtsf/.dotfiles/home/linux/base/scripts/conf?shallow=1";
+    };
   };
+  outputs = inputs: import ./outputs inputs;
 }
