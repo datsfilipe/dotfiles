@@ -67,4 +67,8 @@
       subfor = "submodule foreach";
     };
   };
+
+  programs.gh = {
+    enable = true;
+  };
 }
