@@ -9,7 +9,6 @@
     xclip
     i3status
     i3lock
-    dconf
     networkmanagerapplet
     dmenu
   ];
