@@ -10,7 +10,7 @@
   ]);
   staticBindings = {
     "${mod}+q" = "kill";
-    "${mod}+t" = "exec ${pkgs.alacritty}/bin/alacritty";
+    "${mod}+Return" = "exec ${pkgs.alacritty}/bin/alacritty";
     "${mod}+a" = "exec ${pkgs.chromium}/bin/chromium --force-dark-mode --enable-features=WebUIDarkMode";
     "${mod}+d" = "exec ${pkgs.dmenu}/bin/dmenu_run";
     "Print" = "exec ${pkgs.flameshot}/bin/flameshot gui";
