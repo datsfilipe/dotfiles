@@ -1,4 +1,4 @@
-{ neovim-nightly-overlay, datsnvim, pkgs, lib, ... }:
+{ datsnvim, pkgs, lib, ... }:
 
 with lib; {
   xdg.configFile."nvim" = {
@@ -9,7 +9,6 @@ with lib; {
   programs.neovim = {
     enable = true;
     vimAlias = true;
-    package = neovim-nightly-overlay.packages.${pkgs.system}.default;
     extraWrapperArgs = [
       "--suffix"
       "LIBRARY_PATH"
@@ -22,12 +21,12 @@ with lib; {
     ];
   };
 
-  # xdg.configFile."nvim/lua/utils/nix_colorscheme.lua".text = ''
+  # xdg.configFile."nvim/lua/nix_colorscheme.lua".text = ''
   #   return "${theme.nvim-colorscheme}"
   # '';
 
-  xdg.configFile."nvim/lua/utils/nix_lazylock.lua".text = ''
-    return vim.fn.expand("$HOME/.dotfiles/dotfiles/nvim") .. "/lazy-lock.json"
+  xdg.configFile."nvim/lua/nix_lazylock.lua".text = ''
+    return vim.fn.expand("$HOME/.dotfiles/home/base/tui/editors/neovim/conf") .. "/lazy-lock.json"
   '';
 
   home.packages = with pkgs; [ tree-sitter ];
