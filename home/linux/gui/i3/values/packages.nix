@@ -11,5 +11,6 @@
     i3lock
     dconf
     networkmanagerapplet
+    dmenu
   ];
 }
