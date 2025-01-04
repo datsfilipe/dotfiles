@@ -1,13 +1,16 @@
-{ ... }: {
+{ config, pkgs, ... }: {
   programs.i3status = {
     enable = true;
+    enableDefault = false;
     modules = {
       "volume master" = {
         position = 1;
         settings = {
           format = "%volume";
-          format_muted = "X (%volume)";
-          device = "pulse:1";
+          format_muted = "muted (%volume)";
+          mixer = "Master";
+          mixer_idx = 0;
+          device = "default";
         };
       };
       "disk /" = {
@@ -16,20 +19,20 @@
           format = "/ %avail";
         };
       };
-      wireless = {
+      "ethernet _first_" = {
         position = 3;
         settings = {
-          format = "W: (%quality at %essid) %ip";
-          format_down = "W: down";
+          format_up = "E: %ip (%speed)";
+          format_down = "E: down";
         };
       };
-      load = {
+      "load" = {
         position = 4;
         settings = {
           format = "%1min";
         };
       };
-      battery = {
+      "battery 0" = {
         position = 5;
         settings = {
           format = "%status %percentage";
@@ -45,7 +48,7 @@
           path = "/sys/class/power_supply/BAT1/uevent";
         };
       };
-      tztime = {
+      "time" = {
         position = 6;
         settings = {
           format = "%Y-%m-%d %H:%M:%S";
