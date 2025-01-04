@@ -1,8 +1,8 @@
-{ lib, ... }: with lib; {
+{ pkgs, lib, ... }: with lib; {
   home.file.".xinitrc".text = ''
     ${fileContents ./conf/mergex-conf.sh}
 
-    picom -f &
-    exec i3
+    exec ${pkgs.picom}/bin/picom -f &
+    exec ${pkgs.i3}/bin/i3
   '';
 }
