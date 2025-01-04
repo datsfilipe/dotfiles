@@ -1,16 +1,24 @@
 { mod, alt, pkgs, lib, ... }: let 
   mod = "Mod4";
   alt = "Mod1";
-  workspaceBindings = builtins.listToAttrs (map (i: {
-    name = "${mod}+${toString i}";
-    value = "workspace ${toString i}";
-  }) (lib.range 1 9) ++ [
-    { name = "${mod}+0"; value = "workspace 10"; }
-    { name = "${mod}+Shift+0"; value = "move container to workspace 10"; }
-  ]);
+  workspaceBindings = builtins.listToAttrs (
+    (map (i: {
+      name = "${mod}+${toString i}";
+      value = "workspace ${toString i}";
+    }) (lib.range 1 9)) ++
+    (map (i: {
+      name = "${mod}+Shift+${toString i}";
+      value = "move container to workspace ${toString i}";
+    }) (lib.range 1 9)) ++
+    [
+      { name = "${mod}+0"; value = "workspace 10"; }
+      { name = "${mod}+Shift+0"; value = "move container to workspace 10"; }
+    ]
+  );
   staticBindings = {
     "${mod}+q" = "kill";
-    "${mod}+Return" = "exec ${pkgs.alacritty}/bin/alacritty";
+    "${mod}+t" = "exec ${pkgs.alacritty}/bin/alacritty";
+    "${mod}+Return" = "exec ${pkgs.alacritty}/bin/alacritty -e ${pkgs.zellij}/bin/zellij attach dtsf -c";
     "${mod}+a" = "exec ${pkgs.chromium}/bin/chromium --force-dark-mode --enable-features=WebUIDarkMode";
     "${mod}+d" = "exec ${pkgs.dmenu}/bin/dmenu_run";
     "Print" = "exec ${pkgs.flameshot}/bin/flameshot gui";
