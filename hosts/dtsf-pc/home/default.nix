@@ -23,7 +23,7 @@
           (command "dex --autostart --environment i3")
           (command "udiskie --tray --notify")
           (command "autorandr --load desktop")
-          (command "i3-msg 'workspace 1'")
+          { command = "i3-msg 'workspace 1'"; always = false; notification = false; }
         ];
 
         modes = {
