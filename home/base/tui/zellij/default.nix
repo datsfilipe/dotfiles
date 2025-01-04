@@ -3,10 +3,7 @@ let
     "zj" = "zellij";
   };
 in {
-  programs.zellij = {
-    enable = true;
-    enableFishIntegration = true;
-  };
+  programs.zellij.enable = true;
 
   xdg.configFile."zellij/config.kdl".source = ./conf/config.kdl;
   xdg.configFile."zellij/layouts/default.kdl".source = ./conf/layout.kdl;

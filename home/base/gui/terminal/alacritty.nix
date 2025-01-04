@@ -1,4 +1,4 @@
-{ vars, lib, ... }:
+{ lib, ... }:
 
 with lib; {
   programs.alacritty = {

@@ -26,7 +26,7 @@ in {
   };
 
   home.packages = with pkgs; 
-    map (p: p.pkg) plugins;
+    (map (p: p.pkg) plugins) ++ [ zoxide ];
 
   xdg.configFile = 
     lib.foldl' (acc: plugin:

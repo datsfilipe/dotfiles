@@ -1,3 +1,4 @@
+default_shell "fish"
 copy_on_select false
 default_layout "compact"
 pane_frames false
