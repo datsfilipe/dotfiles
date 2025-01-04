@@ -18,6 +18,8 @@ build target mode="default":
   nixos_build {{target}} {{mode}}
 
 switch target mode="default":
+  nix flake update datsnvim
+  nix flake update unix-scripts
   sudo nixos_switch {{target}} {{mode}}
 
 upgrade target mode="update":
