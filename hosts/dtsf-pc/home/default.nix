@@ -15,6 +15,7 @@
     in {
       settings =  {
         modifier = mod;
+        focus.followMouse = false;
         keybindings = keymaps.allBindings;
         
         startup = [
@@ -22,6 +23,7 @@
           (command "dex --autostart --environment i3")
           (command "udiskie --tray --notify")
           (command "autorandr --load desktop")
+          (command "i3-msg 'workspace 1'")
         ];
 
         modes = {
