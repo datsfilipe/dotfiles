@@ -18,7 +18,7 @@ build target mode="default":
   nixos_build {{target}} {{mode}}
 
 switch target mode="default":
-  nixos_switch {{target}} {{mode}}
+  sudo nixos_switch {{target}} {{mode}}
 
 upgrade target mode="update":
   sudo nix-channel --update
