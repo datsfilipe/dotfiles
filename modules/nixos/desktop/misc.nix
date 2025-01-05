@@ -25,7 +25,7 @@
   };
 
   programs = {
-    ssh.startAgent = true;
+    ssh.startAgent = false;
     dconf.enable = true;
   };
 }

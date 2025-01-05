@@ -94,7 +94,29 @@
         "nixpkgs": "nixpkgs",
         "nixpkgs-stable": "nixpkgs-stable",
         "nixpkgs-unstable": "nixpkgs-unstable",
+        "sops-nix": "sops-nix",
         "unix-scripts": "unix-scripts"
+      }
+    },
+    "sops-nix": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1735844895,
+        "narHash": "sha256-CIRlqX9tBK2awJkmVu2cKuap/0QziDXStQZ/u/+e8Z4=",
+        "owner": "Mic92",
+        "repo": "sops-nix",
+        "rev": "24d89184adf76d7ccc99e659dc5f3838efb5ee32",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Mic92",
+        "ref": "master",
+        "repo": "sops-nix",
+        "type": "github"
       }
     },
     "unix-scripts": {

@@ -28,3 +28,6 @@ upgrade target mode="update":
 
 generate-flake:
   generate_flake
+
+edit-secrets:
+  nix-shell -p sops --run "sops secrets/secrets.yaml"

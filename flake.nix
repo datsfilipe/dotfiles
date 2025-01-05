@@ -8,6 +8,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:nix-community/home-manager/master";
     };
+    sops-nix = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:Mic92/sops-nix/master";
+    };
     datsnvim = {
       flake = false;
       url = "git+file:///home/dtsf/.dotfiles/home/base/tui/editors/neovim/conf?shallow=1";

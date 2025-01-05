@@ -23,6 +23,7 @@
       [
         {
           modules.desktop.xorg.enable = true;
+          modules.ssh-key-manager.enable = true;
         }
       ]
       ++ base-modules.nixos-modules;

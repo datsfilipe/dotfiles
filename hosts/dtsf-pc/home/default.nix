@@ -58,8 +58,9 @@
     enable = true;
     extraConfig = ''
       Host github.com
-          IdentityFile ~/.ssh/id_ed25519
+          IdentityFile ~/.ssh/main_key
           IdentitiesOnly yes
+          AddKeysToAgent yes
     '';
   };
 }
