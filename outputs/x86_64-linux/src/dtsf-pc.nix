@@ -27,6 +27,7 @@
       [
         {
           modules.desktop.xorg.enable = true;
+          modules.desktop.nvidia.enable = true;
           modules.ssh-key-manager.enable = true;
         }
       ]
