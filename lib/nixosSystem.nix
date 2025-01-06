@@ -17,11 +17,6 @@ in
     modules =
       nixos-modules
       ++ (
-        [
-          inputs.sops-nix.nixosModules.sops
-          (mylib.relativeToRoot "secrets/nixos.nix")
-        ]
-      ) ++ (
         lib.optionals ((lib.lists.length home-modules) > 0)
         [
           home-manager.nixosModules.home-manager

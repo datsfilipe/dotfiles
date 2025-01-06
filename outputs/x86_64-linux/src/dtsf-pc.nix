@@ -3,14 +3,18 @@
   myvars,
   mylib,
   system,
+  inputs,
   genSpecialArgs,
   ...
 } @ args: let
   name = "dtsf-pc";
   base-modules = {
     nixos-modules = map mylib.relativeToRoot [
+      "secrets/nixos.nix"
       "modules/nixos/desktop.nix"
       "hosts/${name}"
+    ] ++ [
+      inputs.sops-nix.nixosModules.sops
     ];
     home-modules = map mylib.relativeToRoot [
       "home/linux/gui.nix"
