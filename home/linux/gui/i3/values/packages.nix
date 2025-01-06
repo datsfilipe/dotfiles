@@ -3,9 +3,12 @@
   ...
 }: {
   home.packages = with pkgs; [
+    xorg.setxkbmap
     xorg.xinit
     xorg.xrandr
-    xorg.setxkbmap
+    autorandr
+    xss-lock
+    dex
     xclip
     i3status
     i3lock
