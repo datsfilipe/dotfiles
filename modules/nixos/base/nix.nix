@@ -13,4 +13,6 @@
 
   nix.settings.auto-optimise-store = true;
   nix.channel.enable = false;
+
+  programs.command-not-found.enable = false;
 }
