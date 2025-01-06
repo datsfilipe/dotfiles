@@ -10,6 +10,7 @@
     (ripgrep.override {withPCRE2 = true;})
     just
     hyperfine
+    nix-index
   ];
 
   programs = {
