@@ -1,4 +1,12 @@
 { config, pkgs, ... }: {
+  home.packages = with pkgs; [
+    qbittorrent
+    zoom-us
+    slack
+    beekeeper-studio
+    bitwarden
+  ];
+
   programs.i3status = {
     enable = true;
     enableDefault = false;
