@@ -9,10 +9,11 @@
 , openssl_1_1
 }:
 
-bins =
-  if stdenv.hostPlatform.system != "x86_64-linux"
-  then throw "Unsupported system"
 let
+  platform =
+    if stdenv.hostPlatform.system == "x86_64-linux"
+    then stdenv.hostPlatform
+    else throw "Unsupported system";
   source = builtins.fromJSON (builtins.readFile ./conf/source.json);
 in
 stdenv.mkDerivation rec {
