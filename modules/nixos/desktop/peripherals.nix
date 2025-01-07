@@ -3,6 +3,7 @@
     pavucontrol
   ];
 
+  services.pulseaudio.enable = false;
   services.pipewire = {
     enable = true;
     alsa.enable = true;
@@ -13,5 +14,4 @@
   };
 
   security.rtkit.enable = true;
-  hardware.pulseaudio.enable = false;
 }
