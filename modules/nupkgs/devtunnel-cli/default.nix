@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
     description = "DevTunnel is a tool that allows you to expose your local development server to the internet";
     license = licenses.mit;
     maintainers = with maintainers; [ ];
-    platforms = [ "x86_64-linux" ];
+    platforms = [ platform ];
   };
 
   buildInputs = [ autoPatchelfHook zlib stdenv.cc.cc.lib ];
