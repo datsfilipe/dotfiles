@@ -17,13 +17,13 @@ verify-store:
 build target mode="default":
   nixos_build {{target}} {{mode}}
 
+update target mode="update":
+  nixos_build {{target}} {{mode}}
+
 switch target mode="default":
-  nix flake update datsnvim
-  nix flake update unix-scripts
   sudo nixos_switch {{target}} {{mode}}
 
 upgrade target mode="update":
-  sudo nix-channel --update
   nixos_switch {{target}} {{mode}}
 
 generate-flake:

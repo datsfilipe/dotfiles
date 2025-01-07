@@ -10,15 +10,15 @@ in {
   };
   
   testScanPaths = {
-    expr = mylib.scanPaths ../modules/shared/nix-user-pkgs;
+    expr = mylib.scanPaths ../modules/nupkgs;
     expected = [
-      ../modules/shared/nix-user-pkgs/devtunnel-cli
-      ../modules/shared/nix-user-pkgs/home.nix
+      ../modules/nupkgs/devtunnel-cli
+      ../modules/nupkgs/home.nix
     ];
   };
   
   testExtractName = {
-    expr = mylib.extractName "../modules/shared/nix-user-pkgs/devtunnel-cli/default.nix";
+    expr = mylib.extractName "../modules/nupkgs/devtunnel-cli/default.nix";
     expected = "default";
   };
   

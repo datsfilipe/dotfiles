@@ -19,6 +19,7 @@
     home-modules = map mylib.relativeToRoot [
       "home/linux/gui.nix"
       "hosts/${name}/home"
+      "modules/nupkgs/home.nix"
     ];
   };
 
@@ -34,7 +35,10 @@
       ++ base-modules.nixos-modules;
     home-modules =
       [
-        {modules.desktop.i3.enable = true;}
+        {
+          modules.desktop.i3.enable = true;
+          modules.desktop.nupkgs.enable = true;
+        }
       ]
       ++ base-modules.home-modules;
   };
