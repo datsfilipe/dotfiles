@@ -52,9 +52,15 @@
       default = false;
     }; };
 
-  config = lib.mkIf (config.modules.desktop.colorscheme.enable && config.modules.desktop.colorscheme.enableNeovimIntegration) {
-    xdg.configFile."nvim/lua/nix_colorscheme.lua".text = ''
-      return "${(import ./integrations/neovim.nix { inherit mylib; name = config.modules.desktop.colorscheme.theme; })}"
-    '';
-  };
+  config = lib.mkMerge [
+    (lib.mkIf (config.modules.desktop.colorscheme.enable && config.modules.desktop.colorscheme.enableNeovimIntegration) {
+      xdg.configFile."nvim/lua/nix_colorscheme.lua".text = ''
+        return "${(import ./integrations/neovim.nix { inherit mylib; name = config.modules.desktop.colorscheme.theme; })}"
+      '';
+    })
+
+    (lib.mkIf (config.modules.desktop.colorscheme.enable && config.modules.desktop.colorscheme.enableGTKIntegration) {
+      gtk = (import ./integrations/gtk.nix { inherit mylib pkgs; name = config.modules.desktop.colorscheme.theme; });
+    })
+  ];
 }
