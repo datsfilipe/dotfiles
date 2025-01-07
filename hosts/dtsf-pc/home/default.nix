@@ -11,7 +11,7 @@
       keymaps = import ./keymaps.nix { inherit mod alt pkgs lib; };
       command = str: {
         command = str;
-        always = false;
+        always = true;
         notification = false;
       };
     in {
@@ -26,7 +26,11 @@
           (command "xss-lock --transfer-sleep-lock -- i3lock")
           (command "udiskie --tray --notify")
           (command "autorandr --load desktop")
-          (command "i3-msg 'workspace 1'")
+          {
+            command = "i3-msg 'workspace 1'";
+            always = false;
+            notification = false;
+          }
         ];
 
         modes = {
