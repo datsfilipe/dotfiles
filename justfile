@@ -31,3 +31,6 @@ generate-flake:
 
 edit-secrets:
   nix-shell -p sops --run "sops secrets/secrets.yaml"
+
+run-lib-tests:
+  run_lib_tests

@@ -12,22 +12,6 @@ with lib; let
         l
     ) 1;
 
-  getFiles = dir:
-    let
-      dirContents = builtins.readDir dir;
-      handlePath = name: type:
-        if type == "directory" 
-        then getNixFiles (dir + "/${name}")
-        else if type == "regular" && (lib.hasSuffix ".nix" name) && name != "default.nix"
-        then [(dir + "/${name}")]
-        else [];
-      
-      paths = lib.flatten (
-        lib.mapAttrsToList handlePath dirContents
-      );
-    in
-      paths;
-
   importAll = paths:
     map (p: import p) paths;
 
@@ -50,6 +34,12 @@ with lib; let
             )
         )
         (builtins.readDir path)));
+
+  extractName = path: let
+    parts = lib.splitString "/" path;
+    lastPart = lib.last parts;
+  in
+    lib.replaceStrings [".nix"] [""] lastPart;
 in
 {
   nixosSystem = import ./nixosSystem.nix;
@@ -63,4 +53,5 @@ in
   importAll = importAll;
   removeSuffix = removeSuffix;
   scanPaths = scanPaths;
+  extractName = extractName;
 }
