@@ -59,4 +59,39 @@ in {
     expr = mylib.relativeToRoot "modules";
     expected = ../modules;
   };
+
+  testMapLookup = {
+    expr = mylib.mapLookup { value = "min"; } {
+      min = {
+        theme = {
+          name = "test";
+          package = {};
+        };
+        iconTheme = {
+          name = "test";
+          package = {};
+        };
+      };
+      gruvbox = {
+        theme = {
+          name = "test1";
+          package = {};
+        };
+        iconTheme = {
+          name = "test1";
+          package = {};
+        };
+      };
+    };
+    expected = {
+      theme = {
+        name = "test";
+        package = {};
+      };
+      iconTheme = {
+        name = "test";
+        package = {};
+      };
+    };
+  };
 }
