@@ -12,7 +12,7 @@
 let
   platform =
     if stdenv.hostPlatform.system == "x86_64-linux"
-    then stdenv.hostPlatform
+    then stdenv.hostPlatform.system
     else throw "Unsupported system";
   source = builtins.fromJSON (builtins.readFile ./conf/source.json);
 in
