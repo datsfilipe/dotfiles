@@ -20,6 +20,7 @@
       "home/linux/gui.nix"
       "hosts/${name}/home"
       "modules/nupkgs/home.nix"
+      "modules/colorscheme/home.nix"
     ];
   };
 
@@ -38,6 +39,8 @@
         {
           modules.desktop.i3.enable = true;
           modules.desktop.nupkgs.enable = true;
+          modules.desktop.colorscheme.enable = true;
+          modules.desktop.colorscheme.enableNeovimIntegration = true;
         }
       ]
       ++ base-modules.home-modules;

@@ -2,6 +2,8 @@
 {
   imports = [ ./packages.nix ];
 
+  modules.desktop.colorscheme.theme = "vesper";
+
   modules.desktop = {
     i3 = let
       mod = "Mod4";
