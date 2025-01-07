@@ -1,10 +1,14 @@
-{ config, pkgs, ... }: {
+{ config, pkgs, mypkgs, ... }: {
   home.packages = with pkgs; [
     qbittorrent
     zoom-us
     slack
     beekeeper-studio
     bitwarden
+  ];
+
+  modules.desktop.nupkgs.packages = with mypkgs; [
+    devtunnel-cli
   ];
 
   programs.i3status = {
