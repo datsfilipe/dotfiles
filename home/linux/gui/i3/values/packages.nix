@@ -11,7 +11,7 @@
     dex
     xclip
     i3status
-    i3lock
+    i3lock-color
     networkmanagerapplet
     dmenu
   ];

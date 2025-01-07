@@ -47,6 +47,15 @@
       default = false;
     };
 
+    enableI3LockIntegration = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+      description = ''
+        Enable i3lock integration. It will add a script called i3lock-theme
+        to the user ".local/bin" folder, which should be used instead of i3lock.
+      '';
+    };
+
     enableFishIntegration = lib.mkOption {
       type = lib.types.bool;
       default = false;
@@ -62,5 +71,14 @@
     (lib.mkIf (config.modules.desktop.colorscheme.enable && config.modules.desktop.colorscheme.enableGTKIntegration) {
       gtk = (import ./integrations/gtk.nix { inherit mylib pkgs; name = config.modules.desktop.colorscheme.theme; });
     })
+
+    (lib.mkIf (config.modules.desktop.colorscheme.enable && config.modules.desktop.colorscheme.enableI3LockIntegration)
+      (import ./integrations/i3lock.nix { inherit mylib pkgs; colorscheme = (
+        import ./themes/${config.modules.desktop.colorscheme.theme}.nix
+      ); })
+    )
+
+    # (lib.mkIf (config.modules.desktop.colorscheme.enable && config.modules.desktop.colorscheme.enableI3Integration) {
+    # })
   ];
 }

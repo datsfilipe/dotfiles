@@ -39,9 +39,12 @@
         {
           modules.desktop.i3.enable = true;
           modules.desktop.nupkgs.enable = true;
-          modules.desktop.colorscheme.enable = true;
-          modules.desktop.colorscheme.enableNeovimIntegration = true;
-          modules.desktop.colorscheme.enableGTKIntegration = true;
+          modules.desktop.colorscheme = {
+            enable = true;
+            enableNeovimIntegration = true;
+            enableGTKIntegration = true;
+            enableI3LockIntegration = true;
+          };
         }
       ]
       ++ base-modules.home-modules;

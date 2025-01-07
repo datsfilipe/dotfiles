@@ -23,7 +23,7 @@
         startup = [
           (command "feh --bg-fill $SYSTEM_WALLPAPER")
           (command "dex --autostart --environment i3")
-          (command "xss-lock --transfer-sleep-lock -- i3lock")
+          (command "xss-lock --transfer-sleep-lock -- i3lock-theme")
           (command "udiskie --tray --notify")
           (command "autorandr --load desktop")
           {
