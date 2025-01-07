@@ -9,6 +9,9 @@
 , openssl_1_1
 }:
 
+bins =
+  if stdenv.hostPlatform.system != "x86_64-linux"
+  then throw "Unsupported system"
 let
   source = builtins.fromJSON (builtins.readFile ./conf/source.json);
 in
