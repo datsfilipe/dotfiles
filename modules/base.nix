@@ -14,6 +14,7 @@
     fish
     git
     zip
+    unzip
     xz
     zstd
     p7zip
