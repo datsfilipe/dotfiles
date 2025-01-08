@@ -44,10 +44,6 @@ in {
       services = {
         gvfs.enable = true;
 
-        displayManager = {
-          defaultSession = "hm-session";
-        };
-
         libinput = {
           enable = true;
           mouse = {
@@ -56,10 +52,14 @@ in {
           };
         };
 
+        displayManager.defaultSession = "hm-session";
         xserver = {
           enable = true;
           xkb.layout = "us";
           displayManager.startx.enable = true;
+          displayManager.sessionCommands = ''
+            systemctl --user import-environment DISPLAY XAUTHORITY PATH
+          '';
 
           desktopManager = {
             xterm.enable = false;
@@ -70,9 +70,6 @@ in {
                 start = ''
                   ${pkgs.runtimeShell} $HOME/.xsession &
                   waitPID=$!
-                '';
-                initExtra = ''
-                  systemctl --user import-environment
                 '';
               }
             ];
