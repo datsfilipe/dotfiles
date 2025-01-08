@@ -94,4 +94,27 @@ in {
       };
     };
   };
+
+  testFormatSections = {
+    expr = mylib.formatSections [ "a" "b" ] {
+      a = {
+        a = "1";
+        b = "2";
+      };
+      b = {
+        a = "3";
+        b = "4";
+      };
+    };
+    expected = ''
+      [a]
+      a=1
+      b=2
+
+
+      [b]
+      a=3
+      b=4
+    '';
+  };
 }

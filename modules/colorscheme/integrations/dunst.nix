@@ -1,7 +1,7 @@
 { mylib, colorscheme, pkgs, ...}:
 
 {
-  services.dunst.settings = {
+  modules.desktop.i3.dunst.settings = {
     global = {
       frame_color = colorscheme.colors.altbg;
       separator_color = colorscheme.colors.altbg;

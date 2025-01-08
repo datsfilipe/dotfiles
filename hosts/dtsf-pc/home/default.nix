@@ -9,9 +9,9 @@
       mod = "Mod4";
       alt = "Mod1";
       keymaps = import ./keymaps.nix { inherit mod alt pkgs lib; };
-      command = str: {
+      command = str: always: {
         command = str;
-        always = true;
+        always = always;
         notification = false;
       };
     in {
@@ -21,20 +21,13 @@
         keybindings = keymaps.allBindings;
         
         startup = [
-          (command "feh --bg-fill $SYSTEM_WALLPAPER")
-          (command "dex --autostart --environment i3")
-          (command "xss-lock --transfer-sleep-lock -- i3lock-theme")
-          (command "autorandr --load desktop")
-          {
-            command = "udiskie --tray --notify";
-            always = false;
-            notification = false;
-          }
-          {
-            command = "i3-msg 'workspace 1'";
-            always = false;
-            notification = false;
-          }
+          (command "feh --bg-fill $SYSTEM_WALLPAPER" true)
+          (command "dex --autostart --environment i3" true)
+          (command "xss-lock --transfer-sleep-lock -- i3lock-theme" true)
+          (command "autorandr --load desktop" true)
+          (command "udiskie --tray --notify" false)
+          (command "i3-msg 'workspace 1'" false)
+          (command "dunst -config $HOME/.config/dunstrc" false)
         ];
 
         modes = {

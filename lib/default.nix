@@ -57,6 +57,18 @@ with lib; let
     lastPart = lib.last parts;
   in
     lib.replaceStrings [".nix"] [""] lastPart;
+
+  formatSections = categories: attrs: let
+    toIniLine = key: value: ''${key}=${lib.escapeShellArg value}'';
+  in
+    lib.concatStringsSep "\n\n" (
+      map (category: ''
+        [${category}]
+        ${lib.concatStringsSep "\n" (
+          lib.mapAttrsToList (k: v: toIniLine k v) (attrs.${category} or {})
+        )}
+      '') categories
+    );
 in
 {
   nixosSystem = import ./nixosSystem.nix;
@@ -72,4 +84,5 @@ in
   removeSuffix = removeSuffix;
   scanPaths = scanPaths;
   extractName = extractName;
+  formatSections = formatSections;
 }

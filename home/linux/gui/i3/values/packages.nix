@@ -13,5 +13,6 @@
     i3lock-color
     networkmanagerapplet
     dmenu
+    dunst
   ];
 }

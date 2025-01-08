@@ -8,7 +8,9 @@
 with lib; let
   cfg = config.modules.desktop.i3;
 in {
-  imports = [];
+  imports = [
+    ./options
+  ];
 
   options.modules.desktop.i3 = {
     enable = mkEnableOption "i3 wm";

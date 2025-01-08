@@ -38,6 +38,7 @@
       [
         {
           modules.desktop.i3.enable = true;
+          modules.desktop.i3.dunst.enable = true;
           modules.desktop.nupkgs.enable = true;
           modules.desktop.colorscheme = {
             enable = true;
