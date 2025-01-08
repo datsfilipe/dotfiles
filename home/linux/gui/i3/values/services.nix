@@ -14,7 +14,7 @@
         offset = "10x50";
         origin = "bottom-right";
 
-        frame_width = 0;
+        frame_width = 1;
         separator_height = 0;
 
         sort = "no";
@@ -40,6 +40,18 @@
         mouse_left_click = "close_current";
         mouse_middle_click = "do_action";
         mouse_right_click = "close_all";
+      };
+
+      urgency_low = {
+        timeout = 5;
+      };
+
+      urgency_normal = {
+        timeout = 10;
+      };
+      
+      urgency_critical = {
+        timeout = 0;
       };
     };
   };
