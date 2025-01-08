@@ -43,7 +43,9 @@
             enable = true;
             enableNeovimIntegration = true;
             enableGTKIntegration = true;
+            enableI3Integration = true;
             enableI3LockIntegration = true;
+            enableI3StatusIntegration = true;
           };
         }
       ]

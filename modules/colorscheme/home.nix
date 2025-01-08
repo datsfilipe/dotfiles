@@ -47,6 +47,11 @@
       default = false;
     };
 
+    enableI3StatusIntegration = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+    };
+
     enableI3LockIntegration = lib.mkOption {
       type = lib.types.bool;
       default = false;
@@ -78,7 +83,14 @@
       ); })
     )
 
-    # (lib.mkIf (config.modules.desktop.colorscheme.enable && config.modules.desktop.colorscheme.enableI3Integration) {
-    # })
+    (lib.mkIf (config.modules.desktop.colorscheme.enable && config.modules.desktop.colorscheme.enableI3Integration)
+      (import ./integrations/i3.nix {
+        inherit config lib mylib pkgs;
+        colorscheme = (
+          import ./themes/${config.modules.desktop.colorscheme.theme}.nix
+        );
+        enableI3StatusIntegration = config.modules.desktop.colorscheme.enableI3StatusIntegration;
+      })
+    )
   ];
 }
