@@ -49,7 +49,8 @@
 
     "${mod}+Shift+c" = "reload";
     "${mod}+Shift+r" = "exec i3-msg restart";
-    "${mod}+Shift+e" = "exec \"i3-nagbar -t error -m 'leave i3' -B 'exit i3' 'exec i3-msg exit; pkill -15 Xorg'\"";
+    "${mod}+Shift+e" = "exec \"i3-nagbar -t warning -m 'leave i3' -B 'exit i3' 'exec i3-msg exit; pkill -15 Xorg'\"";
+    "${mod}+Shift+o" = "exec \"i3-nagbar -t error -m 'turn off the computer' -B 'turn off' 'systemctl poweroff'\"";
 
     "XF86MonBrightnessUp" = "exec --no-startup-id brightnessctl set +5%";
     "XF86MonBrightnessDown" = "exec --no-startup-id brightnessctl set 5%-";
