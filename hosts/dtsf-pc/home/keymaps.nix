@@ -19,7 +19,7 @@
     "${mod}+q" = "kill";
     "${mod}+t" = "exec ${pkgs.alacritty}/bin/alacritty";
     "${mod}+Return" = "exec ${pkgs.alacritty}/bin/alacritty -e ${pkgs.zellij}/bin/zellij attach dtsf -c";
-    "${mod}+a" = "exec ${pkgs.chromium}/bin/chromium --force-dark-mode --enable-features=WebUIDarkMode";
+    "${mod}+a" = "exec chromium --wv --force-dark-mode --enable-features=WebUIDarkMode";
     "${mod}+d" = "exec $HOME/.local/bin/dmenu-theme";
     "Print" = "exec ${pkgs.flameshot}/bin/flameshot gui";
     "${alt}+k" = "exec $HOME/.local/bin/switch-kb-variant";

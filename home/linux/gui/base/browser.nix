@@ -1,6 +1,9 @@
 { pkgs, lib, vars, ... }: {
   programs.chromium = {
     enable = true;
+    package = pkgs.chromium.override {
+      enableWideVine = true;
+    };
     dictionaries = [ pkgs.hunspellDictsChromium.en_US ];
     extensions = [
       { id = "ajopnjidmegmdimjlfnijceegpefgped"; } # bttv
