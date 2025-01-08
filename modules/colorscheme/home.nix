@@ -92,5 +92,11 @@
         enableI3StatusIntegration = config.modules.desktop.colorscheme.enableI3StatusIntegration;
       })
     )
+
+    (lib.mkIf (config.modules.desktop.colorscheme.enable && config.modules.desktop.colorscheme.enableDunstIntegration)
+      (import ./integrations/dunst.nix { inherit mylib pkgs; colorscheme = (
+        import ./themes/${config.modules.desktop.colorscheme.theme}.nix
+      ); })
+    )
   ];
 }
