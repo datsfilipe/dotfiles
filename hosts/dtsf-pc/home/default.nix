@@ -21,7 +21,6 @@
         keybindings = keymaps.allBindings;
         
         startup = [
-          (command "feh --bg-fill $SYSTEM_WALLPAPER" true)
           (command "dex --autostart --environment i3" true)
           (command "xss-lock --transfer-sleep-lock -- i3lock-theme" true)
           (command "autorandr --load desktop" true)

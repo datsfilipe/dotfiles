@@ -11,6 +11,7 @@
   base-modules = {
     nixos-modules = map mylib.relativeToRoot [
       "secrets/nixos.nix"
+      "modules/wallpaper/nixos.nix"
       "modules/nixos/desktop.nix"
       "hosts/${name}"
     ] ++ [
@@ -29,6 +30,7 @@
       [
         {
           modules.desktop.xorg.enable = true;
+          modules.desktop.wallpaper.enable = true;
           modules.desktop.nvidia.enable = true;
           modules.ssh-key-manager.enable = true;
         }
