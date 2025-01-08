@@ -71,6 +71,9 @@ in {
                   ${pkgs.runtimeShell} $HOME/.xsession &
                   waitPID=$!
                 '';
+                initExtra = ''
+                  systemctl --user import-environment
+                '';
               }
             ];
           };
