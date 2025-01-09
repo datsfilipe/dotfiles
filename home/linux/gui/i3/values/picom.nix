@@ -17,8 +17,8 @@
       "_GTK_FRAME_EXTENTS"
     ];
 
-    corner-radius = 4;
-    round-borders = 1;
+    corner-radius = 0;
+    round-borders = 0;
     rounded-corners-exclude = [
       "name = 'Notification'"
       "class_g ?= 'Notify-osd'"
