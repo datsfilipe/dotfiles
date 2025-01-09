@@ -1,0 +1,41 @@
+name: generate flake
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  test-flake-generation:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set Up Nix
+        uses: cachix/install-nix-action@v22
+        with:
+          nix_version: latest
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+
+      - name: Test Flake Generation
+        run: |
+          if [ -f flake.nix ]; then
+            if ! command -v trash-cli &> /dev/null; then
+              rm flake.nix
+            else
+              trash-put flake.nix
+            fi
+          fi
+          nix eval --raw -f templates/flake.template.nix flake > flake.nix
+
+      - name: Verify Flake
+        run: |
+          if [ -f flake.nix ]; then
+            echo "flake.nix successfully generated"
+          else
+            echo "flake.nix generation failed" && exit 1
+          fi

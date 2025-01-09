@@ -1,6 +1,6 @@
 with builtins;
 let 
-  topretty = import ./scripts/topretty.nix;
+  topretty = import ../scripts/topretty.nix;
   genFlake = thisFile: attrs:
     let
       standardizedAttrs = attrs // {

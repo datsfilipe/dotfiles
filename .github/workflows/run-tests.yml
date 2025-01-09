@@ -1,4 +1,4 @@
-name: Run NixOS Tests
+name: run tests
 
 on:
   push:
