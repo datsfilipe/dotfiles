@@ -20,5 +20,6 @@
       "docker"
       "libvirtd"
     ];
+    linger = false;
   };
 }
