@@ -1,0 +1,34 @@
+name: Run NixOS Tests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set Up Nix
+        uses: cachix/install-nix-action@v22
+        with:
+          nix_version: latest
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+
+      - name: Run Tests
+        env:
+          root_dir: ${{ github.workspace }}
+          NIX_PATH: nixpkgs=https://github.com/NixOS/nixpkgs/archive/nixpkgs-unstable.tar.gz
+        run: |
+          run_lib_tests() {
+            pushd "$root_dir"
+            nix-shell -p nix-unit --run "nix-unit ./lib/spec.nix --gc-roots-dir ./.result-test"
+            popd || exit 1
+          }
+          run_lib_tests

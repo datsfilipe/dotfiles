@@ -91,6 +91,7 @@
 - `desktop`: desktop configurations.
 - `integrations`: module integrations.
 - `conf`: config files needed for a function, derivation, etc.
+- `spec`: test files.
 
 ### Usage
 
