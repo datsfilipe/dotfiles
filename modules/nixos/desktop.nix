@@ -57,9 +57,6 @@ in {
           enable = true;
           xkb.layout = "us";
           displayManager.startx.enable = true;
-          displayManager.sessionCommands = ''
-            systemctl --user import-environment DISPLAY XAUTHORITY PATH
-          '';
 
           desktopManager = {
             xterm.enable = false;
