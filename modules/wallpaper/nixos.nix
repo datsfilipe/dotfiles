@@ -10,18 +10,17 @@ with lib; {
       description = "Set wallpaper";
       wantedBy = [ "default.target" ];
       path = [ pkgs.feh ];
-
       script = ''
-        feh --bg-fill "${myvars.wallpaper}"
+        sleep 3
+        ${pkgs.feh}/bin/feh --bg-fill ${myvars.wallpaper}
       '';
+
       serviceConfig = {
-        Type = "forking";
+        Type = "oneshot";
         Environment = [
           "HOME=/home/${myvars.username}"
           "DISPLAY=:0"
         ];
-        Restart = "on-failure";
-        RestartSec = 5;
       };
     };
   };
