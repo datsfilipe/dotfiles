@@ -53,6 +53,7 @@
             enableAlacrittyIntegration = true;
             enableFishIntegration = true;
             enableCavaIntegration = true;
+            enableZellijIntegration = true;
           };
         }
       ]

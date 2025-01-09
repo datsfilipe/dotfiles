@@ -116,5 +116,11 @@
         import ./themes/${config.modules.desktop.colorscheme.theme}.nix
       ); })
     )
+
+    (lib.mkIf (config.modules.desktop.colorscheme.enable && config.modules.desktop.colorscheme.enableZellijIntegration)
+      (import ./integrations/zellij.nix { inherit config lib; colorscheme = (
+        import ./themes/${config.modules.desktop.colorscheme.theme}.nix
+      ); })
+    )
   ];
 }
