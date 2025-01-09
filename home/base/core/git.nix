@@ -71,4 +71,9 @@
   programs.gh = {
     enable = true;
   };
+
+  home.packages = with pkgs; [
+    gitAndTools.ghq
+    gitAndTools.git-lfs
+  ];
 }
