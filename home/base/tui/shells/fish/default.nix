@@ -18,8 +18,6 @@ in {
     };
 
     shellInit = ''
-      # source ~/.config/fish/conf.d/colorscheme.fish
-
       ${fileContents ./conf/config.fish}
       export ${path}
     '';
