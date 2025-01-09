@@ -110,5 +110,11 @@
         import ./themes/${config.modules.desktop.colorscheme.theme}.nix
       ); })
     )
+
+    (lib.mkIf (config.modules.desktop.colorscheme.enable && config.modules.desktop.colorscheme.enableCavaIntegration)
+      (import ./integrations/cava.nix { inherit config lib mylib; colorscheme = (
+        import ./themes/${config.modules.desktop.colorscheme.theme}.nix
+      ); })
+    )
   ];
 }

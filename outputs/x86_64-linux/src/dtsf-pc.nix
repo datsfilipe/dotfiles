@@ -52,6 +52,7 @@
             enableDunstIntegration = true;
             enableAlacrittyIntegration = true;
             enableFishIntegration = true;
+            enableCavaIntegration = true;
           };
         }
       ]
