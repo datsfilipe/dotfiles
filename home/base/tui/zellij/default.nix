@@ -1,4 +1,4 @@
-let
+{mypkgs, ...}: let
   shellAliases = {
     "zj" = "zellij";
   };
@@ -9,9 +9,12 @@ in {
     layoutContent = builtins.readFile ./conf/layout.kdl;
   };
 
+  home.shellAliases = shellAliases;
   home.sessionVariables = {
-    ZELLIJ_SWITCH_PATH = builtins.toString ./conf/zellij-switch.wasm;
+    ZELLIJ_SWITCH_PATH = "${mypkgs.zellij-switch}/bin/zellij-switch.wasm";
   };
 
-  home.shellAliases = shellAliases;
+  modules.desktop.nupkgs.packages = with mypkgs; [
+    zellij-switch
+  ];
 }

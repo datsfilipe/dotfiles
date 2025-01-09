@@ -70,7 +70,22 @@ keybinds clear-defaults=true {
     bind "Alt o" { SwitchToMode "Session"; }
   }
   shared_except "scroll" {
-    bind "Alt l" { SwitchToMode "Scroll"; }
+    bind "Alt j" { SwitchToMode "Scroll"; }
+  }
+  scroll {
+    bind "Ctrl d" { ScrollDown; }
+    bind "Ctrl u" { ScrollUp; }
+    bind "/" { SwitchToMode "EnterSearch"; }
+  }
+  entersearch {
+    bind "Ctrl c" "Esc" { SwitchToMode "Scroll"; }
+    bind "Enter" { SwitchToMode "Search"; }
+  }
+  search {
+    bind "n" { Search "up"; }
+    bind "N" { Search "down"; }
+    bind "Ctrl c" "Esc" { SwitchToMode "Scroll"; }
+    bind "Enter" { SwitchToMode "Normal"; }
   }
   shared_except "locked" {
     bind "Alt ;" { SwitchToMode "Locked"; }
