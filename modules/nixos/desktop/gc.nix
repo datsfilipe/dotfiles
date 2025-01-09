@@ -6,6 +6,7 @@ let
 in {
   systemd.services.path-garbage-collector = {
     description = "Clean up old files from specified paths";
+    path = [ pkgs.findutils pkgs.coreutils ];
     serviceConfig = {
       Type = "oneshot";
       ExecStart = pkgs.writeShellScript "cleanup-paths" ''
@@ -14,6 +15,8 @@ in {
             find "$path" -type f -mtime +"''${age%d}" -delete 2>/dev/null
           fi
         done < ${configFile}
+
+        find / -type d \( -name ".trash" -o -name ".Trash" -o -name ".Trash-1000" \) -exec $(which rm) -rf {} + 2>/dev/null || true
       '';
     };
   };
