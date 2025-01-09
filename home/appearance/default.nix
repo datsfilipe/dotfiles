@@ -1,4 +1,0 @@
-[
-  ./wall.nix
-  ./gtk.nix
-]

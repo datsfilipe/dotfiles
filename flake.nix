@@ -1,45 +1,25 @@
 {
-  description = "dats nixos dotfiles from datsfilipe.";
-
+  description = "description";
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager = {
-      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:nix-community/home-manager/master";
     };
-
-    # git modules
+    sops-nix = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:Mic92/sops-nix/master";
+    };
     datsnvim = {
-      url = "git+file:///home/dtsf/.dotfiles/dotfiles/nvim?shallow=1";
       flake = false;
+      url = "git+file:///home/dtsf/.dotfiles/home/base/tui/editors/neovim/conf?shallow=1";
     };
     unix-scripts = {
-      url = "git+file:///home/dtsf/.dotfiles/dotfiles/bin?shallow=1";
       flake = false;
+      url = "git+file:///home/dtsf/.dotfiles/home/linux/base/scripts/conf?shallow=1";
     };
-
-    # third party
-    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
-    spicetify-nix.url = "github:the-argus/spicetify-nix";
-    ags.url = "github:aylur/ags";
   };
-
-  outputs = inputs@{ self, nixpkgs, home-manager, ... }:
-    let
-      lib = nixpkgs.lib;
-      mkhost = hostname:
-        let
-          vars = import (./hosts + "/${hostname}/host-configuration.nix") { inherit lib; };
-        in (
-          import ./modules/system {
-            inherit nixpkgs lib inputs home-manager vars;
-          }
-        );
-    in
-    {
-      nixosConfigurations = {
-        "dtsf-machine" = mkhost "dtsf-machine";
-        "dtsf-book" = mkhost "dtsf-book";
-      };
-    };
+  outputs = inputs: import ./outputs inputs;
 }

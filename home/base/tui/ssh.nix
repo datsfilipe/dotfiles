@@ -1,0 +1,5 @@
+{
+  programs.ssh = {
+    enable = true;
+  };
+}
