@@ -10,7 +10,7 @@
   name = "dtsf-pc";
   base-modules = {
     nixos-modules = map mylib.file.relativeToRoot [
-      "secrets/nixos.nix"
+      "modules/secrets/nixos.nix"
       "modules/wallpaper/nixos.nix"
       "modules/nixos/desktop.nix"
       "hosts/${name}"
