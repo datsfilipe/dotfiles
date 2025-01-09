@@ -32,6 +32,7 @@
       '';
     };
     enableFishIntegration = lib.mkOption { type = lib.types.bool; default = false; };
+    enableGhosttyIntegration = lib.mkOption { type = lib.types.bool; default = false; };
   };
 
   config =
@@ -99,6 +100,13 @@
 
         (lib.mkIf config.modules.desktop.colorscheme.enableZellijIntegration
           (import ./integrations/zellij.nix {
+            inherit config lib;
+            colorscheme = colorscheme;
+          })
+        )
+
+        (lib.mkIf config.modules.desktop.colorscheme.enableGhosttyIntegration
+          (import ./integrations/ghostty.nix {
             inherit config lib;
             colorscheme = colorscheme;
           })

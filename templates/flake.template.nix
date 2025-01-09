@@ -25,8 +25,8 @@ in genFlake ./flake.template.nix
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
     home-manager = (ext "github:nix-community/home-manager/master");
     sops-nix = (ext "github:Mic92/sops-nix/master");
-    datsnvim = (local ./home/base/tui/editors/neovim/conf);
-    unix-scripts = (local ./home/linux/base/scripts/conf);
+    datsnvim = (local ../home/base/tui/editors/neovim/conf);
+    unix-scripts = (local ../home/linux/base/scripts/conf);
   };
   outputs = "inputs: import ./outputs inputs";
 }

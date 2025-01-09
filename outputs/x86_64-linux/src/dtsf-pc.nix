@@ -60,6 +60,7 @@
             enableFishIntegration = true;
             enableCavaIntegration = true;
             enableZellijIntegration = true;
+            enableGhosttyIntegration = false;
           };
         }
       ]
