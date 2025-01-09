@@ -98,5 +98,11 @@
         import ./themes/${config.modules.desktop.colorscheme.theme}.nix
       ); })
     )
+
+    (lib.mkIf (config.modules.desktop.colorscheme.enable && config.modules.desktop.colorscheme.enableAlacrittyIntegration)
+      (import ./integrations/alacritty.nix { inherit mylib pkgs; colorscheme = (
+        import ./themes/${config.modules.desktop.colorscheme.theme}.nix
+      ); })
+    )
   ];
 }

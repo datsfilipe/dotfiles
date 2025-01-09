@@ -50,6 +50,7 @@
             enableI3LockIntegration = true;
             enableI3StatusIntegration = true;
             enableDunstIntegration = true;
+            enableAlacrittyIntegration = true;
           };
         }
       ]
