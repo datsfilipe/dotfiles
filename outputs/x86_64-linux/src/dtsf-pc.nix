@@ -51,6 +51,7 @@
             enableI3StatusIntegration = true;
             enableDunstIntegration = true;
             enableAlacrittyIntegration = true;
+            enableFishIntegration = true;
           };
         }
       ]

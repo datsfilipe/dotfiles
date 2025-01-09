@@ -100,7 +100,13 @@
     )
 
     (lib.mkIf (config.modules.desktop.colorscheme.enable && config.modules.desktop.colorscheme.enableAlacrittyIntegration)
-      (import ./integrations/alacritty.nix { inherit mylib pkgs; colorscheme = (
+      (import ./integrations/alacritty.nix { colorscheme = (
+        import ./themes/${config.modules.desktop.colorscheme.theme}.nix
+      ); })
+    )
+
+    (lib.mkIf (config.modules.desktop.colorscheme.enable && config.modules.desktop.colorscheme.enableFishIntegration)
+      (import ./integrations/fish.nix { inherit config lib; colorscheme = (
         import ./themes/${config.modules.desktop.colorscheme.theme}.nix
       ); })
     )
