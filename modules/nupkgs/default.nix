@@ -9,7 +9,7 @@
           value = pkgs.callPackage file {};
         }
       )
-      (mylib.scanPaths ./.)
+      (mylib.file.scanPaths ./.)
   );
 in
   packages

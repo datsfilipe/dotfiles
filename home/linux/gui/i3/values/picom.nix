@@ -30,7 +30,7 @@
 in {
   home.packages = with pkgs; [ picom ];
 
-  xdg.configFile."picom/picom.conf".text = mylib.formatSections [] picomConf;
+  xdg.configFile."picom/picom.conf".text = mylib.format.sections [] picomConf;
 
   xsession.windowManager.i3.config = {
     startup = [

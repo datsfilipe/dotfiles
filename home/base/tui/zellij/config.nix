@@ -39,7 +39,7 @@
         themes {
           ${config.modules.desktop.zellij.config.theme} {
             ${lib.replaceStrings ["="] [" "] (
-              mylib.formatSections [] config.modules.desktop.zellij.config.themeConfig
+              mylib.format.sections [] config.modules.desktop.zellij.config.themeConfig
             )}
           }
         }

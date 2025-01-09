@@ -19,7 +19,7 @@ in {
 
   config = lib.mkIf config.modules.desktop.i3.dunst.enable {
     xdg.configFile."dunstrc".text = builtins.replaceStrings ["'"] ["\""] ''
-      ${mylib.formatSections ["global" "urgency_low" "urgency_normal" "urgency_critical"] mergedSettings}
+      ${mylib.format.sections ["global" "urgency_low" "urgency_normal" "urgency_critical"] mergedSettings}
     '';
   };
 }

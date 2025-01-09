@@ -5,5 +5,5 @@
   rustbin = "${config.home.homeDirectory}/.cargo/bin";
   path = "PATH=\"$PATH:${localbin}:${gobin}:${rustbin}\"";
 in {
-  imports = (map (module: import module { inherit lib pkgs path; }) (mylib.scanPaths ./.));
+  imports = (map (module: import module { inherit lib pkgs path; }) (mylib.file.scanPaths ./.));
 }
