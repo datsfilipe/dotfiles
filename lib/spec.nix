@@ -13,6 +13,7 @@ in {
     expected = [
       ../modules/nupkgs/devtunnel-cli
       ../modules/nupkgs/home.nix
+      ../modules/nupkgs/zellij-switch
     ];
   };
 
