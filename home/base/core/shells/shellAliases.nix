@@ -3,11 +3,12 @@
   "lla"="eza --color always --icons -1galb -s name --git --sort date --group-directories-first";
   "tree"="eza --tree -D -L 3";
 
-  "del"="trash-put";
-  "dels"="trash-list";
-  "delu"="trash-restore";
-  "delc"="trash-empty";
-  "delr"="trash-rm";
+  "del"="trash";
+  "dels"="trash --list";
+  "delu"="trash --fzf";
+  "delr"="trash --restore";
+  "delc"="trash --cleanup";
+  "delca"="trash --cleanup-all";
 
   "g"="git";
   "ga"="git add";
