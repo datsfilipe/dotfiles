@@ -24,14 +24,11 @@ jobs:
       - name: Run Tests
         env:
           root_dir: ${{ github.workspace }}
+          NIX_PATH: nixpkgs=https://github.com/NixOS/nixpkgs/archive/nixpkgs-unstable.tar.gz
         run: |
           run_lib_tests() {
             pushd "$root_dir"
-            nix-shell --pure -p "(
-              import (builtins.fetchTarball {
-                url = https://github.com/NixOS/nixpkgs/archive/nixpkgs-unstable.tar.gz;
-              }) {}
-            ).nix-unit" --run "nix-unit ./lib/spec.nix --gc-roots-dir ./.result-test"
+            nix-shell -p nix-unit --run "nix-unit ./lib/spec.nix --gc-roots-dir ./.result-test"
             popd || exit 1
           }
           run_lib_tests
