@@ -1,7 +1,7 @@
 { config, lib, colorscheme, ...}: let
   zellijConf = config.xdg.configFile."zellij/zellij.toml".text or null;
 in {
-  modules.desktop.zellij.config = {
+  modules.desktop.conf.zellij = {
     theme = "custom";
     themeConfig = {
       bg = colorscheme.colors.bg;

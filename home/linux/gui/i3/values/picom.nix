@@ -1,5 +1,5 @@
-{ lib, mylib, pkgs, ... }: let
-  picomConf = {
+{ lib, mylib, pkgs, ... }: {
+  modules.desktop.conf.picom.settings = {
     backend = "glx";
     fade = true;
     fade-delta = 2;
@@ -27,10 +27,6 @@
       "window_type = 'tooltip'"
     ];
   };
-in {
-  home.packages = with pkgs; [ picom ];
-
-  xdg.configFile."picom/picom.conf".text = mylib.format.sections [] picomConf;
 
   xsession.windowManager.i3.config = {
     startup = [
@@ -40,4 +36,6 @@ in {
       }
     ];
   };
+
+  home.packages = with pkgs; [ picom ];
 }

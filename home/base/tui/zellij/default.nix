@@ -3,13 +3,8 @@ let
     "zj" = "zellij";
   };
 in {
-  imports = [
-    ./config.nix
-  ];
-
   programs.zellij.enable = true;
-  modules.desktop.zellij.config = {
-    enable = true;
+  modules.desktop.conf.zellij = {
     content = builtins.readFile ./conf/config.kdl;
     layoutContent = builtins.readFile ./conf/layout.kdl;
   };

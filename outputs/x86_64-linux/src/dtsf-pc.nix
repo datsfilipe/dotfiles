@@ -22,6 +22,7 @@
       "hosts/${name}/home"
       "modules/nupkgs/home.nix"
       "modules/colorscheme/home.nix"
+      "modules/conf/home.nix"
     ];
   };
 
@@ -40,8 +41,13 @@
       [
         {
           modules.desktop.i3.enable = true;
-          modules.desktop.i3.dunst.enable = true;
           modules.desktop.nupkgs.enable = true;
+          modules.desktop.conf = {
+            enableDunstIntegration = true;
+            enableCavaIntegration = true;
+            enableZellijIntegration = true;
+            enablePicomIntegration = true;
+          };
           modules.desktop.colorscheme = {
             enable = true;
             enableNeovimIntegration = true;
