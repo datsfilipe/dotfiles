@@ -1,4 +1,4 @@
-{ colorscheme, pkgs, enableI3StatusIntegration, ...}:
+{ lib, colorscheme, pkgs, enableI3StatusIntegration, ...}:
 
 {
   xsession.windowManager.i3.config = {
@@ -36,7 +36,7 @@
     bars = [
       {
         id = "bar-0";
-        statusCommand = mkIf enableI3StatusIntegration "i3status";
+        statusCommand = lib.mkIf enableI3StatusIntegration "i3status";
         colors = {
           focusedWorkspace = {
             background = "${colorscheme.colors.altbg}";
@@ -48,7 +48,7 @@
     ];
   };
 
-  programs.i3status = mkIf enableI3StatusIntegration {
+  programs.i3status = lib.mkIf enableI3StatusIntegration {
     general = {
       color_good = colorscheme.colors.green;
       color_degraded = colorscheme.colors.yellow;
