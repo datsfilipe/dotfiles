@@ -152,4 +152,9 @@ in {
       f=true
     '';
   };
+  
+  testDarkenHex = {
+    expr = mylib.darkenHex "#C0C0C0" 0.5;
+    expected = "#606060";
+  };
 }
