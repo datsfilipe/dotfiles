@@ -108,13 +108,48 @@ in {
     };
     expected = ''
       [a]
-      a=1
-      b=2
+      a="1"
+      b="2"
 
 
       [b]
-      a=3
-      b=4
+      a="3"
+      b="4"
+
+    '';
+  };
+
+  testFormatSectionsNoCategories = {
+    expr = mylib.formatSections [] {
+      a = "1";
+      b = [
+        "name = 'Notification'"
+        "class_g ?= 'Notify-osd'"
+        "class_g = 'Polybar'"
+        "class_g = 'Rofi'"
+        "window_type = 'tooltip'"
+      ];
+      c = 3;
+      d = "4";
+      e = [ "5" "6" ];
+      f = true;
+    };
+    expected = ''
+      a="1"
+      b=[
+        "name = 'Notification'",
+        "class_g ?= 'Notify-osd'",
+        "class_g = 'Polybar'",
+        "class_g = 'Rofi'",
+        "window_type = 'tooltip'",
+      ]
+      c=3
+      d="4"
+      e=[
+        "5",
+        "6",
+      ]
+      f=true
     '';
   };
 }
