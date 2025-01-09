@@ -1,4 +1,4 @@
-{ mylib, colorscheme, pkgs, ...}:
+{ colorscheme, pkgs, ...}:
 
 let
   callscript = pkgs.writeShellScript "i3lock-theme" ''

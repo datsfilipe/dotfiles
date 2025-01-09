@@ -1,4 +1,4 @@
-{ mylib, colorscheme, pkgs, ...}:
+{ colorscheme, ...}:
 
 {
   modules.desktop.i3.dunst.settings = {

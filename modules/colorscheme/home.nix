@@ -78,14 +78,14 @@
     })
 
     (lib.mkIf (config.modules.desktop.colorscheme.enable && config.modules.desktop.colorscheme.enableI3LockIntegration)
-      (import ./integrations/i3lock.nix { inherit mylib pkgs; colorscheme = (
+      (import ./integrations/i3lock.nix { inherit pkgs; colorscheme = (
         import ./themes/${config.modules.desktop.colorscheme.theme}.nix
       ); })
     )
 
     (lib.mkIf (config.modules.desktop.colorscheme.enable && config.modules.desktop.colorscheme.enableI3Integration)
       (import ./integrations/i3.nix {
-        inherit config lib mylib pkgs;
+        inherit lib pkgs;
         colorscheme = (
           import ./themes/${config.modules.desktop.colorscheme.theme}.nix
         );
@@ -94,7 +94,7 @@
     )
 
     (lib.mkIf (config.modules.desktop.colorscheme.enable && config.modules.desktop.colorscheme.enableDunstIntegration)
-      (import ./integrations/dunst.nix { inherit mylib pkgs; colorscheme = (
+      (import ./integrations/dunst.nix { colorscheme = (
         import ./themes/${config.modules.desktop.colorscheme.theme}.nix
       ); })
     )

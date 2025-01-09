@@ -1,6 +1,6 @@
-{ config, lib, mylib, colorscheme, pkgs, enableI3StatusIntegration, ...}:
+{ colorscheme, pkgs, enableI3StatusIntegration, ...}:
 
-with lib; {
+{
   xsession.windowManager.i3.config = {
     colors = {
       background = colorscheme.colors.bg;
