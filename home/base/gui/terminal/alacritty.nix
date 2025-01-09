@@ -20,7 +20,7 @@ with lib; {
       };
 
       keyboard.bindings = [
-        { key = "X"; mods = "Control | Shift"; action = "ToggleViMode"; }
+        { key = "X"; mods = "Control"; action = "ToggleViMode"; }
       ];
 
       window = {
