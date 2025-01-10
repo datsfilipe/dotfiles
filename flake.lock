@@ -3,11 +3,11 @@
     "datsnvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1736003057,
-        "narHash": "sha256-7nt8Qn7a1JD5BU2MXtP68b28WVQzdHFYXLdSoAx36YA=",
+        "lastModified": 1736525280,
+        "narHash": "sha256-5PNKfMhVdIOVJZGvqirK2ffixxvgTn/1qB+3U9Im/eQ=",
         "ref": "refs/heads/main",
-        "rev": "14aae094428820d712e1f2b9daaf87904adf030d",
-        "revCount": 704,
+        "rev": "e1f3d18c45b2c2dacd90ec636ee4db2034fc50b0",
+        "revCount": 714,
         "shallow": true,
         "type": "git",
         "url": "file:///home/dtsf/.dotfiles/home/base/tui/editors/neovim/conf"
@@ -87,6 +87,22 @@
         "type": "github"
       }
     },
+    "nixpkgs_2": {
+      "locked": {
+        "lastModified": 1728538411,
+        "narHash": "sha256-f0SBJz1eZ2yOuKUr5CA9BHULGXVSn6miBuUWdTyhUhU=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "b69de56fac8c2b6f8fd27f2eca01dcda8e0a4221",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixpkgs-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "datsnvim": "datsnvim",
@@ -95,7 +111,26 @@
         "nixpkgs-stable": "nixpkgs-stable",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "sops-nix": "sops-nix",
-        "unix-scripts": "unix-scripts"
+        "unix-scripts": "unix-scripts",
+        "zellij-switch": "zellij-switch"
+      }
+    },
+    "rust-overlay": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_2"
+      },
+      "locked": {
+        "lastModified": 1736476219,
+        "narHash": "sha256-+qyv3QqdZCdZ3cSO/cbpEY6tntyYjfe1bB12mdpNFaY=",
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "rev": "de30cc5963da22e9742bbbbb9a3344570ed237b9",
+        "type": "github"
+      },
+      "original": {
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "type": "github"
       }
     },
     "sops-nix": {
@@ -119,14 +154,29 @@
         "type": "github"
       }
     },
+    "systems": {
+      "locked": {
+        "lastModified": 1681028828,
+        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
+        "owner": "nix-systems",
+        "repo": "default",
+        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-systems",
+        "repo": "default",
+        "type": "github"
+      }
+    },
     "unix-scripts": {
       "flake": false,
       "locked": {
-        "lastModified": 1736439048,
-        "narHash": "sha256-nE8fnkajjRtCBZypErJoALz2kBxOUIlaK2A5PwDzSMM=",
+        "lastModified": 1736485760,
+        "narHash": "sha256-GZURnUsx6mCh4bzHocrWS+l+LFn3UbLqSm9b8BzeL4g=",
         "ref": "refs/heads/main",
-        "rev": "25698b9d53a588154f857180ff86cf4467295fa8",
-        "revCount": 54,
+        "rev": "cb26d7dc56d7656199328d8d8889d92fd9e0fa4a",
+        "revCount": 56,
         "shallow": true,
         "type": "git",
         "url": "file:///home/dtsf/.dotfiles/home/linux/base/scripts/conf"
@@ -135,6 +185,29 @@
         "shallow": true,
         "type": "git",
         "url": "file:///home/dtsf/.dotfiles/home/linux/base/scripts/conf"
+      }
+    },
+    "zellij-switch": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "rust-overlay": "rust-overlay",
+        "systems": "systems"
+      },
+      "locked": {
+        "lastModified": 1736519327,
+        "narHash": "sha256-A8VGuw/jIw+NCo5aCYy8MFrWpKzZLf77RApGGMzHxCY=",
+        "owner": "datsfilipe",
+        "repo": "zellij-switch",
+        "rev": "aa03b4550387a9c84cf7fdd89f15a7bb9087f7c6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "datsfilipe",
+        "ref": "flake",
+        "repo": "zellij-switch",
+        "type": "github"
       }
     }
   },

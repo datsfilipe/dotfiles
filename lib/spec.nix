@@ -9,11 +9,16 @@ in {
   };
 
   testScanPaths = {
-    expr = mylib.file.scanPaths ../modules/nupkgs;
+    expr = mylib.file.scanPaths ../modules;
     expected = [
-      ../modules/nupkgs/devtunnel-cli
-      ../modules/nupkgs/home.nix
-      ../modules/nupkgs/zellij-switch
+      ../modules/base.nix
+      ../modules/colorscheme
+      ../modules/conf
+      ../modules/devenvs
+      ../modules/nixos
+      ../modules/nupkgs
+      ../modules/secrets
+      ../modules/wallpaper
     ];
   };
 

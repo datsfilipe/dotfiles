@@ -23,6 +23,7 @@ in genFlake ./flake.template.nix
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
+    zellij-switch = (ext "github:datsfilipe/zellij-switch/flake");
     home-manager = (ext "github:nix-community/home-manager/master");
     sops-nix = (ext "github:Mic92/sops-nix/master");
     datsnvim = (local ../home/base/tui/editors/neovim/conf);

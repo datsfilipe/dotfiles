@@ -1,4 +1,4 @@
-{mypkgs, config, lib, ...}: let
+{mypkgs, zellij-switch, config, lib, ...}: let
   shellAliases = {
     "zj" = "zellij";
   };

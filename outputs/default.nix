@@ -6,7 +6,7 @@
   inherit (inputs.nixpkgs) lib;
   myvars = import ../vars;
   mylib = import ../lib {inherit lib; inherit (builtins) builtins;};
-  genMypkgs = system: import ../modules/nupkgs {
+  genMypkgs = system: import ../modules/nupkgs (inputs // {
     inherit lib mylib;
     pkgs = import inputs.nixpkgs {
       inherit system;
@@ -15,7 +15,7 @@
         "openssl-1.1.1w"
       ];
     };
-  };
+  });
 
   genSpecialArgs = system:
     let
