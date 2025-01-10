@@ -63,14 +63,14 @@
       psm = "!git push origin $(git rev-parse --abbrev-ref HEAD)";
       plm = "!git pull origin $(git rev-parse --abbrev-ref HEAD)";
       lg = "log --graph --name-status --pretty=format:\"%C(red)%h %C(reset)(%cd) %C(green)%an %Creset%s %C(yellow)%d%Creset\" --date=relative";
-      changeb = "!f() { git rebase --onto=$1 $2 $(git symbolic-ref --short HEAD); }; f";
-      editu = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; vim `f`";
-      addu = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; git add `f`";
+      chbase = "!f() { git rebase --onto=$1 $2 $(git symbolic-ref --short HEAD); }; f";
+      eu = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; vim `f`";
+      au = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; git add `f`";
       incc = "!(git fetch --quiet && git log --pretty=format:'%C(yellow)%h %C(white)- %C(red)%an %C(white)- %C(cyan)%d%Creset %s %C(white)- %ar%Creset' ..@{u})";
       outc = "!(git fetch --quiet && git log --pretty=format:'%C(yellow)%h %C(white)- %C(red)%an %C(white)- %C(cyan)%d%Creset %s %C(white)- %ar%Creset' @{u}..)";
 
-      subup = "submodule update --init --recursive";
-      subfor = "submodule foreach";
+      sp = "submodule update --init --recursive";
+      sfor = "submodule foreach";
     };
 
     hooks = {
@@ -86,4 +86,15 @@
     gitAndTools.ghq
     gitAndTools.git-lfs
   ];
+
+  home.shellAliases = {
+    "g"="git";
+    "ga"="git add";
+    "gc"="git commit";
+    "gca"="git commit --amend";
+    "gr"="reset HEAD --";
+    "gu"="git checkout --";
+    "root"="cd \"$(git rev-parse --show-toplevel)\"";
+    "gg"="BYPASS_HOOKS=true git";
+  };
 }

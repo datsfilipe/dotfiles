@@ -10,14 +10,6 @@
   "delc"="trash --cleanup";
   "delca"="trash --cleanup-all";
 
-  "g"="git";
-  "ga"="git add";
-  "gc"="git commit";
-  "gca"="git commit --amend";
-  "gr"="git unstage";
-  "gu"="git undo";
-  "root"="cd \"$(git rev-parse --show-toplevel)\"";
-
   "top"="btop -p 1";
   "topp"="btop";
 
