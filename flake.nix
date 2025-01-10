@@ -12,6 +12,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:Mic92/sops-nix/master";
     };
+    zellij-switch = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:datsfilipe/zellij-switch/flake";
+    };
     datsnvim = {
       flake = false;
       url = "git+file:///home/dtsf/.dotfiles/home/base/tui/editors/neovim/conf?shallow=1";
