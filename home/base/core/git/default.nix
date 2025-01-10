@@ -72,6 +72,10 @@
       subup = "submodule update --init --recursive";
       subfor = "submodule foreach";
     };
+
+    hooks = {
+      pre-push = ./conf/protected-branchs-hook.sh;
+    };
   };
 
   programs.gh = {
