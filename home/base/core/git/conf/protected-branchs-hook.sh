@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 protected_branches=(production develop stage main master)
 current_branch=$(git symbolic-ref --short HEAD)
