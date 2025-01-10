@@ -21,7 +21,7 @@
     "${mod}+Return" = "exec ${pkgs.alacritty}/bin/alacritty -e ${pkgs.zellij}/bin/zellij attach dtsf -c";
     "${mod}+a" = "exec chromium --wv --force-dark-mode --enable-features=WebUIDarkMode";
     "${mod}+d" = "exec $HOME/.local/bin/dmenu-theme";
-    "Print" = "exec ${pkgs.flameshot}/bin/flameshot gui";
+    "Print" = "exec flameshot gui";
     "${alt}+k" = "exec $HOME/.local/bin/switch-kb-variant";
     "${alt}+i" = "exec $HOME/.local/bin/switch-kb-variant intl";
 
