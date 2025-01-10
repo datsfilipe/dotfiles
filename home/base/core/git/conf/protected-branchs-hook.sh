@@ -1,12 +1,26 @@
 #!/usr/bin/env bash
 
-protected_branches=(production develop stage main master)
-current_branch=$(git symbolic-ref --short HEAD)
-force_push=$(echo "$@" | grep -q -- "--force" && echo "yes" || echo "no")
+restricted_branches=("main" "master" "production" "prod" "stag" "stage" "develop" "dev")
 
-for branch in "${protected_branches[@]}"; do
-  if [[ "$current_branch" == "$branch" && "$force_push" != "yes" ]]; then
-    echo "push to $branch is not allowed unless --force is added."
+is_restricted_branch() {
+  local branch=$1
+  for restricted in "${restricted_branches[@]}"; do
+    if [[ "$branch" == "$restricted" ]]; then
+      return 0
+    fi
+  done
+  return 1
+}
+
+if [[ "$BYPASS_HOOKS" == "true" ]]; then
+  exit 0
+fi
+
+while read local_ref local_commit remote_ref remote_commit; do
+  branch_name=$(basename "$local_ref")
+
+  if is_restricted_branch "$branch_name"; then
+    echo "pushing to '$branch_name' is not allowed unless you pass BYPASS_HOOKS=true"
     exit 1
   fi
 done
