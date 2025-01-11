@@ -4,6 +4,9 @@
     fade = true;
     fade-delta = 2;
     inactive-opacity = 0.9;
+    opacity-rule = [
+      "100:class_g = 'chromium-browser' && name %= '*- YouTube*'"
+    ];
     shadow = true;
     shadow-offset-x = -9;
     shadow-offset-y = -9;
