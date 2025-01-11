@@ -2,7 +2,7 @@
 {
   imports = [ ./packages.nix ];
 
-  modules.desktop.colorscheme.theme = "vesper";
+  modules.desktop.colorscheme.theme = "gruvbox";
 
   modules.desktop = {
     i3 = let
