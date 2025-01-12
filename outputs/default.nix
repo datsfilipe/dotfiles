@@ -5,35 +5,39 @@
 } @ inputs: let
   inherit (inputs.nixpkgs) lib;
   myvars = import ../vars;
-  mylib = import ../lib {inherit lib; inherit (builtins) builtins;};
-  genMypkgs = system: import ../modules/nupkgs (inputs // {
-    inherit lib mylib;
-    pkgs = import inputs.nixpkgs {
-      inherit system;
-      config.allowUnfree = true;
-      config.permittedInsecurePackages = [
-        "openssl-1.1.1w"
-      ];
-    };
-  });
-
-  genSpecialArgs = system:
-    let
-      mypkgs = genMypkgs system;
-    in
-      inputs
+  mylib = import ../lib {
+    inherit lib;
+    inherit (builtins) builtins;
+  };
+  genMypkgs = system:
+    import ../modules/nupkgs (inputs
       // {
-        inherit mylib myvars mypkgs;
+        inherit lib mylib;
+        pkgs = import inputs.nixpkgs {
+          inherit system;
+          config.allowUnfree = true;
+          config.permittedInsecurePackages = [
+            "openssl-1.1.1w"
+          ];
+        };
+      });
 
-        pkgs-unstable = import inputs.nixpkgs-unstable {
-          inherit system;
-          config.allowUnfree = true;
-        };
-        pkgs-stable = import inputs.nixpkgs-stable {
-          inherit system;
-          config.allowUnfree = true;
-        };
+  genSpecialArgs = system: let
+    mypkgs = genMypkgs system;
+  in
+    inputs
+    // {
+      inherit mylib myvars mypkgs;
+
+      pkgs-unstable = import inputs.nixpkgs-unstable {
+        inherit system;
+        config.allowUnfree = true;
       };
+      pkgs-stable = import inputs.nixpkgs-stable {
+        inherit system;
+        config.allowUnfree = true;
+      };
+    };
 
   args = {inherit inputs lib mylib myvars genSpecialArgs;};
 

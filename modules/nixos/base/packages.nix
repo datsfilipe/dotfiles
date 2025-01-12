@@ -1,4 +1,9 @@
-{ pkgs, lib, vars, ... }: {
+{
+  pkgs,
+  lib,
+  vars,
+  ...
+}: {
   environment.systemPackages = with pkgs; [
     strace
     tcpdump

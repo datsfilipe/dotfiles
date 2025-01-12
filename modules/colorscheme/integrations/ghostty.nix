@@ -1,4 +1,9 @@
-{ config, lib, colorscheme, ...}: {
+{
+  config,
+  lib,
+  colorscheme,
+  ...
+}: {
   programs.ghostty = {
     settings.theme = "custom";
     themes.custom = {

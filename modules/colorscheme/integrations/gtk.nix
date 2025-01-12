@@ -1,6 +1,9 @@
-{ mylib, name, pkgs, ...}:
-
-let
+{
+  mylib,
+  name,
+  pkgs,
+  ...
+}: let
   themes = {
     gruvbox = {
       theme = {
@@ -20,7 +23,7 @@ let
       iconTheme = {
         name = "Reversal-red-dark";
         package = pkgs.reversal-icon-theme.override {
-          colorVariants = [ "-red" ];
+          colorVariants = ["-red"];
         };
       };
     };
@@ -32,7 +35,7 @@ let
       iconTheme = {
         name = "Reversal-cyan-dark";
         package = pkgs.reversal-icon-theme.override {
-          colorVariants = [ "-cyan" ];
+          colorVariants = ["-cyan"];
         };
       };
     };
@@ -44,7 +47,7 @@ let
       iconTheme = {
         name = "Reversal-black-dark";
         package = pkgs.reversal-icon-theme.override {
-          colorVariants = [ "-black" ];
+          colorVariants = ["-black"];
         };
       };
     };
@@ -56,7 +59,7 @@ let
       iconTheme = {
         name = "Reversal-purple-dark";
         package = pkgs.reversal-icon-theme.override {
-          colorVariants = [ "-purple" ];
+          colorVariants = ["-purple"];
         };
       };
     };
@@ -68,10 +71,10 @@ let
       iconTheme = {
         name = "Reversal-orange-dark";
         package = pkgs.reversal-icon-theme.override {
-          colorVariants = [ "-orange" ];
+          colorVariants = ["-orange"];
         };
       };
     };
   };
 in
-  mylib.mapLookup { value = name; } themes
+  mylib.mapLookup {value = name;} themes

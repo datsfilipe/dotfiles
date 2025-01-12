@@ -1,4 +1,10 @@
-{ config, lib, mylib, pkgs, ... }: {
+{
+  config,
+  lib,
+  mylib,
+  pkgs,
+  ...
+}: {
   configOptions.modules.desktop.conf = {
     enableZellijIntegration = lib.mkEnableOption "Zellij configuration.";
 
@@ -19,7 +25,7 @@
       default = {};
       description = "Zellij theme configuration.";
     };
-    
+
     zellij.layoutContent = lib.mkOption {
       type = lib.types.lines;
       default = "";
@@ -29,7 +35,7 @@
 
   configContent = lib.mkIf config.modules.desktop.conf.enableZellijIntegration {
     xdg.configFile."zellij/config.kdl".text = ''
-      ${config.modules.desktop.conf.zellij.content}
+        ${config.modules.desktop.conf.zellij.content}
 
       ${lib.optionalString (config.modules.desktop.conf.zellij.theme != "") ''
         theme "${config.modules.desktop.conf.zellij.theme}"
@@ -39,8 +45,8 @@
         themes {
           ${config.modules.desktop.conf.zellij.theme} {
             ${lib.replaceStrings ["="] [" "] (
-              mylib.format.sections [] config.modules.desktop.conf.zellij.themeConfig
-            )}
+          mylib.format.sections [] config.modules.desktop.conf.zellij.themeConfig
+        )}
           }
         }
       ''}

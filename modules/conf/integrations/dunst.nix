@@ -1,6 +1,10 @@
-{ lib, pkgs, config, mylib, ... }:
-
-let
+{
+  lib,
+  pkgs,
+  config,
+  mylib,
+  ...
+}: let
   defaultSettings = {
     global = {
       monitor = 0;
@@ -50,9 +54,10 @@ let
     };
   };
   evaluatedSettings = config.modules.desktop.conf.dunst.settings {};
-  mergedSettings = lib.recursiveUpdate
-    (defaultSettings)
-    (evaluatedSettings);
+  mergedSettings =
+    lib.recursiveUpdate
+    defaultSettings
+    evaluatedSettings;
 in {
   configOptions.modules.desktop.conf = {
     enableDunstIntegration = lib.mkEnableOption "Whether to enable dunst";

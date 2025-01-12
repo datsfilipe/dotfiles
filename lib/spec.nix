@@ -1,7 +1,6 @@
-{ pkgs ? import <nixpkgs> {} }:
-let
+{pkgs ? import <nixpkgs> {}}: let
   inherit (pkgs) lib;
-  mylib = import ./default.nix { inherit lib builtins; };
+  mylib = import ./default.nix {inherit lib builtins;};
 in {
   testRemoveHash = {
     expr = mylib.removeHash "#abcdef";
@@ -28,25 +27,37 @@ in {
   };
 
   testIfLet = {
-    expr = mylib.if_let
-      { a = 1; b = 2; }
-      { a = 1; };
-    expected = { a = 1; b = 2; };
+    expr =
+      mylib.if_let
+      {
+        a = 1;
+        b = 2;
+      }
+      {a = 1;};
+    expected = {
+      a = 1;
+      b = 2;
+    };
   };
 
   testIfLetNoMatch = {
-    expr = mylib.if_let
-      { a = 2; }
-      { a = 1; };
+    expr =
+      mylib.if_let
+      {a = 2;}
+      {a = 1;};
     expected = null;
   };
 
   testMatch = {
-    expr = mylib.match
-      { type = "success"; value = 42; }
+    expr =
+      mylib.match
+      {
+        type = "success";
+        value = 42;
+      }
       [
-        [{ type = "error"; } "error"]
-        [{ type = "success"; } "success"]
+        [{type = "error";} "error"]
+        [{type = "success";} "success"]
       ];
     expected = "success";
   };
@@ -67,8 +78,9 @@ in {
   };
 
   testMapLookup = {
-    expr = mylib.mapLookup
-      { value = "min"; }
+    expr =
+      mylib.mapLookup
+      {value = "min";}
       {
         min = {
           theme = {
@@ -104,8 +116,9 @@ in {
   };
 
   testFormatSections = {
-    expr = mylib.format.sections
-      [ "a" "b" ]
+    expr =
+      mylib.format.sections
+      ["a" "b"]
       {
         a = {
           a = "1";
@@ -119,18 +132,19 @@ in {
     expected = ''
       [a]
       a="1"
-      b="2"
+        b="2"
 
 
-      [b]
-      a="3"
-      b="4"
+        [b]
+        a="3"
+          b="4"
 
     '';
   };
 
   testFormatSectionsNoCategories = {
-    expr = mylib.format.sections
+    expr =
+      mylib.format.sections
       []
       {
         a = "1";
@@ -143,25 +157,25 @@ in {
         ];
         c = 3;
         d = "4";
-        e = [ "5" "6" ];
+        e = ["5" "6"];
         f = true;
       };
     expected = ''
       a="1"
       b=[
-        "name = 'Notification'",
-        "class_g ?= 'Notify-osd'",
-        "class_g = 'Polybar'",
-        "class_g = 'Rofi'",
-        "window_type = 'tooltip'",
+      "name = 'Notification'",
+      "class_g ?= 'Notify-osd'",
+      "class_g = 'Polybar'",
+      "class_g = 'Rofi'",
+      "window_type = 'tooltip'",
       ]
-      c=3
-      d="4"
-      e=[
+        c=3
+        d="4"
+        e=[
         "5",
-        "6",
-      ]
-      f=true
+      "6",
+        ]
+          f=true
     '';
   };
 

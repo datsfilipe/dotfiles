@@ -1,4 +1,8 @@
-{ lib, builtins, ... }: let
+{
+  lib,
+  builtins,
+  ...
+}: let
   relativeToRoot = lib.path.append ../.;
   scanPaths = path:
     builtins.map
@@ -7,10 +11,10 @@
       (lib.attrsets.filterAttrs
         (
           path: _type:
-            (_type == "directory") # include directories
+            (_type == "directory")
             || (
-              (path != "default.nix") # ignore default.nix
-              && (lib.strings.hasSuffix ".nix" path) # include .nix files
+              (path != "default.nix")
+              && (lib.strings.hasSuffix ".nix" path)
             )
         )
         (builtins.readDir path)));

@@ -11,45 +11,51 @@
 
   inputs.flake-utils.url = "github:numtide/flake-utils";
 
-  outputs = { self, nixpkgs, nixos-unstable, vial-qmk, flake-utils }:
-    flake-utils.lib.eachSystem [ "x86_64-linux" ] (system:
-    let
-      pkgs = import nixpkgs { inherit system;
-        overlays = [
-          (final: prev: {
-            unstable = nixos-unstable.legacyPackages."${prev.system}";
-          })
+  outputs = {
+    self,
+    nixpkgs,
+    nixos-unstable,
+    vial-qmk,
+    flake-utils,
+  }:
+    flake-utils.lib.eachSystem ["x86_64-linux"] (
+      system: let
+        pkgs = import nixpkgs {
+          inherit system;
+          overlays = [
+            (final: prev: {
+              unstable = nixos-unstable.legacyPackages."${prev.system}";
+            })
 
-          (final: prev: {
-            python3 = final.python310;
-            python3Packages = final.python310.pkgs;
-          })
-        ];
-      };
-
-      VIAL_QMK_DIR = "${vial-qmk}";
-      KEYBOARD="lily58";
-      KEYMAP="vial";
-      CONTROLLER="promicro_rp2040";
-
-      build = pkgs.writeShellScriptBin "build" ''
-        make -C ${VIAL_QMK_DIR} BUILD_DIR=`pwd`/build COPY=echo -j8 ${KEYBOARD}:${KEYMAP} CONVERT_TO=${CONTROLLER}
-      '';
-      flash = pkgs.writeShellScriptBin "flash" ''
-        make -C ${VIAL_QMK_DIR} BUILD_DIR=`pwd`/build COPY=echo -j8 ${KEYBOARD}:${KEYMAP}:flash CONVERT_TO=${CONTROLLER}
-      '';
-    in
-    {
-      devShell = pkgs.mkShell {
-        name = "qmk-shell";
-        env = {
-          VIAL_QMK_DIR = VIAL_QMK_DIR;
-          KEYBOARD = KEYBOARD;
-          KEYMAP = KEYMAP;
-          CONTROLLER = CONTROLLER;
+            (final: prev: {
+              python3 = final.python310;
+              python3Packages = final.python310.pkgs;
+            })
+          ];
         };
-        packages = [ build flash pkgs.qmk pkgs.unstable.vial ];
-      };
-    }
-  );
+
+        VIAL_QMK_DIR = "${vial-qmk}";
+        KEYBOARD = "lily58";
+        KEYMAP = "vial";
+        CONTROLLER = "promicro_rp2040";
+
+        build = pkgs.writeShellScriptBin "build" ''
+          make -C ${VIAL_QMK_DIR} BUILD_DIR=`pwd`/build COPY=echo -j8 ${KEYBOARD}:${KEYMAP} CONVERT_TO=${CONTROLLER}
+        '';
+        flash = pkgs.writeShellScriptBin "flash" ''
+          make -C ${VIAL_QMK_DIR} BUILD_DIR=`pwd`/build COPY=echo -j8 ${KEYBOARD}:${KEYMAP}:flash CONVERT_TO=${CONTROLLER}
+        '';
+      in {
+        devShell = pkgs.mkShell {
+          name = "qmk-shell";
+          env = {
+            VIAL_QMK_DIR = VIAL_QMK_DIR;
+            KEYBOARD = KEYBOARD;
+            KEYMAP = KEYMAP;
+            CONTROLLER = CONTROLLER;
+          };
+          packages = [build flash pkgs.qmk pkgs.unstable.vial];
+        };
+      }
+    );
 }

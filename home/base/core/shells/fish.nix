@@ -1,5 +1,9 @@
-{ pkgs, lib, path, ... }:
-
+{
+  pkgs,
+  lib,
+  path,
+  ...
+}:
 with lib; {
   programs.fish = {
     enable = true;

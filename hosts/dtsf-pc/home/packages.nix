@@ -1,4 +1,9 @@
-{ config, pkgs, mypkgs, ... }: {
+{
+  config,
+  pkgs,
+  mypkgs,
+  ...
+}: {
   home.packages = with pkgs; [
     qbittorrent
     zoom-us

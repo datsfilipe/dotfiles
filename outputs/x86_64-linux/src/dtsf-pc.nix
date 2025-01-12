@@ -9,14 +9,16 @@
 } @ args: let
   name = "dtsf-pc";
   base-modules = {
-    nixos-modules = map mylib.file.relativeToRoot [
-      "modules/secrets/nixos.nix"
-      "modules/wallpaper/nixos.nix"
-      "modules/nixos/desktop.nix"
-      "hosts/${name}"
-    ] ++ [
-      inputs.sops-nix.nixosModules.sops
-    ];
+    nixos-modules =
+      map mylib.file.relativeToRoot [
+        "modules/secrets/nixos.nix"
+        "modules/wallpaper/nixos.nix"
+        "modules/nixos/desktop.nix"
+        "hosts/${name}"
+      ]
+      ++ [
+        inputs.sops-nix.nixosModules.sops
+      ];
     home-modules = map mylib.file.relativeToRoot [
       "home/linux/gui.nix"
       "hosts/${name}/home"

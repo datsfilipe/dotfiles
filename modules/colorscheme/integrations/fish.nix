@@ -1,6 +1,9 @@
-{ config, lib, colorscheme, ...}:
-
-let
+{
+  config,
+  lib,
+  colorscheme,
+  ...
+}: let
   hydroConfig = config.xdg.configFile."fish/conf.d/hydro.fish".text or null;
 in {
   xdg.configFile."fish/conf.d/colorscheme.fish".text = ''
@@ -32,10 +35,10 @@ in {
 
     ${lib.optionalString (hydroConfig != null) ''
       set -g hydro_color_prompt "${colorscheme.colors.primary}"
-      set -g hydro_color_pwd "${colorscheme.colors.primary}"
-      set -g hydro_color_git "${colorscheme.colors.magenta}"
-      set -g hydro_color_error "${colorscheme.colors.red}"
-      set -g hydro_color_duration "${colorscheme.colors.green}"
+        set -g hydro_color_pwd "${colorscheme.colors.primary}"
+        set -g hydro_color_git "${colorscheme.colors.magenta}"
+        set -g hydro_color_error "${colorscheme.colors.red}"
+        set -g hydro_color_duration "${colorscheme.colors.green}"
     ''}
   '';
 }

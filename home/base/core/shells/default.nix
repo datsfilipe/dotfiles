@@ -12,7 +12,7 @@
   path = "PATH=\"$PATH:${localbin}:${gobin}:${rustbin}\"";
 in {
   imports = [
-    (import ./fish.nix { inherit lib pkgs path; })
+    (import ./fish.nix {inherit lib pkgs path;})
   ];
 
   home.shellAliases = shellAliases;

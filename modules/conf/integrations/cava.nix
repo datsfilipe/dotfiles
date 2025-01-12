@@ -1,4 +1,10 @@
-{ config, lib, mylib, ... }: with lib; {
+{
+  config,
+  lib,
+  mylib,
+  ...
+}:
+with lib; {
   configOptions.modules.desktop.conf = {
     enableCavaIntegration = mkEnableOption "Enable cava integration";
 
