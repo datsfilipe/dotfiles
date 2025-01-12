@@ -73,8 +73,10 @@ keybinds clear-defaults=true {
     bind "Alt j" { SwitchToMode "Scroll"; }
   }
   scroll {
-    bind "Ctrl d" { ScrollDown; }
-    bind "Ctrl u" { ScrollUp; }
+    bind "Ctrl d" { HalfPageScrollDown; }
+    bind "Ctrl u" { HalfPageScrollUp; }
+    bind "j" { ScrollDown; }
+    bind "k" { ScrollUp; }
     bind "/" { SwitchToMode "EnterSearch"; }
   }
   entersearch {
