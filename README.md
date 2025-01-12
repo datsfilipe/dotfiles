@@ -2,8 +2,8 @@
 
 # datsfilipe’s dotfiles
 
-<img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/datsfilipe/dotfiles?colorA=ebdbb2&colorB=cc241d&style=for-the-badge&logo=github">
-<img alt="GitHub issues" src="https://img.shields.io/github/issues/datsfilipe/dotfiles?colorA=ebdbb2&colorB=cc241d&style=for-the-badge&logo=github">
+<img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/datsfilipe/dotfiles?colorA=cc241d&colorB=ebdbb2&style=for-the-badge&logo=github">
+<img alt="GitHub issues" src="https://img.shields.io/github/issues/datsfilipe/dotfiles?colorA=cc241d&colorB=ebdbb2&style=for-the-badge&logo=github">
 
 <br/>
 <br/>
