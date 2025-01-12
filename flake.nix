@@ -8,6 +8,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:nix-community/home-manager/master";
     };
+    linux-shimeji = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:datsfilipe/linux-shimeji/main";
+    };
     sops-nix = {
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:Mic92/sops-nix/master";

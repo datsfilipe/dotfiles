@@ -1,4 +1,4 @@
-{ lib, pkgs, mylib, zellij-switch, ... }: let
+{ lib, pkgs, mylib, zellij-switch, linux-shimeji, ... }: let
   packageFiles = lib.filter
     (path: !lib.strings.hasPrefix (toString ./overlays) (toString path))
     (mylib.file.scanPaths ./.);
@@ -14,6 +14,7 @@
       packageFiles
   ) // {
     inherit (pkgsWithOverlays) zellij-switch;
+    linux-shimeji = linux-shimeji.packages.${pkgs.system}.little-ghost-polite;
   };
 in
   packages
