@@ -132,12 +132,12 @@ in {
     expected = ''
       [a]
       a="1"
-        b="2"
+      b="2"
 
 
-        [b]
-        a="3"
-          b="4"
+      [b]
+      a="3"
+      b="4"
 
     '';
   };
@@ -163,19 +163,19 @@ in {
     expected = ''
       a="1"
       b=[
-      "name = 'Notification'",
-      "class_g ?= 'Notify-osd'",
-      "class_g = 'Polybar'",
-      "class_g = 'Rofi'",
-      "window_type = 'tooltip'",
+        "name = 'Notification'",
+        "class_g ?= 'Notify-osd'",
+        "class_g = 'Polybar'",
+        "class_g = 'Rofi'",
+        "window_type = 'tooltip'",
       ]
-        c=3
-        d="4"
-        e=[
+      c=3
+      d="4"
+      e=[
         "5",
-      "6",
-        ]
-          f=true
+        "6",
+      ]
+      f=true
     '';
   };
 
