@@ -1,4 +1,11 @@
-{ colorscheme, config, lib, mylib, ... }: with mylib; {
+{
+  colorscheme,
+  config,
+  lib,
+  mylib,
+  ...
+}:
+with mylib; {
   modules.desktop.conf.cava.settings = {
     color = {
       gradient = 1;

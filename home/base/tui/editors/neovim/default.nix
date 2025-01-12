@@ -1,5 +1,9 @@
-{ datsnvim, pkgs, lib, ... }:
-
+{
+  datsnvim,
+  pkgs,
+  lib,
+  ...
+}:
 with lib; {
   xdg.configFile."nvim" = {
     source = datsnvim;
@@ -13,11 +17,11 @@ with lib; {
       "--suffix"
       "LIBRARY_PATH"
       ":"
-      "${makeLibraryPath [ pkgs.stdenv.cc.cc pkgs.zlib ]}"
+      "${makeLibraryPath [pkgs.stdenv.cc.cc pkgs.zlib]}"
       "--suffix"
       "PKG_CONFIG_PATH"
       ":"
-      "${makeSearchPathOutput "dev" "lib/pkgconfig" [ pkgs.stdenv.cc.cc pkgs.zlib ]}"
+      "${makeSearchPathOutput "dev" "lib/pkgconfig" [pkgs.stdenv.cc.cc pkgs.zlib]}"
     ];
   };
 
@@ -29,5 +33,5 @@ with lib; {
     return vim.fn.expand("$HOME/.dotfiles/home/base/tui/editors/neovim/conf") .. "/lazy-lock.json"
   '';
 
-  home.packages = with pkgs; [ tree-sitter ];
+  home.packages = with pkgs; [tree-sitter];
 }

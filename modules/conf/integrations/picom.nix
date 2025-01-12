@@ -1,4 +1,10 @@
-{ config, mylib, lib, ... }: with lib; {
+{
+  config,
+  mylib,
+  lib,
+  ...
+}:
+with lib; {
   configOptions.modules.desktop.conf = {
     enablePicomIntegration = mkEnableOption "Enable picom integration";
 

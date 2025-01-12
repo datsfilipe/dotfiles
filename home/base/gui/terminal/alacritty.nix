@@ -1,5 +1,4 @@
-{ lib, ... }:
-
+{lib, ...}:
 with lib; {
   programs.alacritty = {
     enable = true;
@@ -8,19 +7,38 @@ with lib; {
 
       font = {
         size = 14;
-        bold = { family = "JetBrainsMono Nerd Font"; style = "Bold"; };
-        normal = { family = "JetBrainsMono Nerd Font"; style = "Regular"; };
-        italic = { family = "JetBrainsMono Nerd Font"; style = "Italic"; };
-        bold_italic = { family = "JetBrainsMono Nerd Font"; style = "Bold Italic"; };
+        bold = {
+          family = "JetBrainsMono Nerd Font";
+          style = "Bold";
+        };
+        normal = {
+          family = "JetBrainsMono Nerd Font";
+          style = "Regular";
+        };
+        italic = {
+          family = "JetBrainsMono Nerd Font";
+          style = "Italic";
+        };
+        bold_italic = {
+          family = "JetBrainsMono Nerd Font";
+          style = "Bold Italic";
+        };
       };
 
       cursor = {
-        style = { shape = "Block"; blinking = "On"; };
+        style = {
+          shape = "Block";
+          blinking = "On";
+        };
         blink_interval = 500;
       };
 
       keyboard.bindings = [
-        { key = "X"; mods = "Control"; action = "ToggleViMode"; }
+        {
+          key = "X";
+          mods = "Control";
+          action = "ToggleViMode";
+        }
       ];
 
       window = {

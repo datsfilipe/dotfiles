@@ -3,11 +3,11 @@
     "datsnvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1736612825,
-        "narHash": "sha256-RCZnIwOgfwXccLQqi/D/jRU9kZufov426EM79QImzOw=",
+        "lastModified": 1736716323,
+        "narHash": "sha256-ZZgCFKDQIqG4oHcrfoOK8PJ2xNX4i4hb7GboNzhRwwY=",
         "ref": "refs/heads/main",
-        "rev": "1460fa9f4a58030e8083bc13432c2ec2621105be",
-        "revCount": 722,
+        "rev": "708dfb875baa9ee1ad99d1faae8e2df9a2b6c2e3",
+        "revCount": 728,
         "shallow": true,
         "type": "git",
         "url": "file:///home/dtsf/.dotfiles/home/base/tui/editors/neovim/conf"

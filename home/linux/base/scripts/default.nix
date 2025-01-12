@@ -1,4 +1,8 @@
-{ unix-scripts, myvars, ... }: {
+{
+  unix-scripts,
+  myvars,
+  ...
+}: {
   home.file.".local/bin" = {
     source = "${unix-scripts}";
     recursive = true;

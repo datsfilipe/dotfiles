@@ -1,4 +1,10 @@
-{ config, lib, pkgs, mylib, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  mylib,
+  ...
+}: {
   options.modules.desktop.nupkgs = {
     enable = lib.mkEnableOption "NIX User Packages";
 

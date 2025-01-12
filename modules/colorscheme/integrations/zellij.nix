@@ -1,4 +1,9 @@
-{ config, lib, colorscheme, ...}: let
+{
+  config,
+  lib,
+  colorscheme,
+  ...
+}: let
   zellijConf = config.xdg.configFile."zellij/zellij.toml".text or null;
 in {
   modules.desktop.conf.zellij = {

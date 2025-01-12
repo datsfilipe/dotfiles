@@ -1,4 +1,10 @@
-{ mod, alt, pkgs, lib, ... }: let 
+{
+  mod,
+  alt,
+  pkgs,
+  lib,
+  ...
+}: let
   mod = "Mod4";
   alt = "Mod1";
   print = "Print";
@@ -6,14 +12,20 @@
     (map (i: {
       name = "${mod}+${toString i}";
       value = "workspace ${toString i}";
-    }) (lib.range 1 9)) ++
-    (map (i: {
+    }) (lib.range 1 9))
+    ++ (map (i: {
       name = "${mod}+Shift+${toString i}";
       value = "move container to workspace ${toString i}";
-    }) (lib.range 1 9)) ++
-    [
-      { name = "${mod}+0"; value = "workspace 10"; }
-      { name = "${mod}+Shift+0"; value = "move container to workspace 10"; }
+    }) (lib.range 1 9))
+    ++ [
+      {
+        name = "${mod}+0";
+        value = "workspace 10";
+      }
+      {
+        name = "${mod}+Shift+0";
+        value = "move container to workspace 10";
+      }
     ]
   );
   staticBindings = {
@@ -59,6 +71,6 @@
     "XF86MonBrightnessUp" = "exec --no-startup-id brightnessctl set +5%";
     "XF86MonBrightnessDown" = "exec --no-startup-id brightnessctl set 5%-";
   };
-in  {
+in {
   allBindings = staticBindings // workspaceBindings;
 }

@@ -88,13 +88,13 @@
   ];
 
   home.shellAliases = {
-    "g"="git";
-    "ga"="git add";
-    "gc"="git commit";
-    "gca"="git commit --amend";
-    "gr"="reset HEAD --";
-    "gu"="git checkout --";
-    "root"="cd \"$(git rev-parse --show-toplevel)\"";
-    "gg"="BYPASS_HOOKS=true git";
+    "g" = "git";
+    "ga" = "git add";
+    "gc" = "git commit";
+    "gca" = "git commit --amend";
+    "gr" = "reset HEAD --";
+    "gu" = "git checkout --";
+    "root" = "cd \"$(git rev-parse --show-toplevel)\"";
+    "gg" = "BYPASS_HOOKS=true git";
   };
 }

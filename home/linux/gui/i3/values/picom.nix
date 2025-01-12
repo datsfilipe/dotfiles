@@ -1,4 +1,9 @@
-{ lib, mylib, pkgs, ... }: {
+{
+  lib,
+  mylib,
+  pkgs,
+  ...
+}: {
   modules.desktop.conf.picom.settings = {
     backend = "glx";
     fade = true;
@@ -48,5 +53,5 @@
     ];
   };
 
-  home.packages = with pkgs; [ picom ];
+  home.packages = with pkgs; [picom];
 }

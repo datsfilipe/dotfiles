@@ -1,6 +1,10 @@
-{ lib, colorscheme, pkgs, enableI3StatusIntegration, ...}:
-
 {
+  lib,
+  colorscheme,
+  pkgs,
+  enableI3StatusIntegration,
+  ...
+}: {
   xsession.windowManager.i3.config = {
     colors = {
       background = colorscheme.colors.bg;
@@ -59,10 +63,10 @@
 
   home.file.".local/bin/dmenu-theme".text = ''
     #!/usr/bin/env bash
-    ${pkgs.dmenu}/bin/dmenu_run -nb "${colorscheme.colors.bg}" \
-      -nf "${colorscheme.colors.fg}" \
-      -sb "${colorscheme.colors.altbg}" \
-      -sf "${colorscheme.colors.fg}"
+        ${pkgs.dmenu}/bin/dmenu_run -nb "${colorscheme.colors.bg}" \
+        -nf "${colorscheme.colors.fg}" \
+        -sb "${colorscheme.colors.altbg}" \
+        -sf "${colorscheme.colors.fg}"
   '';
   home.file.".local/bin/dmenu-theme".executable = true;
 }

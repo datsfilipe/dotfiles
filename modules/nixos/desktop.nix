@@ -75,11 +75,11 @@ in {
       };
 
       environment = {
-        pathsToLink = [ "/libexec" ];
+        pathsToLink = ["/libexec"];
         loginShellInit = ''
           if [ -z $DISPLAY ] && [ "$(tty)" = "/dev/tty1" ]; then
             exec startx
-          fi
+              fi
         '';
       };
     })
