@@ -53,6 +53,13 @@
           style = "Regular";
           size = 8.0;
         };
+
+        window.commands = [
+          {
+            command = "floating enable, sticky enable";
+            criteria = { title = "^win"; };
+          }
+        ];
       };
     };
   };

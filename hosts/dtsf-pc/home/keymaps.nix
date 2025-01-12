@@ -1,6 +1,7 @@
 { mod, alt, pkgs, lib, ... }: let 
   mod = "Mod4";
   alt = "Mod1";
+  print = "Print";
   workspaceBindings = builtins.listToAttrs (
     (map (i: {
       name = "${mod}+${toString i}";
@@ -21,9 +22,12 @@
     "${mod}+Return" = "exec ${pkgs.alacritty}/bin/alacritty -e ${pkgs.zellij}/bin/zellij attach dtsf -c";
     "${mod}+a" = "exec chromium --wv --force-dark-mode --enable-features=WebUIDarkMode";
     "${mod}+d" = "exec $HOME/.local/bin/dmenu-theme";
-    "Print" = "exec flameshot gui";
+    "${mod}+Shift+m" = "exec shimeji";
+
     "${alt}+k" = "exec $HOME/.local/bin/switch-kb-variant";
     "${alt}+i" = "exec $HOME/.local/bin/switch-kb-variant intl";
+
+    "${print}" = "exec flameshot gui";
 
     "${mod}+h" = "focus left";
     "${mod}+j" = "focus down";
