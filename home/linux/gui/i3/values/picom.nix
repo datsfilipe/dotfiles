@@ -18,6 +18,7 @@
       "class_g ?= 'Polybar'"
       "class_g ?= 'Rofi'"
       "_GTK_FRAME_EXTENTS"
+      "name = 'win'"
     ];
 
     corner-radius = 0;
@@ -28,6 +29,13 @@
       "class_g = 'Polybar'"
       "class_g = 'Rofi'"
       "window_type = 'tooltip'"
+      "name = 'win'"
+    ];
+    blur-background-exclude = [
+      "name = 'win'"
+    ];
+    focus-exclude = [
+      "name = 'win'"
     ];
   };
 
