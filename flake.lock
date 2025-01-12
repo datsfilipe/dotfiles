@@ -228,11 +228,11 @@
     "unix-scripts": {
       "flake": false,
       "locked": {
-        "lastModified": 1736534193,
-        "narHash": "sha256-G/EzxKg0ZVg8PYIdXNRb4pjBRtdy1iM1rm3TNvQIUpY=",
+        "lastModified": 1736687240,
+        "narHash": "sha256-9B1phDwsBA0D1S6h8qb6YAr5mNel93SyKRxAqwAcDzI=",
         "ref": "refs/heads/main",
-        "rev": "2073fc35e6050d32cfec28faf5faf687b7297dc0",
-        "revCount": 57,
+        "rev": "ece60068043713eac419bb62e42f218677956835",
+        "revCount": 58,
         "shallow": true,
         "type": "git",
         "url": "file:///home/dtsf/.dotfiles/home/linux/base/scripts/conf"

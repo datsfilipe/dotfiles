@@ -8,7 +8,6 @@
   "delu"="trash --fzf";
   "delr"="trash --restore";
   "delc"="trash --cleanup";
-  "delca"="trash --cleanup-all";
 
   "top"="btop -p 1";
   "topp"="btop";
