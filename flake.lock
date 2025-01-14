@@ -285,7 +285,6 @@
       "locked": {
         "lastModified": 1736688681,
         "narHash": "sha256-xyrnzHDxv62dFwHG4O9vHKjAqH/bGavmcavZYbRWeNI=",
-        "ref": "refs/heads/main",
         "rev": "27ce679fcfd66a7a11d69f745260679b14d1dc8c",
         "revCount": 60,
         "shallow": true,
