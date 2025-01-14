@@ -74,12 +74,9 @@
     lib.mkMerge [
       (lib.mkIf (config.modules.desktop.colorscheme.enable) (lib.mkMerge [
         (lib.mkIf config.modules.desktop.colorscheme.enableNeovimIntegration {
-          xdg.configFile."nvim/lua/nix_colorscheme.lua".text = ''
-            return "${(import ./integrations/neovim.nix {
-              inherit mylib;
-              name = config.modules.desktop.colorscheme.theme;
-            })}";
-          '';
+          modules.desktop.nupkgs = {
+            programs_datsnvim_theme = config.modules.desktop.colorscheme.theme;
+          };
         })
 
         (lib.mkIf config.modules.desktop.colorscheme.enableGTKIntegration {

@@ -1,12 +1,33 @@
 {
-  datsnvim,
   pkgs,
+  mypkgs,
   lib,
   ...
 }:
 with lib; {
+  modules.desktop.nupkgs = {
+    programs_datsnvim_lazy_lock = "vim.fn.expand(\"$HOME/.dotfiles/home/base/tui/editors/neovim/conf\") .. \"/lazy-lock.json\"";
+  };
+
+  home.packages = with pkgs; [
+    vscode-langservers-extracted
+    typescript-language-server
+    bash-language-server
+    lua-language-server
+    rust-analyzer
+    gopls
+
+    nodePackages.prettier
+    codespell
+    stylua
+    biome
+
+    tree-sitter
+    fd
+  ];
+
   xdg.configFile."nvim" = {
-    source = datsnvim;
+    source = mypkgs.datsnvim;
     recursive = true;
   };
 
@@ -24,14 +45,4 @@ with lib; {
       "${makeSearchPathOutput "dev" "lib/pkgconfig" [pkgs.stdenv.cc.cc pkgs.zlib]}"
     ];
   };
-
-  # xdg.configFile."nvim/lua/nix_colorscheme.lua".text = ''
-  #   return "${theme.nvim-colorscheme}"
-  # '';
-
-  xdg.configFile."nvim/lua/nix_lazylock.lua".text = ''
-    return vim.fn.expand("$HOME/.dotfiles/home/base/tui/editors/neovim/conf") .. "/lazy-lock.json"
-  '';
-
-  home.packages = with pkgs; [tree-sitter];
 }

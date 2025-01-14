@@ -37,7 +37,7 @@ in
       zellij-switch = ext "github:datsfilipe/zellij-switch/flake";
       home-manager = ext "github:nix-community/home-manager/master";
       sops-nix = ext "github:Mic92/sops-nix/master";
-      datsnvim = local ../home/base/tui/editors/neovim/conf;
+      datsnvim = ext "github:datsfilipe/datsnvim/main";
       unix-scripts = local ../home/linux/base/scripts/conf;
     };
     outputs = "inputs: import ./outputs inputs";

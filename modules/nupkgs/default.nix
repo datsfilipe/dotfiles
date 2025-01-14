@@ -4,6 +4,7 @@
   mylib,
   zellij-switch,
   linux-shimeji,
+  datsnvim,
   ...
 }: let
   packageFiles =
@@ -25,6 +26,7 @@
     // {
       inherit (pkgsWithOverlays) zellij-switch;
       linux-shimeji = linux-shimeji.packages.${pkgs.system}.little-ghost-polite;
+      datsnvim = datsnvim.packages.${pkgs.system}.default;
     };
 in
   packages
