@@ -34,4 +34,3 @@
   };
   outputs = inputs: import ./outputs inputs;
 }
-
