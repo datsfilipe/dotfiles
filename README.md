@@ -1,3 +1,7 @@
+> [!CAUTION]
+> If you are using an NVIDIA GPU, it's worth knowing that my attempts to make it work with mine have been unsuccessful.
+> So this configuration might not work for you as well. If you don't have an NVIDIA GPU, then you might try, but I can't confirm it will work either.
+
 <div align="center">
 
 # datsfilipe’s dotfiles
