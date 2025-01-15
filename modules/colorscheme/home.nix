@@ -58,6 +58,10 @@
         to the user ".local/bin" folder, which should be used instead of i3lock.
       '';
     };
+    enableSwayIntegration = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+    };
     enableFishIntegration = lib.mkOption {
       type = lib.types.bool;
       default = false;
@@ -98,6 +102,15 @@
         (
           lib.mkIf config.modules.desktop.colorscheme.enableI3Integration
           (import ./integrations/i3.nix {
+            inherit lib pkgs;
+            colorscheme = colorscheme;
+            enableI3StatusIntegration = config.modules.desktop.colorscheme.enableI3StatusIntegration;
+          })
+        )
+
+        (
+          lib.mkIf config.modules.desktop.colorscheme.enableSwayIntegration
+          (import ./integrations/sway.nix {
             inherit lib pkgs;
             colorscheme = colorscheme;
             enableI3StatusIntegration = config.modules.desktop.colorscheme.enableI3StatusIntegration;

@@ -32,11 +32,11 @@
       ];
   };
 
-  modules-i3 = {
+  modules-sway = {
     nixos-modules =
       [
         {
-          modules.desktop.xorg.enable = true;
+          modules.desktop.wayland.enable = true;
           modules.desktop.wallpaper.enable = true;
           modules.desktop.nvidia.enable = true;
           modules.ssh-key-manager.enable = true;
@@ -46,7 +46,7 @@
     home-modules =
       [
         {
-          modules.desktop.i3.enable = true;
+          modules.desktop.sway.enable = true;
           modules.desktop.nupkgs.enable = true;
           modules.desktop.conf = {
             enableDunstIntegration = true;
@@ -58,8 +58,7 @@
             enable = true;
             enableNeovimIntegration = true;
             enableGTKIntegration = true;
-            enableI3Integration = true;
-            enableI3LockIntegration = true;
+            enableSwayIntegration = true;
             enableI3StatusIntegration = true;
             enableDunstIntegration = true;
             enableAlacrittyIntegration = true;
@@ -74,6 +73,6 @@
   };
 in {
   nixosConfigurations = {
-    "${name}" = mylib.nixosSystem (modules-i3 // args);
+    "${name}" = mylib.nixosSystem (modules-sway // args);
   };
 }

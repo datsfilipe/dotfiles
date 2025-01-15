@@ -8,14 +8,13 @@
   modules.desktop.colorscheme.theme = "gruvbox";
 
   modules.desktop = {
-    i3 = let
+    sway = let
       mod = "Mod4";
       alt = "Mod1";
       keymaps = import ./keymaps.nix {inherit mod alt pkgs lib;};
       command = str: always: {
         command = str;
         always = always;
-        notification = false;
       };
     in {
       settings = {
@@ -24,11 +23,11 @@
         keybindings = keymaps.allBindings;
 
         startup = [
-          (command "dex --autostart --environment i3" true)
-          (command "xss-lock --transfer-sleep-lock -- i3lock-theme" true)
-          (command "autorandr --load desktop" true)
+          # (command "dex --autostart --environment i3" true)
+          # (command "xss-lock --transfer-sleep-lock -- i3lock-theme" true)
+          # (command "autorandr --load desktop" true)
           (command "udiskie --tray --notify" false)
-          (command "i3-msg 'workspace 1'" false)
+          (command "swaymsg 'workspace 1'" false)
           (command "dunst -config $HOME/.config/dunstrc" false)
         ];
 

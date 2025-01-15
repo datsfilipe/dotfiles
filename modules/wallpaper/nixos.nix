@@ -13,11 +13,16 @@ with lib; {
   config =
     mkIf (
       config.modules.desktop.wallpaper.enable
-      && config.services.xserver.enable
     ) {
       systemd.user.services.link-wallpaper = {
         description = "Create wallpaper symlink";
-        after = ["graphical-session.target"];
+        after = [
+          (
+            if config.modules.desktop.wayland.enable
+            then "sway-session.target"
+            else "graphical-session.target"
+          )
+        ];
         wantedBy = ["default.target"];
         path = [pkgs.coreutils];
         script = ''
@@ -41,18 +46,40 @@ with lib; {
 
       systemd.user.services.wallpaper = {
         description = "Set wallpaper";
-        after = ["link-wallpaper.service" "graphical-session.target"];
+        after = [
+          "link-wallpaper.service"
+          (
+            if config.modules.desktop.wayland.enable
+            then "sway-session.target"
+            else "graphical-session.target"
+          )
+        ];
         wantedBy = ["default.target"];
-        path = [pkgs.feh];
+        path =
+          if config.modules.desktop.wayland.enable
+          then []
+          else [pkgs.feh];
         script = ''
-          ${pkgs.feh}/bin/feh --bg-fill /home/${myvars.username}/.local/share/wallpaper/current
+          ${
+            if config.modules.desktop.wayland.enable
+            then ''
+              swaymsg output "*" bg /home/${myvars.username}/.local/share/wallpaper/current fill
+            ''
+            else ''
+              ${pkgs.feh}/bin/feh --bg-fill /home/${myvars.username}/.local/share/wallpaper/current
+            ''
+          }
         '';
         serviceConfig = {
           Type = "oneshot";
           RemainAfterExit = true;
           Environment = [
             "HOME=/home/${myvars.username}"
-            "DISPLAY=:0"
+            (
+              if config.modules.desktop.xorg.enable
+              then "DISPLAY=:0"
+              else ""
+            )
           ];
           Restart = "on-failure";
           RestartSec = 5;
