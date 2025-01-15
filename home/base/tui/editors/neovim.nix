@@ -1,6 +1,7 @@
 {
   pkgs,
   lib,
+  neovim-nightly,
   ...
 }:
 with lib; let
@@ -20,6 +21,7 @@ in {
 
   programs.neovim = {
     enable = true;
+    package = neovim-nightly.packages.${pkgs.system}.default;
     vimAlias = true;
     extraWrapperArgs = [
       "--suffix"

@@ -42,6 +42,7 @@ in
       zellij-switch = ext "github:datsfilipe/zellij-switch/flake";
       home-manager = ext "github:nix-community/home-manager/master";
       sops-nix = ext "github:Mic92/sops-nix/master";
+      neovim-nightly = ext "github:nix-community/neovim-nightly-overlay/master";
       datsnvim = ext-hm "github:datsfilipe/datsnvim/main";
       unix-scripts = local ../home/linux/base/scripts/conf;
     };

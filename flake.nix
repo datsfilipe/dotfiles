@@ -19,6 +19,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:datsfilipe/linux-shimeji/main";
     };
+    neovim-nightly = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:nix-community/neovim-nightly-overlay/master";
+    };
     sops-nix = {
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:Mic92/sops-nix/master";
