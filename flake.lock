@@ -3,18 +3,19 @@
     "datsnvim": {
       "inputs": {
         "flake-utils": "flake-utils",
-        "hlchunk": "hlchunk",
+        "home-manager": [
+          "home-manager"
+        ],
         "nixpkgs": [
           "nixpkgs"
-        ],
-        "wakatime": "wakatime"
+        ]
       },
       "locked": {
-        "lastModified": 1736841954,
-        "narHash": "sha256-97kL8/z6zd8IbkyveF7tG3ZTTg8cHZLSx9s0B1NBfxA=",
+        "lastModified": 1736904602,
+        "narHash": "sha256-WSKQObX4z6wrtWdPEv1W0Y73gEIpuUB10Tx1FJYg1hM=",
         "owner": "datsfilipe",
         "repo": "datsnvim",
-        "rev": "1bfa775bab4a3311933d39c2193a928e3ed58506",
+        "rev": "d4ee0912457b2cddb5cf3e3144e68263426dd7b3",
         "type": "github"
       },
       "original": {
@@ -57,22 +58,6 @@
       "original": {
         "owner": "numtide",
         "repo": "flake-utils",
-        "type": "github"
-      }
-    },
-    "hlchunk": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1732349755,
-        "narHash": "sha256-f5VVfpfVZk6ULBWVSVEzXBN9F4ROTzhomV1F2mKIem4=",
-        "owner": "shellRaining",
-        "repo": "hlchunk.nvim",
-        "rev": "5465dd33ade8676d63f6e8493252283060cd72ca",
-        "type": "github"
-      },
-      "original": {
-        "owner": "shellRaining",
-        "repo": "hlchunk.nvim",
         "type": "github"
       }
     },
@@ -295,22 +280,6 @@
         "shallow": true,
         "type": "git",
         "url": "file:///home/dtsf/.dotfiles/home/linux/base/scripts/conf"
-      }
-    },
-    "wakatime": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1731658836,
-        "narHash": "sha256-S7SymK/GR42abii9bkU8tDELn64GEJ4oIccGiAhPpYE=",
-        "owner": "wakatime",
-        "repo": "vim-wakatime",
-        "rev": "cf51327a9e08935569614d1cb24e779ee9f45519",
-        "type": "github"
-      },
-      "original": {
-        "owner": "wakatime",
-        "repo": "vim-wakatime",
-        "type": "github"
       }
     },
     "zellij-switch": {

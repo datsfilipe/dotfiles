@@ -25,6 +25,11 @@ in
         inherit url;
         inputs.nixpkgs.follows = "nixpkgs";
       };
+      ext-hm = url: {
+        inherit url;
+        inputs.nixpkgs.follows = "nixpkgs";
+        inputs.home-manager.follows = "home-manager";
+      };
       local = path: {
         url = "git+file://${toString path}?shallow=1";
         flake = false;
@@ -37,7 +42,7 @@ in
       zellij-switch = ext "github:datsfilipe/zellij-switch/flake";
       home-manager = ext "github:nix-community/home-manager/master";
       sops-nix = ext "github:Mic92/sops-nix/master";
-      datsnvim = ext "github:datsfilipe/datsnvim/main";
+      datsnvim = ext-hm "github:datsfilipe/datsnvim/main";
       unix-scripts = local ../home/linux/base/scripts/conf;
     };
     outputs = "inputs: import ./outputs inputs";
