@@ -1,5 +1,4 @@
 {
-  pkgs,
   config,
   lib,
   ...
@@ -21,7 +20,7 @@ with lib; {
       ];
     services.xserver.videoDrivers = ["nvidia"];
     hardware.nvidia = {
-      package = config.boot.kernelPackages.nvidiaPackages.production;
+      package = config.boot.kernelPackages.nvidiaPackages.latest;
       modesetting.enable = true;
       powerManagement.enable = true;
       forceFullCompositionPipeline = true;
