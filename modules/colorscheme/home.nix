@@ -74,8 +74,9 @@
     lib.mkMerge [
       (lib.mkIf (config.modules.desktop.colorscheme.enable) (lib.mkMerge [
         (lib.mkIf config.modules.desktop.colorscheme.enableNeovimIntegration {
-          modules.desktop.nupkgs = {
-            programs_datsnvim_theme = config.modules.desktop.colorscheme.theme;
+          programs.datsnvim.settings.theme = import ./integrations/neovim.nix {
+            inherit mylib pkgs;
+            name = config.modules.desktop.colorscheme.theme;
           };
         })
 
