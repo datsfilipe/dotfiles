@@ -19,13 +19,17 @@
       ++ [
         inputs.sops-nix.nixosModules.sops
       ];
-    home-modules = map mylib.file.relativeToRoot [
-      "home/linux/gui.nix"
-      "hosts/${name}/home"
-      "modules/nupkgs/home.nix"
-      "modules/colorscheme/home.nix"
-      "modules/conf/home.nix"
-    ];
+    home-modules =
+      map mylib.file.relativeToRoot [
+        "home/linux/gui.nix"
+        "hosts/${name}/home"
+        "modules/nupkgs/home.nix"
+        "modules/colorscheme/home.nix"
+        "modules/conf/home.nix"
+      ]
+      ++ [
+        inputs.datsnvim.homeManagerModules.${system}.default
+      ];
   };
 
   modules-i3 = {

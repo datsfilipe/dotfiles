@@ -1,35 +1,22 @@
 {
   pkgs,
-  mypkgs,
   lib,
   ...
 }:
-with lib; {
-  modules.desktop.nupkgs = {
-    programs_datsnvim_lazy_lock = "vim.fn.expand(\"$HOME/.dotfiles/home/base/tui/editors/neovim/conf\") .. \"/lazy-lock.json\"";
+with lib; let
+  lockfile = "vim.fn.expand('$HOME/.dotfiles/home/base/tui/editors/neovim/conf') .. '/lazy-lock.json'";
+in {
+  programs.datsnvim = {
+    enable = true;
+    settings = {
+      lazy.lock = lockfile;
+    };
   };
 
   home.packages = with pkgs; [
-    vscode-langservers-extracted
-    typescript-language-server
-    bash-language-server
-    lua-language-server
-    rust-analyzer
-    gopls
-
-    nodePackages.prettier
-    codespell
-    stylua
-    biome
-
     tree-sitter
     fd
   ];
-
-  xdg.configFile."nvim" = {
-    source = mypkgs.datsnvim;
-    recursive = true;
-  };
 
   programs.neovim = {
     enable = true;
