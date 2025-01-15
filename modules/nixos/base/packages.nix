@@ -18,5 +18,6 @@
     pciutils
     usbutils
     parted
+    openvpn
   ];
 }
