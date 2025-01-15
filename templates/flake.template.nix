@@ -19,7 +19,7 @@ with builtins; let
 in
   genFlake ./flake.template.nix
   {
-    description = "description";
+    description = "datsdots";
     inputs = let
       ext = url: {
         inherit url;
