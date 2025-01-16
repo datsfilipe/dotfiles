@@ -1,6 +1,10 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}: {
   home.packages = with pkgs; [
-    steam
     prismlauncher
   ];
 }
