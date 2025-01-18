@@ -46,11 +46,6 @@ in {
         pathsToLink = ["/libexec"];
         loginShellInit = ''
           if [ -z $DISPLAY ] && [ "$(tty)" = "/dev/tty1" ]; then
-            ${(
-            if config.modules.desktop.wallpaper.enable
-            then "systemctl --user restart wallpaper.service &"
-            else ""
-          )}
             exec sway --unsupported-gpu
           fi
         '';
