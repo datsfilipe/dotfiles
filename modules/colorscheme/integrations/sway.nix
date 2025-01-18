@@ -61,12 +61,20 @@
     };
   };
 
-  home.file.".local/bin/dmenu-theme".text = ''
+  home.file.".local/bin/launcher".text = ''
     #!/usr/bin/env bash
-        ${pkgs.dmenu}/bin/dmenu_run -nb "${colorscheme.colors.bg}" \
-        -nf "${colorscheme.colors.fg}" \
-        -sb "${colorscheme.colors.altbg}" \
-        -sf "${colorscheme.colors.fg}"
+        ${pkgs.bemenu}/bin/bemenu-run -H 25 -p "" \
+        --tb "${colorscheme.colors.altbg}" \
+        --fb "${colorscheme.colors.altbg}" \
+        --fbb "${colorscheme.colors.altbg}" \
+        --nb "${colorscheme.colors.altbg}" \
+        --nf "${colorscheme.colors.fg}" \
+        --af "${colorscheme.colors.fg}" \
+        --ab "${colorscheme.colors.altbg}" \
+        --sb "${colorscheme.colors.altbg}" \
+        --sf "${colorscheme.colors.fg}" \
+        --hb "${colorscheme.colors.altbg}" \
+        --hf "${colorscheme.colors.primary}"
   '';
-  home.file.".local/bin/dmenu-theme".executable = true;
+  home.file.".local/bin/launcher".executable = true;
 }
