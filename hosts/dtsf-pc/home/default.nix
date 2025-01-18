@@ -59,10 +59,6 @@
             command = "floating enable, sticky enable";
             criteria = {title = "^win";};
           }
-          {
-            command = "title_format \" \"";
-            criteria = {title = "^.*$";};
-          }
         ];
 
         input = {
