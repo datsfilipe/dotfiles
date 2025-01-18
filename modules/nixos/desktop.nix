@@ -39,6 +39,22 @@ in {
       services = {
         xserver.enable = false;
       };
+
+      programs.sway.wrapperFeatures.gtk = true;
+
+      environment = {
+        pathsToLink = ["/libexec"];
+        loginShellInit = ''
+          if [ -z $DISPLAY ] && [ "$(tty)" = "/dev/tty1" ]; then
+            ${(
+            if config.modules.desktop.wallpaper.enable
+            then "systemctl --user restart wallpaper.service &"
+            else ""
+          )}
+            exec sway --unsupported-gpu
+          fi
+        '';
+      };
     })
 
     (mkIf cfgXorg.enable {
@@ -80,7 +96,7 @@ in {
         loginShellInit = ''
           if [ -z $DISPLAY ] && [ "$(tty)" = "/dev/tty1" ]; then
             exec startx
-              fi
+          fi
         '';
       };
     })

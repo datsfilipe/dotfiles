@@ -20,8 +20,9 @@ with lib; {
           (
             if config.modules.desktop.wayland.enable
             then "sway-session.target"
-            else "graphical-session.target"
+            else ""
           )
+          "graphical-session.target"
         ];
         wantedBy = ["default.target"];
         path = [pkgs.coreutils];
@@ -51,19 +52,20 @@ with lib; {
           (
             if config.modules.desktop.wayland.enable
             then "sway-session.target"
-            else "graphical-session.target"
+            else ""
           )
+          "graphical-session.target"
         ];
         wantedBy = ["default.target"];
         path =
           if config.modules.desktop.wayland.enable
-          then []
+          then [pkgs.sway]
           else [pkgs.feh];
         script = ''
           ${
             if config.modules.desktop.wayland.enable
             then ''
-              swaymsg output "*" bg /home/${myvars.username}/.local/share/wallpaper/current fill
+              ${pkgs.sway}/bin/swaymsg output "*" bg /home/${myvars.username}/.local/share/wallpaper/current fill
             ''
             else ''
               ${pkgs.feh}/bin/feh --bg-fill /home/${myvars.username}/.local/share/wallpaper/current
@@ -78,7 +80,7 @@ with lib; {
             (
               if config.modules.desktop.xorg.enable
               then "DISPLAY=:0"
-              else ""
+              else "WAYLAND_DISPLAY=wayland-1"
             )
           ];
           Restart = "on-failure";
