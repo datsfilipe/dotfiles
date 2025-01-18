@@ -23,10 +23,7 @@
         keybindings = keymaps.allBindings;
 
         startup = [
-          # (command "dex --autostart --environment i3" true)
-          # (command "xss-lock --transfer-sleep-lock -- i3lock-theme" true)
-          # (command "autorandr --load desktop" true)
-          (command "udiskie --tray --notify" false)
+          (command "udiskie --appindicator --tray --notify" false)
           (command "swaymsg 'workspace 1'" false)
           (command "dunst -config $HOME/.config/dunstrc" false)
         ];
@@ -62,6 +59,13 @@
             criteria = {title = "^win";};
           }
         ];
+
+        input = {
+          "1133:16500:Logitech_G305" = {
+            accel_profile = "flat";
+            pointer_accel = "0";
+          };
+        };
       };
     };
   };
