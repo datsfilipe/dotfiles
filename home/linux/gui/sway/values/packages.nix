@@ -4,6 +4,6 @@
     wl-clipboard
     libappindicator-gtk3
     networkmanagerapplet
-    bemenu
+    wmenu
   ];
 }

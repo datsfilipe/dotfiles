@@ -63,18 +63,13 @@
 
   home.file.".local/bin/launcher".text = ''
     #!/usr/bin/env bash
-        ${pkgs.bemenu}/bin/bemenu-run -H 25 -p "" \
-        --tb "${colorscheme.colors.altbg}" \
-        --fb "${colorscheme.colors.altbg}" \
-        --fbb "${colorscheme.colors.altbg}" \
-        --nb "${colorscheme.colors.altbg}" \
-        --nf "${colorscheme.colors.fg}" \
-        --af "${colorscheme.colors.fg}" \
-        --ab "${colorscheme.colors.altbg}" \
-        --sb "${colorscheme.colors.altbg}" \
-        --sf "${colorscheme.colors.fg}" \
-        --hb "${colorscheme.colors.altbg}" \
-        --hf "${colorscheme.colors.primary}"
+        ${pkgs.wmenu}/bin/wmenu-run -p "" \
+        -M "${colorscheme.colors.altbg}" \
+        -m "${colorscheme.colors.fg}" \
+        -N "${colorscheme.colors.altbg}" \
+        -n "${colorscheme.colors.fg}" \
+        -S "${colorscheme.colors.altbg}" \
+        -s "${colorscheme.colors.primary}"
   '';
   home.file.".local/bin/launcher".executable = true;
 }
