@@ -8,6 +8,11 @@
   mod = "Mod4";
   alt = "Mod1";
   print = "Print";
+
+  exit = "-B 'leave' 'exec swaymsg exit && exec loginctl terminate-user $USER'";
+  turnoff = "-B 'shutdown' 'exec systemctl poweroff'";
+  reboot = "-B 'reboot' 'exec systemctl reboot'";
+
   workspaceBindings = builtins.listToAttrs (
     (map (i: {
       name = "${mod}+${toString i}";
@@ -32,7 +37,7 @@
     "${mod}+q" = "kill";
     "${mod}+t" = "exec ${pkgs.alacritty}/bin/alacritty";
     "${mod}+Return" = "exec ${pkgs.alacritty}/bin/alacritty -e ${pkgs.zellij}/bin/zellij attach dtsf -c";
-    "${mod}+a" = "exec chromium --wv --force-dark-mode --enable-features=WebUIDarkMode";
+    "${mod}+a" = "exec chromium --wv --force-dark-mode --enable-features=WebUIDarkMode --disable-gpu";
     "${mod}+d" = "exec $HOME/.local/bin/dmenu-theme";
     "${mod}+Shift+m" = "exec shimeji";
 
@@ -64,9 +69,7 @@
     "${mod}+r" = "mode resize";
 
     "${mod}+Shift+c" = "reload";
-    "${mod}+Shift+r" = "exec swaymsg restart";
-    "${mod}+Shift+e" = "exec \"swaynag -t warning -m 'leave sway' -B 'exit sway' 'exec swaymsg exit'\"";
-    "${mod}+Shift+o" = "exec \"swaynag -t error -m 'turn off the computer' -B 'turn off' 'systemctl poweroff'\"";
+    "${mod}+Shift+e" = "exec \"swaynag -t warning -m 'leave, shutdown or reboot?' ${turnoff} ${reboot} ${exit}\"";
 
     "XF86MonBrightnessUp" = "exec --no-startup-id brightnessctl set +5%";
     "XF86MonBrightnessDown" = "exec --no-startup-id brightnessctl set 5%-";
