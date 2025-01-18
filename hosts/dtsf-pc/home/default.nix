@@ -47,13 +47,13 @@
           };
         };
 
-        window.titlebar = true;
         fonts = {
           names = ["JetBrainsMono Nerd Font"];
           style = "Regular";
           size = 8.0;
         };
 
+        window.titlebar = true;
         window.commands = [
           {
             command = "floating enable, sticky enable";
