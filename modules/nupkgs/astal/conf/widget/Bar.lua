@@ -5,59 +5,40 @@ local bind = astal.bind
 local GLib = astal.require("GLib")
 local Wp = astal.require("AstalWp")
 local Tray = astal.require("AstalTray")
-
-local arr_labels_in_japanese = {
-	"一",
-	"二",
-	"三",
-	"四",
-	"五",
-	"六",
-	"七",
-	"八",
-	"九",
-	"十",
-}
-
-local function map(arr, fn)
-	local result = {}
-	for i, v in ipairs(arr) do
-		table.insert(result, fn(v, i))
-	end
-	return result
-end
-
-local function get_sway_socket()
-	return os.getenv("SWAYSOCK")
-end
-
-local function execute_sway_command(cmd)
-	local socket = get_sway_socket()
-	if socket then
-		os.execute(string.format("swaymsg -s %s '%s'", socket, cmd))
-	end
-end
+local utils = require("utils")
 
 local function create_workspace_monitor()
 	local active_workspace = Variable(1)
+	local occupied_workspaces = Variable({})
 
 	local function update_workspaces()
 		local handle_active_workspace = io.popen("swaymsg -t get_workspaces | jq '.[] | select(.focused==true) | .num'")
+		local handle_occupied_workspaces = io.popen("swaymsg -t get_workspaces | jq '.[].num'")
 
-		if handle_active_workspace then
+		if handle_active_workspace and handle_occupied_workspaces then
 			local result_active_workspace = handle_active_workspace:read("*a")
+			local result_occupied_workspaces = handle_occupied_workspaces:read("*a")
+
 			handle_active_workspace:close()
+			handle_occupied_workspaces:close()
+
 			active_workspace:set(tonumber(result_active_workspace))
+
+			local workspaces = {}
+			for i in result_occupied_workspaces:gmatch("%d+") do
+				table.insert(workspaces, tonumber(i))
+			end
+			occupied_workspaces:set(workspaces)
 		end
 	end
 
-	GLib.timeout_add(GLib.PRIORITY_DEFAULT, 150, function()
+	GLib.timeout_add(GLib.PRIORITY_DEFAULT, utils.TIMEOUT, function()
 		update_workspaces()
 		return true
 	end)
 
 	update_workspaces()
-	return active_workspace
+	return active_workspace, occupied_workspaces
 end
 
 local function VolumeSlider(type)
@@ -100,7 +81,7 @@ local function Volume()
 end
 
 local function Workspaces()
-	local active_workspace = create_workspace_monitor()
+	local active_workspace, occupied_workspaces = create_workspace_monitor()
 
 	return Widget.Box({
 		class_name = "workspaces",
@@ -111,10 +92,17 @@ local function Workspaces()
 					children,
 					Widget.Button({
 						on_clicked = function()
-							execute_sway_command(string.format("workspace number %d", i))
+							utils.execute_sway_command(string.format("workspace number %d", i))
 						end,
-						label = arr_labels_in_japanese[i],
-						class_name = a == i and "focused" or "",
+						label = utils.arr_labels_in_japanese[i],
+						class_name = (function()
+							if a == i then
+								return "focused"
+							elseif occupied_workspaces:get()[i] then
+								return "occupied"
+							end
+							return ""
+						end)(),
 					})
 				)
 			end
@@ -143,7 +131,7 @@ local function SysTray()
 	return Widget.Box({
 		class_name = "tray",
 		bind(tray, "items"):as(function(items)
-			return map(items, function(item)
+			return utils.map(items, function(item)
 				return Widget.MenuButton({
 					tooltip_markup = bind(item, "tooltip_markup"),
 					use_popover = false,
@@ -177,7 +165,7 @@ local function ClientTitle()
 		end
 	end
 
-	GLib.timeout_add(GLib.PRIORITY_DEFAULT, 150, function()
+	GLib.timeout_add(GLib.PRIORITY_DEFAULT, utils.TIMEOUT, function()
 		update_title()
 		return true
 	end)
