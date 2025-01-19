@@ -1,7 +1,3 @@
-> [!CAUTION]
-> If you are using an NVIDIA GPU, it's worth knowing that my attempts to make it work with mine have been unsuccessful.
-> So this configuration might not work for you as well. If you don't have an NVIDIA GPU, then you might try, but I can't confirm it will work either.
-
 <div align="center">
 
 # datsfilipe’s dotfiles
@@ -81,10 +77,9 @@
     - `nupkgs`: "nix user packages" - using that instead of a nur repo.
     - `secrets`: secrets module, using sops for encryption.
     - `wallpaper`: wallpaper definition.
-- `outputs`: outputs of the dotfiles.
-- `outputs`: Contains all the outputs of the dotfiles.
-- `scripts`: Contains all the scripts used in the dotfiles.
-- `vars`: Contains all the variables used in the dotfiles.
+- `outputs`: outputs of the config.
+- `scripts`: scripts used in the config.
+- `vars`: variables used in the config.
 
 ### General slices
 
