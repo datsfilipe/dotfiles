@@ -95,14 +95,14 @@ local function Workspaces()
 							utils.execute_sway_command(string.format("workspace number %d", i))
 						end,
 						label = utils.arr_labels_in_japanese[i],
-						class_name = (function()
+						class_name = bind(occupied_workspaces):as(function(o)
 							if a == i then
 								return "focused"
-							elseif occupied_workspaces:get()[i] then
+							elseif utils.contains_value(o, i) then
 								return "occupied"
 							end
 							return ""
-						end)(),
+						end),
 					})
 				)
 			end

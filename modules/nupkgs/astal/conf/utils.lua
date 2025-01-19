@@ -49,4 +49,13 @@ function M.file_exists(path)
 	return false
 end
 
+function M.contains_value(tbl, value)
+	for _, v in ipairs(tbl) do
+		if v == value then
+			return true
+		end
+	end
+	return false
+end
+
 return M
