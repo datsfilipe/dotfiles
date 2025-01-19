@@ -171,7 +171,6 @@
         (
           lib.mkIf config.modules.desktop.colorscheme.enableAstalIntegration
           (import ./integrations/astal.nix {
-            inherit mylib;
             colorscheme = colorscheme;
           })
         )

@@ -144,17 +144,16 @@ local function SysTray()
 		class_name = "tray",
 		bind(tray, "items"):as(function(items)
 			return map(items, function(item)
-				return Widget.Button({
+				return Widget.MenuButton({
+					tooltip_markup = bind(item, "tooltip_markup"),
+					use_popover = false,
+					menu_model = bind(item, "menu-model"),
+					action_group = bind(item, "action-group"):as(function(ag)
+						return { "dbusmenu", ag }
+					end),
 					Widget.Icon({
 						gicon = bind(item, "gicon"),
 					}),
-					on_primary_click = function(_, event)
-						item:activate(event)
-					end,
-					on_secondary_click = function(_, event)
-						item:open_menu(event)
-					end,
-					tooltip_markup = bind(item, "tooltip-markup"),
 				})
 			end)
 		end),

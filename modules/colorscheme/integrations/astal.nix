@@ -1,11 +1,7 @@
-{
-  colorscheme,
-  mylib,
-  ...
-}: {
+{colorscheme, ...}: {
   home.file.".local/share/astal/variables.scss".source = builtins.toFile "variables.scss" ''
     $primary: ${colorscheme.colors.primary};
-    $bg: ${(mylib.color.darkenHex colorscheme.colors.bg 0.8)};
+    $bg: ${colorscheme.colors.bg};
     $altbg: ${colorscheme.colors.altbg};
     $fg: ${colorscheme.colors.fg};
     $black: ${colorscheme.colors.black};
