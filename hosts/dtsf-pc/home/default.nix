@@ -24,9 +24,9 @@
         keybindings = keymaps.allBindings;
 
         startup = [
-          (command "udiskie --tray --notify" true)
+          (command "udiskie --tray --notify" false)
           (command "swaymsg 'workspace 1'" false)
-          (command "dunst -config $HOME/.config/dunstrc" true)
+          (command "dunst -config $HOME/.config/dunstrc" false)
           (command "systemctl --user restart wallpaper.service" true)
         ];
 
