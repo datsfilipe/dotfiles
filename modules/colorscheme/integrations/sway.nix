@@ -75,11 +75,11 @@
   home.file.".local/bin/launcher".text = ''
     #!/usr/bin/env bash
         ${pkgs.wmenu}/bin/wmenu-run -p "" \
-        -M "${colorscheme.colors.altbg}" \
+        -M "${colorscheme.colors.bg}" \
         -m "${colorscheme.colors.fg}" \
-        -N "${colorscheme.colors.altbg}" \
+        -N "${colorscheme.colors.bg}" \
         -n "${colorscheme.colors.fg}" \
-        -S "${colorscheme.colors.altbg}" \
+        -S "${colorscheme.colors.bg}" \
         -s "${colorscheme.colors.primary}"
   '';
   home.file.".local/bin/launcher".executable = true;
