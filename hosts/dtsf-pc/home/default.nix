@@ -1,5 +1,6 @@
 {
   pkgs,
+  mypkgs,
   lib,
   ...
 }: {
@@ -80,4 +81,8 @@
       AddKeysToAgent yes
     '';
   };
+
+  modules.desktop.nupkgs.packages = with mypkgs; [
+    astal
+  ];
 }

@@ -59,13 +59,14 @@
             enableNeovimIntegration = true;
             enableGTKIntegration = true;
             enableSwayIntegration = true;
-            enableI3StatusIntegration = true;
+            enableI3StatusIntegration = false;
             enableDunstIntegration = true;
             enableAlacrittyIntegration = true;
             enableFishIntegration = true;
             enableCavaIntegration = true;
             enableZellijIntegration = true;
             enableGhosttyIntegration = false;
+            enableAstalIntegration = true;
           };
         }
       ]

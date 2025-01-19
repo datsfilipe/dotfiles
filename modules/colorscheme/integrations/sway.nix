@@ -3,6 +3,7 @@
   colorscheme,
   pkgs,
   enableI3StatusIntegration,
+  enableAstalIntegration,
   ...
 }: {
   wayland.windowManager.sway.config = {
@@ -37,19 +38,29 @@
         text = colorscheme.colors.fg;
       };
     };
-    bars = [
-      {
-        id = "bar-0";
-        statusCommand = lib.mkIf enableI3StatusIntegration "i3status";
-        colors = {
-          focusedWorkspace = {
-            background = "${colorscheme.colors.altbg}";
-            border = "${colorscheme.colors.altbg}cc";
-            text = "${colorscheme.colors.fg}";
+    bars =
+      if enableI3StatusIntegration
+      then [
+        {
+          id = "bar-0";
+          statusCommand = lib.mkIf enableI3StatusIntegration "i3status";
+          colors = {
+            focusedWorkspace = {
+              background = "${colorscheme.colors.altbg}";
+              border = "${colorscheme.colors.altbg}cc";
+              text = "${colorscheme.colors.fg}";
+            };
           };
-        };
-      }
-    ];
+        }
+      ]
+      else if enableAstalIntegration
+      then [
+        {
+          id = "bar-0";
+          command = "astal";
+        }
+      ]
+      else [];
   };
 
   programs.i3status = lib.mkIf enableI3StatusIntegration {
