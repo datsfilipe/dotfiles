@@ -34,9 +34,21 @@ in {
           xdg-desktop-portal-wlr
         ];
       };
+      environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
       services = {
         xserver.enable = false;
+      };
+
+      programs.sway.wrapperFeatures.gtk = true;
+
+      environment = {
+        pathsToLink = ["/libexec"];
+        loginShellInit = ''
+          if [ -z $DISPLAY ] && [ "$(tty)" = "/dev/tty1" ]; then
+            exec sway --unsupported-gpu -Dlegacy-wl-drm
+          fi
+        '';
       };
     })
 
@@ -79,7 +91,7 @@ in {
         loginShellInit = ''
           if [ -z $DISPLAY ] && [ "$(tty)" = "/dev/tty1" ]; then
             exec startx
-              fi
+          fi
         '';
       };
     })

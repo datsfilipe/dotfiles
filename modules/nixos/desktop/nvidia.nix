@@ -9,7 +9,15 @@ with lib; {
   };
 
   config = mkIf config.modules.desktop.nvidia.enable {
+    environment.variables = mkIf config.modules.desktop.wayland.enable {
+      LIBVA_DRIVER_NAME = "nvidia";
+      NVD_BACKEND = "direct";
+      NIXOS_OZONE_WL = "1";
+      ELECTRON_OZONE_PLATFORM_HINT = "auto";
+      __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+    };
     boot.extraModprobeConfig = "options nvidia-drm modeset=1";
+    boot.kernelParams = ["nvidia.NVreg_EnableGpuFirmware=0" "nvidia.NVreg_PreserveVideoMemoryAllocations=1"];
     boot.initrd.kernelModules =
       config.boot.kernelModules
       ++ [
@@ -23,7 +31,7 @@ with lib; {
       package = config.boot.kernelPackages.nvidiaPackages.latest;
       modesetting.enable = true;
       powerManagement.enable = true;
-      forceFullCompositionPipeline = true;
+      forceFullCompositionPipeline = false;
       nvidiaSettings = true;
       open = false;
     };

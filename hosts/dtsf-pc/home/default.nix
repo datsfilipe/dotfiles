@@ -1,5 +1,6 @@
 {
   pkgs,
+  mypkgs,
   lib,
   ...
 }: {
@@ -8,14 +9,13 @@
   modules.desktop.colorscheme.theme = "gruvbox";
 
   modules.desktop = {
-    i3 = let
+    sway = let
       mod = "Mod4";
       alt = "Mod1";
       keymaps = import ./keymaps.nix {inherit mod alt pkgs lib;};
       command = str: always: {
         command = str;
         always = always;
-        notification = false;
       };
     in {
       settings = {
@@ -24,12 +24,10 @@
         keybindings = keymaps.allBindings;
 
         startup = [
-          (command "dex --autostart --environment i3" true)
-          (command "xss-lock --transfer-sleep-lock -- i3lock-theme" true)
-          (command "autorandr --load desktop" true)
           (command "udiskie --tray --notify" false)
-          (command "i3-msg 'workspace 1'" false)
+          (command "swaymsg 'workspace 1'" false)
           (command "dunst -config $HOME/.config/dunstrc" false)
+          (command "systemctl --user restart wallpaper.service" true)
         ];
 
         modes = {
@@ -50,19 +48,26 @@
           };
         };
 
-        window.titlebar = true;
         fonts = {
           names = ["JetBrainsMono Nerd Font"];
           style = "Regular";
           size = 8.0;
         };
 
+        window.titlebar = true;
         window.commands = [
           {
             command = "floating enable, sticky enable";
             criteria = {title = "^win";};
           }
         ];
+
+        input = {
+          "1133:16500:Logitech_G305" = {
+            accel_profile = "flat";
+            pointer_accel = "0";
+          };
+        };
       };
     };
   };
@@ -76,4 +81,8 @@
       AddKeysToAgent yes
     '';
   };
+
+  modules.desktop.nupkgs.packages = with mypkgs; [
+    astal
+  ];
 }

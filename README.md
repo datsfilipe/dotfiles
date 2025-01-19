@@ -77,10 +77,9 @@
     - `nupkgs`: "nix user packages" - using that instead of a nur repo.
     - `secrets`: secrets module, using sops for encryption.
     - `wallpaper`: wallpaper definition.
-- `outputs`: outputs of the dotfiles.
-- `outputs`: Contains all the outputs of the dotfiles.
-- `scripts`: Contains all the scripts used in the dotfiles.
-- `vars`: Contains all the variables used in the dotfiles.
+- `outputs`: outputs of the config.
+- `scripts`: scripts used in the config.
+- `vars`: variables used in the config.
 
 ### General slices
 

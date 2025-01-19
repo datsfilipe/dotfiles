@@ -8,6 +8,11 @@
   mod = "Mod4";
   alt = "Mod1";
   print = "Print";
+
+  exit = "-B 'leave' 'exec swaymsg exit && exec loginctl terminate-user $USER'";
+  turnoff = "-B 'shutdown' 'exec systemctl poweroff'";
+  reboot = "-B 'reboot' 'exec systemctl reboot'";
+
   workspaceBindings = builtins.listToAttrs (
     (map (i: {
       name = "${mod}+${toString i}";
@@ -32,8 +37,8 @@
     "${mod}+q" = "kill";
     "${mod}+t" = "exec ${pkgs.alacritty}/bin/alacritty";
     "${mod}+Return" = "exec ${pkgs.alacritty}/bin/alacritty -e ${pkgs.zellij}/bin/zellij attach dtsf -c";
-    "${mod}+a" = "exec chromium --wv --force-dark-mode --enable-features=WebUIDarkMode";
-    "${mod}+d" = "exec $HOME/.local/bin/dmenu-theme";
+    "${mod}+a" = "exec chromium --wv --force-dark-mode --enable-features=WebUIDarkMode --disable-gpu";
+    "${mod}+d" = "exec $HOME/.local/bin/launcher";
     "${mod}+Shift+m" = "exec shimeji";
 
     "${alt}+k" = "exec $HOME/.local/bin/switch-kb-variant";
@@ -64,9 +69,7 @@
     "${mod}+r" = "mode resize";
 
     "${mod}+Shift+c" = "reload";
-    "${mod}+Shift+r" = "exec i3-msg restart";
-    "${mod}+Shift+e" = "exec \"i3-nagbar -t warning -m 'leave i3' -B 'exit i3' 'exec i3-msg exit; pkill -15 Xorg'\"";
-    "${mod}+Shift+o" = "exec \"i3-nagbar -t error -m 'turn off the computer' -B 'turn off' 'systemctl poweroff'\"";
+    "${mod}+Shift+e" = "exec \"swaynag -t warning -m 'leave, shutdown or reboot?' ${turnoff} ${reboot} ${exit}\"";
 
     "XF86MonBrightnessUp" = "exec --no-startup-id brightnessctl set +5%";
     "XF86MonBrightnessDown" = "exec --no-startup-id brightnessctl set 5%-";

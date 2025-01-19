@@ -2,6 +2,7 @@
   lib,
   pkgs,
   mylib,
+  astal,
   zellij-switch,
   linux-shimeji,
   ...
@@ -16,9 +17,17 @@
   packages =
     builtins.listToAttrs (
       map
-      (file: {
+      (file: let
         name = lib.strings.removeSuffix ".nix" (baseNameOf file);
-        value = pkgsWithOverlays.callPackage file {};
+      in {
+        name = name;
+        value = pkgsWithOverlays.callPackage file (
+          if name == "astal"
+          then {
+            inherit astal;
+          }
+          else {}
+        );
       })
       packageFiles
     )
