@@ -67,6 +67,12 @@
             accel_profile = "flat";
             pointer_accel = "0";
           };
+
+          "type:keyboard" = {
+            xkb_layout = "us";
+            xkb_variant = "altgr-intl";
+            xkb_options = "compose:menu,level3:ralt_switch,grp:win_space_toggle";
+          };
         };
       };
     };
