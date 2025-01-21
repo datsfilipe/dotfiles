@@ -32,11 +32,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1736986324,
-        "narHash": "sha256-e5duAivApR1ttgQZYy0Ww+XccSU/JzGUKhRYfyAMaUA=",
+        "lastModified": 1737379267,
+        "narHash": "sha256-+QAqdQmEeN9WbKvUb8nuQlRfxD28C2WIlEymKVsgAQ8=",
         "owner": "datsfilipe",
         "repo": "datsnvim",
-        "rev": "2435a804bb2ff2c287744136f6228ac760acac7e",
+        "rev": "83a14bcc8bc7f8f0c1d2121b9a9478a7b4f88ead",
         "type": "github"
       },
       "original": {
@@ -496,11 +496,11 @@
     "unix-scripts": {
       "flake": false,
       "locked": {
-        "lastModified": 1736939071,
-        "narHash": "sha256-nmdUO2DV3eHW7Tg4k371lZ72zLJ4L3ukkhfhnBnkUek=",
+        "lastModified": 1737417524,
+        "narHash": "sha256-ITUY4bOAZkU6SpHzNoaaDfB0qInpxKsRYDAHkeMYkTY=",
         "ref": "refs/heads/main",
-        "rev": "15ceac476e81a98ad5a665898063fc0ac71f65d4",
-        "revCount": 63,
+        "rev": "c67da6c7165741fec74dcf40fee1b987e23ce76b",
+        "revCount": 64,
         "shallow": true,
         "type": "git",
         "url": "file:///home/dtsf/.dotfiles/home/linux/base/scripts/conf"
