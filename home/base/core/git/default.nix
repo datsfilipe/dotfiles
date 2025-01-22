@@ -33,7 +33,7 @@
       github.user = "datsfilipe";
       diff.tool = "nvimdiff";
       difftool.nvimdiff.cmd = "nvim -d $LOCAL $REMOTE";
-      merge.tool = "nvimdiff";
+      merge.tool = "nvimdiff1";
       mergetool.nvimdiff.cmd = "nvim -d \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"";
       mergetool.nvimdiff.trustExitCode = true;
       ghq.root = "~/www/s";
