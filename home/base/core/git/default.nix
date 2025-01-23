@@ -80,6 +80,14 @@
 
   programs.gh = {
     enable = true;
+    extensions = [
+      pkgs.gh-markdown-preview
+    ];
+    settings.aliases = {
+      "co" = "pr checkout";
+      "pv" = "pr view";
+      "md" = "markdown-preview";
+    };
   };
 
   home.packages = with pkgs; [
