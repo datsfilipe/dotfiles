@@ -15,6 +15,10 @@
       };
       url = "github:datsfilipe/datsnvim/main";
     };
+    ghostty = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:ghostty-org/ghostty/main";
+    };
     home-manager = {
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:nix-community/home-manager/master";

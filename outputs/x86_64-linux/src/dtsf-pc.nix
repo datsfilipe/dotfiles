@@ -63,11 +63,10 @@
             enableI3Integration = true;
             enableI3StatusIntegration = true;
             enableDunstIntegration = true;
-            enableAlacrittyIntegration = true;
             enableFishIntegration = true;
             enableCavaIntegration = true;
             enableZellijIntegration = true;
-            enableGhosttyIntegration = false;
+            enableGhosttyIntegration = true;
             enableAstalIntegration = true;
           };
         }

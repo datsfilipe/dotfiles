@@ -28,7 +28,7 @@
         "14=${colorscheme.colors.cyan}"
         "15=${colorscheme.colors.fg}"
       ];
-      selection-background = colorscheme.colors.bg;
+      selection-background = colorscheme.colors.fg;
       selection-foreground = colorscheme.colors.bg;
     };
   };
