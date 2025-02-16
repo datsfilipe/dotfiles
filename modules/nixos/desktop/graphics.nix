@@ -10,9 +10,9 @@
       };
     };
 
-    # xdgOpenUsePortal = false;
-    # extraPortals = with pkgs; [
-    #   xdg-desktop-portal-gtk
-    # ];
+    xdgOpenUsePortal = false;
+    extraPortals = with pkgs; [
+      xdg-desktop-portal-gtk
+    ];
   };
 }

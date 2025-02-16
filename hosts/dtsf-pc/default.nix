@@ -1,4 +1,4 @@
-{myvars, ...}: let
+let
   hostName = "dtsf-pc";
 in {
   imports = [

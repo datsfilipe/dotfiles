@@ -28,12 +28,17 @@ with lib; {
       ];
     services.xserver.videoDrivers = ["nvidia"];
     hardware.nvidia = {
-      package = config.boot.kernelPackages.nvidiaPackages.latest;
+      package = config.boot.kernelPackages.nvidiaPackages.beta;
       modesetting.enable = true;
       powerManagement.enable = true;
-      forceFullCompositionPipeline = false;
+      forceFullCompositionPipeline = true;
       nvidiaSettings = true;
       open = false;
+    };
+
+    hardware.graphics = {
+      enable = true;
+      enable32Bit = true;
     };
   };
 }

@@ -19,12 +19,6 @@
       }
     ];
 
-    ignores = [
-      ".trash"
-      ".Trash"
-      ".Trash-1000"
-    ];
-
     extraConfig = {
       core.editor = "nvim";
       init.defaultBranch = "main";

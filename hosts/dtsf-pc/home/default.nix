@@ -1,33 +1,34 @@
 {
+  config,
   pkgs,
   mypkgs,
   lib,
   ...
-}: {
-  imports = [./packages.nix];
-
-  modules.desktop.colorscheme.theme = "gruvbox";
-
-  modules.desktop = {
-    sway = let
-      mod = "Mod4";
-      alt = "Mod1";
-      keymaps = import ./keymaps.nix {inherit mod alt pkgs lib;};
-      command = str: always: {
-        command = str;
-        always = always;
-      };
-    in {
-      settings = {
+}: let
+  generate = wm: let
+    mod = "Mod4";
+    alt = "Mod1";
+    msgCmd =
+      if wm == "sway"
+      then "swaymsg"
+      else "i3-msg";
+    keymaps = import ./keymaps.nix {inherit mod alt pkgs lib config;};
+    command = str: always: {
+      command = str;
+      always = always;
+    };
+  in {
+    settings = lib.mkMerge [
+      {
         modifier = mod;
         focus.followMouse = false;
         keybindings = keymaps.allBindings;
 
         startup = [
           (command "udiskie --tray --notify" false)
-          (command "swaymsg 'workspace 1'" false)
+          (command "${msgCmd} 'workspace 1'" false)
           (command "dunst -config $HOME/.config/dunstrc" false)
-          (command "systemctl --user restart wallpaper.service" true)
+          (lib.mkIf (wm == "sway") (command "systemctl --user start wallpaper.service" false))
         ];
 
         modes = {
@@ -61,7 +62,9 @@
             criteria = {title = "^win";};
           }
         ];
+      }
 
+      (lib.mkIf (wm == "sway") {
         input = {
           "1133:16500:Logitech_G305" = {
             accel_profile = "flat";
@@ -74,8 +77,17 @@
             xkb_options = "compose:menu,level3:ralt_switch,grp:win_space_toggle";
           };
         };
-      };
-    };
+      })
+    ];
+  };
+in {
+  imports = [./packages.nix];
+
+  modules.desktop.colorscheme.theme = "gruvbox";
+
+  modules.desktop = {
+    sway = generate "sway";
+    i3 = generate "i3";
   };
 
   programs.ssh = {
@@ -88,7 +100,8 @@
     '';
   };
 
-  modules.desktop.nupkgs.packages = with mypkgs; [
-    astal
-  ];
+  modules.desktop.nupkgs.packages = with mypkgs;
+    lib.mkIf (config.modules.desktop.sway.enable) [
+      astal
+    ];
 }
