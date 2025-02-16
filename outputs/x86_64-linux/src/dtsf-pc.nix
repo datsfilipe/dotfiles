@@ -61,7 +61,7 @@
             enableNeovimIntegration = true;
             enableGTKIntegration = true;
             enableI3Integration = true;
-            enableI3StatusIntegration = false;
+            enableI3StatusIntegration = true;
             enableDunstIntegration = true;
             enableAlacrittyIntegration = true;
             enableFishIntegration = true;
