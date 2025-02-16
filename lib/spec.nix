@@ -13,7 +13,6 @@ in {
       ../modules/base.nix
       ../modules/colorscheme
       ../modules/conf
-      ../modules/devenvs
       ../modules/nixos
       ../modules/nupkgs
       ../modules/secrets
