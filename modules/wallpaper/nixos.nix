@@ -17,11 +17,6 @@ with lib; {
       systemd.user.services.link-wallpaper = {
         description = "Create wallpaper symlink";
         after = [
-          (
-            if config.modules.desktop.wayland.enable
-            then "sway-session.target"
-            else ""
-          )
           "graphical-session.target"
         ];
         wantedBy = ["default.target"];
@@ -49,11 +44,6 @@ with lib; {
         description = "Set wallpaper";
         after = [
           "link-wallpaper.service"
-          (
-            if config.modules.desktop.wayland.enable
-            then "sway-session.target"
-            else ""
-          )
           "graphical-session.target"
         ];
         wantedBy = ["default.target"];

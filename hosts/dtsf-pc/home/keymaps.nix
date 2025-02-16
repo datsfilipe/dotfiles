@@ -1,4 +1,5 @@
 {
+  config,
   mod,
   alt,
   pkgs,
@@ -8,10 +9,19 @@
   mod = "Mod4";
   alt = "Mod1";
   print = "Print";
+  msgCmd =
+    if config.modules.desktop.sway.enable
+    then "swaymsg"
+    else "i3-msg";
 
-  exit = "-B 'leave' 'exec swaymsg exit && exec loginctl terminate-user $USER'";
+  exit = "-B 'leave' 'exec ${msgCmd} exit && exec loginctl terminate-user $USER'";
   turnoff = "-B 'shutdown' 'exec systemctl poweroff'";
   reboot = "-B 'reboot' 'exec systemctl reboot'";
+
+  nag =
+    if config.modules.desktop.sway.enable
+    then "swaynag"
+    else "i3-nagbar";
 
   workspaceBindings = builtins.listToAttrs (
     (map (i: {
@@ -69,7 +79,7 @@
     "${mod}+r" = "mode resize";
 
     "${mod}+Shift+c" = "reload";
-    "${mod}+Shift+e" = "exec \"swaynag -t warning -m 'leave, shutdown or reboot?' ${turnoff} ${reboot} ${exit}\"";
+    "${mod}+Shift+e" = "exec \"${nag} -t warning -m 'leave, shutdown or reboot?' ${turnoff} ${reboot} ${exit}\"";
 
     "XF86MonBrightnessUp" = "exec --no-startup-id brightnessctl set +5%";
     "XF86MonBrightnessDown" = "exec --no-startup-id brightnessctl set 5%-";

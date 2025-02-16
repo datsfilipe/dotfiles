@@ -36,11 +36,11 @@
     nixos-modules =
       [
         {
-          modules.desktop.wayland.enable = true;
+          modules.desktop.xorg.enable = true;
           modules.desktop.wallpaper.enable = true;
           modules.desktop.nvidia.enable = true;
-          modules.desktop.ollama.enable = false;
           modules.ssh-key-manager.enable = true;
+          modules.desktop.ollama.enable = false;
           modules.desktop.bluetooth.enable = false;
         }
       ]
@@ -48,7 +48,7 @@
     home-modules =
       [
         {
-          modules.desktop.sway.enable = true;
+          modules.desktop.i3.enable = true;
           modules.desktop.nupkgs.enable = true;
           modules.desktop.conf = {
             enableDunstIntegration = true;
@@ -60,7 +60,7 @@
             enable = true;
             enableNeovimIntegration = true;
             enableGTKIntegration = true;
-            enableSwayIntegration = true;
+            enableI3Integration = true;
             enableI3StatusIntegration = false;
             enableDunstIntegration = true;
             enableAlacrittyIntegration = true;
