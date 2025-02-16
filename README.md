@@ -35,19 +35,6 @@
 │   │   └── themes
 │   ├── conf
 │   │   └── integrations
-│   ├── devenvs
-│   │   ├── bun
-│   │   ├── crystal
-│   │   ├── electron
-│   │   ├── elixir
-│   │   ├── git-hooks
-│   │   ├── go
-│   │   ├── nodejs
-│   │   ├── python
-│   │   ├── qmk
-│   │   ├── rust
-│   │   ├── shimeji
-│   │   └── work
 │   ├── nixos
 │   │   ├── base
 │   │   └── desktop
