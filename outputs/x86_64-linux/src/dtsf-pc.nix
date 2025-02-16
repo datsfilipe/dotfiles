@@ -39,7 +39,9 @@
           modules.desktop.wayland.enable = true;
           modules.desktop.wallpaper.enable = true;
           modules.desktop.nvidia.enable = true;
+          modules.desktop.ollama.enable = false;
           modules.ssh-key-manager.enable = true;
+          modules.desktop.bluetooth.enable = false;
         }
       ]
       ++ base-modules.nixos-modules;
