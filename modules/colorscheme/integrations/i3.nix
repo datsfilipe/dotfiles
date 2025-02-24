@@ -61,12 +61,12 @@
     };
   };
 
-  home.file.".local/bin/dmenu-theme".text = ''
+  home.file.".local/bin/launcher".text = ''
     #!/usr/bin/env bash
         ${pkgs.dmenu}/bin/dmenu_run -nb "${colorscheme.colors.bg}" \
         -nf "${colorscheme.colors.fg}" \
         -sb "${colorscheme.colors.altbg}" \
         -sf "${colorscheme.colors.fg}"
   '';
-  home.file.".local/bin/dmenu-theme".executable = true;
+  home.file.".local/bin/launcher".executable = true;
 }
