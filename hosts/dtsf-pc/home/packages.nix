@@ -10,6 +10,7 @@
     slack
     beekeeper-studio
     bitwarden
+    pavucontrol
   ];
 
   modules.desktop.nupkgs.packages = with mypkgs; [
