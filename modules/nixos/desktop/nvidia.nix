@@ -17,7 +17,7 @@ with lib; {
       __GLX_VENDOR_LIBRARY_NAME = "nvidia";
     };
     boot.extraModprobeConfig = "options nvidia-drm modeset=1";
-    boot.kernelParams = ["nvidia.NVreg_EnableGpuFirmware=0" "nvidia.NVreg_PreserveVideoMemoryAllocations=1"];
+    boot.kernelParams = ["nvidia.NVreg_EnableGpuFirmware=0" "nvidia.NVreg_PreserveVideoMemoryAllocations=1" "module_blacklist=amdgpu"];
     boot.initrd.kernelModules =
       config.boot.kernelModules
       ++ [
