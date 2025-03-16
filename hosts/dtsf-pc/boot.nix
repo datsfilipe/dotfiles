@@ -3,14 +3,14 @@
 
   boot.loader = {
     systemd-boot.enable = false;
-    efi = {
-      canTouchEfiVariables = true;
-      efiSysMountPoint = "/boot";
-    };
+
+    efi.efiSysMountPoint = "/boot";
     grub = {
       devices = [ "nodev" ];
       efiSupport = true;
       enable = true;
+      gfxmodeEfi = "1920x1080"; 
+      efiInstallAsRemovable = true;
       extraEntries = ''
         menuentry "Windows" {
           insmod part_gpt
@@ -19,6 +19,12 @@
           insmod chain
           search --fs-uuid --set=root F8D5-8832
           chainloader /EFI/Microsoft/Boot/bootmgfw.efi
+        }
+        menuentry "Reboot" {
+          reboot
+        }
+        menuentry "Poweroff" {
+          halt
         }
       '';
     };
