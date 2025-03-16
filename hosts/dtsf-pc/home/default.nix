@@ -83,7 +83,7 @@
 in {
   imports = [./packages.nix];
 
-  modules.desktop.colorscheme.theme = "vesper";
+  modules.desktop.colorscheme.theme = "gruvbox";
 
   modules.desktop = {
     sway = generate "sway";
