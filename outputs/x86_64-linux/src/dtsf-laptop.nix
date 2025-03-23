@@ -7,7 +7,7 @@
   genSpecialArgs,
   ...
 } @ args: let
-  name = "dtsf-pc";
+  name = "dtsf-laptop";
   base-modules = {
     nixos-modules =
       map mylib.file.relativeToRoot [
@@ -32,40 +32,31 @@
       ];
   };
 
-  pc-modules = {
+  laptop-modules = {
     nixos-modules =
       [
         {
-          modules.desktop.xorg.enable = true;
-          modules.desktop.wallpaper.enable = true;
-          modules.desktop.nvidia.enable = true;
+          modules.desktop.wayland.enable = true;
           modules.ssh-key-manager.enable = true;
+          modules.desktop.bluetooth.enable = true;
         }
       ]
       ++ base-modules.nixos-modules;
     home-modules =
       [
         {
-          modules.desktop.i3.enable = true;
           modules.desktop.nupkgs.enable = true;
           modules.desktop.conf = {
-            enableDunstIntegration = true;
             enableCavaIntegration = true;
             enableZellijIntegration = true;
-            enablePicomIntegration = true;
           };
           modules.desktop.colorscheme = {
             enable = true;
             enableNeovimIntegration = true;
-            enableGTKIntegration = true;
-            enableI3Integration = true;
-            enableI3StatusIntegration = true;
-            enableDunstIntegration = true;
             enableAlacrittyIntegration = true;
             enableFishIntegration = true;
             enableCavaIntegration = true;
             enableZellijIntegration = true;
-            enableAstalIntegration = true;
           };
         }
       ]
@@ -73,6 +64,6 @@
   };
 in {
   nixosConfigurations = {
-    "${name}" = mylib.nixosSystem (pc-modules // args);
+    "${name}" = mylib.nixosSystem (laptop-modules // args);
   };
 }
