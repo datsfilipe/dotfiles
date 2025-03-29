@@ -22,7 +22,21 @@ in {
       secrets."ssh/pass/primary" = {
         owner = myvars.username;
       };
+      secrets."keys/openai/default" = {
+        owner = myvars.username;
+      };
     };
+
+    programs.bash.interactiveShellInit = ''
+      export OPENAI_API_KEY="$(cat ${config.sops.secrets."keys/openai/default".path})"
+    '';
+
+    environment.systemPackages = [
+      (pkgs.writeScriptBin "get-openai-key" ''
+        #!${pkgs.bash}/bin/bash
+        cat ${config.sops.secrets."keys/openai/default".path}
+      '')
+    ];
 
     environment.sessionVariables = {
       SSH_AUTH_SOCK = authsock;

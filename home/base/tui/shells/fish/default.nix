@@ -30,21 +30,26 @@ in {
     shellInit = ''
         ${fileContents ./conf/config.fish}
       export ${path}
+
+      if command -v get-openai-key >/dev/null
+        set -gx OPENAI_API_KEY (get-openai-key)
+      end
     '';
   };
 
   home.packages = with pkgs;
     (map (p: p.pkg) plugins) ++ [zoxide];
 
-  xdg.configFile = lib.foldl' (
-    acc: plugin:
-      acc
-      // {
-        "fish/conf.d/${plugin.name}.fish".text = ''
-          set -l plugin_dir ${plugin.pkg}/share/fish
-          ${fileContents ./conf/plugin.fish}
-        '';
-      }
-  ) {}
-  plugins;
+  xdg.configFile =
+    lib.foldl' (
+      acc: plugin:
+        acc
+        // {
+          "fish/conf.d/${plugin.name}.fish".text = ''
+            set -l plugin_dir ${plugin.pkg}/share/fish
+            ${fileContents ./conf/plugin.fish}
+          '';
+        }
+    ) {}
+    plugins;
 }
