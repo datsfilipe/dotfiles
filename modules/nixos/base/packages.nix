@@ -5,6 +5,7 @@
   ...
 }: {
   environment.systemPackages = with pkgs; [
+    gcc
     strace
     tcpdump
     lsof
