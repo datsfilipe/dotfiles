@@ -28,6 +28,7 @@
       diff.tool = "nvimdiff";
       difftool.nvimdiff.cmd = "nvim -d $LOCAL $REMOTE";
       merge.tool = "nvimdiff1";
+      mergetool.keepBackup = false;
       mergetool.nvimdiff.cmd = "nvim -d \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"";
       mergetool.nvimdiff.trustExitCode = true;
       ghq.root = "~/www/s";
@@ -54,6 +55,8 @@
       ps = "push";
       psu = "push -u";
       pl = "pull";
+      mt = "mergetool";
+      dt = "difftool";
       psm = "!git push origin $(git rev-parse --abbrev-ref HEAD)";
       plm = "!git pull origin $(git rev-parse --abbrev-ref HEAD)";
       lg = "log --graph --name-status --pretty=format:\"%C(red)%h %C(reset)(%cd) %C(green)%an %Creset%s %C(yellow)%d%Creset\" --date=relative";
