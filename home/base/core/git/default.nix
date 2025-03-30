@@ -27,9 +27,9 @@
       github.user = "datsfilipe";
       diff.tool = "nvimdiff";
       difftool.nvimdiff.cmd = "nvim -d $LOCAL $REMOTE";
-      merge.tool = "nvimdiff1";
+      merge.tool = "nvimdiff3";
       mergetool.keepBackup = false;
-      mergetool.nvimdiff.cmd = "nvim -d \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"";
+      mergetool.nvimdiff.cmd = "nvim -d $LOCAL $REMOTE";
       mergetool.nvimdiff.trustExitCode = true;
       ghq.root = "~/www/s";
       ghq."ssh://git@github.com/d3-inc".root = "~/www/w";

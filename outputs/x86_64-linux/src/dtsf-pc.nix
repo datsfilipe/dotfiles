@@ -39,6 +39,7 @@
           modules.desktop.xorg.enable = true;
           modules.desktop.wallpaper.enable = true;
           modules.desktop.nvidia.enable = true;
+          modules.desktop.ollama.enable = true;
           modules.ssh-key-manager.enable = true;
         }
       ]
