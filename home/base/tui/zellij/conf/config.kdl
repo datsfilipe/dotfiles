@@ -4,6 +4,7 @@ default_layout "compact"
 pane_frames false
 session_serialization false
 simplified_ui true
+show_startup_tips false
 keybinds clear-defaults=true {
   shared {
     bind "Ctrl f" {

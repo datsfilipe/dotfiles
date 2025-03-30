@@ -74,6 +74,14 @@
       type = lib.types.bool;
       default = false;
     };
+    enableWeztermIntegration = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+    };
+    enableRioIntegration = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+    };
   };
 
   config = let
@@ -171,6 +179,20 @@
         (
           lib.mkIf config.modules.desktop.colorscheme.enableAstalIntegration
           (import ./integrations/astal.nix {
+            colorscheme = colorscheme;
+          })
+        )
+
+        (
+          lib.mkIf config.modules.desktop.colorscheme.enableWeztermIntegration
+          (import ./integrations/wezterm.nix {
+            colorscheme = colorscheme;
+          })
+        )
+
+        (
+          lib.mkIf config.modules.desktop.colorscheme.enableRioIntegration
+          (import ./integrations/rio.nix {
             colorscheme = colorscheme;
           })
         )

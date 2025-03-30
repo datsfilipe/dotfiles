@@ -26,6 +26,7 @@
         "modules/nupkgs/home.nix"
         "modules/colorscheme/home.nix"
         "modules/conf/home.nix"
+        "modules/term.nix"
       ]
       ++ [
         inputs.datsnvim.homeManagerModules.${system}.default
@@ -47,6 +48,7 @@
     home-modules =
       [
         {
+          modules.core.term.default = "wezterm";
           modules.desktop.i3.enable = true;
           modules.desktop.nupkgs.enable = true;
           modules.desktop.conf = {
@@ -62,11 +64,11 @@
             enableI3Integration = true;
             enableI3StatusIntegration = true;
             enableDunstIntegration = true;
-            enableAlacrittyIntegration = true;
             enableFishIntegration = true;
             enableCavaIntegration = true;
             enableZellijIntegration = true;
             enableAstalIntegration = true;
+            enableWeztermIntegration = true;
           };
         }
       ]

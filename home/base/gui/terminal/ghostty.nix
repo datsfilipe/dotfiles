@@ -1,8 +1,11 @@
-{ lib, ghosttypkg, ... }:
-
+{
+  lib,
+  config,
+  ghosttypkg,
+  ...
+}:
 with lib; {
   programs.ghostty = {
-    enable = false;
     enableFishIntegration = true;
     settings = {
       command = "fish";
