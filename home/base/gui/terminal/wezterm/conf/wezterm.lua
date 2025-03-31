@@ -38,6 +38,11 @@ config.font = wezterm.font("JetBrainsMono Nerd Font", { weight = "Regular" })
 config.harfbuzz_features = { "calt=0", "clig=0", "liga=0" }
 config.font_size = 14.0
 
+config.prefer_egl = false
+config.animation_fps = 1
 config.audible_bell = "Disabled"
+config.keys = {
+	{ key = "x", mods = "CTRL", action = wezterm.action.ActivateCopyMode, replace_current = true },
+}
 
 return config
