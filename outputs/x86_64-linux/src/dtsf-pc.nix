@@ -48,7 +48,7 @@
     home-modules =
       [
         {
-          modules.core.term.default = "wezterm";
+          modules.core.term.default = "alacritty";
           modules.desktop.i3.enable = true;
           modules.desktop.nupkgs.enable = true;
           modules.desktop.conf = {
@@ -68,7 +68,7 @@
             enableCavaIntegration = true;
             enableZellijIntegration = true;
             enableAstalIntegration = true;
-            enableWeztermIntegration = true;
+            enableAlacrittyIntegration = true;
           };
         }
       ]

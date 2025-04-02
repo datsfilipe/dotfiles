@@ -45,8 +45,8 @@
   );
   staticBindings = {
     "${mod}+q" = "kill";
-    "${mod}+t" = "exec ${pkgs.wezterm}/bin/wezterm";
-    "${mod}+Return" = "exec ${pkgs.wezterm}/bin/wezterm -e ${pkgs.zellij}/bin/zellij attach dtsf -c";
+    "${mod}+t" = "exec ${pkgs.alacritty}/bin/alacritty";
+    "${mod}+Return" = "exec ${pkgs.alacritty}/bin/alacritty -e ${pkgs.zellij}/bin/zellij attach dtsf -c";
     "${mod}+a" = "exec chromium --wv --force-dark-mode --enable-features=WebUIDarkMode --disable-gpu";
     "${mod}+d" = "exec $HOME/.local/bin/launcher";
     "${mod}+Shift+m" = "exec shimeji";
