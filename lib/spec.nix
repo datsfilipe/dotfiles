@@ -16,6 +16,7 @@ in {
       ../modules/nixos
       ../modules/nupkgs
       ../modules/secrets
+      ../modules/term.nix
       ../modules/wallpaper
     ];
   };
