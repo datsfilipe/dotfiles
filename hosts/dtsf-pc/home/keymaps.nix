@@ -47,7 +47,7 @@
     "${mod}+q" = "kill";
     "${mod}+t" = "exec ${pkgs.alacritty}/bin/alacritty";
     "${mod}+Return" = "exec ${pkgs.alacritty}/bin/alacritty -e ${pkgs.zellij}/bin/zellij attach dtsf -c";
-    "${mod}+a" = "exec chromium --wv --force-dark-mode --enable-features=WebUIDarkMode --disable-gpu";
+    "${mod}+a" = "exec chromium --wv --force-dark-mode --enable-features=WebUIDarkMode";
     "${mod}+d" = "exec $HOME/.local/bin/launcher";
     "${mod}+Shift+m" = "exec shimeji";
 
