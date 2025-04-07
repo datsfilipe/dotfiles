@@ -6,9 +6,12 @@
 }: {
   programs.chromium = {
     enable = true;
-    package = pkgs.chromium.override {
-      enableWideVine = true;
-    };
+    package = pkgs.brave;
+    commandLineArgs = [
+      "--disable-features=WebRtcAllowInputVolumeAdjustment"
+      "--enable-features=WebUIDarkMode"
+      "--force-dark-mode"
+    ];
     dictionaries = [pkgs.hunspellDictsChromium.en_US];
     extensions = [
       {id = "ajopnjidmegmdimjlfnijceegpefgped";} # bttv
