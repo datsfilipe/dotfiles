@@ -10,7 +10,8 @@
       platform.linux.program = "${pkgs.fish}/bin/fish";
       fonts = {
         size = 18;
-        hinting = true;
+        hinting = false;
+        family = "JetBrainsMono Nerd Font";
         regular = {
           family = "JetBrainsMono Nerd Font";
           style = "Normal";
@@ -42,7 +43,7 @@
         decorations = "Disabled";
       };
       navigation.mode = "Plain";
-      line-height = 1.3;
+      line-height = 1.1;
       use-split = false;
       padding-x = 25;
       padding-y = [25 25];
