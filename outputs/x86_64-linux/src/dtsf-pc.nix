@@ -69,6 +69,7 @@
             enableZellijIntegration = true;
             enableAstalIntegration = true;
             enableAlacrittyIntegration = true;
+            enableFzfIntegration = true;
           };
         }
       ]
