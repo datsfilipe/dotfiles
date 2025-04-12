@@ -22,19 +22,19 @@ in {
       secrets."ssh/pass/primary" = {
         owner = myvars.username;
       };
-      secrets."keys/openai/default" = {
+      secrets."token/github/dtsf-pc" = {
         owner = myvars.username;
       };
     };
 
     programs.bash.interactiveShellInit = ''
-      export OPENAI_API_KEY="$(cat ${config.sops.secrets."keys/openai/default".path})"
+      export GH_TOKEN="$(cat ${config.sops.secrets."token/github/dtsf-pc".path})"
     '';
 
     environment.systemPackages = [
-      (pkgs.writeScriptBin "get-openai-key" ''
+      (pkgs.writeScriptBin "get-gh-token" ''
         #!${pkgs.bash}/bin/bash
-        cat ${config.sops.secrets."keys/openai/default".path}
+        cat ${config.sops.secrets."token/github/dtsf-pc".path}
       '')
     ];
 

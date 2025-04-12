@@ -31,8 +31,9 @@ in {
         ${fileContents ./conf/config.fish}
       export ${path}
 
-      if command -v get-openai-key >/dev/null
-        set -gx OPENAI_API_KEY (get-openai-key)
+
+      if command -v get-gh-token >/dev/null
+        set -gx GH_TOKEN (get-gh-token)
       end
     '';
   };
