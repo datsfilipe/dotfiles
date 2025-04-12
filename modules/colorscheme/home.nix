@@ -82,6 +82,10 @@
       type = lib.types.bool;
       default = false;
     };
+    enableFzfIntegration = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+    };
   };
 
   config = let
@@ -193,6 +197,13 @@
         (
           lib.mkIf config.modules.desktop.colorscheme.enableRioIntegration
           (import ./integrations/rio.nix {
+            colorscheme = colorscheme;
+          })
+        )
+
+        (
+          lib.mkIf config.modules.desktop.colorscheme.enableFzfIntegration
+          (import ./integrations/fzf.nix {
             colorscheme = colorscheme;
           })
         )
