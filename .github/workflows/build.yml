@@ -40,6 +40,15 @@ jobs:
       - name: generate flake
         run: nix run nixpkgs#just generate-flake
 
+      - name: free disk space
+        run: |
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /usr/local/lib/android
+          sudo rm -rf /opt/ghc
+          sudo rm -rf /usr/local/share/boost
+          mkdir -p ./private/tmp
+          export TMPDIR="$(pwd)/private/tmp"
+
       - name: setup git submodules
         env:
           GIT_USER: ${{ secrets.GIT_USER }}
