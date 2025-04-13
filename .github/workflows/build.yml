@@ -45,19 +45,11 @@ jobs:
           extra_nix_config: |
             experimental-features = nix-command flakes
 
-      - name: set up channels
-        run: |
-          nix-channel --add https://nixos.org/channels/nixpkgs-unstable nixpkgs
-          nix-channel --update
-
-      - name: install dependencies
-        run: nix-env -iA nixpkgs.just
-
       - name: load env
         uses: HatsuneMiku3939/direnv-action@v1.0.7
 
       - name: generate flake
-        run: just generate-flake
+        run: nix run nixpkgs#just generate-flake
 
       - name: setup git submodules
         env:
