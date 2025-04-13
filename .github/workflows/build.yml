@@ -19,9 +19,9 @@ jobs:
       - name: Set Up Nix
         uses: cachix/install-nix-action@v22
         with:
-          install_url: https://releases.nixos.org/nix/nix-2.16.3/install
           extra_nix_config: |
             experimental-features = nix-command flakes
 
       - name: Build for ${{ matrix.host }}
-        run: nix-shell -p just git --run 'just build ${{ matrix.host }} default'
+        run: |
+          nix-shell -p nixpkgs#just --run 'just build ${{ matrix.host }} default'
