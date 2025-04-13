@@ -49,6 +49,9 @@ jobs:
         run: |
           nix-channel --add https://nixos.org/channels/nixpkgs-unstable nixpkgs
           nix-channel --update
+
+      - name: set up submodule
+        run: git submodule update --init --recursive
         
       - name: build 
         run: nix run github:nix-community/nixos-generators -- -f iso --flake .#${{ matrix.host }}
