@@ -23,6 +23,17 @@ jobs:
           extra_nix_config: |
             experimental-features = nix-command flakes
 
+      - name: set up channels
+        run: |
+          nix-channel --add https://nixos.org/channels/nixpkgs-unstable nixpkgs
+          nix-channel --update
+
+      - name: setup hardware configuration
+        run: |
+          rm -rf ./hosts/${{ matrix.host }}/hardware-configuration.nix
+          nix-env -iA nixpkgs.nixos-install-tools
+          nixos-generate-config --dir ./hosts/${{ matrix.host }}
+
       - name: load env
         uses: HatsuneMiku3939/direnv-action@v1.0.7
 
@@ -37,11 +48,5 @@ jobs:
           git config --global url."https://${GIT_USER}:${GIT_TOKEN}@github.com/".insteadOf "git@github.com:"
           git submodule update --init --recursive
 
-      - name: setup hardware configuration
-        run: |
-          rm -rf ./hosts/${{ matrix.host }}/hardware-configuration.nix
-          nix-env -iA nixpkgs.nixos-install-tools
-          nixos-generate-config --dir ./hosts/${{ matrix.host }}
-        
       - name: build 
         run: nix run github:nix-community/nixos-generators -- -f iso --flake .#${{ matrix.host }} --option build-use-substitutes true
