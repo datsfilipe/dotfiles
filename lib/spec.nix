@@ -8,16 +8,9 @@ in {
   };
 
   testScanPaths = {
-    expr = mylib.file.scanPaths ../modules;
+    expr = mylib.file.scanPaths ../outputs;
     expected = [
-      ../modules/base.nix
-      ../modules/colorscheme
-      ../modules/conf
-      ../modules/nixos
-      ../modules/nupkgs
-      ../modules/secrets
-      ../modules/term.nix
-      ../modules/wallpaper
+      ../outputs/x86_64-linux
     ];
   };
 

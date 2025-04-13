@@ -17,19 +17,19 @@
 ```
 .
 ├── assets
-├── home
-│   ├── base
-│   │   ├── core
-│   │   ├── gui
-│   │   └── tui
-│   └── linux
-│       ├── base
-│       └── gui
 ├── hosts
-│   └── dtsf-pc
-│       └── home
+│   └── dtsf-pc
+│       └── home
 ├── lib
 ├── modules
+│   ├── home
+│   │   ├── base
+│   │   │   ├── core
+│   │   │   ├── gui
+│   │   │   └── tui
+│   │   └── linux
+│   │       ├── base
+│   │       └── gui
 │   ├── colorscheme
 │   │   ├── integrations
 │   │   └── themes
@@ -47,16 +47,15 @@
 │   └── x86_64-linux
 │       └── src
 ├── scripts
-└── vars
-```
+└── vars```
 
 ### General directories
 
 - `assets`: images and other assets used in the readme.
-- `home`: home manager general configurations.
 - `hosts`hosts definitions.
 - `lib`: utility functions.
 - `modules`: modules definitions.
+    - `home`: home manager general configurations.
     - `colorscheme`: colorscheme configurations for most used applications.
     - `conf`: configurations for most used applications.
     - `devenvs`: development environments.
