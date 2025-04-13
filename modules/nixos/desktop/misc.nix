@@ -33,4 +33,6 @@
     ssh.startAgent = false;
     dconf.enable = true;
   };
+
+  gtk.iconCache.enable = true;
 }

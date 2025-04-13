@@ -65,14 +65,6 @@ with lib; {
         serviceConfig = {
           Type = "oneshot";
           RemainAfterExit = true;
-          Environment = [
-            "HOME=/home/${myvars.username}"
-            (
-              if config.modules.desktop.xorg.enable
-              then "DISPLAY=:0"
-              else "WAYLAND_DISPLAY=wayland-1"
-            )
-          ];
           Restart = "on-failure";
           RestartSec = 5;
         };

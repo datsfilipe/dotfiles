@@ -20,16 +20,28 @@
     enable = true;
 
     font = {
-      name = "Noto Sans";
-      package = pkgs.noto-fonts;
-      size = 11;
+      name = "Inter";
+      package = pkgs.inter;
+      size = 12;
     };
 
     gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
+    gtk3.extraConfig = {
+      gtk-application-prefer-dark-theme = true;
+      gtk-decoration-layout = "";
+    };
+    gtk4.extraConfig = {
+      gtk-application-prefer-dark-theme = true;
+      gtk-decoration-layout = "";
+    };
   };
 
-  xdg.configFile."gtk-3.0/settings.ini".text = ''
-    [Settings]
-    gtk-application-prefer-dark-theme=1
-  '';
+  home.sessionVariables = {
+    GTK_THEME = "${config.gtk.theme.name}:dark";
+  };
+
+  dconf.settings."org/gnome/desktop/interface" = {
+    color-scheme = "prefer-dark";
+    gtk-theme = config.gtk.theme.name;
+  };
 }
