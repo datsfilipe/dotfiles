@@ -54,7 +54,9 @@ jobs:
         run: nix-env -iA nixpkgs.direnv nixpkgs.just
 
       - name: generate flake
-        run: direnv exec . just generate-flake
+        run: |
+          direnv allow
+          just generate-flake
 
       - name: setup git submodules
         env:
