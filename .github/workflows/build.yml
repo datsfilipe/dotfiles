@@ -49,12 +49,6 @@ jobs:
         run: |
           nix-channel --add https://nixos.org/channels/nixpkgs-unstable nixpkgs
           nix-channel --update
-
-      - name: set up submodule
-        env:
-          GIT_USER: ${{ secrets.GIT_USER }}
-          GIT_TOKEN: ${{ secrets.GIT_TOKEN }}
-        run: git clone https://${GIT_USER}:${GIT_TOKEN}@github.com/datsfilipe/unix-scripts.git ./modules/home/linux/base/scripts/conf
         
       - name: build 
         run: nix run github:nix-community/nixos-generators -- -f iso --flake .#${{ matrix.host }}
