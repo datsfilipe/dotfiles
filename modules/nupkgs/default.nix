@@ -5,6 +5,7 @@
   astal,
   zellij-switch,
   linux-shimeji,
+  ghostty,
   ...
 }: let
   packageFiles =
@@ -34,6 +35,7 @@
     // {
       inherit (pkgsWithOverlays) zellij-switch;
       linux-shimeji = linux-shimeji.packages.${pkgs.system}.little-ghost-polite;
+      ghostty = ghostty.packages.${pkgs.system}.ghostty-releasefast;
     };
 in
   packages

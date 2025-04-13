@@ -5,8 +5,10 @@ pane_frames false
 session_serialization false
 simplified_ui true
 show_startup_tips false
+scrollback_editor "zellij-scrollback-editor"
 keybinds clear-defaults=true {
   shared {
+    bind "Ctrl x" { EditScrollback; }
     bind "Ctrl f" {
       Run "zellij-sessionizer" {
         close_on_exit true

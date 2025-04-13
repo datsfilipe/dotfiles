@@ -21,15 +21,19 @@ in
   {
     description = "datsdots";
     inputs = let
-      ext = url: {
-        inherit url;
-        inputs.nixpkgs.follows = "nixpkgs";
-      };
+      ext = url: with-nixpkgs: let
+        base = {inherit url;};
+      in
+        if with-nixpkgs
+        then base // {inputs = {nixpkgs.follows = "nixpkgs";};}
+        else base;
+
       ext-hm = url: {
         inherit url;
         inputs.nixpkgs.follows = "nixpkgs";
         inputs.home-manager.follows = "home-manager";
       };
+
       local = path: {
         url = "git+file://${toString path}?shallow=1";
         flake = false;
@@ -38,12 +42,13 @@ in
       nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
       nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
       nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
-      linux-shimeji = ext "github:datsfilipe/linux-shimeji/main";
-      zellij-switch = ext "github:datsfilipe/zellij-switch/flake";
-      home-manager = ext "github:nix-community/home-manager/master";
-      sops-nix = ext "github:Mic92/sops-nix/master";
-      neovim-nightly = ext "github:nix-community/neovim-nightly-overlay/master";
-      astal = ext "github:aylur/astal/main";
+      ghostty = ext "github:ghostty-org/ghostty/main" false;
+      linux-shimeji = ext "github:datsfilipe/linux-shimeji/main" true;
+      zellij-switch = ext "github:datsfilipe/zellij-switch/flake" true;
+      home-manager = ext "github:nix-community/home-manager/master" true;
+      sops-nix = ext "github:Mic92/sops-nix/master" true;
+      neovim-nightly = ext "github:nix-community/neovim-nightly-overlay/master" true;
+      astal = ext "github:aylur/astal/main" true;
       datsnvim = ext-hm "github:datsfilipe/datsnvim/main";
       unix-scripts = local ../modules/home/linux/base/scripts/conf;
     };

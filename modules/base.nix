@@ -6,7 +6,7 @@
 } @ args: {
   nix.package = pkgs.nixVersions.latest;
 
-  environment.variables.EDITOR = "nvim --clean";
+  environment.variables.EDITOR = "nvim --clean -c 'set clipboard=unnamedplus' -c 'highlight Normal guibg=NONE ctermbg=NONE'";
   environment.systemPackages = with pkgs; [
     fastfetch
     neovim

@@ -3,6 +3,7 @@
   mod,
   alt,
   pkgs,
+  mypkgs,
   lib,
   ...
 }: let
@@ -45,8 +46,8 @@
   );
   staticBindings = {
     "${mod}+q" = "kill";
-    "${mod}+t" = "exec ${pkgs.alacritty}/bin/alacritty";
-    "${mod}+Return" = "exec ${pkgs.alacritty}/bin/alacritty -e ${pkgs.zellij}/bin/zellij attach dtsf -c";
+    "${mod}+t" = "exec ${mypkgs.ghostty}/bin/ghostty";
+    "${mod}+Return" = "exec ${mypkgs.ghostty}/bin/ghostty -e ${pkgs.zellij}/bin/zellij attach dtsf -c";
     "${mod}+a" = "exec brave";
     "${mod}+d" = "exec $HOME/.local/bin/launcher";
     "${mod}+Shift+m" = "exec shimeji";
