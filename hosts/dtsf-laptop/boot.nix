@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  lib,
+  ...
+}: {
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   boot.loader = {
@@ -8,7 +12,7 @@
     grub = {
       devices = ["nodev"];
       efiSupport = true;
-      enable = true;
+      enable = lib.mkDefault true;
       gfxmodeEfi = "1920x1080";
       efiInstallAsRemovable = true;
       extraEntries = ''

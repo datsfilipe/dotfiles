@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  lib,
+  ...
+}: {
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   boot.loader = {
@@ -6,10 +10,10 @@
 
     efi.efiSysMountPoint = "/boot";
     grub = {
-      devices = [ "nodev" ];
+      devices = ["nodev"];
       efiSupport = true;
-      enable = true;
-      gfxmodeEfi = "1920x1080"; 
+      enable = lib.mkDefault true;
+      gfxmodeEfi = "1920x1080";
       efiInstallAsRemovable = true;
       extraEntries = ''
         menuentry "Windows" {
