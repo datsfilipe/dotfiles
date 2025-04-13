@@ -27,8 +27,13 @@ jobs:
           nix-channel --add https://nixos.org/channels/nixpkgs-unstable nixpkgs
           nix-channel --update
 
-      - name: Install just
-        run: nix-env -iA nixpkgs.just
+      - name: Install direnv and just
+        run: nix-env -iA nixpkgs.direnv nixpkgs.just
 
+      - name: Allow direnv
+        run: |
+          eval "$(direnv hook bash)"
+          direnv allow
+          
       - name: Build for ${{ matrix.host }}
         run: just build ${{ matrix.host }} default
