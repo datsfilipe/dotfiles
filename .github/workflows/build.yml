@@ -28,11 +28,10 @@ jobs:
           nix-channel --update
 
       - name: install dependencies
-        run: nix-env -iA nixpkgs.direnv nixpkgs.just
+        run: nix-env -iA nixpkgs.just
+
+      - name: direnv action
+        uses: HatsuneMiku3939/direnv-action@v1.0.7
 
       - name: build
-        run: |
-          direnv allow .
-          eval "$(direnv export bash)"
-          just build ${{ matrix.host }} default
-        shell: bash
+        run: just build ${{ matrix.host }} default
