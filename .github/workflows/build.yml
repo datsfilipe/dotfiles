@@ -51,4 +51,4 @@ jobs:
           nix-channel --update
         
       - name: build 
-        run: nix run github:nix-community/nixos-generators -- -f iso .#${{ matrix.host }}
+        run: nix run github:nix-community/nixos-generators -- -f iso --flake .#${{ matrix.host }}
