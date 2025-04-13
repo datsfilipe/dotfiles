@@ -60,52 +60,68 @@
 
   generateScritps = pkgs: [
     (mkScript pkgs "nixos_switch" ''
-      local target=".#$1"
-      local mode="$2"
-      if [ "$mode" = "debug" ]; then
-        nixos-rebuild switch --flake "$target" --show-trace --verbose
-      elif [ "$mode" = "update" ]; then
-        nix flake update
-        nixos-rebuild switch --recreate-lock-file --flake "$target"
-      else
-        nix flake update datsnvim
-        nix flake update unix-scripts
-        nixos-rebuild switch --flake "$target"
-      fi
+      function main() {
+        local target=".#$1"
+        local mode="$2"
+        if [ "$mode" = "debug" ]; then
+          nixos-rebuild switch --flake "$target" --show-trace --verbose
+        elif [ "$mode" = "update" ]; then
+          nix flake update
+          nixos-rebuild switch --recreate-lock-file --flake "$target"
+        else
+          nix flake update datsnvim
+          nix flake update unix-scripts
+          nixos-rebuild switch --flake "$target"
+        fi
+      }
+
+      main "$@"
     '')
 
     (mkScript pkgs "nixos_build" ''
-      local target=".#$1"
-      local mode="$2"
-      if [ "$mode" = "debug" ]; then
-        nixos-rebuild build --flake "$target" --show-trace --verbose
-      elif [ "$mode" = "update" ]; then
-        pushd "$DOTFILES_ROOT"
-        ./scripts/update-nupkgs.sh ./modules/nupkgs
-        nix flake update
-        nixos-rebuild build --flake "$target"
-        popd || exit 1
-      else
-        nixos-rebuild build --flake "$target"
-      fi
+      function main() {
+        local target=".#$1"
+        local mode="$2"
+        if [ "$mode" = "debug" ]; then
+          nixos-rebuild build --flake "$target" --show-trace --verbose
+        elif [ "$mode" = "update" ]; then
+          pushd "$DOTFILES_ROOT"
+          ./scripts/update-nupkgs.sh ./modules/nupkgs
+          nix flake update
+          nixos-rebuild build --flake "$target"
+          popd || exit 1
+        else
+          nixos-rebuild build --flake "$target"
+        fi
+      }
+
+      main "$@"
     '')
 
     (mkScript pkgs "generate_flake" ''
-      if [ -f flake.nix ]; then
-        if ! command -v trash &> /dev/null; then
-          rm flake.nix
-        else
-          trash flake.nix
+      function main() {
+        if [ -f flake.nix ]; then
+          if ! command -v trash &> /dev/null; then
+            rm flake.nix
+          else
+            trash flake.nix
+          fi
         fi
-      fi
-      nix eval --raw -f templates/flake.template.nix flake > flake.nix
-      alejandra flake.nix
+        nix eval --raw -f templates/flake.template.nix flake > flake.nix
+        alejandra flake.nix
+      }
+
+      main "$@"
     '')
 
     (mkScript pkgs "run_lib_tests" ''
-      pushd "$DOTFILES_ROOT" || exit 1
-      nix-shell -p nix-unit --run "nix-unit ./lib/spec.nix --gc-roots-dir ./.result-test"
-      popd || exit 1
+      function main() {
+        pushd "$DOTFILES_ROOT" || exit 1
+        nix-shell -p nix-unit --run "nix-unit ./lib/spec.nix --gc-roots-dir ./.result-test"
+        popd || exit 1
+      }
+
+      main "$@"
     '')
   ];
 in {
