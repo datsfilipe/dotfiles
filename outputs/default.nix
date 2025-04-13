@@ -60,7 +60,7 @@
 
   generateScritps = pkgs: [
     (mkScript pkgs "nixos_switch" ''
-      function main() {
+      main() {
         local target=".#$1"
         local mode="$2"
         if [ "$mode" = "debug" ]; then
@@ -79,7 +79,7 @@
     '')
 
     (mkScript pkgs "nixos_build" ''
-      function main() {
+      main() {
         local target=".#$1"
         local mode="$2"
         if [ "$mode" = "debug" ]; then
@@ -99,7 +99,7 @@
     '')
 
     (mkScript pkgs "generate_flake" ''
-      function main() {
+      main() {
         if [ -f flake.nix ]; then
           if ! command -v trash &> /dev/null; then
             rm flake.nix
@@ -115,7 +115,7 @@
     '')
 
     (mkScript pkgs "run_lib_tests" ''
-      function main() {
+      main() {
         pushd "$DOTFILES_ROOT" || exit 1
         nix-shell -p nix-unit --run "nix-unit ./lib/spec.nix --gc-roots-dir ./.result-test"
         popd || exit 1
