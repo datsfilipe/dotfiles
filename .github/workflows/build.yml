@@ -49,12 +49,6 @@ jobs:
         run: |
           nix-channel --add https://nixos.org/channels/nixpkgs-unstable nixpkgs
           nix-channel --update
-
-      - name: install dependencies
-        run: nix-env -iA nixpkgs.just
-
-      - name: load env
-        uses: HatsuneMiku3939/direnv-action@v1.0.7
         
       - name: build 
-        run: just build ${{ matrix.host }} default
+        run: nix run github:nix-community/nixos-generators -- -f iso .#${{ matrix.host }}
