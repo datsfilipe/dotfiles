@@ -7,8 +7,10 @@ simplified_ui true
 show_startup_tips false
 scrollback_editor "zellij-scrollback-editor"
 keybinds clear-defaults=true {
-  shared {
+  shared_among "normal" "scroll" {
     bind "Ctrl x" { EditScrollback; }
+  }
+  shared {
     bind "Ctrl f" {
       Run "zellij-sessionizer" {
         close_on_exit true
