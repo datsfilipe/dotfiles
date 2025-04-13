@@ -55,6 +55,7 @@ jobs:
           GIT_USER: ${{ secrets.GIT_USER }}
           GIT_TOKEN: ${{ secrets.GIT_TOKEN }}
         run: |
+          rm -rf modules/home/linux/base/scripts/conf
           git config --global url."https://${GIT_USER}:${GIT_TOKEN}@github.com/".insteadOf "git@github.com:"
           git submodule update --init --recursive
         
