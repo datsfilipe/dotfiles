@@ -51,8 +51,10 @@ jobs:
           nix-channel --update
 
       - name: install dependencies
-        run: nix-env -iA nixpkgs.just
+        run: nix-env -iA nixpkgs.direnv nixpkgs.just
 
+      - name: load environment
+        run: direnv allow
+        
       - name: build 
-        uses: HatsuneMiku3939/direnv-action@v1.0.7
         run: just build ${{ matrix.host }} default
