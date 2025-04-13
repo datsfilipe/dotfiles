@@ -32,11 +32,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1744455385,
-        "narHash": "sha256-/enDLjH+RjYf3PnzOwXJnVU1+GohYgay57zAGzUFbTU=",
+        "lastModified": 1744502330,
+        "narHash": "sha256-WruKvmHy9rVb26A/MbO+Xz/jLm87cSD6opOFhAgKhUk=",
         "owner": "datsfilipe",
         "repo": "datsnvim",
-        "rev": "94bb4731a9154686f94b8c5e485c68190af91bb2",
+        "rev": "5be312e9eb112be8272eb737666435f4752f4c50",
         "type": "github"
       },
       "original": {
@@ -503,12 +503,12 @@
         "revCount": 66,
         "shallow": true,
         "type": "git",
-        "url": "file:///home/dtsf/.dotfiles/home/linux/base/scripts/conf"
+        "url": "file:///home/dtsf/.dotfiles/modules/home/linux/base/scripts/conf"
       },
       "original": {
         "shallow": true,
         "type": "git",
-        "url": "file:///home/dtsf/.dotfiles/home/linux/base/scripts/conf"
+        "url": "file:///home/dtsf/.dotfiles/modules/home/linux/base/scripts/conf"
       }
     },
     "zellij-switch": {

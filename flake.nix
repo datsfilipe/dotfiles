@@ -37,7 +37,7 @@
     };
     unix-scripts = {
       flake = false;
-      url = "git+file:///home/dtsf/.dotfiles/home/linux/base/scripts/conf?shallow=1";
+      url = "git+file:///home/dtsf/.dotfiles/modules/home/linux/base/scripts/conf?shallow=1";
     };
   };
   outputs = inputs: import ./outputs inputs;

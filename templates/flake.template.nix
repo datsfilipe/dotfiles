@@ -45,7 +45,7 @@ in
       neovim-nightly = ext "github:nix-community/neovim-nightly-overlay/master";
       astal = ext "github:aylur/astal/main";
       datsnvim = ext-hm "github:datsfilipe/datsnvim/main";
-      unix-scripts = local ../home/linux/base/scripts/conf;
+      unix-scripts = local ../modules/home/linux/base/scripts/conf;
     };
     outputs = "inputs: import ./outputs inputs";
   }
