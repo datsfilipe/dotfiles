@@ -51,12 +51,13 @@ jobs:
           nix-channel --update
 
       - name: install dependencies
-        run: nix-env -iA nixpkgs.direnv nixpkgs.just
+        run: nix-env -iA nixpkgs.just
+
+      - name: load env
+        uses: HatsuneMiku3939/direnv-action@v1.0.7
 
       - name: generate flake
-        run: |
-          direnv allow
-          just generate-flake
+        run: just generate-flake
 
       - name: setup git submodules
         env:
