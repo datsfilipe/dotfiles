@@ -21,8 +21,8 @@
       ];
     home-modules =
       map mylib.file.relativeToRoot [
-        "home/linux/gui.nix"
         "hosts/${name}/home"
+        "modules/home/linux/gui.nix"
         "modules/nupkgs/home.nix"
         "modules/colorscheme/home.nix"
         "modules/conf/home.nix"
