@@ -1,11 +1,12 @@
 {
   lib,
   config,
-  ghosttypkg,
+  mypkgs,
   ...
 }:
 with lib; {
   programs.ghostty = {
+    package = mypkgs.ghostty;
     enableFishIntegration = true;
     settings = {
       command = "fish";
@@ -24,7 +25,6 @@ with lib; {
       window-padding-x = 25;
       window-padding-y = 25;
       window-padding-balance = true;
-      gtk-adwaita = false;
       background-opacity = 0.8;
       background-blur-radius = 20;
     };

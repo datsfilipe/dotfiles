@@ -48,7 +48,7 @@
     home-modules =
       [
         {
-          modules.core.term.default = "alacritty";
+          modules.core.term.default = "ghostty";
           modules.desktop.i3.enable = true;
           modules.desktop.nupkgs.enable = true;
           modules.desktop.conf = {
@@ -68,7 +68,7 @@
             enableCavaIntegration = true;
             enableZellijIntegration = true;
             enableAstalIntegration = true;
-            enableAlacrittyIntegration = true;
+            enableGhosttyIntegration = true;
             enableFzfIntegration = true;
           };
         }

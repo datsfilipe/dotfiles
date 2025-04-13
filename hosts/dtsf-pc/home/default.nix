@@ -12,7 +12,7 @@
       if wm == "sway"
       then "swaymsg"
       else "i3-msg";
-    keymaps = import ./keymaps.nix {inherit mod alt pkgs lib config;};
+    keymaps = import ./keymaps.nix {inherit mod alt pkgs mypkgs lib config;};
     command = str: always: {
       command = str;
       always = always;
