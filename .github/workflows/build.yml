@@ -13,22 +13,25 @@ jobs:
       matrix:
         host: [dtsf-pc, dtsf-laptop]
     steps:
-      - name: Checkout Repository
+      - name: checkout repository
         uses: actions/checkout@v4
 
-      - name: Set Up Nix
+      - name: set up nix
         uses: cachix/install-nix-action@v22
         with:
           extra_nix_config: |
             experimental-features = nix-command flakes
 
-      - name: Set up Nix channels
+      - name: set up nix channels
         run: |
           nix-channel --add https://nixos.org/channels/nixpkgs-unstable nixpkgs
           nix-channel --update
 
-      - name: Install direnv and just
+      - name: install dependencies
         run: nix-env -iA nixpkgs.direnv nixpkgs.just
+
+      - name: allow direnv
+        run: direnv allow .
 
       - name: Build for ${{ matrix.host }}
         run: direnv exec . just build ${{ matrix.host }} default
