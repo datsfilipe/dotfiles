@@ -27,6 +27,18 @@ with lib; {
       window-padding-balance = true;
       background-opacity = 0.8;
       background-blur-radius = 20;
+      keybind = [
+        "alt+one=unbind"
+        "alt+two=unbind"
+        "alt+three=unbind"
+        "alt+four=unbind"
+        "alt+five=unbind"
+        "alt+six=unbind"
+        "alt+seven=unbind"
+        "alt+eight=unbind"
+        "alt+nine=unbind"
+        "alt+zero=unbind"
+      ];
     };
   };
 }
