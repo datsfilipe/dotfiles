@@ -40,7 +40,7 @@ jobs:
       - name: setup hardware configuration
         run: |
           rm -rf ./hosts/${{ matrix.host }}/hardware-configuration.nix
-          nix-shell -p nixos-install-tools
+          nix-env -iA nixpkgs.nixos-install-tools
           nixos-generate-config --dir ./hosts/${{ matrix.host }}
         
       - name: build 
