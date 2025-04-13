@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+case "$1" in
+    "use")
+        curl -fsSL https://raw.githubusercontent.com/datsfilipe/nix-envs/refs/heads/main/scripts/use-template.sh | bash -s -- "$2"
+        ;;
+    "add")
+        curl -fsSL https://raw.githubusercontent.com/datsfilipe/nix-envs/refs/heads/main/scripts/add-env.sh | bash -s -- "$2"
+        ;;
+    *)
+        echo "Usage: $0 {use|add} <name>"
+        exit 1
+        ;;
+esac

@@ -1,0 +1,60 @@
+#!/bin/sh
+
+if [ -z "$1" ]; then
+  echo "Usage: $0 <folder_path>"
+  exit 1
+fi
+
+FOLDER_PATH="$1"
+
+if ! command -v socat &> /dev/null || ! command -v mpv &> /dev/null; then
+  echo "socat and mpv are required to run this script."
+  exit 1
+fi
+
+MP3_FILES=("$FOLDER_PATH"/*.mp3)
+
+if [ ${#MP3_FILES[@]} -eq 0 ]; then
+  echo "No .mp3 files found in the specified folder."
+  exit 1
+fi
+
+FIFO_PATH="/tmp/mpv_fifo_$$"
+mkfifo "$FIFO_PATH"
+
+cleanup() {
+  kill "$print_current_file_pid" 2>/dev/null
+  socat - "$FIFO_PATH" <<< '{"command":["quit"]}' >/dev/null 2>&1
+  rm -f "$FIFO_PATH"
+}
+trap cleanup EXIT
+
+mpv --input-ipc-server="$FIFO_PATH" --no-video --really-quiet "${MP3_FILES[@]}" &
+
+sleep 1
+
+print_current_file() {
+  CURRENT_FILE_INDEX=$(socat - "$FIFO_PATH" <<< '{"command":["get_property", "playlist-pos"]}' | jq -r '.data')
+
+  if [[ $CURRENT_FILE_INDEX =~ ^[0-9]+$ ]]; then
+    CURRENT_FILE="${MP3_FILES[$CURRENT_FILE_INDEX]}"
+    echo "Currently playing: $(basename "$CURRENT_FILE")"
+  else
+    echo "Error retrieving current file index: $CURRENT_FILE_INDEX" >&2
+  fi
+}
+
+while true; do
+  print_current_file
+  read -rsn1 input
+
+  case "$input" in
+    p) socat - "$FIFO_PATH" <<< '{"command":["cycle", "pause"]}' >/dev/null 2>&1 ;;
+    f) socat - "$FIFO_PATH" <<< '{"command":["seek", "5"]}' >/dev/null 2>&1 ;;
+    b) socat - "$FIFO_PATH" <<< '{"command":["seek", "-5"]}' >/dev/null 2>&1 ;;
+    n) socat - "$FIFO_PATH" <<< '{"command":["playlist-next"]}' >/dev/null 2>&1 ;;
+    N) socat - "$FIFO_PATH" <<< '{"command":["playlist-prev"]}' >/dev/null 2>&1 ;;
+    q) cleanup; exit ;;
+    *) echo "Invalid input: $input" ;;
+  esac
+done

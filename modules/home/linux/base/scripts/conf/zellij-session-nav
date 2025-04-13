@@ -1,0 +1,56 @@
+#!/usr/bin/env bash
+
+plugin="file://$ZELLIJ_SWITCH_PATH"
+mode=""
+session_number=0
+
+list_sessions() {
+  if [ "$1" == "true" ]; then
+    zellij ls | sed 's/\x1b\[[0-9;]*m//g' | awk '{print $1}'
+  else
+    zellij ls | sed 's/\x1b\[[0-9;]*m//g' | grep -v '(current)' | awk '{print $1}'
+  fi
+}
+
+HEADLESS_MODE=false
+
+while [[ "$#" -gt 0 ]]; do
+  case $1 in
+    --plugin) plugin="file://$2"; shift ;;
+    --mode) mode="$2"; shift ;;
+    --nr) session_number=$2; shift ;;
+    --headless) HEADLESS_MODE=true ;;
+    *) session_number=$1 ;;
+  esac
+  shift
+done
+
+if [[ -z $plugin ]]; then
+  echo "no plugin specified"
+fi
+
+sessions=$(list_sessions "$HEADLESS_MODE")
+
+if $HEADLESS_MODE; then
+  session_array=($sessions)
+  if [ "$session_number" -ge 0 ] && [ "$session_number" -lt "${#session_array[@]}" ]; then
+    session_name=${session_array[$session_number]}
+    current_session=$(zellij ls | sed 's/\x1b\[[0-9;]*m//g' | grep '(current)' | awk '{print $1}')
+    if [ "$session_name" == "$current_session" ]; then
+      echo "Already in session $session_number ($session_name)"
+      exit 0
+    else
+      zellij pipe --plugin $plugin -- "--session $session_name"
+    fi
+  else
+    echo "Invalid session number: $session_number"
+    exit 1
+  fi
+else
+  session_name=$(echo "$sessions" | fzf)
+  if [ -n "$session_name" ]; then
+    zellij pipe --plugin $plugin -- "--session $session_name"
+  else
+    exit 0
+  fi
+fi

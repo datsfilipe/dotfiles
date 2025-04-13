@@ -1,0 +1,7 @@
+#!/bin/sh
+
+win_boot=$(sudo efibootmgr | grep Windows | awk '{print $1}' | sed 's/Boot//' | tr -cd '[:digit:]' | sed 's/^0*//')
+
+sudo efibootmgr -n $win_boot
+
+sudo systemctl reboot
