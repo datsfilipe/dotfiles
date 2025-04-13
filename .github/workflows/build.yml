@@ -30,8 +30,6 @@ jobs:
       - name: install dependencies
         run: nix-env -iA nixpkgs.just
 
-      - name: direnv action
+      - name: build 
         uses: HatsuneMiku3939/direnv-action@v1.0.7
-
-      - name: build
         run: just build ${{ matrix.host }} default
