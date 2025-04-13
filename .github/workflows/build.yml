@@ -50,6 +50,12 @@ jobs:
           nix-channel --add https://nixos.org/channels/nixpkgs-unstable nixpkgs
           nix-channel --update
 
+      - name: install dependencies
+        run: nix-env -iA nixpkgs.direnv nixpkgs.just
+
+      - name: generate flake
+        run: direnv exec . just generate-flake
+
       - name: setup git submodules
         env:
           GIT_USER: ${{ secrets.GIT_USER }}
@@ -57,8 +63,6 @@ jobs:
         run: |
           git config --global url."https://${GIT_USER}:${GIT_TOKEN}@github.com/".insteadOf "git@github.com:"
           git submodule update --init --recursive
-          mkdir -p /home/dtsf/.dotfiles/modules/home/linux/base/scripts/
-          ln -sf $(pwd)/modules/home/linux/base/scripts/conf /home/dtsf/.dotfiles/modules/home/linux/base/scripts/conf
         
       - name: build 
         run: nix run github:nix-community/nixos-generators -- -f iso --flake .#${{ matrix.host }}
