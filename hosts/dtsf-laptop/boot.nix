@@ -1,6 +1,6 @@
 {
   pkgs,
-  lig,
+  lib,
   ...
 }: {
   boot.kernelPackages = pkgs.linuxPackages_latest;
