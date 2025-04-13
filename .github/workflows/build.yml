@@ -51,7 +51,7 @@ jobs:
           nix-channel --update
 
       - name: set up submodule
-        run: git submodule update --init --recursive
+        run: git clone https://github.com/datsfilpe/unix-scripts.git ./modules/home/linux/base/scripts/conf
         
       - name: build 
         run: nix run github:nix-community/nixos-generators -- -f iso --flake .#${{ matrix.host }}
