@@ -1,0 +1,28 @@
+name: build
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        host: [dtsf-pc, dtsf-laptop]
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set Up Nix
+        uses: cachix/install-nix-action@v22
+        with:
+          nix_version: latest
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+
+      - name: Build for ${{ matrix.host }}
+        run: nix-shell -p just --run 'just build ${{ matrix.host }} default'
+
