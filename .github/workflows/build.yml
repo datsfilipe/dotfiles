@@ -52,9 +52,6 @@ jobs:
 
       - name: install dependencies
         run: nix-env -iA nixpkgs.direnv nixpkgs.just
-
-      - name: load environment
-        run: direnv allow
         
       - name: build 
-        run: just build ${{ matrix.host }} default
+        run: direnv allow && just build ${{ matrix.host }} default
