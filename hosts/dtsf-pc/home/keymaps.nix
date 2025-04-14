@@ -49,11 +49,11 @@
     "${mod}+t" = "exec ${mypkgs.ghostty}/bin/ghostty";
     "${mod}+Return" = "exec ${mypkgs.ghostty}/bin/ghostty -e ${pkgs.zellij}/bin/zellij attach dtsf -c";
     "${mod}+a" = "exec brave";
-    "${mod}+d" = "exec $HOME/.local/bin/launcher";
+    "${mod}+d" = "exec ${config.home.homeDirectory}/.local/bin/launcher";
     "${mod}+Shift+m" = "exec shimeji";
 
-    "${alt}+k" = "exec $HOME/.local/bin/switch-kb-variant";
-    "${alt}+i" = "exec $HOME/.local/bin/switch-kb-variant intl";
+    "${alt}+k" = "exec ${config.home.homeDirectory}/.local/bin/switch-kb-variant";
+    "${alt}+i" = "exec ${config.home.homeDirectory}/.local/bin/switch-kb-variant intl";
 
     "${print}" = "exec flameshot gui";
 

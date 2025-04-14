@@ -27,7 +27,7 @@
         startup = [
           (command "udiskie --tray --notify" false)
           (command "${msgCmd} 'workspace 1'" false)
-          (command "dunst -config $HOME/.config/dunstrc" false)
+          (command "dunst -config ${config.home.homeDirectory}/.config/dunstrc" false)
           (command "flameshot & disown" false)
           (lib.mkIf (wm == "sway") (command "systemctl --user start wallpaper.service" false))
         ];

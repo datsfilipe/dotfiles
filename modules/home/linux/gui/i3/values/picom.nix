@@ -2,6 +2,7 @@
   lib,
   mylib,
   pkgs,
+  config,
   ...
 }: {
   modules.desktop.conf.picom.settings = {
@@ -47,7 +48,7 @@
   xsession.windowManager.i3.config = {
     startup = [
       {
-        command = "DISPLAY=:0 ${pkgs.picom}/bin/picom -f --config $HOME/.config/picom/picom.conf";
+        command = "DISPLAY=:0 ${pkgs.picom}/bin/picom -f --config ${config.home.homeDirectory}/.config/picom/picom.conf";
         always = true;
       }
     ];
