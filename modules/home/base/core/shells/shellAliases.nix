@@ -3,11 +3,11 @@
   "lla" = "eza --color always --icons -1galb -s name --git --sort date --group-directories-first";
   "tree" = "eza --tree -D -L 3";
 
-  "del" = "trash";
-  "dels" = "trash --list";
-  "delu" = "trash --fzf";
-  "delr" = "trash --restore";
-  "delc" = "trash --cleanup";
+  "del" = "trxsh";
+  "dels" = "trxsh --list";
+  "delu" = "trxsh --fzf";
+  "delr" = "trxsh --restore";
+  "delc" = "trxsh --cleanup";
 
   "top" = "btop -p 1";
   "topp" = "btop";

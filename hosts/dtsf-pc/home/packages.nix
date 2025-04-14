@@ -16,6 +16,7 @@
   modules.desktop.nupkgs.packages = with mypkgs; [
     devtunnel-cli
     linux-shimeji
+    trxsh
   ];
 
   programs.i3status = {

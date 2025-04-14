@@ -602,11 +602,11 @@
     "unix-scripts": {
       "flake": false,
       "locked": {
-        "lastModified": 1739723171,
-        "narHash": "sha256-ECtfJh0AqIJBD3RUdzLQymmWa7CVLo81/aQEP2LuiC4=",
+        "lastModified": 1744591290,
+        "narHash": "sha256-JuL13RMcof07AO2dKQFEUQy098pxCYH3sztHTT8PeNU=",
         "ref": "refs/heads/main",
-        "rev": "d2a210189cf10b08e8eff41e48b4fcfab0c9435c",
-        "revCount": 66,
+        "rev": "ff6f3db687ed972f86d12af620de4915392f29b0",
+        "revCount": 67,
         "shallow": true,
         "type": "git",
         "url": "file:///home/dtsf/.dotfiles/modules/home/linux/base/scripts/conf"
