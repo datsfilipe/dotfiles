@@ -25,6 +25,7 @@
         keybindings = keymaps.allBindings;
 
         startup = [
+          (command "nvidia-settings --assign CurrentMetaMode=\"DP-0: nvidia-auto-select +0+420, HDMI-0: 1920x1080+1920+0 {rotation=left}\"" false)
           (command "udiskie --tray --notify" false)
           (command "${msgCmd} 'workspace 1'" false)
           (command "dunst -config ${config.home.homeDirectory}/.config/dunstrc" false)
@@ -49,6 +50,16 @@
             "${mod}+r" = "mode default";
           };
         };
+
+        workspaceOutputAssign =
+          (map (i: {
+            workspace = "${toString i}";
+            output = "DP-0";
+          }) (lib.range 1 7))
+          ++ (map (i: {
+            workspace = "${toString i}";
+            output = "HDMI-0";
+          }) (lib.range 8 10));
 
         fonts = {
           names = ["JetBrainsMono Nerd Font"];
