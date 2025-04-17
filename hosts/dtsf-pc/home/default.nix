@@ -25,7 +25,7 @@
         keybindings = keymaps.allBindings;
 
         startup = [
-          (command "nvidia-settings --assign CurrentMetaMode=\"DP-0: nvidia-auto-select +0+420, HDMI-0: 1920x1080+1920+0 {rotation=left}\"" false)
+          (command "nvidia-settings --assign CurrentMetaMode=\"DP-0: 1920x1080_180 +0+420 {ForceFullCompositionPipeline=On}, HDMI-0: 1920x1080 +2160+0 {rotation=left, ForceFullCompositionPipeline=On}\"" false)
           (command "udiskie --tray --notify" false)
           (command "${msgCmd} 'workspace 1'" false)
           (command "dunst -config ${config.home.homeDirectory}/.config/dunstrc" false)
@@ -95,7 +95,7 @@
 in {
   imports = [./packages.nix];
 
-  modules.desktop.colorscheme.theme = "vesper";
+  modules.desktop.colorscheme.theme = "gruvbox";
 
   modules.desktop = {
     sway = generate "sway";
