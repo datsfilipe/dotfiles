@@ -48,6 +48,23 @@
             text = "${colorscheme.colors.fg}";
           };
         };
+        extraConfig = ''
+          output DP-0
+        '';
+      }
+
+      {
+        id = "bar-1";
+        colors = {
+          focusedWorkspace = {
+            background = "${colorscheme.colors.altbg}";
+            border = "${colorscheme.colors.altbg}cc";
+            text = "${colorscheme.colors.fg}";
+          };
+        };
+        extraConfig = ''
+          output HDMI-0
+        '';
       }
     ];
   };
