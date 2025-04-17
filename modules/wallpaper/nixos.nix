@@ -52,13 +52,19 @@ with lib; {
           then [pkgs.sway]
           else [pkgs.feh];
         script = ''
+          WALLPAPER="/home/${myvars.username}/.local/share/wallpaper/current"
+          WIDTH=$(${pkgs.imagemagick}/bin/identify -format "%w" "$WALLPAPER")
           ${
             if config.modules.desktop.wayland.enable
             then ''
-              ${pkgs.sway}/bin/swaymsg output "*" bg /home/${myvars.username}/.local/share/wallpaper/current fill
+              ${pkgs.sway}/bin/swaymsg output "*" bg "$WALLPAPER"
             ''
             else ''
-              ${pkgs.feh}/bin/feh --bg-fill /home/${myvars.username}/.local/share/wallpaper/current
+              if [ "$WIDTH" -ge 2800 ]; then
+                ${pkgs.feh}/bin/feh --bg-fill --no-xinerama "$WALLPAPER"
+              else
+                ${pkgs.feh}/bin/feh --bg-fill "$WALLPAPER" "$WALLPAPER"
+              fi
             ''
           }
         '';
