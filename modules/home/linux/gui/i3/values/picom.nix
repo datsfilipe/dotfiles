@@ -9,7 +9,7 @@
     backend = "glx";
     fade = true;
     fade-delta = 2;
-    inactive-opacity = 0.9;
+    inactive-opacity = 1;
     opacity-rule = [
       "100:class_g = 'chromium-browser' && name %= '*- YouTube*'"
     ];
