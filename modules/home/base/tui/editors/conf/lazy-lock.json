@@ -7,6 +7,7 @@
   "hlchunk.nvim": { "branch": "main", "commit": "19bf4090ab8619fffe07b73a4f92348324f35c98" },
   "lazy.nvim": { "branch": "main", "commit": "6c3bda4aca61a13a9c63f1c1d1b16b9d3be90d7a" },
   "mini-git": { "branch": "main", "commit": "a0ddc6302f654523053c28109e8b6dbbf05c08f8" },
+  "mini.diff": { "branch": "main", "commit": "7e268d0241255abaa07b8aa0ddff028f7315fe21" },
   "mini.hipatterns": { "branch": "main", "commit": "e5083df391171dc9d8172645606f8496d9443374" },
   "mini.pick": { "branch": "main", "commit": "6cad781797f3a9b0e69f2e9a2d63de8b1c1824f5" },
   "mini.statusline": { "branch": "main", "commit": "e331175f10d9f400b42523b3890841aba202ce16" },
