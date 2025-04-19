@@ -8,12 +8,45 @@
   ...
 } @ args: let
   name = "dtsf-pc";
+  monitorsConfig = {
+    enable = true;
+    enableNvidiaSupport = true;
+    monitors = [
+      {
+        name = "DP-0";
+        resolution = "1920x1080";
+        refreshRate = 180;
+        nvidiaSettings = {
+          coordinate = {
+            x = 0;
+            y = 420;
+          };
+          forceFullCompositionPipeline = true;
+          rotation = "normal";
+        };
+      }
+      {
+        name = "HDMI-0";
+        resolution = "1920x1080";
+        refreshRate = 75;
+        nvidiaSettings = {
+          coordinate = {
+            x = 2160;
+            y = 0;
+          };
+          forceFullCompositionPipeline = true;
+          rotation = "left";
+        };
+      }
+    ];
+  };
   base-modules = {
     nixos-modules =
       map mylib.file.relativeToRoot [
         "modules/secrets/nixos.nix"
         "modules/wallpaper/nixos.nix"
         "modules/nixos/desktop.nix"
+        "modules/shared"
         "hosts/${name}"
       ]
       ++ [
@@ -27,6 +60,7 @@
         "modules/colorscheme/home.nix"
         "modules/conf/home.nix"
         "modules/term.nix"
+        "modules/shared"
       ]
       ++ [
         inputs.datsnvim.homeManagerModules.${system}.default
@@ -37,17 +71,19 @@
     nixos-modules =
       [
         {
-          modules.desktop.xorg.enable = true;
+          modules.shared.multi-monitors = monitorsConfig;
           modules.desktop.wallpaper.enable = true;
-          modules.desktop.nvidia.enable = true;
-          modules.desktop.ollama.enable = true;
           modules.ssh-key-manager.enable = true;
+          modules.desktop.ollama.enable = true;
+          modules.desktop.nvidia.enable = true;
+          modules.desktop.xorg.enable = true;
         }
       ]
       ++ base-modules.nixos-modules;
     home-modules =
       [
         {
+          modules.shared.multi-monitors = monitorsConfig;
           modules.core.term.default = "ghostty";
           modules.desktop.i3.enable = true;
           modules.desktop.nupkgs.enable = true;
