@@ -25,7 +25,7 @@
         keybindings = keymaps.allBindings;
 
         startup = [
-          (command "nvidia-settings --assign CurrentMetaMode=\"DP-0: 1920x1080_180 +0+420 {ForceFullCompositionPipeline=On}, HDMI-0: 1920x1080 +2160+0 {rotation=left, ForceFullCompositionPipeline=On}\"" false)
+          (command "nvidia-settings --assign CurrentMetaMode=\"DP-0: 1920x1080_180 +0+420 {ForceFullCompositionPipeline=On}, HDMI-0: 1920x1080_75 +2160+0 {rotation=left, ForceFullCompositionPipeline=On}\"" false)
           (command "udiskie --tray --notify" false)
           (command "${msgCmd} 'workspace 1'" false)
           (command "dunst -config ${config.home.homeDirectory}/.config/dunstrc" false)
