@@ -27,6 +27,7 @@ with lib; {
       window-padding-balance = true;
       background-opacity = 0.8;
       background-blur-radius = 20;
+      font-feature = "-calt,-liga,-dlig";
       keybind = [
         "alt+one=unbind"
         "alt+two=unbind"
