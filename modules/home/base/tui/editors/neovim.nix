@@ -6,7 +6,7 @@
   ...
 }:
 with lib; let
-  lockfile = "vim.fn.expand('${config.home.homeDirectory}/.dotfiles/home/base/tui/editors/neovim/conf') .. '/lazy-lock.json'";
+  lockfile = "${config.home.homeDirectory}/.dotfiles/modules/home/base/tui/editors/conf/lazy-lock.json";
 in {
   programs.datsnvim = {
     enable = true;
