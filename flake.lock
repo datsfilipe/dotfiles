@@ -32,11 +32,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1744502330,
-        "narHash": "sha256-WruKvmHy9rVb26A/MbO+Xz/jLm87cSD6opOFhAgKhUk=",
+        "lastModified": 1745043228,
+        "narHash": "sha256-kVDc1zSz+ASlfD+Jra2FKlsd1v/W5lNzo+pXpROqNHU=",
         "owner": "datsfilipe",
         "repo": "datsnvim",
-        "rev": "5be312e9eb112be8272eb737666435f4752f4c50",
+        "rev": "49cf41ccf97121cb5c7323278ed0f3345266b870",
         "type": "github"
       },
       "original": {
