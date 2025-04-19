@@ -1,3 +1,3 @@
-{mylib, ...}: {
-  imports = mylib.file.scanPaths ./.;
+{...}: {
+  imports = [./neovim.nix];
 }
