@@ -13,6 +13,34 @@
       then "swaymsg"
       else "i3-msg";
     keymaps = import ./keymaps.nix {inherit mod alt pkgs mypkgs lib config;};
+
+    buildMetaMode = monitors:
+      lib.concatStringsSep ", " (map (
+          m: let
+            name = m.name;
+            mode = "${m.resolution}_${toString m.refreshRate}";
+            pos = "+${toString m.nvidiaSettings.coordinate.x}+${toString m.nvidiaSettings.coordinate.y}";
+            flags = [
+              (
+                if m.nvidiaSettings.rotation != null
+                then "rotation=${m.nvidiaSettings.rotation}"
+                else null
+              )
+              (
+                if m.nvidiaSettings.forceFullCompositionPipeline
+                then "ForceFullCompositionPipeline=On"
+                else null
+              )
+            ];
+            filteredFlags = builtins.filter (x: x != null) flags;
+            flagString =
+              if builtins.length filteredFlags > 0
+              then " {${lib.concatStringsSep ", " filteredFlags}}"
+              else "";
+          in "${name}: ${mode} ${pos}${flagString}"
+        )
+        monitors);
+
     command = str: always: {
       command = str;
       always = always;
@@ -25,7 +53,9 @@
         keybindings = keymaps.allBindings;
 
         startup = [
-          (command "nvidia-settings --assign CurrentMetaMode=\"DP-0: 1920x1080_180 +0+420 {ForceFullCompositionPipeline=On}, HDMI-0: 1920x1080_75 +2160+0 {rotation=left, ForceFullCompositionPipeline=On}\"" false)
+          (lib.mkIf (config.modules.shared.multi-monitors.enableNvidiaSupport) (
+            command "nvidia-settings --assign CurrentMetaMode=\"${buildMetaMode config.modules.shared.multi-monitors.monitors}\"" false
+          ))
           (command "udiskie --tray --notify" false)
           (command "${msgCmd} 'workspace 1'" false)
           (command "dunst -config ${config.home.homeDirectory}/.config/dunstrc" false)

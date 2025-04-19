@@ -5,7 +5,9 @@
   myvars,
   ...
 }:
-with lib; {
+with lib; let
+  monitorCount = builtins.length config.modules.shared.multi-monitors.monitors or 1;
+in {
   options.modules.desktop.wallpaper = {
     enable = mkEnableOption "Wallpaper service";
   };
@@ -63,7 +65,11 @@ with lib; {
               if [ "$WIDTH" -ge 2800 ]; then
                 ${pkgs.feh}/bin/feh --bg-fill --no-xinerama "$WALLPAPER"
               else
-                ${pkgs.feh}/bin/feh --bg-fill "$WALLPAPER" "$WALLPAPER"
+                monitors=()
+                for ((i=0; i<${toString monitorCount}; i++)); do
+                  monitors+=("$WALLPAPER")
+                done
+                sleep 2 && ${pkgs.feh}/bin/feh --bg-fill "''${monitors[@]}"
               fi
             ''
           }

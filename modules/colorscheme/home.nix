@@ -118,7 +118,7 @@
         (
           lib.mkIf config.modules.desktop.colorscheme.enableI3Integration
           (import ./integrations/i3.nix {
-            inherit lib pkgs;
+            inherit lib pkgs config;
             colorscheme = colorscheme;
             enableI3StatusIntegration = config.modules.desktop.colorscheme.enableI3StatusIntegration;
           })

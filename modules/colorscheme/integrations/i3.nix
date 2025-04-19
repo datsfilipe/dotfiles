@@ -1,7 +1,8 @@
 {
   lib,
-  colorscheme,
   pkgs,
+  config,
+  colorscheme,
   enableI3StatusIntegration,
   ...
 }: {
@@ -37,10 +38,10 @@
         text = colorscheme.colors.fg;
       };
     };
-    bars = [
-      {
-        id = "bar-0";
-        statusCommand = lib.mkIf enableI3StatusIntegration "i3status";
+    bars =
+      lib.lists.imap0 (i: monitor: {
+        id = "bar-${toString i}";
+        statusCommand = lib.mkIf (i == 0) "i3status";
         colors = {
           focusedWorkspace = {
             background = "${colorscheme.colors.altbg}";
@@ -49,24 +50,10 @@
           };
         };
         extraConfig = ''
-          output DP-0
+          output ${monitor.name}
         '';
-      }
-
-      {
-        id = "bar-1";
-        colors = {
-          focusedWorkspace = {
-            background = "${colorscheme.colors.altbg}";
-            border = "${colorscheme.colors.altbg}cc";
-            text = "${colorscheme.colors.fg}";
-          };
-        };
-        extraConfig = ''
-          output HDMI-0
-        '';
-      }
-    ];
+      })
+      config.modules.shared.multi-monitors.monitors;
   };
 
   programs.i3status = lib.mkIf enableI3StatusIntegration {
