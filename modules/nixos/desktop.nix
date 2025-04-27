@@ -8,6 +8,23 @@
 with lib; let
   cfgWayland = config.modules.desktop.wayland;
   cfgXorg = config.modules.desktop.xorg;
+
+  niriSession = pkgs.writeShellScriptBin "custom-niri-session" ''
+    if systemctl --user -q is-active niri.service; then
+      echo 'a niri session is already running.'
+      exit 1
+    fi
+
+    systemctl --user reset-failed
+
+    if hash dbus-update-activation-environment 2>/dev/null; then
+        dbus-update-activation-environment --all
+    fi
+
+    systemctl --user --wait start niri.service
+    systemctl --user start --job-mode=replace-irreversibly niri-shutdown.target
+    systemctl --user unset-environment WAYLAND_DISPLAY XDG_SESSION_TYPE XDG_CURRENT_DESKTOP NIRI_SOCKET
+  '';
 in {
   imports = [
     ./base
@@ -45,10 +62,9 @@ in {
       environment = {
         pathsToLink = ["/libexec"];
         loginShellInit = ''
-          # if [ -z $DISPLAY ] && [ "$(tty)" = "/dev/tty1" ]; then
-          #   exec sway --unsupported-gpu -Dlegacy-wl-drm
-          #   exec niri-session
-          # fi
+          if [ -z $DISPLAY ] && [ "$(tty)" = "/dev/tty1" ]; then
+            exec ${niriSession}/bin/custom-niri-session
+          fi
         '';
       };
     })
