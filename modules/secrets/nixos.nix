@@ -25,6 +25,9 @@ in {
       secrets."token/github/dtsf-pc" = {
         owner = myvars.username;
       };
+      secrets."hosts" = {
+        owner = myvars.username;
+      };
     };
 
     programs.bash.interactiveShellInit = ''
@@ -37,6 +40,16 @@ in {
         cat ${config.sops.secrets."token/github/dtsf-pc".path}
       '')
     ];
+
+    systemd.services.apply-hosts = {
+      description = "Apply custom hosts entries";
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
+      serviceConfig = {
+        Type = "oneshot";
+        ExecStart = "${pkgs.bash}/bin/bash -c '${pkgs.gnused}/bin/sed -i \"$ r ${config.sops.secrets."hosts".path}\" /etc/hosts'";
+      };
+    };
 
     environment.sessionVariables = {
       SSH_AUTH_SOCK = authsock;
