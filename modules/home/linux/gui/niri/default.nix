@@ -9,6 +9,10 @@
     builtins.concatStringsSep "\n" config.modules.desktop.niri.rawConfigValues;
   packages = import ./packages.nix args;
 in {
+  imports = [
+    ./packages.nix
+  ];
+
   options.modules.desktop.niri = {
     enable = lib.mkEnableOption "Niri configuration";
 
@@ -44,8 +48,5 @@ in {
     ];
 
     xdg.configFile."niri/config.kdl".text = generateConfig config;
-
-    home.packages = packages.home.packages;
-    modules.desktop.nupkgs.packages = packages.modules.desktop.nupkgs.packages;
   };
 }

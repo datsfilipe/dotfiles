@@ -5,8 +5,9 @@
 }: {
   home.packages = with pkgs; [
     niri
-    fuzzel
     dunst
+    fuzzel
+    wl-clipboard
   ];
 
   modules.desktop.nupkgs.packages = with mypkgs; [
