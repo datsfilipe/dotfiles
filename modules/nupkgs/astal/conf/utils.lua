@@ -1,19 +1,6 @@
 local M = {}
 
-M.TIMEOUT = 50
-
-M.arr_labels_in_japanese = {
-	"一",
-	"二",
-	"三",
-	"四",
-	"五",
-	"六",
-	"七",
-	"八",
-	"九",
-	"十",
-}
+M.TIMEOUT = 200
 
 function M.map(arr, fn)
 	result = {}
@@ -23,15 +10,8 @@ function M.map(arr, fn)
 	return result
 end
 
-function M.get_sway_socket()
-	return os.getenv("SWAYSOCK")
-end
-
-function M.execute_sway_command(cmd)
-	local socket = M.get_sway_socket()
-	if socket then
-		os.execute(string.format("swaymsg -s %s '%s'", socket, cmd))
-	end
+function M.execute_niri_command(cmd)
+	os.execute(string.format("niri msg %s", cmd))
 end
 
 function M.get_src(path)

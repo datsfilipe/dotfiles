@@ -45,9 +45,10 @@ in {
       environment = {
         pathsToLink = ["/libexec"];
         loginShellInit = ''
-          if [ -z $DISPLAY ] && [ "$(tty)" = "/dev/tty1" ]; then
-            exec sway --unsupported-gpu -Dlegacy-wl-drm
-          fi
+          # if [ -z $DISPLAY ] && [ "$(tty)" = "/dev/tty1" ]; then
+          #   exec sway --unsupported-gpu -Dlegacy-wl-drm
+          #   exec niri-session
+          # fi
         '';
       };
     })

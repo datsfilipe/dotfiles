@@ -7,40 +7,6 @@ local Wp = astal.require("AstalWp")
 local Tray = astal.require("AstalTray")
 local utils = require("utils")
 
-local function create_workspace_monitor()
-	local active_workspace = Variable(1)
-	local occupied_workspaces = Variable({})
-
-	local function update_workspaces()
-		local handle_active_workspace = io.popen("swaymsg -t get_workspaces | jq '.[] | select(.focused==true) | .num'")
-		local handle_occupied_workspaces = io.popen("swaymsg -t get_workspaces | jq '.[].num'")
-
-		if handle_active_workspace and handle_occupied_workspaces then
-			local result_active_workspace = handle_active_workspace:read("*a")
-			local result_occupied_workspaces = handle_occupied_workspaces:read("*a")
-
-			handle_active_workspace:close()
-			handle_occupied_workspaces:close()
-
-			active_workspace:set(tonumber(result_active_workspace))
-
-			local workspaces = {}
-			for i in result_occupied_workspaces:gmatch("%d+") do
-				table.insert(workspaces, tonumber(i))
-			end
-			occupied_workspaces:set(workspaces)
-		end
-	end
-
-	GLib.timeout_add(GLib.PRIORITY_DEFAULT, utils.TIMEOUT, function()
-		update_workspaces()
-		return true
-	end)
-
-	update_workspaces()
-	return active_workspace, occupied_workspaces
-end
-
 local function VolumeSlider(type)
 	local audio = Wp.get_default().audio
 	local device = type == "speaker" and audio.default_speaker or audio.default_source
@@ -81,33 +47,88 @@ local function Volume()
 end
 
 local function Workspaces()
-	local active_workspace, occupied_workspaces = create_workspace_monitor()
+	local outputs_data = Variable({})
+
+	local function update_workspaces()
+		local handle = io.popen("niri msg workspaces")
+		if handle then
+			local result = handle:read("*a")
+			handle:close()
+			
+			local parsed_outputs = {}
+			local output_order = {}
+			local current_output = nil
+			
+			for line in result:gmatch("[^\r\n]+") do
+				local output_match = line:match('Output "([^"]+)":')
+				if output_match then
+					current_output = output_match
+					if not parsed_outputs[current_output] then
+						table.insert(output_order, current_output)
+						parsed_outputs[current_output] = { workspaces = {}, active = nil }
+					end
+				elseif current_output then
+					local is_active = line:match("^%s*%*")
+					local ws_num = line:match("%d+")
+					
+					if ws_num then
+						ws_num = tonumber(ws_num)
+						table.insert(parsed_outputs[current_output].workspaces, ws_num)
+						
+						if is_active then
+							parsed_outputs[current_output].active = ws_num
+						end
+					end
+				end
+			end
+			
+			outputs_data:set({data = parsed_outputs, order = output_order})
+		end
+	end
+	
+	GLib.timeout_add(GLib.PRIORITY_DEFAULT, utils.TIMEOUT, function()
+		update_workspaces()
+		return true
+	end)
+	
+	update_workspaces()
 
 	return Widget.Box({
-		class_name = "workspaces",
-		bind(active_workspace):as(function(a)
-			local children = {}
-			for i = 1, 10 do
-				table.insert(
-					children,
-					Widget.Button({
-						on_clicked = function()
-							utils.execute_sway_command(string.format("workspace number %d", i))
-						end,
-						label = utils.arr_labels_in_japanese[i],
-						class_name = bind(occupied_workspaces):as(function(o)
-							if a == i then
-								return "focused"
-							elseif utils.contains_value(o, i) then
-								return "occupied"
-							end
-							return ""
-						end),
+		class_name = "all-workspaces",
+		spacing = 15,
+		bind(outputs_data):as(function(outputs)
+			local widgets = {}
+			
+			for _, output_name in ipairs(outputs.order) do
+				local output_data = outputs.data[output_name]
+				local output_widget = Widget.Box({
+					class_name = "output-workspaces",
+					spacing = 5,
+					Widget.Label({
+						label = outputs.order[1] == output_name and
+              "メイン" --[[meine]] or "サブ" --[[sabu]],
+						class_name = "output-label"
+					}),
+					Widget.Box({
+						class_name = "workspaces",
+						spacing = 2,
+						utils.map(output_data.workspaces, function(ws)
+							return Widget.Button({
+								-- on_clicked = function()
+								-- 	utils.execute_niri_command(string.format("action focus-workspace %d", ws))
+								-- end,
+								label = " ",
+								class_name = output_data.active == ws and "focused" or "occupied",
+							})
+						end)
 					})
-				)
+				})
+				
+				table.insert(widgets, output_widget)
 			end
-			return children
-		end),
+			
+			return widgets
+		end)
 	})
 end
 
@@ -152,12 +173,12 @@ local function ClientTitle()
 	local title = Variable("")
 
 	local function update_title()
-		local handle = io.popen("swaymsg -t get_tree | jq -r '.. | select(.focused?) | .name'")
+		local handle = io.popen("niri msg focused-window | grep -oP 'Title: \"\\K[^\"]+' 2>/dev/null || echo ''")
 		if handle then
 			local result = handle:read("*a")
 			handle:close()
 			local value = result:gsub("^%s*(.-)%s*$", "%1")
-			if not tonumber(value) then
+			if value ~= "" then
 				title:set(value)
 			else
 				title:set("")
@@ -206,7 +227,7 @@ return function(monitor)
 		name = "bar-" .. monitor,
 		class_name = "bar",
 		monitor = monitor,
-		anchor = WindowAnchor.BOTTOM + WindowAnchor.LEFT + WindowAnchor.RIGHT,
+		anchor = WindowAnchor.TOP + WindowAnchor.LEFT + WindowAnchor.RIGHT,
 		exclusivity = "EXCLUSIVE",
 		Widget.CenterBox({
 			class_name = "body",

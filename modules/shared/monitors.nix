@@ -15,7 +15,7 @@ with lib; {
             type = types.str;
           };
           refreshRate = mkOption {
-            type = types.int;
+            type = types.str;
           };
           nvidiaSettings = mkOption {
             type = types.submodule {

@@ -70,7 +70,7 @@ in {
   };
 
   configContent = lib.mkIf config.modules.desktop.conf.enableDunstIntegration {
-    xdg.configFile."dunstrc".text = builtins.replaceStrings ["'"] ["\""] ''
+    xdg.configFile."dunst/dunstrc".text = builtins.replaceStrings ["'"] ["\""] ''
       ${mylib.format.sections ["global" "urgency_low" "urgency_normal" "urgency_critical"] mergedSettings}
     '';
   };
