@@ -17,6 +17,9 @@ keybinds clear-defaults=true {
       };
     }
     bind "Alt f" { ToggleFloatingPanes; }
+    bind "Ctrl Enter" { NewTab; SwitchToMode "Normal"; }
+    bind "Alt l" { GoToNextTab; }
+    bind "Alt h" { GoToPreviousTab; }
     bind "Alt 0" {
       Run "zellij-session-nav" "--headless" "0" {
         close_on_exit true
@@ -110,8 +113,6 @@ keybinds clear-defaults=true {
     bind "Alt m" { SwitchToMode "Move"; }
   }
   tab {
-    bind ">" { GoToNextTab; }
-    bind "<" { GoToPreviousTab; }
     bind "J" { MoveTab "Left"; }
     bind "K" { MoveTab "Right"; }
     bind "1" { GoToTab 1; SwitchToMode "Normal"; }
@@ -123,7 +124,6 @@ keybinds clear-defaults=true {
     bind "7" { GoToTab 7; SwitchToMode "Normal"; }
     bind "8" { GoToTab 8; SwitchToMode "Normal"; }
     bind "9" { GoToTab 9; SwitchToMode "Normal"; }
-    bind "Enter" { NewTab; SwitchToMode "Normal"; }
   }
   pane {
     bind "h" { MoveFocus "Left"; }
