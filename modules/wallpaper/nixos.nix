@@ -17,11 +17,12 @@ in {
       config.modules.desktop.wallpaper.enable
     ) {
       systemd.user.services.link-wallpaper = {
+        enable = config.modules.desktop.wallpaper.enable;
         description = "Create wallpaper symlink";
         after = [
           "graphical-session.target"
         ];
-        wantedBy = ["default.target"];
+        wantedBy = ["default.target" "graphical-session.target"];
         path = [pkgs.coreutils];
         script = ''
           for i in {1..30}; do
@@ -43,6 +44,7 @@ in {
       };
 
       systemd.user.services.wallpaper = {
+        enable = config.modules.desktop.wallpaper.enable;
         description = "Set wallpaper";
         after = [
           "link-wallpaper.service"
@@ -51,15 +53,53 @@ in {
         wantedBy = ["default.target"];
         path =
           if config.modules.desktop.wayland.enable
-          then [pkgs.sway]
-          else [pkgs.feh];
+          then with pkgs; [swaybg imagemagick coreutils gnugrep procps gnused bash]
+          else with pkgs; [feh imagemagick];
         script = ''
           WALLPAPER="/home/${myvars.username}/.local/share/wallpaper/current"
           WIDTH=$(${pkgs.imagemagick}/bin/identify -format "%w" "$WALLPAPER")
           ${
             if config.modules.desktop.wayland.enable
             then ''
-              ${pkgs.sway}/bin/swaymsg output "*" bg "$WALLPAPER"
+              if [ "$WIDTH" -ge 2800 ]; then
+                SPAN_WALL_PATH="/home/${myvars.username}/.local/bin/span-wall"
+
+                if [ -x "$SPAN_WALL_PATH" ]; then
+                  SPAN_CMD="$SPAN_WALL_PATH"
+                else
+                  SPAN_CMD="span-wall"
+                fi
+                pkill -f swaybg || true
+
+                ARGS=""
+                ${concatMapStringsSep "\n" (monitor: ''
+                  NAME="${monitor.name}"
+                  RESOLUTION="${monitor.resolution}"
+                  WIDTH=$(echo $RESOLUTION | cut -d'x' -f1)
+                  HEIGHT=$(echo $RESOLUTION | cut -d'x' -f2)
+                  X_POS="${toString monitor.nvidiaSettings.coordinate.x}"
+                  Y_POS="${toString monitor.nvidiaSettings.coordinate.y}"
+                  ROTATION="${monitor.nvidiaSettings.rotation or "normal"}"
+
+                  if [ "$ROTATION" = "left" ] || [ "$ROTATION" = "right" ]; then
+                    ARGS="$ARGS --output-$NAME=\"$HEIGHT $WIDTH $X_POS $Y_POS $ROTATION\""
+                  else
+                    ARGS="$ARGS --output-$NAME=\"$WIDTH $HEIGHT $X_POS $Y_POS $ROTATION\""
+                  fi
+                '')
+                config.modules.shared.multi-monitors.monitors}
+
+                eval "$SPAN_CMD \"$WALLPAPER\" $ARGS"
+              else
+                # Kill any existing swaybg instances
+                pkill -f swaybg || true
+
+                # Set wallpaper on each monitor
+                ${concatMapStringsSep "\n" (monitor: ''
+                  ${pkgs.swaybg}/bin/swaybg -o "${monitor.name}" -i "$WALLPAPER" -m fill &
+                '')
+                config.modules.shared.multi-monitors.monitors}
+              fi
             ''
             else ''
               if [ "$WIDTH" -ge 2800 ]; then

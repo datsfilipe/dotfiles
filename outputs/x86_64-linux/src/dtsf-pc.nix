@@ -13,9 +13,9 @@
     enableNvidiaSupport = true;
     monitors = [
       {
-        name = "DP-0";
+        name = "DP-1";
         resolution = "1920x1080";
-        refreshRate = 180;
+        refreshRate = "179.998";
         nvidiaSettings = {
           coordinate = {
             x = 0;
@@ -26,12 +26,12 @@
         };
       }
       {
-        name = "HDMI-0";
+        name = "HDMI-A-1";
         resolution = "1920x1080";
-        refreshRate = 75;
+        refreshRate = "74.973";
         nvidiaSettings = {
           coordinate = {
-            x = 2160;
+            x = 1920;
             y = 0;
           };
           forceFullCompositionPipeline = true;
@@ -76,7 +76,7 @@
           modules.ssh-key-manager.enable = true;
           modules.desktop.ollama.enable = true;
           modules.desktop.nvidia.enable = true;
-          modules.desktop.xorg.enable = true;
+          modules.desktop.wayland.enable = true;
         }
       ]
       ++ base-modules.nixos-modules;
@@ -85,27 +85,26 @@
         {
           modules.shared.multi-monitors = monitorsConfig;
           modules.core.term.default = "ghostty";
-          modules.desktop.i3.enable = true;
+          modules.desktop.niri.enable = true;
           modules.desktop.nupkgs.enable = true;
           modules.desktop.conf = {
             enableDunstIntegration = true;
             enableCavaIntegration = true;
             enableZellijIntegration = true;
-            enablePicomIntegration = true;
           };
           modules.desktop.colorscheme = {
             enable = true;
+            enableDunstIntegration = true;
             enableNeovimIntegration = true;
             enableGTKIntegration = true;
-            enableI3Integration = true;
-            enableI3StatusIntegration = true;
-            enableDunstIntegration = true;
             enableFishIntegration = true;
             enableCavaIntegration = true;
             enableZellijIntegration = true;
             enableAstalIntegration = true;
             enableGhosttyIntegration = true;
             enableFzfIntegration = true;
+            enableNiriIntegration = true;
+            enableFuzzelIntegration = true;
           };
         }
       ]

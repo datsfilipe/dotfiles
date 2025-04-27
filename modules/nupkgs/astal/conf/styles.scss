@@ -57,13 +57,14 @@ menu {
 
 .bar {
   color: $fg;
-  font-size: 12px;
+  font-size: 14px;
   background: transparent;
 }
 
 .body {
   background: $bg;
-  padding: 2px 4px;
+  padding: 6px 4px;
+  font-family: JetBrainsMono Nerd Font, Inter;
 }
 
 .tray {
@@ -79,7 +80,9 @@ menu {
 .workspaces button {
   background: transparent;
   margin: 0 4px;
-  padding: 2px 6px;
+  padding: 1px 3px;
+  border-radius: 20%;
+  min-height: 0;
 }
 
 .workspaces button.focused {

@@ -52,6 +52,6 @@ App:start({
 	instance_name = "lua",
 	css = css,
 	main = function()
-		Bar(1)
+		Bar(0)
 	end,
 })

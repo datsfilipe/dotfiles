@@ -86,6 +86,14 @@
       type = lib.types.bool;
       default = false;
     };
+    enableNiriIntegration = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+    };
+    enableFuzzelIntegration = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+    };
   };
 
   config = let
@@ -204,6 +212,21 @@
         (
           lib.mkIf config.modules.desktop.colorscheme.enableFzfIntegration
           (import ./integrations/fzf.nix {
+            colorscheme = colorscheme;
+          })
+        )
+
+        (
+          lib.mkIf config.modules.desktop.colorscheme.enableNiriIntegration
+          (import ./integrations/niri.nix {
+            colorscheme = colorscheme;
+          })
+        )
+
+        (
+          lib.mkIf config.modules.desktop.colorscheme.enableFuzzelIntegration
+          (import ./integrations/fuzzel.nix {
+            inherit mylib;
             colorscheme = colorscheme;
           })
         )

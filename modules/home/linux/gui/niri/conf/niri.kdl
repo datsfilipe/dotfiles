@@ -1,0 +1,137 @@
+input {
+  keyboard {
+    xkb {
+      layout "us,us"
+      variant "altgr-intl,intl"
+      options "compose:menu,level3:ralt_switch,grp:win_space_toggle"
+    }
+
+    track-layout "global"
+  }
+
+  touchpad {
+    tap
+    natural-scroll
+  }
+
+  mouse {
+    accel-profile "flat"
+    accel-speed 0.0
+  }
+}
+
+hotkey-overlay {
+  skip-at-startup
+}
+
+screenshot-path "~/media/photos/screenshots/screenshot from %Y-%m-%d %H-%M-%S.png"
+animations {
+  slowdown 0.5
+
+  workspace-switch {
+    spring damping-ratio=1.0 stiffness=1000 epsilon=0.0001
+  }
+
+  window-open {
+    duration-ms 150
+    curve "ease-out-expo"
+  }
+
+  window-close {
+    duration-ms 150
+    curve "ease-out-quad"
+  }
+
+  horizontal-view-movement {
+    spring damping-ratio=1.0 stiffness=800 epsilon=0.0001
+  }
+
+  window-movement {
+    spring damping-ratio=1.0 stiffness=800 epsilon=0.0001
+  }
+
+  window-resize {
+    spring damping-ratio=1.0 stiffness=800 epsilon=0.0001
+  }
+
+  screenshot-ui-open {
+    duration-ms 200
+    curve "ease-out-quad"
+  }
+}
+
+window-rule {
+  geometry-corner-radius 6
+  clip-to-geometry true
+}
+
+binds {
+  Mod+D { spawn "fuzzel"; }
+  Super+Alt+L { spawn "swaylock"; }
+
+  XF86AudioRaiseVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1+"; }
+  XF86AudioLowerVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1-"; }
+  XF86AudioMute        allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"; }
+  XF86AudioMicMute     allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"; }
+
+  Mod+1 { focus-workspace 1; }
+  Mod+2 { focus-workspace 2; }
+  Mod+3 { focus-workspace 3; }
+  Mod+4 { focus-workspace 4; }
+  Mod+5 { focus-workspace 5; }
+  Mod+6 { focus-workspace 6; }
+  Mod+7 { focus-workspace 7; }
+  Mod+8 { focus-workspace 8; }
+  Mod+9 { focus-workspace 9; }
+  Mod+Shift+1 { move-column-to-workspace 1; }
+  Mod+Shift+2 { move-column-to-workspace 2; }
+  Mod+Shift+3 { move-column-to-workspace 3; }
+  Mod+Shift+4 { move-column-to-workspace 4; }
+  Mod+Shift+5 { move-column-to-workspace 5; }
+  Mod+Shift+6 { move-column-to-workspace 6; }
+  Mod+Shift+7 { move-column-to-workspace 7; }
+  Mod+Shift+8 { move-column-to-workspace 8; }
+  Mod+Shift+9 { move-column-to-workspace 9; }
+
+  Print { screenshot; }
+
+  Mod+Shift+H { move-column-left; }
+  Mod+Shift+J { move-window-down; }
+  Mod+Shift+K { move-window-up; }
+  Mod+Shift+L { move-column-right; }
+
+  Mod+Shift+Comma { set-column-width "-10%"; }
+  Mod+Shift+Period { set-column-width "+10%"; }
+  Mod+Ctrl+Comma { set-window-height "-10%"; }
+  Mod+Ctrl+Period { set-window-height "+10%"; }
+
+  Mod+Left { focus-column-first; }
+  Mod+Right { focus-column-last; }
+  Mod+Shift+Left { move-column-to-first; }
+  Mod+Shift+Right { move-column-to-last; }
+
+  Mod+H { focus-column-left; }
+  Mod+J { focus-window-down; }
+  Mod+K { focus-window-up; }
+  Mod+L { focus-column-right; }
+
+  Mod+N { focus-monitor-right; }
+  Mod+P { focus-monitor-left; }
+  Mod+Shift+N { move-column-to-monitor-right; }
+  Mod+Shift+P { move-column-to-monitor-left; }
+
+  Mod+Shift+F { toggle-window-floating; }
+  Mod+S { switch-focus-between-floating-and-tiling; }
+  Mod+F { maximize-column; }
+  Mod+E { center-column; }
+  Mod+Q { close-window; }
+  Mod+Shift+E { quit; }
+
+  Alt+I { spawn "sh" "-c" "switch-kb-variant intl"; }
+  Alt+K { spawn "sh" "-c" "switch-kb-variant"; }
+
+  Mod+Return repeat=false { spawn "sh" "-c" "ghostty -e zellij attach dtsf -c"; }
+  Mod+Shift+Return repeat=false { spawn "ghostty"; }
+  Mod+A repeat=false { spawn "brave"; }
+  Mod+Shift+M repeat=false { spawn "shimeji"; }
+}
