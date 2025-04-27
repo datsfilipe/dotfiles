@@ -7,7 +7,6 @@
     pavucontrol
     playerctl
     pulsemixer
-    feh
     nvtopPackages.full
     cava
     libva-utils
