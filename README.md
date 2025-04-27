@@ -47,7 +47,8 @@
 │   └── x86_64-linux
 │       └── src
 ├── scripts
-└── vars```
+└── vars
+```
 
 ### General directories
 
