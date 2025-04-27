@@ -17,9 +17,19 @@ keybinds clear-defaults=true {
       };
     }
     bind "Alt f" { ToggleFloatingPanes; }
+
     bind "Ctrl Enter" { NewTab; SwitchToMode "Normal"; }
-    bind "Alt l" { GoToNextTab; }
-    bind "Alt h" { GoToPreviousTab; }
+    bind "Alt Ctrl a" { GoToTab 1; SwitchToMode "Normal"; }
+    bind "Alt Ctrl s" { GoToTab 2; SwitchToMode "Normal"; }
+    bind "Alt Ctrl d" { GoToTab 3; SwitchToMode "Normal"; }
+    bind "Alt Ctrl f" { GoToTab 4; SwitchToMode "Normal"; }
+    bind "Alt Ctrl g" { GoToTab 5; SwitchToMode "Normal"; }
+    bind "Alt Ctrl h" { GoToTab 6; SwitchToMode "Normal"; }
+    bind "Alt Ctrl j" { GoToTab 7; SwitchToMode "Normal"; }
+    bind "Alt Ctrl k" { GoToTab 8; SwitchToMode "Normal"; }
+    bind "Alt Ctrl l" { GoToTab 9; SwitchToMode "Normal"; }
+    bind "Alt Ctrl ;" { GoToTab 10; SwitchToMode "Normal"; }
+
     bind "Alt 0" {
       Run "zellij-session-nav" "--headless" "0" {
         close_on_exit true
@@ -115,15 +125,6 @@ keybinds clear-defaults=true {
   tab {
     bind "J" { MoveTab "Left"; }
     bind "K" { MoveTab "Right"; }
-    bind "1" { GoToTab 1; SwitchToMode "Normal"; }
-    bind "2" { GoToTab 2; SwitchToMode "Normal"; }
-    bind "3" { GoToTab 3; SwitchToMode "Normal"; }
-    bind "4" { GoToTab 4; SwitchToMode "Normal"; }
-    bind "5" { GoToTab 5; SwitchToMode "Normal"; }
-    bind "6" { GoToTab 6; SwitchToMode "Normal"; }
-    bind "7" { GoToTab 7; SwitchToMode "Normal"; }
-    bind "8" { GoToTab 8; SwitchToMode "Normal"; }
-    bind "9" { GoToTab 9; SwitchToMode "Normal"; }
   }
   pane {
     bind "h" { MoveFocus "Left"; }
