@@ -29,6 +29,7 @@ with lib; {
       background-blur-radius = 20;
       font-feature = "-calt,-liga,-dlig";
       keybind = [
+        "ctrl+enter=unbind"
         "alt+one=unbind"
         "alt+two=unbind"
         "alt+three=unbind"
