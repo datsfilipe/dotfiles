@@ -36,5 +36,5 @@
     trxsh
   ];
 
-  modules.desktop.colorscheme.theme = "gruvbox";
+  modules.desktop.colorscheme.theme = "vesper";
 }
