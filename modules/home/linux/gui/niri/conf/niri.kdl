@@ -96,8 +96,8 @@ binds {
   Print { screenshot; }
 
   Mod+Shift+H { move-column-left; }
-  Mod+Shift+J { move-window-down; }
-  Mod+Shift+K { move-window-up; }
+  Mod+Shift+J { consume-or-expel-window-left; }
+  Mod+Shift+K { consume-or-expel-window-right; }
   Mod+Shift+L { move-column-right; }
 
   Mod+Shift+Comma { set-column-width "-10%"; }
