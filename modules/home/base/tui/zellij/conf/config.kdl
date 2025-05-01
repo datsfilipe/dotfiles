@@ -16,19 +16,19 @@ keybinds clear-defaults=true {
         close_on_exit true
       };
     }
-    bind "Alt f" { ToggleFloatingPanes; }
+    bind "Alt Shift f" { ToggleFloatingPanes; }
 
     bind "Ctrl Enter" { NewTab; SwitchToMode "Normal"; }
-    bind "Alt Ctrl a" { GoToTab 1; SwitchToMode "Normal"; }
-    bind "Alt Ctrl s" { GoToTab 2; SwitchToMode "Normal"; }
-    bind "Alt Ctrl d" { GoToTab 3; SwitchToMode "Normal"; }
-    bind "Alt Ctrl f" { GoToTab 4; SwitchToMode "Normal"; }
-    bind "Alt Ctrl g" { GoToTab 5; SwitchToMode "Normal"; }
-    bind "Alt Ctrl h" { GoToTab 6; SwitchToMode "Normal"; }
-    bind "Alt Ctrl j" { GoToTab 7; SwitchToMode "Normal"; }
-    bind "Alt Ctrl k" { GoToTab 8; SwitchToMode "Normal"; }
-    bind "Alt Ctrl l" { GoToTab 9; SwitchToMode "Normal"; }
-    bind "Alt Ctrl ;" { GoToTab 10; SwitchToMode "Normal"; }
+    bind "Alt a" { GoToTab 1; SwitchToMode "Normal"; }
+    bind "Alt s" { GoToTab 2; SwitchToMode "Normal"; }
+    bind "Alt d" { GoToTab 3; SwitchToMode "Normal"; }
+    bind "Alt f" { GoToTab 4; SwitchToMode "Normal"; }
+    bind "Alt g" { GoToTab 5; SwitchToMode "Normal"; }
+    bind "Alt h" { GoToTab 6; SwitchToMode "Normal"; }
+    bind "Alt j" { GoToTab 7; SwitchToMode "Normal"; }
+    bind "Alt k" { GoToTab 8; SwitchToMode "Normal"; }
+    bind "Alt l" { GoToTab 9; SwitchToMode "Normal"; }
+    bind "Alt ;" { GoToTab 10; SwitchToMode "Normal"; }
 
     bind "Alt 0" {
       Run "zellij-session-nav" "--headless" "0" {
@@ -84,11 +84,8 @@ keybinds clear-defaults=true {
   shared_except "normal" {
     bind "Ctrl c" { SwitchToMode "Normal"; }
   }
-  shared_except "session" {
-    bind "Alt o" { SwitchToMode "Session"; }
-  }
   shared_except "scroll" {
-    bind "Alt j" { SwitchToMode "Scroll"; }
+    bind "Alt u" { SwitchToMode "Scroll"; }
   }
   scroll {
     bind "Ctrl d" { HalfPageScrollDown; }
@@ -107,9 +104,6 @@ keybinds clear-defaults=true {
     bind "Ctrl c" "Esc" { SwitchToMode "Scroll"; }
     bind "Enter" { SwitchToMode "Normal"; }
   }
-  shared_except "locked" {
-    bind "Alt ;" { SwitchToMode "Locked"; }
-  }
   shared_except "tab" {
     bind "Alt t" { SwitchToMode "Tab"; }
   }
@@ -118,9 +112,6 @@ keybinds clear-defaults=true {
   }
   shared_except "resize" {
     bind "Alt r" { SwitchToMode "Resize"; }
-  }
-  shared_except "move" {
-    bind "Alt m" { SwitchToMode "Move"; }
   }
   tab {
     bind "J" { MoveTab "Left"; }

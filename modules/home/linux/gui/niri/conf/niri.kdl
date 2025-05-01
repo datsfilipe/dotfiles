@@ -127,8 +127,8 @@ binds {
   Mod+Q { close-window; }
   Mod+Shift+E { quit; }
 
-  Alt+I { spawn "sh" "-c" "~/.local/bin/switch-kb-variant intl"; }
-  Alt+K { spawn "sh" "-c" "~/.local/bin/switch-kb-variant"; }
+  Alt+W { spawn "sh" "-c" "~/.local/bin/switch-kb-variant"; }
+  Alt+Shift+W { spawn "sh" "-c" "~/.local/bin/switch-kb-variant intl"; }
 
   Mod+Return repeat=false { spawn "sh" "-c" "ghostty -e zellij attach dtsf -c"; }
   Mod+Shift+Return repeat=false { spawn "ghostty"; }
