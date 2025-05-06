@@ -14,6 +14,6 @@
 
   modules.desktop.nupkgs.packages = with mypkgs; [
     devtunnel-cli
-    linux-shimeji
+    meow
   ];
 }

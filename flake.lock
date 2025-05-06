@@ -324,6 +324,27 @@
         "type": "github"
       }
     },
+    "meow": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs-unstable"
+        ]
+      },
+      "locked": {
+        "lastModified": 1746527237,
+        "narHash": "sha256-ZwZU+CfvqW/8MFaMaNZeqsEDSipta1tPIzAFZbCu6+c=",
+        "owner": "datsfilipe",
+        "repo": "meow",
+        "rev": "4723ad97fe13cd5a552c3fb247c3fe92e0a4aaf1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "datsfilipe",
+        "ref": "main",
+        "repo": "meow",
+        "type": "github"
+      }
+    },
     "neovim-nightly": {
       "inputs": {
         "flake-compat": "flake-compat_2",
@@ -470,6 +491,7 @@
         "ghostty": "ghostty",
         "home-manager": "home-manager",
         "linux-shimeji": "linux-shimeji",
+        "meow": "meow",
         "neovim-nightly": "neovim-nightly",
         "nixpkgs": "nixpkgs",
         "nixpkgs-stable": "nixpkgs-stable_2",

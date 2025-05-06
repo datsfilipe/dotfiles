@@ -3,6 +3,7 @@
   pkgs,
   mylib,
   astal,
+  meow,
   zellij-switch,
   linux-shimeji,
   ghostty,
@@ -36,6 +37,7 @@
       inherit (pkgsWithOverlays) zellij-switch;
       linux-shimeji = linux-shimeji.packages.${pkgs.system}.little-ghost-polite;
       ghostty = ghostty.packages.${pkgs.system}.ghostty-releasefast;
+      meow = meow.packages.${pkgs.system}.default;
     };
 in
   packages

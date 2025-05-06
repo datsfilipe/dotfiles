@@ -12,5 +12,6 @@
 
   modules.desktop.nupkgs.packages = with mypkgs; [
     astal
+    meow
   ];
 }
