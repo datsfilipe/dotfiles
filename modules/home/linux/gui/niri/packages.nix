@@ -4,6 +4,7 @@
   ...
 }: {
   home.packages = with pkgs; [
+    yad
     niri
     dunst
     fuzzel

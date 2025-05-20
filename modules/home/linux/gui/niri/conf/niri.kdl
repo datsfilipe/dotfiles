@@ -125,7 +125,7 @@ binds {
   Mod+F { maximize-column; }
   Mod+E { center-column; }
   Mod+Q { close-window; }
-  Mod+Shift+E { quit; }
+  Mod+Shift+E repeat=false { spawn "sh" "-c" "~/.local/bin/powermenu-gtk"; }
 
   Alt+W { spawn "sh" "-c" "~/.local/bin/switch-kb-variant"; }
   Alt+Shift+W { spawn "sh" "-c" "~/.local/bin/switch-kb-variant intl"; }
