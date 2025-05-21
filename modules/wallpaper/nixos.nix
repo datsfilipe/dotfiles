@@ -10,6 +10,11 @@ with lib; let
 in {
   options.modules.desktop.wallpaper = {
     enable = mkEnableOption "Wallpaper service";
+    file = mkOption {
+      type = types.path;
+      default = "/run/media/dtsf/datsgames/walls/01.png";
+      description = "Wallpaper path";
+    };
   };
 
   config =
@@ -26,15 +31,15 @@ in {
         path = [pkgs.coreutils];
         script = ''
           for i in {1..30}; do
-            if [[ -f "${myvars.wallpaper}" ]]; then
+            if [[ -f "${config.modules.desktop.wallpaper.file}" ]]; then
               break
                 fi
                 sleep 1
                 done
 
-                if [[ -f "${myvars.wallpaper}" ]]; then
+                if [[ -f "${config.modules.desktop.wallpaper.file}" ]]; then
                   mkdir -p /home/${myvars.username}/.local/share/wallpaper
-                    ln -sf ${myvars.wallpaper} /home/${myvars.username}/.local/share/wallpaper/current
+                    ln -sf ${config.modules.desktop.wallpaper.file} /home/${myvars.username}/.local/share/wallpaper/current
                     fi
         '';
         serviceConfig = {
