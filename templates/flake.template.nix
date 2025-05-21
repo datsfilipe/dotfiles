@@ -22,7 +22,16 @@ in
     description = "datsdots";
     inputs = let
       ext = url: with-nixpkgs:
-        {inherit url;} // {inputs = {nixpkgs.follows = "nixpkgs";};};
+        {
+          inherit url;
+        }
+        // (
+          if with-nixpkgs
+          then {
+            inputs.nixpkgs.follows = "nixpkgs";
+          }
+          else {}
+        );
 
       ext-unstable = url: let
         base = {inherit url;};

@@ -1,6 +1,7 @@
 {
   description = "datsdots";
   inputs = {
+    ghostty.url = "github:ghostty-org/ghostty/main";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -14,10 +15,6 @@
         nixpkgs.follows = "nixpkgs";
       };
       url = "github:datsfilipe/datsnvim/main";
-    };
-    ghostty = {
-      inputs.nixpkgs.follows = "nixpkgs";
-      url = "github:ghostty-org/ghostty/main";
     };
     home-manager = {
       inputs.nixpkgs.follows = "nixpkgs";
