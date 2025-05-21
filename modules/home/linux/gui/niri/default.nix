@@ -33,7 +33,7 @@ in {
       (lib.concatStringsSep "\n" (map (m: ''
           output "${m.name}" {
             mode "${m.resolution}@${toString m.refreshRate}"
-            scale 1
+            scale ${m.scale}
             transform "${(
             if m.nvidiaSettings.rotation == "left"
             then "90"

@@ -3,6 +3,11 @@
   lib,
   ...
 }: {
+  hardware.graphics = {
+    enable = true;
+    package = pkgs.mesa;
+  };
+
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   boot.loader = {

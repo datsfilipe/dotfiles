@@ -13,9 +13,10 @@
     enableNvidiaSupport = false;
     monitors = [
       {
-        name = "DP-1";
+        name = "eDP-1";
         resolution = "1920x1080";
-        refreshRate = "59.9";
+        refreshRate = "59.997";
+        scale = "1.5";
         nvidiaSettings = {
           coordinate = {
             x = 0;
@@ -61,7 +62,7 @@
           modules.shared.multi-monitors = monitorsConfig;
           modules.desktop.wallpaper = {
             enable = true;
-            file = "/run/media/dtsf/datsgames/walls/37.png";
+            file = "/home/dtsf/media/photos/28.png";
           };
           modules.ssh-key-manager.enable = true;
           modules.desktop.ollama.enable = false;

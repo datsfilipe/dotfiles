@@ -14,6 +14,10 @@ with lib; {
           resolution = mkOption {
             type = types.str;
           };
+          scale = mkOption {
+            type = types.str;
+            default = "1";
+          };
           refreshRate = mkOption {
             type = types.str;
           };

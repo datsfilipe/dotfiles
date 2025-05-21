@@ -6,6 +6,8 @@ in {
     ./boot.nix
   ];
 
+  services.libinput.enable = true;
+
   networking = {
     inherit hostName;
     networkmanager.enable = true;

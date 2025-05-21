@@ -9,6 +9,10 @@ input {
     track-layout "global"
   }
 
+  touch {
+    map-to-output "eDP-1"
+  }
+
   touchpad {
     tap
     natural-scroll
