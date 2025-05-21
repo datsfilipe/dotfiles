@@ -26,6 +26,7 @@
     udisks2.enable = true;
     udev.extraRules = ''
       KERNEL=="hidraw*", SUBSYSTEM=="hidraw", MODE="0660", TAG+="uaccess", TAG+="udev-acl", GROUP="${myvars.username}"
+      ACTION=="add", SUBSYSTEM=="backlight", KERNEL=="*", GROUP="video", MODE="0664"
     '';
   };
 
