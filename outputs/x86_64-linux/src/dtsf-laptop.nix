@@ -7,7 +7,7 @@
   genSpecialArgs,
   ...
 } @ args: let
-  name = "dtsf-pc";
+  name = "dtsf-laptop";
   monitorsConfig = {
     enable = true;
     enableNvidiaSupport = false;
