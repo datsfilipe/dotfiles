@@ -29,6 +29,7 @@ in {
       ''spawn-at-startup "sh" "-c" "udiskie --tray --notify"''
       ''spawn-at-startup "sh" "-c" "systemctl --user restart wallpaper.service"''
       ''spawn-at-startup "sh" "-c" "${pkgs.dunst}/bin/dunst --config ${config.home.homeDirectory}/.config/dunstrc"''
+      ''spawn-at-startup "sh" "-c" "nm-applet"''
 
       (lib.concatStringsSep "\n" (map (m: ''
           output "${m.name}" {
