@@ -5,6 +5,7 @@ local bind = astal.bind
 local GLib = astal.require("GLib")
 local Wp = astal.require("AstalWp")
 local Tray = astal.require("AstalTray")
+local Battery = require("lgi").require("AstalBattery")
 local utils = require("utils")
 
 local function VolumeSlider(type)
@@ -43,6 +44,26 @@ local function Volume()
 		class_name = "volume",
 		VolumeIndicator("speaker"),
 		VolumeSlider("speaker"),
+	})
+end
+
+local function BatteryIndicator()
+	local battery = Battery.get_default()
+	
+	if not battery then
+		return Widget.Box({})
+	end
+
+	return Widget.Box({
+		class_name = "battery",
+		Widget.Icon({
+			icon = bind(battery, "battery-icon-name"),
+		}),
+		Widget.Label({
+			label = bind(battery, "percentage"):as(function(percentage)
+				return string.format("%d%%", math.floor(percentage * 100 + 0.5))
+			end),
+		}),
 	})
 end
 
@@ -117,7 +138,7 @@ local function Workspaces()
 								-- on_clicked = function()
 								-- 	utils.execute_niri_command(string.format("action focus-workspace %d", ws))
 								-- end,
-								label = " ",
+								label = " ",
 								class_name = output_data.active == ws and "focused" or "occupied",
 							})
 						end)
@@ -216,6 +237,7 @@ local function Right()
 		halign = "END",
 		SysTray(),
 		Volume(),
+		BatteryIndicator(),
 		Clock(),
 	})
 end
