@@ -14,6 +14,8 @@
       beekeeper-studio
       bitwarden
       pavucontrol
+      brightnessctl
+      networkmanagerapplet
     ]
     ++ [
       pkgs-unstable.zoom-us
