@@ -19,7 +19,7 @@ in {
                 fi
                 done < ${configFile}
 
-        find / -type d \( -name ".trash" -o -name ".Trash" -o -name ".Trash-1000" \) -exec $(which rm) -rf {} + 2>/dev/null || true
+        find "${homeDir}" -type d \( -name ".trash" -o -name ".Trash" -o -name ".Trash-1000" -o -name "Trash" \) -prune -exec rm -rf {} + 2>/dev/null || true
       '';
     };
   };
