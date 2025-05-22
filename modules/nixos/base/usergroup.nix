@@ -19,6 +19,7 @@
       "wheel"
       "docker"
       "libvirtd"
+      "video"
     ];
     linger = false;
   };

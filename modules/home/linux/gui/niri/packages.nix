@@ -9,6 +9,7 @@
     dunst
     fuzzel
     wl-clipboard
+    brightnessctl
   ];
 
   modules.desktop.nupkgs.packages = with mypkgs; [

@@ -3,10 +3,6 @@
   lib,
   ...
 }: {
-  home.packages = with pkgs; [
-    light
-  ];
-
   hardware.graphics = {
     enable = true;
     enable32Bit = true;
