@@ -60,6 +60,7 @@ local function BatteryIndicator()
 			icon = bind(battery, "battery-icon-name"),
 		}),
 		Widget.Label({
+      class_name = "battery-percentage",
 			label = bind(battery, "percentage"):as(function(percentage)
 				return string.format("%d%%", math.floor(percentage * 100 + 0.5))
 			end),
