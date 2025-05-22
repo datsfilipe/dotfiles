@@ -1,13 +1,12 @@
 {
   config,
   pkgs,
+  pkgs-unstable,
   mypkgs,
   lib,
   ...
 }: {
   imports = [./packages.nix];
-
-  modules.desktop.colorscheme.theme = "gruvbox";
 
   programs.ssh = {
     enable = true;
@@ -18,4 +17,6 @@
       AddKeysToAgent yes
     '';
   };
+
+  modules.desktop.colorscheme.theme = "solarized";
 }

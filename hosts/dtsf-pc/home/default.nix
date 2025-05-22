@@ -6,7 +6,7 @@
   lib,
   ...
 }: {
-  imports = [./i3];
+  imports = [./packages.nix];
 
   programs.ssh = {
     enable = true;
@@ -17,24 +17,6 @@
       AddKeysToAgent yes
     '';
   };
-
-  home.packages = with pkgs;
-    [
-      qbittorrent
-      slack
-      beekeeper-studio
-      bitwarden
-      pavucontrol
-    ]
-    ++ [
-      pkgs-unstable.zoom-us
-    ];
-
-  modules.desktop.nupkgs.packages = with mypkgs; [
-    devtunnel-cli
-    linux-shimeji
-    trxsh
-  ];
 
   modules.desktop.colorscheme.theme = "solarized";
 }

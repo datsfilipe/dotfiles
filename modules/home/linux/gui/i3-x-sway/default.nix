@@ -5,11 +5,11 @@
   lib,
   ...
 }: {
-  options.dtsf-pc.i3-sway-config = {
+  options.dtsf-pc.i3-x-sway = {
     enable = lib.mkEnableOption "i3 and sway configuration";
   };
 
-  config = lib.mkIf config.dtsf-pc.i3-sway-config.enable (
+  config = lib.mkIf config.dtsf-pc.i3-x-sway.enable (
     let
       generate = wm: let
         mod = "Mod4";
