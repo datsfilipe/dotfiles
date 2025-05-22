@@ -32,7 +32,7 @@ in {
       OnCalendar = "daily";
       Persistent = true;
       RandomizedDelaySec = "1h";
-      RuntimeMaxSec=30
+      RuntimeMaxSec = 30;
     };
   };
 
