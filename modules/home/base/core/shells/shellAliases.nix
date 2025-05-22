@@ -13,7 +13,7 @@
   "topp" = "btop";
 
   "rm" = "echo \"use trash instead of rm\"";
-  "cat" = "bat";
+  "cat" = "meow";
   "zp" = "zipper";
   "ext" = "extract";
   "zj" = "zellij";

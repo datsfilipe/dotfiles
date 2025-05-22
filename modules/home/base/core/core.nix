@@ -22,7 +22,7 @@
     };
 
     bat = {
-      enable = true;
+      enable = false;
       config = {
         pager = "less -FR";
       };
