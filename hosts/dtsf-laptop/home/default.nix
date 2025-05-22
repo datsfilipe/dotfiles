@@ -1,11 +1,4 @@
-{
-  config,
-  pkgs,
-  pkgs-unstable,
-  mypkgs,
-  lib,
-  ...
-}: {
+{...}: {
   imports = [./packages.nix];
 
   programs.ssh = {

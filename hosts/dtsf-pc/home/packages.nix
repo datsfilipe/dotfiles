@@ -1,12 +1,11 @@
 {
   config,
   pkgs,
+  pkgs-unstable,
   mypkgs,
   lib,
   ...
 }: {
-  imports = [./packages.nix];
-
   home.packages = with pkgs;
     [
       qbittorrent
