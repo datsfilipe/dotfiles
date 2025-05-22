@@ -43,6 +43,7 @@ in {
                     fi
         '';
         serviceConfig = {
+          KillMode = "mixed";
           Type = "oneshot";
           RemainAfterExit = true;
         };
@@ -120,6 +121,7 @@ in {
           }
         '';
         serviceConfig = {
+          KillMode = "mixed";
           Type = "oneshot";
           RemainAfterExit = true;
           Restart = "on-failure";

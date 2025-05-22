@@ -11,6 +11,7 @@ in {
     description = "Clean up old files from specified paths";
     path = [pkgs.findutils pkgs.coreutils];
     serviceConfig = {
+      KillMode = "mixed";
       Type = "oneshot";
       ExecStart = pkgs.writeShellScript "cleanup-paths" ''
           while IFS=, read -r path age; do
@@ -30,6 +31,8 @@ in {
     timerConfig = {
       OnCalendar = "daily";
       Persistent = true;
+      RandomizedDelaySec = "1h";
+      RuntimeMaxSec=30
     };
   };
 
