@@ -62,7 +62,7 @@
           modules.shared.multi-monitors = monitorsConfig;
           modules.desktop.wallpaper = {
             enable = true;
-            file = "/home/dtsf/media/photos/28.png";
+            file = "/home/${myvars.username}/media/photos/28.png";
           };
           modules.ssh-key-manager.enable = true;
           modules.desktop.ollama.enable = false;
