@@ -3,6 +3,10 @@
   lib,
   ...
 }: {
+  environment.systemPackages = with pkgs; [
+    efibootmgr
+  ];
+
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   boot.loader = {
