@@ -18,6 +18,7 @@
           config.allowUnfree = true;
           config.permittedInsecurePackages = [
             "openssl-1.1.1w"
+            "beekeeper-studio-5.2.9"
           ];
         };
       });
@@ -32,6 +33,9 @@
       pkgs-unstable = import inputs.nixpkgs-unstable {
         inherit system;
         config.allowUnfree = true;
+        config.permittedInsecurePackages = [
+          "beekeeper-studio-5.2.9"
+        ];
       };
       pkgs-stable = import inputs.nixpkgs-stable {
         inherit system;

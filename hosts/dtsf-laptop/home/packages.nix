@@ -10,7 +10,6 @@
     [
       qbittorrent
       slack
-      beekeeper-studio
       bitwarden
       pavucontrol
       brightnessctl

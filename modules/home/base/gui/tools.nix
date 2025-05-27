@@ -1,5 +1,5 @@
-{pkgs, ...}: {
-  home.packages = with pkgs; [
+{pkgs-unstable, ...}: {
+  home.packages = with pkgs-unstable; [
     beekeeper-studio
   ];
 }

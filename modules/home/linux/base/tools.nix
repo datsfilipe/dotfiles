@@ -3,6 +3,5 @@
     udiskie
     libnotify
     inotify-tools
-    ventoy
   ];
 }
