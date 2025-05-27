@@ -74,7 +74,7 @@
           modules.shared.multi-monitors = monitorsConfig;
           modules.desktop.wallpaper = {
             enable = true;
-            file = "/run/media/dtsf/datsgames/walls/37.png";
+            file = "/run/media/dtsf/datsgames/walls/41.png";
           };
           modules.ssh-key-manager.enable = true;
           modules.desktop.ollama.enable = true;
