@@ -13,7 +13,7 @@
     enableNvidiaSupport = true;
     monitors = [
       {
-        name = "DP-1";
+        name = "DP-2";
         focus = true;
         resolution = "1920x1080";
         refreshRate = "179.998";
