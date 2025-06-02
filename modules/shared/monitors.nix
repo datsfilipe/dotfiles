@@ -11,6 +11,10 @@ with lib; {
           name = mkOption {
             type = types.str;
           };
+          focus = mkOption {
+            type = types.bool;
+            default = false;
+          };
           resolution = mkOption {
             type = types.str;
           };

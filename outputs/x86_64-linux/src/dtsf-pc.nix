@@ -14,6 +14,7 @@
     monitors = [
       {
         name = "DP-1";
+        focus = true;
         resolution = "1920x1080";
         refreshRate = "179.998";
         nvidiaSettings = {

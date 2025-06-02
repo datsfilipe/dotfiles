@@ -35,6 +35,11 @@ in {
           output "${m.name}" {
             mode "${m.resolution}@${toString m.refreshRate}"
             scale ${m.scale}
+            ${(
+            if m.focus
+            then "focus-at-startup"
+            else ""
+          )}
             transform "${(
             if m.nvidiaSettings.rotation == "left"
             then "90"
