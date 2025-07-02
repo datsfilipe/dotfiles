@@ -11,5 +11,5 @@
     '';
   };
 
-  modules.desktop.colorscheme.theme = "solarized";
+  modules.desktop.colorscheme.theme = "gruvbox";
 }

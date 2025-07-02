@@ -55,14 +55,14 @@
       ];
   };
 
-  pc-modules = {
+  laptop-modules = {
     nixos-modules =
       [
         {
           modules.shared.multi-monitors = monitorsConfig;
           modules.desktop.wallpaper = {
             enable = true;
-            file = "/home/${myvars.username}/media/photos/37.png";
+            file = "/home/${myvars.username}/media/photos/09.png";
           };
           modules.ssh-key-manager.enable = true;
           modules.desktop.ollama.enable = false;
@@ -103,6 +103,6 @@
   };
 in {
   nixosConfigurations = {
-    "${name}" = mylib.nixosSystem (pc-modules // args);
+    "${name}" = mylib.nixosSystem (laptop-modules // args);
   };
 }
