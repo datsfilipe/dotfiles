@@ -16,7 +16,7 @@
         name = "eDP-1";
         resolution = "1920x1080";
         refreshRate = "59.997";
-        scale = "1.5";
+        scale = "1.3";
         nvidiaSettings = {
           coordinate = {
             x = 0;
