@@ -5,7 +5,7 @@
 }: {
   xdg.configFile."fuzzel/fuzzel.ini".text = ''
     prompt="検索 "
-    dpi-aware=yes
+    dpi-aware=no
     font=JetBrainsMono Nerd Font:size=14,Inter:size=14
     icons-enabled=false
     match-mode=fzf
