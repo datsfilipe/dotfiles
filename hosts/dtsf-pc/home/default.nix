@@ -11,5 +11,5 @@
     '';
   };
 
-  modules.desktop.colorscheme.theme = "vesper";
+  modules.desktop.colorscheme.theme = "gruvbox";
 }
