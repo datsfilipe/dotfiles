@@ -20,7 +20,7 @@
         nvidiaSettings = {
           coordinate = {
             x = 0;
-            y = 420;
+            y = 15;
           };
           forceFullCompositionPipeline = true;
           rotation = "normal";
@@ -30,13 +30,14 @@
         name = "HDMI-A-1";
         resolution = "1920x1080";
         refreshRate = "74.973";
+        scale = "1.1";
         nvidiaSettings = {
           coordinate = {
             x = 1920;
             y = 0;
           };
           forceFullCompositionPipeline = true;
-          rotation = "left";
+          rotation = "normal";
         };
       }
     ];
