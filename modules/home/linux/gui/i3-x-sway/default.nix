@@ -56,6 +56,7 @@
           {
             modifier = mod;
             focus.followMouse = false;
+            focus.wrapping = "workspace";
             keybindings = keymaps.allBindings;
 
             startup = [
@@ -64,7 +65,7 @@
               ))
               (command "udiskie --tray --notify" false)
               (command "${msgCmd} 'workspace 1'" false)
-              (command "dunst -config ${config.home.homeDirectory}/.config/dunstrc" false)
+              (command "dunst -config ${config.home.homeDirectory}/.config/dunst/dunstrc" false)
               (command "flameshot & disown" false)
               (lib.mkIf (wm == "sway") (command "systemctl --user start wallpaper.service" false))
             ];

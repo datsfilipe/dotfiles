@@ -46,8 +46,8 @@
   );
   staticBindings = {
     "${mod}+q" = "kill";
-    "${mod}+t" = "exec ${mypkgs.ghostty}/bin/ghostty";
-    "${mod}+Return" = "exec ${mypkgs.ghostty}/bin/ghostty -e ${pkgs.zellij}/bin/zellij attach dtsf -c";
+    "${mod}+t" = "exec ${pkgs.alacritty}/bin/alacritty";
+    "${mod}+Return" = "exec ${pkgs.alacritty}/bin/alacritty -e ${pkgs.zellij}/bin/zellij attach dtsf -c";
     "${mod}+a" = "exec brave";
     "${mod}+d" = "exec ${config.home.homeDirectory}/.local/bin/launcher";
     "${mod}+Shift+m" = "exec shimeji";
@@ -57,10 +57,10 @@
 
     "${print}" = "exec flameshot gui";
 
-    "${mod}+h" = "focus left";
+    "${mod}+h" = "focus left; [con_id=__focused__] exec i3-msg 'workspace prev_on_output'";
     "${mod}+j" = "focus down";
     "${mod}+k" = "focus up";
-    "${mod}+l" = "focus right";
+    "${mod}+l" = "focus right; [con_id=__focused__] exec i3-msg 'workspace next_on_output'";
 
     "${mod}+Shift+h" = "move left";
     "${mod}+Shift+j" = "move down";
