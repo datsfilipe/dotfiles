@@ -24,7 +24,7 @@ switch target mode="default":
   sudo nixos_switch {{target}} {{mode}}
 
 upgrade target mode="update":
-  nixos_switch {{target}} {{mode}}
+  sudo nixos_switch {{target}} {{mode}}
 
 generate-flake:
   generate_flake

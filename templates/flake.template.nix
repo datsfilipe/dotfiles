@@ -51,7 +51,7 @@ in
     in {
       nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
       nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
-      nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
+      nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
       ghostty = ext "github:ghostty-org/ghostty/main" false;
       linux-shimeji = ext "github:datsfilipe/linux-shimeji/main" true;
       zellij-switch = ext "github:datsfilipe/zellij-switch/flake" true;
