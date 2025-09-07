@@ -22,6 +22,9 @@ in {
       secrets."ssh/pass/primary" = {
         owner = myvars.username;
       };
+      secrets."ssh/remotes" = {
+        owner = myvars.username;
+      };
       secrets."token/github/dtsf-pc" = {
         owner = myvars.username;
       };

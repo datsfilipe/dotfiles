@@ -36,8 +36,6 @@ in {
   home.shellAliases = shellAliases;
   home.sessionVariables = {
     ZELLIJ_SWITCH_PATH = "${mypkgs.zellij-switch}/bin/zellij-switch.wasm";
-    FZF_DEFAULT_OPTS = "--color bg:-1,bg+:-1,fg:#CCCCCC,fg+:#CCCCCC,header:#A0A0A0,hl:#A0A0A0,hl+:#A0A0A0,info:#FFCFA8,marker:#FFCFA8,pointer:#FFCFA8,prompt:#FFCFA8,spinner:#FFCFA8
-";
   };
 
   home.packages = with pkgs; [

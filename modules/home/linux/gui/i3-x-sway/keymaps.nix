@@ -67,6 +67,11 @@
     "${mod}+Shift+k" = "move up";
     "${mod}+Shift+l" = "move right";
 
+    "${mod}+p" = "focus output left";
+    "${mod}+n" = "focus output right";
+    "${mod}+Shift+p" = "move container to output left";
+    "${mod}+Shift+n" = "move container to output right";
+
     "${mod}+comma" = "focus parent";
     "${mod}+period" = "focus child";
 

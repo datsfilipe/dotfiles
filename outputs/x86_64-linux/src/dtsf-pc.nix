@@ -16,7 +16,7 @@
         name = "DP-2";
         focus = true;
         resolution = "1920x1080";
-        refreshRate = "179.998";
+        refreshRate = "180";
         nvidiaSettings = {
           coordinate = {
             x = 0;
@@ -27,9 +27,9 @@
         };
       }
       {
-        name = "HDMI-A-1";
+        name = "HDMI-0";
         resolution = "1920x1080";
-        refreshRate = "74.973";
+        refreshRate = "75";
         scale = "1.1";
         nvidiaSettings = {
           coordinate = {
@@ -76,21 +76,22 @@
           modules.shared.multi-monitors = monitorsConfig;
           modules.desktop.wallpaper = {
             enable = true;
-            file = "/run/media/dtsf/datsgames/walls/09.png";
+            file = "/run/media/dtsf/datsgames/walls/46.png";
           };
           modules.ssh-key-manager.enable = true;
-          modules.desktop.ollama.enable = true;
+          modules.desktop.ollama.enable = false;
           modules.desktop.nvidia.enable = true;
-          modules.desktop.wayland.enable = true;
+          modules.desktop.xorg.enable = true;
         }
       ]
       ++ base-modules.nixos-modules;
     home-modules =
       [
         {
+          dtsf-pc.i3-x-sway.enable = true;
           modules.shared.multi-monitors = monitorsConfig;
-          modules.core.term.default = "ghostty";
-          modules.desktop.niri.enable = true;
+          modules.core.term.default = "alacritty";
+          modules.desktop.i3.enable = true;
           modules.desktop.nupkgs.enable = true;
           modules.desktop.conf = {
             enableDunstIntegration = true;
@@ -105,11 +106,10 @@
             enableFishIntegration = true;
             enableCavaIntegration = true;
             enableZellijIntegration = true;
-            enableAstalIntegration = true;
-            enableGhosttyIntegration = true;
+            enableAlacrittyIntegration = true;
             enableFzfIntegration = true;
-            enableNiriIntegration = true;
-            enableFuzzelIntegration = true;
+            enableI3Integration = true;
+            enableI3StatusIntegration = true;
           };
         }
       ]

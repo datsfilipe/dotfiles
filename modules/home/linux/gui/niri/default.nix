@@ -9,9 +9,9 @@
     builtins.concatStringsSep "\n" config.modules.desktop.niri.rawConfigValues;
   packages = import ./packages.nix args;
 in {
-  imports = [
-    ./packages.nix
-  ];
+  # imports = [
+  #   ./packages.nix
+  # ];
 
   options.modules.desktop.niri = {
     enable = lib.mkEnableOption "Niri configuration";

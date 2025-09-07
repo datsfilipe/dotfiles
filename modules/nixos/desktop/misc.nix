@@ -38,10 +38,7 @@
   gtk.iconCache.enable = true;
 
   systemd.services.NetworkManager-wait-online.enable = false;
-  systemd.extraConfig = ''
-    DefaultTimeoutStopSec=4s
-  '';
-  systemd.user.extraConfig = ''
-    DefaultTimeoutStopSec=4s
-  '';
+  systemd.settings.Manager = {
+    DefaultTimeoutStopSec = "4s";
+  };
 }

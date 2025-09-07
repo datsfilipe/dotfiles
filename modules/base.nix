@@ -12,7 +12,6 @@
   };
   environment.systemPackages = with pkgs; [
     fastfetch
-    neovim
     just
     fish
     git

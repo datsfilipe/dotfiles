@@ -28,10 +28,6 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
       url = "github:datsfilipe/meow/main";
     };
-    neovim-nightly = {
-      inputs.nixpkgs.follows = "nixpkgs";
-      url = "github:nix-community/neovim-nightly-overlay/master";
-    };
     sops-nix = {
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:Mic92/sops-nix/master";

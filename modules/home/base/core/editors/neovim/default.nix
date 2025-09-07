@@ -1,6 +1,3 @@
 {pkgs, ...}: {
-  programs.neovim = {
-    enable = true;
-    vimAlias = true;
-  };
+  programs.datsnvim.enable = true;
 }

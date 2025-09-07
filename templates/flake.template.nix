@@ -57,7 +57,6 @@ in
       zellij-switch = ext "github:datsfilipe/zellij-switch/flake" true;
       home-manager = ext "github:nix-community/home-manager/master" true;
       sops-nix = ext "github:Mic92/sops-nix/master" true;
-      neovim-nightly = ext "github:nix-community/neovim-nightly-overlay/master" true;
       astal = ext "github:aylur/astal/main" true;
       meow = ext-unstable "github:datsfilipe/meow/main";
       datsnvim = ext-hm "github:datsfilipe/datsnvim/main";
