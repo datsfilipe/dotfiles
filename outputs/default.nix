@@ -127,6 +127,14 @@
 
       main "$@"
     '')
+
+    (mkScript pkgs "j" ''
+      main() {
+        just "$@"
+      }
+
+      main "$@"
+    '')
   ];
 in {
   nixosConfigurations =
