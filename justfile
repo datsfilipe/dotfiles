@@ -11,26 +11,23 @@ gc:
   sudo nix-collect-garbage --delete-older-than 7d
   nix-collect-garbage --delete-older-than 7d
 
-verify-store:
+verify:
   nix store verify --all
 
 build target mode="default":
   nixos_build {{target}} {{mode}}
 
-update target mode="update":
-  nixos_build {{target}} {{mode}}
-
 switch target mode="default":
   sudo nixos_switch {{target}} {{mode}}
 
-upgrade target mode="update":
+update target mode="update":
   sudo nixos_switch {{target}} {{mode}}
 
-generate-flake:
+generate:
   generate_flake
 
-edit-secrets:
+secrets:
   nix-shell -p sops --run "sops modules/secrets/secrets.yaml"
 
-run-lib-tests:
+test:
   run_lib_tests
