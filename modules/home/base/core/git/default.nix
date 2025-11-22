@@ -88,8 +88,8 @@
   };
 
   home.packages = with pkgs; [
-    gitAndTools.ghq
-    gitAndTools.git-lfs
+    ghq
+    git-lfs
   ];
 
   home.shellAliases = {

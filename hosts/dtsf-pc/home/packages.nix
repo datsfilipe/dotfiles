@@ -10,7 +10,7 @@
     [
       qbittorrent
       slack
-      bitwarden
+      bitwarden-desktop
       pavucontrol
     ]
     ++ [
