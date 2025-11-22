@@ -14,9 +14,5 @@ with lib; {
       fuzzel
       wl-clipboard
     ];
-
-    modules.desktop.nupkgs.packages = with mypkgs; [
-      astal
-    ];
   };
 }

@@ -82,16 +82,18 @@
           modules.desktop.ollama.enable = false;
           modules.desktop.nvidia.enable = true;
           modules.desktop.xorg.enable = true;
+          modules.desktop.wayland.enable = true;
         }
       ]
       ++ base-modules.nixos-modules;
     home-modules =
       [
         {
-          dtsf-pc.i3-x-sway.enable = true;
+          modules.desktop.common-gui.enable = true;
           modules.shared.multi-monitors = monitorsConfig;
           modules.core.term.default = "alacritty";
           modules.desktop.i3.enable = true;
+          modules.desktop.niri.enable = true;
           modules.desktop.nupkgs.enable = true;
           modules.desktop.conf = {
             enableDunstIntegration = true;

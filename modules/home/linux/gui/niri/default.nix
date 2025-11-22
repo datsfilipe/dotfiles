@@ -24,7 +24,6 @@ in {
 
   config = lib.mkIf config.modules.desktop.niri.enable {
     modules.desktop.niri.rawConfigValues = [
-      ''spawn-at-startup "${mypkgs.astal}/bin/astal"''
       ''spawn-at-startup "sh" "-c" "udiskie --tray --notify"''
       ''spawn-at-startup "sh" "-c" "systemctl --user restart wallpaper.service"''
       ''spawn-at-startup "sh" "-c" "${pkgs.dunst}/bin/dunst --config ${config.home.homeDirectory}/.config/dunstrc"''

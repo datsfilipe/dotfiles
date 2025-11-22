@@ -135,11 +135,6 @@
         i3 = generate "i3";
       };
 
-      modules.desktop.nupkgs.packages = with mypkgs;
-        lib.mkIf (config.modules.desktop.sway.enable) [
-          astal
-        ];
-
       programs.i3status = lib.mkIf (config.modules.desktop.i3.enable) {
         enable = true;
         enableDefault = false;

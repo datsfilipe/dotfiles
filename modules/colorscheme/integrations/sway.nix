@@ -3,7 +3,6 @@
   colorscheme,
   pkgs,
   enableI3StatusIntegration,
-  enableAstalIntegration,
   ...
 }: {
   wayland.windowManager.sway.config = {
@@ -51,13 +50,6 @@
               text = "${colorscheme.colors.fg}";
             };
           };
-        }
-      ]
-      else if enableAstalIntegration
-      then [
-        {
-          id = "bar-0";
-          command = "astal";
         }
       ]
       else [];

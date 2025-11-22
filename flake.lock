@@ -1,26 +1,5 @@
 {
   "nodes": {
-    "astal": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1754893912,
-        "narHash": "sha256-kzU/3A4k+d3PsgMLohzSh4KJybTqvzqibUVqV2yXCGY=",
-        "owner": "aylur",
-        "repo": "astal",
-        "rev": "5d4eef66392b0dff99a63a4f39ff886624bd69dd",
-        "type": "github"
-      },
-      "original": {
-        "owner": "aylur",
-        "ref": "main",
-        "repo": "astal",
-        "type": "github"
-      }
-    },
     "datsnvim": {
       "inputs": {
         "flake-utils": "flake-utils",
@@ -519,7 +498,6 @@
     },
     "root": {
       "inputs": {
-        "astal": "astal",
         "datsnvim": "datsnvim",
         "ghostty": "ghostty",
         "home-manager": "home-manager",
