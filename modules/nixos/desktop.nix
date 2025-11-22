@@ -24,7 +24,7 @@ with lib; let
 
     systemctl --user --wait start niri.service
     systemctl --user start --job-mode=replace-irreversibly niri-shutdown.target
-    systemctl --user unset-environment WAYLAND_DISPLAY XDG_SESSION_TYPE XDG_CURRENT_DESKTOP NIRI_SOCKET
+    systemctl --user unset-environment WAYLAND_DISPLAY XDG_SESSION_TYPE XDG_CURRENT_DESKTOP NIRI_SOCKET GDK_BACKEND
   '';
 
   sessionOptions = lib.concatStringsSep " " (map (s: ''"${s.name}"'') (lib.attrValues cfgSessions));
@@ -100,13 +100,25 @@ in {
     (mkIf cfgWayland.enable {
       xdg.portal = {
         enable = true;
-        wlr.enable = true;
-        extraPortals = with pkgs; [
-          xdg-desktop-portal-wlr
-        ];
-      };
-      environment.sessionVariables.NIXOS_OZONE_WL = "1";
+        # wlr.enable = true;
+        # extraPortals = with pkgs; [
+        #   xdg-desktop-portal-wlr
+        # ];
 
+        extraPortals = with pkgs; [
+          xdg-desktop-portal-gnome
+        ];
+
+        config = {
+          common = {
+            default = [
+              "gnome"
+            ];
+          };
+        };
+      };
+
+      environment.sessionVariables.NIXOS_OZONE_WL = "1";
       programs.sway.wrapperFeatures.gtk = true;
 
       environment = {

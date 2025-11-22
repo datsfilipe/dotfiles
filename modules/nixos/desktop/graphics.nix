@@ -1,5 +1,9 @@
-{pkgs, ...}: {
-  xdg.portal = {
+{
+  pkgs,
+  lib,
+  ...
+}: {
+  xdg.portal = lib.mkDefault {
     enable = true;
 
     config = {
