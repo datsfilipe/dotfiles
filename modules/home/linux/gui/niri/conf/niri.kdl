@@ -136,8 +136,8 @@ binds {
   Alt+W { spawn "sh" "-c" "~/.local/bin/switch-kb-variant"; }
   Alt+Shift+W { spawn "sh" "-c" "~/.local/bin/switch-kb-variant intl"; }
 
-  Mod+Return repeat=false { spawn "sh" "-c" "ghostty -e zellij attach dtsf -c"; }
-  Mod+Shift+Return repeat=false { spawn "ghostty"; }
+  Mod+Return repeat=false { spawn "sh" "-c" "alacritty -e zellij attach dtsf -c"; }
+  Mod+Shift+Return repeat=false { spawn "alacritty"; }
   Mod+A repeat=false { spawn "brave"; }
   Mod+Shift+M repeat=false { spawn "shimeji"; }
 }
