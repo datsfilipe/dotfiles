@@ -7,7 +7,12 @@
 }:
 with lib; let
   monitorCfg = config.modules.hardware.monitors;
-  monitorCount = let mons = monitorCfg.monitors or []; in if mons == [] then 1 else builtins.length mons;
+  monitorCount = let
+    mons = monitorCfg.monitors or [];
+  in
+    if mons == []
+    then 1
+    else builtins.length mons;
   waylandEnabled =
     config.modules.desktop.wms.niri.system.enable
     || config.modules.desktop.wms.sway.system.enable;

@@ -4,8 +4,7 @@
   pkgs,
   myvars,
   ...
-}:
-{
+}: {
   options.modules.programs.git.enable = lib.mkEnableOption "Git configuration";
 
   config = lib.mkIf config.modules.programs.git.enable {

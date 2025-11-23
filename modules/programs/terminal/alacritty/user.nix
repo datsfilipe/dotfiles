@@ -1,4 +1,8 @@
-{lib, config, ...}:
+{
+  lib,
+  config,
+  ...
+}:
 with lib; {
   config = mkIf (config.modules.programs.terminal.default == "alacritty") {
     programs.alacritty = {

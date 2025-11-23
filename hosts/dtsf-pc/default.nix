@@ -1,5 +1,8 @@
-{ lib, mylib, ... }:
-let
+{
+  lib,
+  mylib,
+  ...
+}: let
   hostName = "dtsf-pc";
 in {
   imports =

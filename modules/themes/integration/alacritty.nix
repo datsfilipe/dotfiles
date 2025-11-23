@@ -1,6 +1,4 @@
-{ colorscheme, ...}:
-
-{
+{colorscheme, ...}: {
   programs.alacritty.settings = {
     colors = {
       bright = {

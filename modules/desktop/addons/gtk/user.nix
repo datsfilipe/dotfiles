@@ -3,7 +3,8 @@
   pkgs,
   config,
   ...
-}: with lib; let
+}:
+with lib; let
   cfg = config.modules.desktop.addons.gtk.user;
 in {
   options.modules.desktop.addons.gtk.user.enable = mkEnableOption "GTK/theme defaults";

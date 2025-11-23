@@ -1,5 +1,8 @@
-{ lib, mylib, ... }:
 {
+  lib,
+  mylib,
+  ...
+}: {
   imports = (mylib.file.scanPaths ../../../modules "user.nix") ++ [./packages.nix];
 
   modules.core.shell.fish.user.enable = true;

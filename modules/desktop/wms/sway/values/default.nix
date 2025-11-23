@@ -1,5 +1,4 @@
-{mylib, ...} @ args:
-let
+{mylib, ...} @ args: let
   paths =
     builtins.filter (p: p != ./default.nix)
     (mylib.file.scanPaths ./. ".nix");

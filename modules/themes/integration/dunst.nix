@@ -1,6 +1,4 @@
-{ colorscheme, ...}:
-
-{
+{colorscheme, ...}: {
   modules.desktop.conf.dunst.settings = {
     global = {
       frame_color = colorscheme.colors.altbg;
