@@ -8,7 +8,7 @@
 <br>
 <br>
 
-</div\>
+</div>
 
 ## Structure
 
