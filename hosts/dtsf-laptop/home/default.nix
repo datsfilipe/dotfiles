@@ -10,13 +10,10 @@
   modules.core.user.home.enable = true;
 
   modules.desktop.wms.niri.user.enable = true;
-  modules.desktop.wms.sway.user.enable = false;
-  modules.desktop.wms.i3.user.enable = false;
   modules.desktop.wms.common.enable = true;
 
   modules.hardware.monitors = {
     enable = true;
-    enableNvidiaSupport = false;
     monitors = [
       {
         name = "eDP-1";
@@ -70,7 +67,5 @@
     enableFuzzelIntegration = true;
   };
 
-  modules.themes.catppuccin.enable = false;
-  modules.themes.vesper.enable = false;
   modules.themes.gruvbox.enable = true;
 }

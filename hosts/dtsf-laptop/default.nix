@@ -26,10 +26,8 @@ in {
 
   modules.hardware.audio.system.enable = true;
   modules.hardware.bluetooth.system.enable = true;
-  modules.hardware.nvidia.system.enable = false;
   modules.hardware.monitors = {
     enable = true;
-    enableNvidiaSupport = false;
     monitors = [
       {
         name = "eDP-1";
@@ -50,8 +48,6 @@ in {
 
   modules.desktop.displayManager.enable = true;
   modules.desktop.wms.niri.system.enable = true;
-  modules.desktop.wms.sway.system.enable = false;
-  modules.desktop.wms.i3.system.enable = false;
 
   modules.desktop.wallpaper = {
     enable = true;

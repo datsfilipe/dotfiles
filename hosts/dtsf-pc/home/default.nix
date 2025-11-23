@@ -10,7 +10,6 @@
   modules.core.user.home.enable = true;
 
   modules.desktop.wms.niri.user.enable = true;
-  modules.desktop.wms.sway.user.enable = false;
   modules.desktop.wms.i3.user.enable = true;
   modules.desktop.wms.common.enable = true;
 
@@ -84,6 +83,5 @@
     enableI3StatusIntegration = true;
   };
 
-  modules.themes.catppuccin.enable = false;
   modules.themes.vesper.enable = true;
 }

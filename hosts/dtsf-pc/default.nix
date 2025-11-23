@@ -62,7 +62,6 @@ in {
 
   modules.desktop.displayManager.enable = true;
   modules.desktop.wms.niri.system.enable = true;
-  modules.desktop.wms.sway.system.enable = false;
   modules.desktop.wms.i3.system.enable = true;
 
   modules.desktop.wallpaper = {
