@@ -4,6 +4,7 @@
   ...
 }: let
   hostName = "dtsf-pc";
+  common = import ../common;
 in {
   imports =
     [./hardware-configuration.nix ./boot.nix]
@@ -28,36 +29,7 @@ in {
   modules.hardware.monitors = {
     enable = true;
     enableNvidiaSupport = true;
-    monitors = [
-      {
-        name = "DP-2";
-        focus = true;
-        resolution = "1920x1080";
-        refreshRate = "180";
-        nvidiaSettings = {
-          coordinate = {
-            x = 0;
-            y = 15;
-          };
-          forceFullCompositionPipeline = true;
-          rotation = "normal";
-        };
-      }
-      {
-        name = "HDMI-0";
-        resolution = "1920x1080";
-        refreshRate = "75";
-        scale = "1.1";
-        nvidiaSettings = {
-          coordinate = {
-            x = 1920;
-            y = 0;
-          };
-          forceFullCompositionPipeline = true;
-          rotation = "normal";
-        };
-      }
-    ];
+    monitors = common.monitors.pc;
   };
 
   modules.desktop.displayManager.enable = true;
@@ -66,7 +38,7 @@ in {
 
   modules.desktop.wallpaper = {
     enable = true;
-    file = "/run/media/dtsf/datsgames/walls/46.png";
+    file = common.wallpaper;
   };
 
   modules.editors.neovim.system.enable = true;

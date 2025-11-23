@@ -2,7 +2,9 @@
   lib,
   mylib,
   ...
-}: {
+}: let
+  common = import ../../common;
+in {
   imports = (mylib.file.scanPaths ../../../modules "user.nix") ++ [./packages.nix];
 
   modules.core.shell.fish.user.enable = true;
@@ -16,36 +18,7 @@
   modules.hardware.monitors = {
     enable = true;
     enableNvidiaSupport = true;
-    monitors = [
-      {
-        name = "DP-2";
-        focus = true;
-        resolution = "1920x1080";
-        refreshRate = "180";
-        nvidiaSettings = {
-          coordinate = {
-            x = 0;
-            y = 15;
-          };
-          forceFullCompositionPipeline = true;
-          rotation = "normal";
-        };
-      }
-      {
-        name = "HDMI-0";
-        resolution = "1920x1080";
-        refreshRate = "75";
-        scale = "1.1";
-        nvidiaSettings = {
-          coordinate = {
-            x = 1920;
-            y = 0;
-          };
-          forceFullCompositionPipeline = true;
-          rotation = "normal";
-        };
-      }
-    ];
+    monitors = common.monitors.pc;
   };
 
   modules.desktop.conf = {
@@ -83,5 +56,5 @@
     enableI3StatusIntegration = true;
   };
 
-  modules.themes.vesper.enable = true;
+  modules.themes.${common.theme}.enable = true;
 }

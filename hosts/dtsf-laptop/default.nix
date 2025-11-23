@@ -4,6 +4,7 @@
   ...
 }: let
   hostName = "dtsf-laptop";
+  common = import ../common;
 in {
   imports =
     [./hardware-configuration.nix ./boot.nix]
@@ -28,22 +29,7 @@ in {
   modules.hardware.bluetooth.system.enable = true;
   modules.hardware.monitors = {
     enable = true;
-    monitors = [
-      {
-        name = "eDP-1";
-        resolution = "1920x1080";
-        refreshRate = "59.997";
-        scale = "1.3";
-        nvidiaSettings = {
-          coordinate = {
-            x = 0;
-            y = 0;
-          };
-          forceFullCompositionPipeline = true;
-          rotation = "normal";
-        };
-      }
-    ];
+    monitors = common.monitors.laptop;
   };
 
   modules.desktop.displayManager.enable = true;
@@ -51,7 +37,7 @@ in {
 
   modules.desktop.wallpaper = {
     enable = true;
-    file = "/run/media/dtsf/datsgames/walls/46.png";
+    file = common.wallpaper;
   };
 
   modules.editors.neovim.system.enable = true;
