@@ -14,31 +14,31 @@ jobs:
       matrix:
         hostname: [dtsf-pc, dtsf-laptop]
 
-      steps:
-      - name: Set up SSH Key for Submodules
-        uses: webfactory/ssh-agent@v0.9.0
-        with:
-          ssh-private-key: ${{ secrets.SSH_KEY_FOR_SUBMODULES }}
-       
-      - name: Checkout Repository and Submodules
-        uses: actions/checkout@v4
-        with:
-          submodules: true
+    steps:
+    - name: Set up SSH Key for Submodules
+      uses: webfactory/ssh-agent@v0.9.0
+      with:
+        ssh-private-key: ${{ secrets.SSH_KEY_FOR_SUBMODULES }}
+     
+    - name: Checkout Repository and Submodules
+      uses: actions/checkout@v4
+      with:
+        submodules: true
 
-      - name: Create Symlink for Nix Path Resolution
-        run: |
-          sudo mkdir -p /home/dtsf/.dotfiles
-          sudo chown -R $USER /home/dtsf
-          ACTUAL_PATH="${{ github.workspace }}" 
-          ln -s "$ACTUAL_PATH" /home/dtsf/.dotfiles
+    - name: Create Symlink for Nix Path Resolution
+      run: |
+        sudo mkdir -p /home/dtsf/.dotfiles
+        sudo chown -R $USER /home/dtsf
+        ACTUAL_PATH="${{ github.workspace }}" 
+        ln -s "$ACTUAL_PATH" /home/dtsf/.dotfiles
 
-      - name: Set Up Nix
-        uses: cachix/install-nix-action@v31
-        with:
-          nix_path: nixpkgs=channel:nixos-unstable
-          extra_nix_config: |
-            experimental-features = nix-command flakes
-            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+    - name: Set Up Nix
+      uses: cachix/install-nix-action@v31
+      with:
+        nix_path: nixpkgs=channel:nixos-unstable
+        extra_nix_config: |
+          experimental-features = nix-command flakes
+          access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build ${{ matrix.hostname }}
-        run: nix build .#nixosConfigurations.${{ matrix.hostname }}.config.system.build.toplevel --accept-flake-config
+    - name: Build ${{ matrix.hostname }}
+      run: nix build .#nixosConfigurations.${{ matrix.hostname }}.config.system.build.toplevel --accept-flake-config
