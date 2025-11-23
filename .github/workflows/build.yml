@@ -9,36 +9,41 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    container:
+      image: nixos/nix:latest
+      options: --user 0
 
     strategy:
       matrix:
         hostname: [dtsf-pc, dtsf-laptop]
 
     steps:
-      - name: Set up SSH Key for Submodules
-        uses: webfactory/ssh-agent@v0.9.0
-        with:
-          ssh-private-key: ${{ secrets.SSH_KEY_FOR_SUBMODULES }}
-       
-      - name: Checkout Repository and Submodules
+      - name: Install Dependencies
+        run: nix-env -iA nixpkgs.git nixpkgs.sudo nixpkgs.gnutar nixpkgs.gzip
+
+      - name: Checkout Repository
         uses: actions/checkout@v4
         with:
-          submodules: recursive 
+          submodules: recursive
 
-      - name: Move Workspace to Target User Directory
+      - name: Create User and Setup Path
         run: |
-          sudo mkdir -p /home/dtsf
-          sudo chown -R $USER /home/dtsf
-          mv "${{ github.workspace }}" /home/dtsf/.dotfiles
+          useradd -m -d /home/dtsf dtsf
+          rm -rf /home/dtsf/.dotfiles
+          cp -r $GITHUB_WORKSPACE /home/dtsf/.dotfiles
+          chown -R dtsf:users /home/dtsf
           git config --global --add safe.directory /home/dtsf/.dotfiles
 
-      - name: Set Up Nix
-        uses: cachix/install-nix-action@v31
-        with:
-          nix_path: nixpkgs=channel:nixos-unstable
-          extra_nix_config: |
-            experimental-features = nix-command flakes
-            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+      - name: Set up SSH Key (Manual)
+        # Standard webfactory action fails in containers often; we do it manually
+        run: |
+          mkdir -p /root/.ssh
+          echo "${{ secrets.SSH_KEY_FOR_SUBMODULES }}" > /root/.ssh/id_rsa
+          chmod 600 /root/.ssh/id_rsa
+          ssh-keyscan github.com >> /root/.ssh/known_hosts
 
       - name: Build ${{ matrix.hostname }}
-        run: nix build /home/dtsf/.dotfiles#nixosConfigurations.${{ matrix.hostname }}.config.system.build.toplevel --accept-flake-config
+        run: |
+          echo "access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}" >> /etc/nix/nix.conf
+          echo "experimental-features = nix-command flakes" >> /etc/nix/nix.conf
+          su dtsf -c "nix build /home/dtsf/.dotfiles#nixosConfigurations.${{ matrix.hostname }}.config.system.build.toplevel --accept-flake-config"
