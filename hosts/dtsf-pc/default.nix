@@ -22,6 +22,7 @@ in {
   modules.core.system.enable = true;
   modules.core.shell.fish.system.enable = true;
   modules.core.shell.ssh.system.enable = true;
+  modules.core.conf.ssh-manager.enable = true;
 
   modules.hardware.audio.system.enable = true;
   modules.hardware.bluetooth.system.enable = true;
@@ -46,8 +47,6 @@ in {
 
   modules.programs.virtualization.system.enable = true;
   modules.programs.fhs.system.enable = true;
-
-  modules.ssh-key-manager.enable = true;
 
   system.stateVersion = "25.05";
 }

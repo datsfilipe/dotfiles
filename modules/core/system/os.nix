@@ -29,6 +29,10 @@ in {
       openvpn
       gnumake
       gum
+      (pkgs.writeScriptBin "get-gh-token" ''
+        #!${pkgs.bash}/bin/bash
+        cat ${config.sops.secrets."token/github/dtsf-pc".path}
+      '')
     ];
 
     environment.shells = [pkgs.bashInteractive];

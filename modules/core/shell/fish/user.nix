@@ -2,16 +2,13 @@
   lib,
   config,
   pkgs-unstable,
+  myvars,
   ...
 }:
 with lib; let
   cfg = config.modules.core.shell.fish.user;
   shellAliases = import ./shellAliases.nix;
   pkgs = pkgs-unstable;
-  localbin = "${config.home.homeDirectory}/.local/bin";
-  gobin = "${config.home.homeDirectory}/go/bin";
-  rustbin = "${config.home.homeDirectory}/.cargo/bin";
-  path = "PATH=\"$PATH:${localbin}:${gobin}:${rustbin}\"";
   plugins = [
     {
       name = "hydro";
@@ -30,14 +27,6 @@ in {
     home.packages = with pkgs;
       (map (p: p.pkg) plugins) ++ [pkgs.zoxide];
 
-    programs.bash = {
-      enable = true;
-      enableCompletion = true;
-      bashrcExtra = ''
-        export ${path}
-      '';
-    };
-
     programs.fish = {
       enable = true;
       functions = {
@@ -55,7 +44,7 @@ in {
 
       shellInit = ''
         ${lib.fileContents ./conf/config.fish}
-        export ${path}
+        export ${myvars.path}
         if command -v get-gh-token >/dev/null
           set -gx GH_TOKEN (get-gh-token)
         end
