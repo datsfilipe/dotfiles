@@ -12,13 +12,19 @@ jobs:
       matrix:
         hostname: [dtsf-pc, dtsf-laptop]
     steps:
+      - name: Set up SSH Key for Submodules
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_KEY_FOR_SUBMODULES }}
+
       - name: Checkout Repository
         uses: actions/checkout@v4
+        with:
+          submodules: true
 
       - name: Set Up Nix
         uses: cachix/install-nix-action@v31
         with:
-          submodules: true
           nix_path: nixpkgs=channel:nixos-unstable
           extra_nix_config: |
             experimental-features = nix-command flakes
