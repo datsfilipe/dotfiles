@@ -14,12 +14,12 @@ jobs:
       matrix:
         hostname: [dtsf-pc, dtsf-laptop]
 
-    steps:
+      steps:
       - name: Set up SSH Key for Submodules
         uses: webfactory/ssh-agent@v0.9.0
         with:
           ssh-private-key: ${{ secrets.SSH_KEY_FOR_SUBMODULES }}
-      
+       
       - name: Checkout Repository and Submodules
         uses: actions/checkout@v4
         with:
@@ -27,10 +27,10 @@ jobs:
 
       - name: Create Symlink for Nix Path Resolution
         run: |
-          mkdir -p /home/dtsf/.dotfiles
+          sudo mkdir -p /home/dtsf/.dotfiles
+          sudo chown -R $USER /home/dtsf
           ACTUAL_PATH="${{ github.workspace }}" 
           ln -s "$ACTUAL_PATH" /home/dtsf/.dotfiles
-          echo "Created symlink: /home/dtsf/.dotfiles -> $ACTUAL_PATH"
 
       - name: Set Up Nix
         uses: cachix/install-nix-action@v31
