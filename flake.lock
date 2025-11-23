@@ -654,12 +654,12 @@
         "rev": "4d61a7136e6b05f9b49b016eb5488fd414f6bf9f",
         "shallow": true,
         "type": "git",
-        "url": "file:///home/dtsf/.dotfiles/modules/home/linux/base/scripts/conf"
+        "url": "file:///home/dtsf/.dotfiles/pkgs/scripts/conf"
       },
       "original": {
         "shallow": true,
         "type": "git",
-        "url": "file:///home/dtsf/.dotfiles/modules/home/linux/base/scripts/conf"
+        "url": "file:///home/dtsf/.dotfiles/pkgs/scripts/conf"
       }
     },
     "vesper-nvim": {

@@ -59,7 +59,7 @@ in
       sops-nix = ext "github:Mic92/sops-nix/master" true;
       meow = ext-unstable "github:datsfilipe/meow/main";
       datsnvim = ext-hm "github:datsfilipe/datsnvim/main";
-      unix-scripts = local ../modules/home/linux/base/scripts/conf;
+      unix-scripts = local ../pkgs/scripts/conf;
     };
     outputs = "inputs: import ./outputs inputs";
   }

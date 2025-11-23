@@ -1,0 +1,3 @@
+{lib, ...}: {
+  imports = [./common.nix];
+}

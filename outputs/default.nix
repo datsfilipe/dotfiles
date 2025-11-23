@@ -10,7 +10,7 @@
     inherit (builtins) builtins;
   };
   genMypkgs = system:
-    import ../modules/nupkgs (inputs
+    import ../pkgs (inputs
       // {
         inherit lib mylib;
         pkgs = import inputs.nixpkgs {
@@ -90,7 +90,7 @@
           nixos-rebuild build --flake "$target" --show-trace --verbose
         elif [ "$mode" = "update" ]; then
           pushd "$DOTFILES_ROOT"
-          ./scripts/update-nupkgs.sh ./modules/nupkgs
+          ./scripts/update-nupkgs.sh ./pkgs
           nix flake update
           nixos-rebuild build --flake "$target"
           popd || exit 1
