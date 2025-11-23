@@ -8,6 +8,8 @@
 <br>
 <br>
 
+![Preview](./assets/preview.png)
+
 </div>
 
 ## Structure
