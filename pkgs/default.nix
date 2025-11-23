@@ -48,9 +48,9 @@
     )
     // {
       inherit (pkgsWithOverlays) zellij-switch;
-      linux-shimeji = linux-shimeji.packages.${pkgs.system}.little-ghost-polite;
-      ghostty = ghostty.packages.${pkgs.system}.ghostty-releasefast;
-      meow = meow.packages.${pkgs.system}.default;
+      linux-shimeji = linux-shimeji.packages.${pkgs.stdenv.hostPlatform.system}.little-ghost-polite;
+      ghostty = ghostty.packages.${pkgs.stdenv.hostPlatform.system}.ghostty-releasefast;
+      meow = meow.packages.${pkgs.stdenv.hostPlatform.system}.default;
     };
 in
   packages

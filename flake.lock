@@ -16,11 +16,11 @@
         "vesper-nvim": "vesper-nvim"
       },
       "locked": {
-        "lastModified": 1758976107,
-        "narHash": "sha256-YeCqeMLz8oB3ttMnz9oNgIpm7c4ONYEonqT/DwWNSpM=",
+        "lastModified": 1763939528,
+        "narHash": "sha256-qlxAjVx59BS+EUGHkwgOTLrK/PnlkaxBjo1g/0q6m6s=",
         "owner": "datsfilipe",
         "repo": "datsnvim",
-        "rev": "88d4818978e5061991e3036d092111af93068e10",
+        "rev": "45125c3ba58296634bc88975f4902d7bc2a81510",
         "type": "github"
       },
       "original": {
@@ -687,11 +687,11 @@
         "systems": "systems_4"
       },
       "locked": {
-        "lastModified": 1763792180,
-        "narHash": "sha256-wpbQUXclRKK/JIaaXhdYrnihoq6auZxhqJ3IN2VhoL0=",
+        "lastModified": 1763939683,
+        "narHash": "sha256-Lsj7XYN55Q3FLa2jK5u+tfJGIj95dkgHUr2c+4QOtoI=",
         "owner": "datsfilipe",
         "repo": "zellij-switch",
-        "rev": "cd2884bb389c81c15646adaab69c7f5f2eedbefa",
+        "rev": "5a35b121f430b50ed329ff339ec51588e56fb04c",
         "type": "github"
       },
       "original": {

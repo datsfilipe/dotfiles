@@ -17,8 +17,5 @@ in {
         theme_background = false;
       };
     };
-
-    # Optional theme source if provided via NUR overlay
-    # xdg.configFile."btop/themes".source = "${nur-ryan4yin.packages.${pkgs.system}.catppuccin-btop}/themes";
   };
 }

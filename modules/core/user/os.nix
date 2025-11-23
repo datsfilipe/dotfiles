@@ -41,6 +41,7 @@ in {
       git
       eza
       zip
+      fzf
       unzip
       xz
       zstd
