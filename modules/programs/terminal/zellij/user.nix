@@ -1,8 +1,8 @@
 {
   pkgs,
   mypkgs,
+  myvars,
   zellij-switch,
-  config,
   lib,
   ...
 }: let
@@ -10,7 +10,7 @@
     "zj" = "zellij";
   };
 
-  scriptpath = script: "${config.home.homeDirectory}/.local/bin/${script}";
+  scriptpath = script: "/etc/profiles/per-user/${myvars.username}/bin/${script}";
   pluginpath = "${mypkgs.zellij-switch}/bin/zellij-switch.wasm";
 
   replacer = script: text:
