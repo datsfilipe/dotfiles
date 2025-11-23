@@ -1,16 +1,14 @@
-<div align="center">
+<div align="center"\>
 
 # datsfilipe’s dotfiles
 
-<img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/datsfilipe/dotfiles?colorA=A0A0A0&colorB=FFCFA8&style=for-the-badge&logo=github">
-<img alt="GitHub issues" src="https://img.shields.io/github/issues/datsfilipe/dotfiles?colorA=A0A0A0&colorB=FFCFA8&style=for-the-badge&logo=github">
+<img alt="GitHub Repo stars" src="[https://img.shields.io/github/stars/datsfilipe/dotfiles?colorA=A0A0A0\&colorB=FFCFA8\&style=for-the-badge\&logo=github](https://img.shields.io/github/stars/datsfilipe/dotfiles?colorA=A0A0A0&colorB=FFCFA8&style=for-the-badge&logo=github)"\>
+<img alt="GitHub issues" src="[https://img.shields.io/github/issues/datsfilipe/dotfiles?colorA=A0A0A0\&colorB=FFCFA8\&style=for-the-badge\&logo=github](https://img.shields.io/github/issues/datsfilipe/dotfiles?colorA=A0A0A0&colorB=FFCFA8&style=for-the-badge&logo=github)"\>
 
-<br/>
-<br/>
+<br>
+<br>
 
-![Preview](./assets/preview.png)
-
-</div>
+</div\>
 
 ## Structure
 
@@ -18,80 +16,90 @@
 .
 ├── assets
 ├── hosts
-│   └── dtsf-pc
-│       └── home
+│   ├── dtsf-laptop
+│   └── dtsf-pc
 ├── lib
 ├── modules
-│   ├── home
-│   │   ├── base
-│   │   │   ├── core
-│   │   │   ├── gui
-│   │   │   └── tui
-│   │   └── linux
-│   │       ├── base
-│   │       └── gui
-│   ├── colorscheme
-│   │   ├── integrations
-│   │   └── themes
-│   ├── conf
-│   │   └── integrations
-│   ├── nixos
-│   │   ├── base
-│   │   └── desktop
-│   ├── nupkgs
-│   │   ├── devtunnel-cli
-│   │   └── zellij-switch
+│   ├── core
+│   │   ├── boot
+│   │   ├── nix
+│   │   ├── security
+│   │   ├── shell
+│   │   ├── system
+│   │   └── user
+│   ├── desktop
+│   │   ├── addons
+│   │   ├── display-manager
+│   │   ├── fonts
+│   │   ├── wallpaper
+│   │   └── wms
+│   ├── editors
+│   ├── hardware
+│   │   ├── audio
+│   │   ├── bluetooth
+│   │   ├── monitors
+│   │   └── nvidia
+│   ├── programs
 │   ├── secrets
+│   ├── themes
 │   └── wallpaper
 ├── outputs
 │   └── x86_64-linux
 │       └── src
+├── pkgs
 ├── scripts
+├── templates
 └── vars
 ```
 
 ### General directories
 
 - `assets`: images and other assets used in the readme.
-- `hosts`hosts definitions.
-- `lib`: utility functions.
-- `modules`: modules definitions.
-    - `home`: home manager general configurations.
-    - `colorscheme`: colorscheme configurations for most used applications.
-    - `conf`: configurations for most used applications.
-    - `devenvs`: development environments.
-    - `nixos`: nixos general configurations.
-    - `nupkgs`: "nix user packages" - using that instead of a nur repo.
-    - `secrets`: secrets module, using sops for encryption.
-    - `wallpaper`: wallpaper definition.
+- `hosts`: hosts definitions (entry points for configurations).
+- `lib`: utility functions, including the recursive module scanner (`file.nix`).
+- `modules`: feature-based configuration modules (Vertical Slices).
+  - `core`: base system definitions (boot, nix settings, security).
+  - `desktop`: window managers (niri, i3, sway), addons (waybar, rofi), and desktop-specific configs.
+  - `editors`: text editor configurations (neovim).
+  - `hardware`: hardware abstraction (audio, bluetooth, nvidia).
+  - `programs`: gui apps, cli tools, and terminal emulators.
+  - `secrets`: secrets module using sops.
+  - `themes`: centralized theming logic.
+  - `wallpaper`: wallpaper definition.
 - `outputs`: outputs of the config.
-- `scripts`: scripts used in the config.
-- `vars`: variables used in the config.
+- `pkgs`: custom packages and scripts.
+- `scripts`: maintenance and utility scripts.
+- `templates`: flake templates.
+- `vars`: global variables used in the config.
 
 ### General slices
 
-- `base`: base configurations.
-- `gui`: gui configurations.
-- `tui`: tui configurations.
-- `linux`: linux configurations.
-- `desktop`: desktop configurations.
-- `integrations`: module integrations.
-- `conf`: config files needed for a function, derivation, etc.
-- `spec`: test files.
+The repository now uses a **Vertical Slice** architecture. Instead of separating by layer (home/system), files are organized by feature.
+
+  - **File Naming Convention**:
+      - `os.nix`: Contains **NixOS** configurations (services, drivers, portals, users).
+      - `user.nix`: Contains **Home Manager** configurations (programs, dotfiles, themes).
+      - `default.nix`: Shared logic or variables.
+  - **Module Categories**:
+      - `core`: Essential system components required for the OS to function.
+      - `desktop`: Everything related to the graphical environment.
+      - `hardware`: Hardware-specific configurations.
+      - `programs`: User-facing applications.
+      - `themes`: Theming logic applicable to both OS and User layers.
 
 ### Usage
 
-- To add a new host, need to create host definition and output. Refer to existing hosts as an example.
+- To add a new host, create a host definition in `hosts/`. You can now toggle features by importing the scanner and enabling specific modules (e.g., `modules.desktop.wms.niri.system.enable = true`).
 - `nixos-generate-config` can be used to generate a new host hardware configuration file.
 - This repository submodules use ssh url's, so you need to update it as needed.
 - `flake.nix` should never be edited manually, as it is generated by `just generate-flake` using `templates/flake.template.nix`.
 
 ## Star History
 
-<a href="https://star-history.com/#datsfilipe/dotfiles&Date">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=datsfilipe/dotfiles&type=Date&theme=dark" />
-    <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=datsfilipe/dotfiles&type=Date" />
-    <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=datsfilipe/dotfiles&type=Date" />
-  </picture>
-</a>
+<a href="[https://star-history.com/\#datsfilipe/dotfiles\&Date](https://star-history.com/#datsfilipe/dotfiles&Date)"\>
+<picture\>
+<source media="(prefers-color-scheme: dark)" srcset="[https://api.star-history.com/svg?repos=datsfilipe/dotfiles\&type=Date\&theme=dark](https://api.star-history.com/svg?repos=datsfilipe/dotfiles&type=Date&theme=dark)" /\>
+<source media="(prefers-color-scheme: light)" srcset="[https://api.star-history.com/svg?repos=datsfilipe/dotfiles\&type=Date](https://api.star-history.com/svg?repos=datsfilipe/dotfiles&type=Date)" /\>
+<img alt="Star History Chart" src="[https://api.star-history.com/svg?repos=datsfilipe/dotfiles\&type=Date](https://api.star-history.com/svg?repos=datsfilipe/dotfiles&type=Date)" /\>
+</picture\>
+</a\>
