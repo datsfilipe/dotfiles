@@ -1,4 +1,7 @@
 {mylib, ...} @ args:
-map
-(path: import path args)
-(mylib.file.scanPaths ./. ".nix")
+let
+  paths =
+    builtins.filter (p: p != ./default.nix)
+    (mylib.file.scanPaths ./. ".nix");
+in
+  map (path: import path args) paths

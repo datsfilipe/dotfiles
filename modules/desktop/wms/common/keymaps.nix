@@ -52,8 +52,8 @@
     "${mod}+d" = "exec ${config.home.homeDirectory}/.local/bin/launcher";
     "${mod}+Shift+m" = "exec shimeji";
 
-    "${alt}+k" = "exec ${config.home.homeDirectory}/.local/bin/switch-kb-variant";
-    "${alt}+i" = "exec ${config.home.homeDirectory}/.local/bin/switch-kb-variant intl";
+    "${alt}+k" = "exec switch-kb-variant";
+    "${alt}+i" = "exec switch-kb-variant intl";
 
     "${print}" = "exec flameshot gui";
 

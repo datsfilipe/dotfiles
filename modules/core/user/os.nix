@@ -39,6 +39,7 @@ in {
       just
       fish
       git
+      eza
       zip
       unzip
       xz

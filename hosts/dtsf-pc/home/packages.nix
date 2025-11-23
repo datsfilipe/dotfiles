@@ -19,6 +19,7 @@
 
   modules.desktop.nupkgs.packages = with mypkgs; [
     devtunnel-cli
+    scripts
     trxsh
     meow
   ];

@@ -60,20 +60,19 @@ in {
           set -gx GH_TOKEN (get-gh-token)
         end
       '';
-
-      # install plugin snippets
-      xdg.configFile =
-        lib.foldl' (
-          acc: plugin:
-            acc
-            // {
-              "fish/conf.d/${plugin.name}.fish".text = ''
-                set -l plugin_dir ${plugin.pkg}/share/fish
-                ${lib.fileContents ./conf/plugin.fish}
-              '';
-            }
-        ) {}
-        plugins;
     };
+
+    xdg.configFile =
+      lib.foldl' (
+        acc: plugin:
+          acc
+          // {
+            "fish/conf.d/${plugin.name}.fish".text = ''
+              set -l plugin_dir ${plugin.pkg}/share/fish
+              ${lib.fileContents ./conf/plugin.fish}
+            '';
+          }
+      ) {}
+      plugins;
   };
 }

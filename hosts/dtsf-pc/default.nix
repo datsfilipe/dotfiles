@@ -3,7 +3,7 @@ let
   hostName = "dtsf-pc";
 in {
   imports =
-    [./hardware-configuration.nix]
+    [./hardware-configuration.nix ./boot.nix]
     ++ (mylib.file.scanPaths ../../modules "os.nix");
 
   networking = {

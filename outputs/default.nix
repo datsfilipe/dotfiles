@@ -13,6 +13,7 @@
     import ../pkgs (inputs
       // {
         inherit lib mylib;
+        unix-scripts = inputs.unix-scripts;
         pkgs = import inputs.nixpkgs {
           inherit system;
           config.allowUnfree = true;

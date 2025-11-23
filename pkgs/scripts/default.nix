@@ -1,4 +1,8 @@
-{unix-scripts, stdenvNoCC, ...}:
+{
+  unix-scripts,
+  stdenvNoCC,
+  ...
+}:
 stdenvNoCC.mkDerivation {
   pname = "unix-scripts";
   version = "unstable";
@@ -7,5 +11,6 @@ stdenvNoCC.mkDerivation {
   installPhase = ''
     mkdir -p $out/bin
     cp -r ./* $out/bin/
+    rm -f $out/bin/LICENSE $out/bin/README.md
   '';
 }
