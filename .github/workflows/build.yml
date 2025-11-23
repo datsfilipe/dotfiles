@@ -15,6 +15,17 @@ jobs:
         hostname: [dtsf-pc, dtsf-laptop]
 
     steps:
+      - name: Free Disk Space (Ubuntu)
+        uses: jlumbroso/free-disk-space@v1.3.1
+        with:
+          tool-cache: true
+          android: true
+          dotnet: true
+          haskell: true
+          large-packages: true
+          docker-images: true
+          swap-storage: false
+
       - name: Set up SSH Key for Submodules
         uses: webfactory/ssh-agent@v0.9.0
         with:
@@ -39,6 +50,8 @@ jobs:
           extra_nix_config: |
             experimental-features = nix-command flakes
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+            # OPTIONAL: Add this to save space by deduplicating files in the store
+            auto-optimise-store = true
 
       - name: Build ${{ matrix.hostname }}
         run: nix build /home/dtsf/.dotfiles#nixosConfigurations.${{ matrix.hostname }}.config.system.build.toplevel --accept-flake-config
