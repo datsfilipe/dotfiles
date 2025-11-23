@@ -35,8 +35,6 @@
     ];
   };
 
-  modules.desktop.wallpaper.enable = true;
-
   modules.desktop.conf = {
     enableDunstIntegration = true;
     enableCavaIntegration = true;

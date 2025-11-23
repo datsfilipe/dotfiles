@@ -6,7 +6,7 @@
   hostName = "dtsf-laptop";
 in {
   imports =
-    [./hardware-configuration.nix]
+    [./hardware-configuration.nix ./boot.nix]
     ++ (mylib.file.scanPaths ../../modules "os.nix");
 
   services.libinput.enable = true;
@@ -55,7 +55,7 @@ in {
 
   modules.desktop.wallpaper = {
     enable = true;
-    file = "/home/${hostName}/media/photos/09.png";
+    file = "/run/media/dtsf/datsgames/walls/46.png";
   };
 
   modules.editors.neovim.system.enable = true;
