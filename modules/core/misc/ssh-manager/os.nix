@@ -8,11 +8,11 @@
 with lib; let
   authsock = "/run/user/$(id -u)/ssh-agent.socket";
 in {
-  options.modules.core.conf.ssh-manager = {
+  options.modules.core.misc.ssh-manager = {
     enable = mkEnableOption "SSH management service";
   };
 
-  config = mkIf config.modules.core.conf.ssh-manager.enable {
+  config = mkIf config.modules.core.misc.ssh-manager.enable {
     environment.sessionVariables = {
       SSH_AUTH_SOCK = authsock;
     };
