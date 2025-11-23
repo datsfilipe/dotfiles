@@ -5,11 +5,11 @@
   lib,
   ...
 }: {
-  options.dtsf-pc.i3-x-sway = {
-    enable = lib.mkEnableOption "i3 and sway configuration";
+  options.modules.desktop.common-gui = {
+    enable = lib.mkEnableOption "i3 and sway common configuration";
   };
 
-  config = lib.mkIf config.dtsf-pc.i3-x-sway.enable (
+  config = lib.mkIf config.modules.desktop.common-gui.enable (
     let
       generate = wm: let
         mod = "Mod4";
@@ -134,11 +134,6 @@
         sway = generate "sway";
         i3 = generate "i3";
       };
-
-      modules.desktop.nupkgs.packages = with mypkgs;
-        lib.mkIf (config.modules.desktop.sway.enable) [
-          astal
-        ];
 
       programs.i3status = lib.mkIf (config.modules.desktop.i3.enable) {
         enable = true;

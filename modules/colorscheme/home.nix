@@ -70,10 +70,6 @@
       type = lib.types.bool;
       default = false;
     };
-    enableAstalIntegration = lib.mkOption {
-      type = lib.types.bool;
-      default = false;
-    };
     enableWeztermIntegration = lib.mkOption {
       type = lib.types.bool;
       default = false;
@@ -138,7 +134,6 @@
             inherit lib pkgs;
             colorscheme = colorscheme;
             enableI3StatusIntegration = config.modules.desktop.colorscheme.enableI3StatusIntegration;
-            enableAstalIntegration = config.modules.desktop.colorscheme.enableAstalIntegration;
           })
         )
 
@@ -184,13 +179,6 @@
           lib.mkIf config.modules.desktop.colorscheme.enableGhosttyIntegration
           (import ./integrations/ghostty.nix {
             inherit config lib;
-            colorscheme = colorscheme;
-          })
-        )
-
-        (
-          lib.mkIf config.modules.desktop.colorscheme.enableAstalIntegration
-          (import ./integrations/astal.nix {
             colorscheme = colorscheme;
           })
         )

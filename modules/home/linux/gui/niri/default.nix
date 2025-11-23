@@ -7,11 +7,10 @@
 } @ args: let
   generateConfig = config:
     builtins.concatStringsSep "\n" config.modules.desktop.niri.rawConfigValues;
-  packages = import ./packages.nix args;
 in {
-  # imports = [
-  #   ./packages.nix
-  # ];
+  imports = [
+    ./packages.nix
+  ];
 
   options.modules.desktop.niri = {
     enable = lib.mkEnableOption "Niri configuration";
@@ -25,7 +24,6 @@ in {
 
   config = lib.mkIf config.modules.desktop.niri.enable {
     modules.desktop.niri.rawConfigValues = [
-      ''spawn-at-startup "${mypkgs.astal}/bin/astal"''
       ''spawn-at-startup "sh" "-c" "udiskie --tray --notify"''
       ''spawn-at-startup "sh" "-c" "systemctl --user restart wallpaper.service"''
       ''spawn-at-startup "sh" "-c" "${pkgs.dunst}/bin/dunst --config ${config.home.homeDirectory}/.config/dunstrc"''

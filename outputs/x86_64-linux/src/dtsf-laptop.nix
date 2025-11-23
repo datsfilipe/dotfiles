@@ -91,7 +91,6 @@
             enableFishIntegration = true;
             enableCavaIntegration = true;
             enableZellijIntegration = true;
-            enableAstalIntegration = true;
             enableGhosttyIntegration = true;
             enableFzfIntegration = true;
             enableNiriIntegration = true;

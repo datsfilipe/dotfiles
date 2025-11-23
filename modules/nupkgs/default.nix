@@ -2,7 +2,6 @@
   lib,
   pkgs,
   mylib,
-  astal,
   meow,
   zellij-switch,
   linux-shimeji,
@@ -23,13 +22,7 @@
         name = lib.strings.removeSuffix ".nix" (baseNameOf file);
       in {
         name = name;
-        value = pkgsWithOverlays.callPackage file (
-          if name == "astal"
-          then {
-            inherit astal;
-          }
-          else {}
-        );
+        value = pkgsWithOverlays.callPackage file {};
       })
       packageFiles
     )
