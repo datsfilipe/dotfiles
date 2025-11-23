@@ -1,11 +1,16 @@
 name: "build"
 on:
-  pull_request:
   push:
+    branches:
+      - main
+  pull_request:
 
 jobs:
   tests:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        hostname: [dtsf-pc, dtsf-laptop]
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -14,6 +19,9 @@ jobs:
         uses: cachix/install-nix-action@v31
         with:
           nix_path: nixpkgs=channel:nixos-unstable
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build
-        run: nix-build
+      - name: Build ${{ matrix.hostname }}
+        run: nix build .#nixosConfigurations.${{ matrix.hostname }}.config.system.build.toplevel --accept-flake-config
