@@ -8,7 +8,6 @@ in {
   imports = (mylib.file.scanPaths ../../../modules "user.nix") ++ [./packages.nix];
 
   modules.core.shell.fish.user.enable = true;
-  modules.core.shell.ssh.user.enable = true;
   modules.core.user.home.enable = true;
 
   modules.desktop.wms.niri.user.enable = true;

@@ -10,6 +10,7 @@ in {
 
   config = mkIf cfg.enable {
     networking.firewall.enable = mkDefault false;
+    environment.enableAllTerminfo = true;
 
     services.openssh = {
       enable = true;
@@ -21,6 +22,6 @@ in {
       openFirewall = true;
     };
 
-    environment.enableAllTerminfo = true;
+    programs.ssh.startAgent = false;
   };
 }
