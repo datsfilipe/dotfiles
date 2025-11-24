@@ -1,9 +1,8 @@
-name: "build"
+name: build
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
   pull_request:
 
 jobs:
@@ -14,33 +13,34 @@ jobs:
         hostname: [dtsf-pc, dtsf-laptop]
 
     steps:
-      - name: Free Disk Space (Ubuntu)
-        uses: jlumbroso/free-disk-space@v1.3.1
+      - name: Fast Disk Cleanup
+        run: |
+          echo "Disk space before cleanup:"
+          df -h /
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /usr/local/lib/android
+          echo "Disk space after cleanup:"
+          df -h /
+          
+      - name: Checkout
+        uses: actions/checkout@v4
         with:
-          tool-cache: true
-          android: true
-          dotnet: true
-          haskell: true
-          large-packages: true
-          docker-images: true
-          swap-storage: false
+          fetch-depth: 1
+          submodules: recursive
 
-      - name: Set up SSH Key for Submodules
+      - name: Start SSH agent
         uses: webfactory/ssh-agent@v0.9.0
         with:
           ssh-private-key: ${{ secrets.SSH_KEY_FOR_SUBMODULES }}
-       
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-        with:
-          submodules: recursive
 
-      - name: Mirror Workspace to Target User Directory
+      - name: Prepare /home/dtsf
         run: |
-          sudo mkdir -p /home/dtsf/.dotfiles
+          set -euo pipefail
+          sudo mkdir -p /home/dtsf
           sudo chown -R $USER /home/dtsf
-          cp -r "${{ github.workspace }}/." /home/dtsf/.dotfiles/
-          git config --global --add safe.directory /home/dtsf/.dotfiles
+          rm -rf /home/dtsf/.dotfiles
+          cp -a "${GITHUB_WORKSPACE}/." /home/dtsf/.dotfiles
+          git -C /home/dtsf/.dotfiles config --global --add safe.directory /home/dtsf/.dotfiles
 
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@v14
@@ -48,8 +48,42 @@ jobs:
           extra-conf: |
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
             auto-optimise-store = false
-            substituters = https://cache.nixos.org https://nix-community.cachix.org
-            trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=
+            # Performance tweak: Disable fsync for faster unpacking on CI
+            fsync-metadata = false
 
-      - name: Build ${{ matrix.hostname }}
-        run: nix build /home/dtsf/.dotfiles#nixosConfigurations.${{ matrix.hostname }}.config.system.build.toplevel --accept-flake-config --print-build-logs
+      - name: Configure Cachix
+        uses: cachix/cachix-action@v15
+        with:
+          name: datsfilipe-dotfiles
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+
+      - name: Ensure nix/cachix in PATH
+        run: |
+          set -euo pipefail
+          if [ -f /home/runner/.nix-profile/etc/profile.d/nix.sh ]; then
+            . /home/runner/.nix-profile/etc/profile.d/nix.sh
+          fi
+          if [ -f /nix/var/nix/profiles/default/etc/profile.d/nix.sh ]; then
+            . /nix/var/nix/profiles/default/etc/profile.d/nix.sh
+          fi
+          export PATH="$HOME/.nix-profile/bin:/nix/var/nix/profiles/default/bin:$PATH"
+          which nix || true
+          which cachix || true
+
+      - name: Build toplevel
+        id: build
+        run: |
+          set -euo pipefail
+          cd /home/dtsf/.dotfiles
+          
+          nix build .#nixosConfigurations.${{ matrix.hostname }}.config.system.build.toplevel \
+            --print-build-logs \
+            --accept-flake-config \
+            --max-jobs 4
+          
+          if [ -L ./result ]; then
+            RESULT_PATH=$(readlink -f ./result)
+            echo "result_path=$RESULT_PATH" >> $GITHUB_OUTPUT
+          else
+            echo "result_path=" >> $GITHUB_OUTPUT
+          fi

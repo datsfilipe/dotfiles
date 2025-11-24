@@ -29,9 +29,10 @@ in {
       trusted-users = [myvars.username];
       substituters = [
         "https://cache.nixos.org?priority=10"
-        "https://nix-community.cachix.org"
+        "https://${myvars.cache.cachix}.cachix.org"
       ];
       builders-use-substitutes = true;
+      trusted-public-keys = myvars.cache.publicKeys;
     };
 
     nix.channel.enable = false;
