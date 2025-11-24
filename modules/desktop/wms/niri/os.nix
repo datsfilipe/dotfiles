@@ -32,13 +32,13 @@ in {
 
       extraPortals = with pkgs; [
         xdg-desktop-portal-gnome
+        xdg-desktop-portal-gtk
       ];
 
       config = {
         common = {
-          default = [
-            "gnome"
-          ];
+          "org.freedesktop.impl.portal.FileChooser" = ["gtk"];
+          default = ["gnome"];
         };
       };
     };
