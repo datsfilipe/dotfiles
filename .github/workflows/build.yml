@@ -9,18 +9,29 @@ on:
 jobs:
   prepare:
     runs-on: ubuntu-latest
-    outputs:
-      artifacts-created: true
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
+      - name: Free Disk Space (targeted)
+        uses: jlumbroso/free-disk-space@v1.3.1
         with:
-          path: .repo
+          tool-cache: true
+          large-packages: true
+          docker-images: true
+          android: false
+          dotnet: false
+          haskell: false
+          swap-storage: false
 
-      - name: Set up SSH Key for Submodules
+      - name: Start SSH agent
         uses: webfactory/ssh-agent@v0.9.0
         with:
           ssh-private-key: ${{ secrets.SSH_KEY_FOR_SUBMODULES }}
+
+      - name: Prepare home path and clone repo
+        run: |
+          sudo mkdir -p /home/dtsf
+          sudo chown -R $USER /home/dtsf
+          git clone --recurse-submodules --depth 1 git@github.com:${{ github.repository }}.git /home/dtsf/.dotfiles
+          git -C /home/dtsf/.dotfiles config --global --add safe.directory /home/dtsf/.dotfiles
 
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@v14
@@ -33,10 +44,11 @@ jobs:
 
       - name: Build dtsf-pc toplevel
         run: |
-          cd .repo
-          nix build .#nixosConfigurations.dtsf-pc.config.system.build.toplevel --print-build-logs
+          set -euo pipefail
+          nix build /home/dtsf/.dotfiles#nixosConfigurations.dtsf-pc.config.system.build.toplevel --out-link ./result-dtsf-pc --accept-flake-config --print-build-logs
           mkdir -p out/artifacts
-          cp -r result out/artifacts/dtsf-pc-toplevel
+          cp -a ./result-dtsf-pc out/artifacts/dtsf-pc-toplevel
+
       - name: Upload dtsf-pc artifact
         uses: actions/upload-artifact@v4
         with:
@@ -45,15 +57,25 @@ jobs:
 
       - name: Build dtsf-laptop toplevel
         run: |
-          cd .repo
-          nix build .#nixosConfigurations.dtsf-laptop.config.system.build.toplevel --print-build-logs
+          set -euo pipefail
+          nix build /home/dtsf/.dotfiles#nixosConfigurations.dtsf-laptop.config.system.build.toplevel --out-link ./result-dtsf-laptop --accept-flake-config --print-build-logs
           mkdir -p out/artifacts
-          cp -r result out/artifacts/dtsf-laptop-toplevel
+          cp -a ./result-dtsf-laptop out/artifacts/dtsf-laptop-toplevel
+
       - name: Upload dtsf-laptop artifact
         uses: actions/upload-artifact@v4
         with:
           name: dtsf-laptop-toplevel
           path: out/artifacts/dtsf-laptop-toplevel
+
+      - name: Package dotfiles for downstream jobs
+        run: |
+          tar -C /home -czf /tmp/dotfiles.tgz .dotfiles
+      - name: Upload dotfiles tarball
+        uses: actions/upload-artifact@v4
+        with:
+          name: dotfiles-tgz
+          path: /tmp/dotfiles.tgz
 
   build:
     needs: prepare
@@ -62,25 +84,29 @@ jobs:
       matrix:
         hostname: [dtsf-pc, dtsf-laptop]
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
+      - name: Download dotfiles tarball
+        uses: actions/download-artifact@v4
         with:
-          path: .repo
+          name: dotfiles-tgz
+          path: ./artifact-dotfiles
+
+      - name: Extract dotfiles into /home/dtsf
+        run: |
+          sudo mkdir -p /home/dtsf
+          sudo tar -C /home -xzf ./artifact-dotfiles/dotfiles.tgz
+          sudo chown -R $USER /home/dtsf
+          git -C /home/dtsf/.dotfiles config --global --add safe.directory /home/dtsf/.dotfiles
 
       - name: Download matching toplevel artifact
         uses: actions/download-artifact@v4
         with:
           name: ${{ matrix.hostname }}-toplevel
-          path: ./artifact
+          path: ./artifact-toplevel
 
-      - name: Mirror workspace to Target User Directory
+      - name: Inspect downloaded artifact
         run: |
-          sudo mkdir -p /home/dtsf/.dotfiles
-          sudo chown -R $USER /home/dtsf
-          cp -r .repo/. /home/dtsf/.dotfiles/
-          git config --global --add safe.directory /home/dtsf/.dotfiles
+          ls -la artifact-toplevel
 
-      - name: Use downloaded toplevel
+      - name: Use downloaded toplevel as system profile
         run: |
-          ls -la artifact
-          sudo nix-env --profile /nix/var/nix/profiles/system --set /home/runner/work/_temp/artifact/${{ matrix.hostname }}-toplevel/result
+          sudo nix-env --profile /nix/var/nix/profiles/system --set ./artifact-toplevel/${{ matrix.hostname }}-toplevel/result
