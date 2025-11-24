@@ -35,7 +35,7 @@ jobs:
           git clone --recurse-submodules --depth 1 git@github.com:${{ github.repository }}.git /home/dtsf/.dotfiles
           git -C /home/dtsf/.dotfiles config --global --add safe.directory /home/dtsf/.dotfiles
 
-      - name: Install Nix
+      - name: Install Nix (prepare)
         uses: DeterminateSystems/nix-installer-action@v14
         with:
           extra-conf: |
@@ -89,6 +89,15 @@ jobs:
       matrix:
         hostname: [dtsf-pc, dtsf-laptop]
     steps:
+      - name: Install Nix (matrix)
+        uses: DeterminateSystems/nix-installer-action@v14
+        with:
+          extra-conf: |
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+            auto-optimise-store = false
+            substituters = https://cache.nixos.org https://nix-community.cachix.org
+            trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=
+
       - name: Download dotfiles tarball
         uses: actions/download-artifact@v4
         with:
@@ -116,12 +125,27 @@ jobs:
           tar -C extracted/${{ matrix.hostname }} -xzf ./artifact-toplevel/${{ matrix.hostname }}-toplevel.tar.gz
           ls -la extracted/${{ matrix.hostname }}
 
+      - name: Ensure nix in PATH for this shell
+        run: |
+          set -euo pipefail
+          if [ -f /home/runner/.nix-profile/etc/profile.d/nix.sh ]; then
+            . /home/runner/.nix-profile/etc/profile.d/nix.sh
+          fi
+          echo "nix binary:"
+          which nix || true
+          echo "nix-env binary:"
+          which nix-env || true
+
       - name: Install extracted toplevel as system profile
         run: |
           set -euo pipefail
-          sudo nix-env --profile /nix/var/nix/profiles/system --set ./extracted/${{ matrix.hostname }}
+          if [ -f /home/runner/.nix-profile/etc/profile.d/nix.sh ]; then
+            . /home/runner/.nix-profile/etc/profile.d/nix.sh
+          fi
+          sudo env "PATH=$PATH" nix-env --profile /nix/var/nix/profiles/system --set ./extracted/${{ matrix.hostname }}
 
       - name: Verify system profile
         run: |
+          set -euo pipefail
           sudo ls -la /nix/var/nix/profiles/system
-          sudo nix profile list --profile /nix/var/nix/profiles/system
+          sudo env "PATH=$PATH" nix profile list --profile /nix/var/nix/profiles/system
