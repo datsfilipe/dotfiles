@@ -82,12 +82,3 @@ jobs:
           else
             echo "result_path=" >> $GITHUB_OUTPUT
           fi
-
-      - name: Push closure to Cachix (if token present)
-        if: secrets.CACHIX_AUTH_TOKEN != '' && steps.build.outputs.result_path != ''
-        run: |
-          set -euo pipefail
-          export PATH="$HOME/.nix-profile/bin:/nix/var/nix/profiles/default/bin:$PATH"
-          OUT="${{ steps.build.outputs.result_path }}"
-          CLOSURE=$(nix-store --query --closure "$OUT")
-          cachix push datsfilipe-dotfiles $CLOSURE
