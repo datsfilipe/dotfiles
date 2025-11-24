@@ -11,21 +11,19 @@ in {
   options.modules.programs.media.user.enable = mkEnableOption "Media utilities and mpv setup";
 
   config = mkIf cfg.enable {
-    home.packages = with pkgs;
-      [
-        ffmpeg-full
-        imagemagick
-        pavucontrol
-        playerctl
-        pulsemixer
-        nvtopPackages.full
-        cava
-        libva-utils
-        vdpauinfo
-        vulkan-tools
-        mesa-demos
-      ]
-      ++ [pkgs-unstable.zoom-us];
+    home.packages = with pkgs; [
+      ffmpeg-full
+      imagemagick
+      pavucontrol
+      playerctl
+      pulsemixer
+      nvtopPackages.full
+      cava
+      libva-utils
+      vdpauinfo
+      vulkan-tools
+      mesa-demos
+    ];
 
     services.playerctld.enable = true;
 

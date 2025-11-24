@@ -6,16 +6,12 @@
   lib,
   ...
 }: {
-  home.packages = with pkgs;
-    [
-      qbittorrent
-      slack
-      bitwarden-desktop
-      pavucontrol
-    ]
-    ++ [
-      pkgs-unstable.zoom-us
-    ];
+  home.packages = with pkgs; [
+    qbittorrent
+    slack
+    bitwarden-desktop
+    pavucontrol
+  ];
 
   modules.desktop.nupkgs.packages = with mypkgs; [
     devtunnel-cli
