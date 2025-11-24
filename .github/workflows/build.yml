@@ -2,150 +2,61 @@ name: build
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
   pull_request:
 
 jobs:
-  prepare:
+  build:
     runs-on: ubuntu-latest
-    steps:
-      - name: Targeted free disk space
-        uses: jlumbroso/free-disk-space@v1.3.1
-        with:
-          tool-cache: true
-          large-packages: true
-          docker-images: true
-          android: false
-          dotnet: false
-          haskell: false
-          swap-storage: false
+    strategy:
+      matrix:
+        hostname: [dtsf-pc, dtsf-laptop]
 
-      - name: Start SSH agent
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          submodules: recursive
+
+      - name: SSH agent
         uses: webfactory/ssh-agent@v0.9.0
         with:
           ssh-private-key: ${{ secrets.SSH_KEY_FOR_SUBMODULES }}
 
-      - name: Prepare /home/dtsf and clone repo (with submodules)
+      - name: Prepare dotfiles in /home/dtsf
         run: |
           set -euo pipefail
           sudo mkdir -p /home/dtsf
           sudo chown -R $USER /home/dtsf
           rm -rf /home/dtsf/.dotfiles
-          git clone --recurse-submodules --depth 1 git@github.com:${{ github.repository }}.git /home/dtsf/.dotfiles
+          cp -r . /home/dtsf/.dotfiles
           git -C /home/dtsf/.dotfiles config --global --add safe.directory /home/dtsf/.dotfiles
 
-      - name: Install Nix (prepare)
-        uses: DeterminateSystems/nix-installer-action@v14
+      - name: Install Nix
+        uses: cachix/install-nix-action@v31
         with:
-          extra-conf: |
+          extra_nix_config: |
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-            auto-optimise-store = false
-            substituters = https://cache.nixos.org https://nix-community.cachix.org
-            trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=
+            substituters = https://cache.nixos.org https://datsfilipe-dotfiles.cachix.org
+            trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= datsfilipe-dotfiles.cachix.org-1:lMJDrZFhAuqQrZXHPxJ/XceIptpJVnr3XNBVKDQHCOE=
 
-      - name: Build dtsf-pc toplevel and create tarball
-        run: |
-          set -euo pipefail
-          cd /home/dtsf/.dotfiles
-          nix build .#nixosConfigurations.dtsf-pc.config.system.build.toplevel --out-link ./result-dtsf-pc --accept-flake-config --print-build-logs
-          tar -C ./result-dtsf-pc -czf /tmp/dtsf-pc-toplevel.tar.gz .
-
-      - name: Upload dtsf-pc toplevel tar
-        uses: actions/upload-artifact@v4
+      - name: Cachix
+        uses: cachix/cachix-action@v31
         with:
-          name: dtsf-pc-toplevel-tar
-          path: /tmp/dtsf-pc-toplevel.tar.gz
+          name: datsfilipe-dotfiles
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
 
-      - name: Build dtsf-laptop toplevel and create tarball
-        run: |
-          set -euo pipefail
-          cd /home/dtsf/.dotfiles
-          nix build .#nixosConfigurations.dtsf-laptop.config.system.build.toplevel --out-link ./result-dtsf-laptop --accept-flake-config --print-build-logs
-          tar -C ./result-dtsf-laptop -czf /tmp/dtsf-laptop-toplevel.tar.gz .
-
-      - name: Upload dtsf-laptop toplevel tar
-        uses: actions/upload-artifact@v4
-        with:
-          name: dtsf-laptop-toplevel-tar
-          path: /tmp/dtsf-laptop-toplevel.tar.gz
-
-      - name: Package dotfiles (no .git)
-        run: |
-          set -euo pipefail
-          sudo test -d /home/dtsf/.dotfiles
-          tar --exclude='.dotfiles/.git' -C /home/dtsf -czf /tmp/dotfiles.tgz .dotfiles
-
-      - name: Upload dotfiles tar
-        uses: actions/upload-artifact@v4
-        with:
-          name: dotfiles-tgz
-          path: /tmp/dotfiles.tgz
-
-  build:
-    needs: prepare
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        hostname: [dtsf-pc, dtsf-laptop]
-    steps:
-      - name: Install Nix (matrix)
-        uses: DeterminateSystems/nix-installer-action@v14
-        with:
-          extra-conf: |
-            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-            auto-optimise-store = false
-            substituters = https://cache.nixos.org https://nix-community.cachix.org
-            trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=
-
-      - name: Download dotfiles tarball
-        uses: actions/download-artifact@v4
-        with:
-          name: dotfiles-tgz
-          path: ./artifact-dotfiles
-
-      - name: Extract dotfiles into /home/dtsf
-        run: |
-          set -euo pipefail
-          sudo mkdir -p /home/dtsf
-          sudo tar -C /home/dtsf -xzf ./artifact-dotfiles/dotfiles.tgz
-          sudo chown -R $USER /home/dtsf
-          git -C /home/dtsf/.dotfiles config --global --add safe.directory /home/dtsf/.dotfiles
-
-      - name: Download matching toplevel tar
-        uses: actions/download-artifact@v4
-        with:
-          name: ${{ matrix.hostname }}-toplevel-tar
-          path: ./artifact-toplevel
-
-      - name: Extract toplevel into a local folder
-        run: |
-          set -euo pipefail
-          mkdir -p extracted/${{ matrix.hostname }}
-          tar -C extracted/${{ matrix.hostname }} -xzf ./artifact-toplevel/${{ matrix.hostname }}-toplevel.tar.gz
-          ls -la extracted/${{ matrix.hostname }}
-
-      - name: Ensure nix in PATH for this shell
+      - name: Load nix profile
         run: |
           set -euo pipefail
           if [ -f /home/runner/.nix-profile/etc/profile.d/nix.sh ]; then
             . /home/runner/.nix-profile/etc/profile.d/nix.sh
           fi
-          echo "nix binary:"
-          which nix || true
-          echo "nix-env binary:"
-          which nix-env || true
 
-      - name: Install extracted toplevel as system profile
+      - name: Build
         run: |
           set -euo pipefail
-          if [ -f /home/runner/.nix-profile/etc/profile.d/nix.sh ]; then
-            . /home/runner/.nix-profile/etc/profile.d/nix.sh
-          fi
-          sudo env "PATH=$PATH" nix-env --profile /nix/var/nix/profiles/system --set ./extracted/${{ matrix.hostname }}
-
-      - name: Verify system profile
-        run: |
-          set -euo pipefail
-          sudo ls -la /nix/var/nix/profiles/system
-          sudo env "PATH=$PATH" nix profile list --profile /nix/var/nix/profiles/system
+          . /home/runner/.nix-profile/etc/profile.d/nix.sh
+          cd /home/dtsf/.dotfiles
+          nix build .#nixosConfigurations.${{ matrix.hostname }}.config.system.build.toplevel --print-build-logs --accept-flake-config
