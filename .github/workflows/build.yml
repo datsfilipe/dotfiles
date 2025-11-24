@@ -70,11 +70,13 @@ jobs:
           name: dtsf-laptop-toplevel-tar
           path: /tmp/dtsf-laptop-toplevel.tar.gz
 
-      - name: Package dotfiles (no .git) and upload tar
+      - name: Package dotfiles (no .git)
         run: |
           set -euo pipefail
-          cd /home/dtsf
-          tar --exclude='.dotfiles/.git' -C /home -czf /tmp/dotfiles.tgz .dotfiles
+          sudo test -d /home/dtsf/.dotfiles
+          tar --exclude='.dotfiles/.git' -C /home/dtsf -czf /tmp/dotfiles.tgz .dotfiles
+
+      - name: Upload dotfiles tar
         uses: actions/upload-artifact@v4
         with:
           name: dotfiles-tgz
@@ -97,7 +99,7 @@ jobs:
         run: |
           set -euo pipefail
           sudo mkdir -p /home/dtsf
-          sudo tar -C /home -xzf ./artifact-dotfiles/dotfiles.tgz
+          sudo tar -C /home/dtsf -xzf ./artifact-dotfiles/dotfiles.tgz
           sudo chown -R $USER /home/dtsf
           git -C /home/dtsf/.dotfiles config --global --add safe.directory /home/dtsf/.dotfiles
 
