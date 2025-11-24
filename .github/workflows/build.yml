@@ -1,4 +1,4 @@
-name: "build"
+name: build
 
 on:
   push:
@@ -7,40 +7,20 @@ on:
   pull_request:
 
 jobs:
-  build:
+  prepare:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        hostname: [dtsf-pc, dtsf-laptop]
-
+    outputs:
+      artifacts-created: true
     steps:
-      - name: Free Disk Space (Ubuntu)
-        uses: jlumbroso/free-disk-space@v1.3.1
+      - name: Checkout repo
+        uses: actions/checkout@v4
         with:
-          tool-cache: true
-          android: true
-          dotnet: true
-          haskell: true
-          large-packages: true
-          docker-images: true
-          swap-storage: false
+          path: .repo
 
       - name: Set up SSH Key for Submodules
         uses: webfactory/ssh-agent@v0.9.0
         with:
           ssh-private-key: ${{ secrets.SSH_KEY_FOR_SUBMODULES }}
-       
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-        with:
-          submodules: recursive
-
-      - name: Mirror Workspace to Target User Directory
-        run: |
-          sudo mkdir -p /home/dtsf/.dotfiles
-          sudo chown -R $USER /home/dtsf
-          cp -r "${{ github.workspace }}/." /home/dtsf/.dotfiles/
-          git config --global --add safe.directory /home/dtsf/.dotfiles
 
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@v14
@@ -51,5 +31,56 @@ jobs:
             substituters = https://cache.nixos.org https://nix-community.cachix.org
             trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=
 
-      - name: Build ${{ matrix.hostname }}
-        run: nix build /home/dtsf/.dotfiles#nixosConfigurations.${{ matrix.hostname }}.config.system.build.toplevel --accept-flake-config --print-build-logs
+      - name: Build dtsf-pc toplevel
+        run: |
+          cd .repo
+          nix build .#nixosConfigurations.dtsf-pc.config.system.build.toplevel --print-build-logs
+          mkdir -p out/artifacts
+          cp -r result out/artifacts/dtsf-pc-toplevel
+      - name: Upload dtsf-pc artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: dtsf-pc-toplevel
+          path: out/artifacts/dtsf-pc-toplevel
+
+      - name: Build dtsf-laptop toplevel
+        run: |
+          cd .repo
+          nix build .#nixosConfigurations.dtsf-laptop.config.system.build.toplevel --print-build-logs
+          mkdir -p out/artifacts
+          cp -r result out/artifacts/dtsf-laptop-toplevel
+      - name: Upload dtsf-laptop artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: dtsf-laptop-toplevel
+          path: out/artifacts/dtsf-laptop-toplevel
+
+  build:
+    needs: prepare
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        hostname: [dtsf-pc, dtsf-laptop]
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          path: .repo
+
+      - name: Download matching toplevel artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ matrix.hostname }}-toplevel
+          path: ./artifact
+
+      - name: Mirror workspace to Target User Directory
+        run: |
+          sudo mkdir -p /home/dtsf/.dotfiles
+          sudo chown -R $USER /home/dtsf
+          cp -r .repo/. /home/dtsf/.dotfiles/
+          git config --global --add safe.directory /home/dtsf/.dotfiles
+
+      - name: Use downloaded toplevel
+        run: |
+          ls -la artifact
+          sudo nix-env --profile /nix/var/nix/profiles/system --set /home/runner/work/_temp/artifact/${{ matrix.hostname }}-toplevel/result
