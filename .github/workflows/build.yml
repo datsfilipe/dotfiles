@@ -13,16 +13,14 @@ jobs:
         hostname: [dtsf-pc, dtsf-laptop]
 
     steps:
-      - name: Maximize build space
-        uses: easimon/maximize-build-space@master
-        with:
-          root-reserve-mb: 512
-          swap-size-mb: 1024
-          remove-dotnet: 'true'
-          remove-android: 'true'
-          remove-haskell: 'true'
-          remove-codeql: 'true'
-          remove-docker-images: 'true'
+      - name: Fast Disk Cleanup
+        run: |
+          echo "Disk space before cleanup:"
+          df -h /
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /usr/local/lib/android
+          echo "Disk space after cleanup:"
+          df -h /
           
       - name: Checkout
         uses: actions/checkout@v4
@@ -78,24 +76,11 @@ jobs:
           set -euo pipefail
           cd /home/dtsf/.dotfiles
           
-          LOG_FILE="./nix-build-error.log"
-
           nix build .#nixosConfigurations.${{ matrix.hostname }}.config.system.build.toplevel \
             --print-build-logs \
             --accept-flake-config \
-            --max-jobs 4 \
-            &> "$LOG_FILE" || true
+            --max-jobs 4
           
-          BUILD_EXIT_CODE=$?
-
-          if [ $BUILD_EXIT_CODE -ne 0 ]; then
-            echo "----------------- NIX BUILD FAILED -----------------"
-            echo "Printing contents of $LOG_FILE for full error message:"
-            cat "$LOG_FILE"
-            echo "----------------------------------------------------"
-            exit $BUILD_EXIT_CODE
-          fi
-
           if [ -L ./result ]; then
             RESULT_PATH=$(readlink -f ./result)
             echo "result_path=$RESULT_PATH" >> $GITHUB_OUTPUT
