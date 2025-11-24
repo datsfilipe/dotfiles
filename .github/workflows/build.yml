@@ -19,9 +19,9 @@ jobs:
           tool-cache: true
           large-packages: true
           docker-images: true
-          android: false
-          dotnet: false
-          haskell: false
+          android: true
+          dotnet: true
+          haskell: true
           swap-storage: false
 
       - name: Checkout
