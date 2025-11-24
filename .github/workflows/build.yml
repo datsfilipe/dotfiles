@@ -77,7 +77,25 @@ jobs:
         run: |
           set -euo pipefail
           cd /home/dtsf/.dotfiles
-          nix build .#nixosConfigurations.${{ matrix.hostname }}.config.system.build.toplevel --print-build-logs --accept-flake-config --max-jobs 4
+          
+          LOG_FILE="./nix-build-error.log"
+
+          nix build .#nixosConfigurations.${{ matrix.hostname }}.config.system.build.toplevel \
+            --print-build-logs \
+            --accept-flake-config \
+            --max-jobs 4 \
+            &> "$LOG_FILE" || true
+          
+          BUILD_EXIT_CODE=$?
+
+          if [ $BUILD_EXIT_CODE -ne 0 ]; then
+            echo "----------------- NIX BUILD FAILED -----------------"
+            echo "Printing contents of $LOG_FILE for full error message:"
+            cat "$LOG_FILE"
+            echo "----------------------------------------------------"
+            exit $BUILD_EXIT_CODE
+          fi
+
           if [ -L ./result ]; then
             RESULT_PATH=$(readlink -f ./result)
             echo "result_path=$RESULT_PATH" >> $GITHUB_OUTPUT
