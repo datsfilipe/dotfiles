@@ -13,50 +13,81 @@ jobs:
         hostname: [dtsf-pc, dtsf-laptop]
 
     steps:
+      - name: Targeted free disk space
+        uses: jlumbroso/free-disk-space@v1.3.1
+        with:
+          tool-cache: true
+          large-packages: true
+          docker-images: true
+          android: false
+          dotnet: false
+          haskell: false
+          swap-storage: false
+
       - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
           submodules: recursive
 
-      - name: SSH agent
+      - name: Start SSH agent
         uses: webfactory/ssh-agent@v0.9.0
         with:
           ssh-private-key: ${{ secrets.SSH_KEY_FOR_SUBMODULES }}
 
-      - name: Prepare dotfiles in /home/dtsf
+      - name: Prepare /home/dtsf
         run: |
           set -euo pipefail
           sudo mkdir -p /home/dtsf
           sudo chown -R $USER /home/dtsf
           rm -rf /home/dtsf/.dotfiles
-          cp -r . /home/dtsf/.dotfiles
+          cp -a "${GITHUB_WORKSPACE}/." /home/dtsf/.dotfiles
           git -C /home/dtsf/.dotfiles config --global --add safe.directory /home/dtsf/.dotfiles
 
       - name: Install Nix
-        uses: cachix/install-nix-action@v31
+        uses: DeterminateSystems/nix-installer-action@v14
         with:
-          extra_nix_config: |
+          extra-conf: |
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-            substituters = https://cache.nixos.org https://datsfilipe-dotfiles.cachix.org
-            trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= datsfilipe-dotfiles.cachix.org-1:lMJDrZFhAuqQrZXHPxJ/XceIptpJVnr3XNBVKDQHCOE=
+            auto-optimise-store = false
 
-      - name: Cachix
+      - name: Configure Cachix
         uses: cachix/cachix-action@v15
         with:
           name: datsfilipe-dotfiles
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
 
-      - name: Load nix profile
+      - name: Ensure nix/cachix in PATH
         run: |
           set -euo pipefail
           if [ -f /home/runner/.nix-profile/etc/profile.d/nix.sh ]; then
             . /home/runner/.nix-profile/etc/profile.d/nix.sh
           fi
+          if [ -f /nix/var/nix/profiles/default/etc/profile.d/nix.sh ]; then
+            . /nix/var/nix/profiles/default/etc/profile.d/nix.sh
+          fi
+          export PATH="$HOME/.nix-profile/bin:/nix/var/nix/profiles/default/bin:$PATH"
+          which nix || true
+          which cachix || true
 
-      - name: Build
+      - name: Build toplevel
+        id: build
         run: |
           set -euo pipefail
-          . /home/runner/.nix-profile/etc/profile.d/nix.sh
           cd /home/dtsf/.dotfiles
           nix build .#nixosConfigurations.${{ matrix.hostname }}.config.system.build.toplevel --print-build-logs --accept-flake-config
+          if [ -L ./result ]; then
+            RESULT_PATH=$(readlink -f ./result)
+            echo "result_path=$RESULT_PATH" >> $GITHUB_OUTPUT
+          else
+            echo "result_path=" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Push closure to Cachix (if token present)
+        if: ${{ secrets.CACHIX_AUTH_TOKEN != '' && steps.build.outputs.result_path != '' }}
+        run: |
+          set -euo pipefail
+          export PATH="$HOME/.nix-profile/bin:/nix/var/nix/profiles/default/bin:$PATH"
+          OUT="${{ steps.build.outputs.result_path }}"
+          CLOSURE=$(nix-store --query --closure "$OUT")
+          cachix push datsfilipe-dotfiles $CLOSURE
