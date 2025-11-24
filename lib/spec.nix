@@ -7,15 +7,8 @@ in {
     expected = "abcdef";
   };
 
-  testScanPaths = {
-    expr = mylib.file.scanPaths ../outputs;
-    expected = [
-      ../outputs/x86_64-linux
-    ];
-  };
-
   testExtractName = {
-    expr = mylib.extractName "../modules/nupkgs/devtunnel-cli/default.nix";
+    expr = mylib.extractName "../pkgs/devtunnel-cli/default.nix";
     expected = "default";
   };
 

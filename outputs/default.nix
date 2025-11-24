@@ -10,15 +10,16 @@
     inherit (builtins) builtins;
   };
   genMypkgs = system:
-    import ../modules/nupkgs (inputs
+    import ../pkgs (inputs
       // {
         inherit lib mylib;
+        unix-scripts = inputs.unix-scripts;
         pkgs = import inputs.nixpkgs {
           inherit system;
           config.allowUnfree = true;
           config.permittedInsecurePackages = [
             "openssl-1.1.1w"
-            "beekeeper-studio-5.2.12"
+            "beekeeper-studio-5.3.4"
           ];
         };
       });
@@ -34,7 +35,7 @@
         inherit system;
         config.allowUnfree = true;
         config.permittedInsecurePackages = [
-          "beekeeper-studio-5.2.12"
+          "beekeeper-studio-5.3.4"
         ];
       };
       pkgs-stable = import inputs.nixpkgs-stable {
@@ -90,7 +91,7 @@
           nixos-rebuild build --flake "$target" --show-trace --verbose
         elif [ "$mode" = "update" ]; then
           pushd "$DOTFILES_ROOT"
-          ./scripts/update-nupkgs.sh ./modules/nupkgs
+          ./scripts/update-nupkgs.sh ./pkgs
           nix flake update
           nixos-rebuild build --flake "$target"
           popd || exit 1

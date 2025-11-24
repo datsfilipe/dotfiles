@@ -10,7 +10,7 @@
     [
       qbittorrent
       slack
-      bitwarden
+      bitwarden-desktop
       pavucontrol
       brightnessctl
       networkmanagerapplet
@@ -21,6 +21,7 @@
 
   modules.desktop.nupkgs.packages = with mypkgs; [
     devtunnel-cli
+    scripts
     trxsh
     meow
   ];

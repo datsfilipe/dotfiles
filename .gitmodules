@@ -1,4 +1,4 @@
-[submodule "modules/home/linux/base/scripts/conf"]
-	path = modules/home/linux/base/scripts/conf
+[submodule "pkgs/scripts/conf"]
+	path = pkgs/scripts/conf
 	url = git@github.com:datsfilipe/unix-scripts.git
 	branch = main

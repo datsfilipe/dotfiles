@@ -15,7 +15,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Set Up Nix
-        uses: cachix/install-nix-action@v22
+        uses: cachix/install-nix-action@v31
         with:
           nix_version: latest
           extra_nix_config: |

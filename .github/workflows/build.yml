@@ -1,0 +1,55 @@
+name: "build"
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        hostname: [dtsf-pc, dtsf-laptop]
+
+    steps:
+      - name: Free Disk Space (Ubuntu)
+        uses: jlumbroso/free-disk-space@v1.3.1
+        with:
+          tool-cache: true
+          android: true
+          dotnet: true
+          haskell: true
+          large-packages: true
+          docker-images: true
+          swap-storage: false
+
+      - name: Set up SSH Key for Submodules
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_KEY_FOR_SUBMODULES }}
+       
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Mirror Workspace to Target User Directory
+        run: |
+          sudo mkdir -p /home/dtsf/.dotfiles
+          sudo chown -R $USER /home/dtsf
+          cp -r "${{ github.workspace }}/." /home/dtsf/.dotfiles/
+          git config --global --add safe.directory /home/dtsf/.dotfiles
+
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@v14
+        with:
+          extra-conf: |
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+            auto-optimise-store = false
+            substituters = https://cache.nixos.org https://nix-community.cachix.org
+            trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=
+
+      - name: Build ${{ matrix.hostname }}
+        run: nix build /home/dtsf/.dotfiles#nixosConfigurations.${{ matrix.hostname }}.config.system.build.toplevel --accept-flake-config --print-build-logs

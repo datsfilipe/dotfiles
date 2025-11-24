@@ -42,7 +42,9 @@
         "14" = "e";
         "15" = "f";
       }
-      .${toString n};
+      .${
+        toString n
+      };
   hexPairToDec = hex: hexToDec (builtins.substring 0 1 hex) * 16 + hexToDec (builtins.substring 1 1 hex);
   decToHexPair = n: decToHex (n / 16) + decToHex (n - (n / 16 * 16));
 
