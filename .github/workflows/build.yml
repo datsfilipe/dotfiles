@@ -13,17 +13,17 @@ jobs:
         hostname: [dtsf-pc, dtsf-laptop]
 
     steps:
-      - name: Targeted free disk space
-        uses: jlumbroso/free-disk-space@v1.3.1
+      - name: Maximize build space
+        uses: easimon/maximize-build-space@master
         with:
-          tool-cache: true
-          large-packages: true
-          docker-images: true
-          android: true
-          dotnet: true
-          haskell: true
-          swap-storage: false
-
+          root-reserve-mb: 512
+          swap-size-mb: 1024
+          remove-dotnet: 'true'
+          remove-android: 'true'
+          remove-haskell: 'true'
+          remove-codeql: 'true'
+          remove-docker-images: 'true'
+          
       - name: Checkout
         uses: actions/checkout@v4
         with:
@@ -50,6 +50,8 @@ jobs:
           extra-conf: |
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
             auto-optimise-store = false
+            # Performance tweak: Disable fsync for faster unpacking on CI
+            fsync-metadata = false
 
       - name: Configure Cachix
         uses: cachix/cachix-action@v15
@@ -75,7 +77,7 @@ jobs:
         run: |
           set -euo pipefail
           cd /home/dtsf/.dotfiles
-          nix build .#nixosConfigurations.${{ matrix.hostname }}.config.system.build.toplevel --print-build-logs --accept-flake-config
+          nix build .#nixosConfigurations.${{ matrix.hostname }}.config.system.build.toplevel --print-build-logs --accept-flake-config --max-jobs 4
           if [ -L ./result ]; then
             RESULT_PATH=$(readlink -f ./result)
             echo "result_path=$RESULT_PATH" >> $GITHUB_OUTPUT
