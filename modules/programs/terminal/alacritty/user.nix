@@ -49,6 +49,7 @@ with lib; {
           opacity = 0.8;
           padding.x = 25;
           padding.y = 25;
+          decorations = "none";
         };
       };
     };
