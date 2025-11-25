@@ -25,6 +25,7 @@ in {
       dunst
       fuzzel
       wl-clipboard
+      xwayland-satellite
     ];
 
     modules.desktop.wms.niri.user.rawConfigValues = [

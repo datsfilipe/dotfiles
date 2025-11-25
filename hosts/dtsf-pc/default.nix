@@ -46,6 +46,7 @@ in {
 
   modules.programs.virtualization.system.enable = true;
   modules.programs.fhs.system.enable = true;
+  modules.programs.games.system.enable = true;
 
   system.stateVersion = "25.05";
 }
