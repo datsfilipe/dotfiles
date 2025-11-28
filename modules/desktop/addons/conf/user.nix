@@ -21,11 +21,10 @@
   };
 
   moduleConfig = {
-    config = lib.mkIf true (lib.foldr (
-      integration: acc:
-        lib.recursiveUpdate acc
-        (integration.configContent or {})
-    ) {} (builtins.attrValues integrations));
+    config = lib.mkMerge (
+      map (integration: integration.configContent or {})
+      (builtins.attrValues integrations)
+    );
   };
 in {
   imports = [];

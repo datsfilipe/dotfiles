@@ -46,9 +46,9 @@
   );
   staticBindings = {
     "${mod}+q" = "kill";
-    "${mod}+t" = "exec ${pkgs.alacritty}/bin/alacritty";
-    "${mod}+Return" = "exec ${pkgs.alacritty}/bin/alacritty -e ${pkgs.zellij}/bin/zellij attach dtsf -c";
-    "${mod}+a" = "exec brave";
+    "${mod}+t" = "exec ${mypkgs.ghostty}/bin/ghostty";
+    "${mod}+Return" = "exec ${mypkgs.ghostty}/bin/ghostty -e ${pkgs.zellij}/bin/zellij attach dtsf -c";
+    "${mod}+a" = "exec brave --disable-features=WaylandWpColorManagerV1";
     "${mod}+d" = "exec ${config.home.homeDirectory}/.local/bin/launcher";
     "${mod}+Shift+m" = "exec shimeji";
 

@@ -138,6 +138,6 @@ binds {
 
   Mod+Return repeat=false { spawn "sh" "-c" "ghostty -e zellij attach dtsf -c"; }
   Mod+Shift+Return repeat=false { spawn "ghostty"; }
-  Mod+A repeat=false { spawn "brave"; }
+  Mod+A repeat=false { spawn "sh" "-c" "brave --disable-features=WaylandWpColorManagerV1"; }
   Mod+Shift+M repeat=false { spawn "shimeji"; }
 }

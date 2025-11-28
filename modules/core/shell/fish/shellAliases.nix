@@ -9,8 +9,8 @@
   "delr" = "trxsh --restore";
   "delc" = "trxsh --cleanup";
 
-  "top" = "btop -p 1";
-  "topp" = "btop";
+  "top" = "btm -b";
+  "topp" = "btm";
 
   "rm" = "echo \"use trash instead of rm\"";
   "cat" = "meow";
