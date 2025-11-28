@@ -16,11 +16,11 @@
         "vesper-nvim": "vesper-nvim"
       },
       "locked": {
-        "lastModified": 1763939528,
-        "narHash": "sha256-qlxAjVx59BS+EUGHkwgOTLrK/PnlkaxBjo1g/0q6m6s=",
+        "lastModified": 1764311685,
+        "narHash": "sha256-5zfH2qD0NrVwY+7dbyjulfg45A+48650fAR+uEtnsjA=",
         "owner": "datsfilipe",
         "repo": "datsnvim",
-        "rev": "45125c3ba58296634bc88975f4902d7bc2a81510",
+        "rev": "f8cc7820ad32e9a2174846fb1b188d7917944b2f",
         "type": "github"
       },
       "original": {
@@ -648,9 +648,10 @@
     "unix-scripts": {
       "flake": false,
       "locked": {
-        "lastModified": 1755445061,
-        "narHash": "sha256-lR/aL2/y84RdTMqETQ/SAxNUOw0EpluhGtvlG0aOrm8=",
-        "rev": "4d61a7136e6b05f9b49b016eb5488fd414f6bf9f",
+        "lastModified": 1764308922,
+        "narHash": "sha256-OE3qhA7qN2Wjgr5S0pnaWKVp49ryRMMWlm7wiQwCjnI=",
+        "ref": "refs/heads/main",
+        "rev": "8d0d3a0cbdb31adfc46ed7b69163b4f43f846c27",
         "shallow": true,
         "type": "git",
         "url": "file:///home/dtsf/.dotfiles/pkgs/scripts/conf"

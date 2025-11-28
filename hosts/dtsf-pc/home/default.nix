@@ -11,8 +11,6 @@ in {
   modules.core.user.home.enable = true;
 
   modules.desktop.wms.niri.user.enable = true;
-  modules.desktop.wms.i3.user.enable = true;
-  modules.desktop.wms.common.enable = true;
 
   modules.hardware.monitors = {
     enable = true;
@@ -24,6 +22,7 @@ in {
     enableDunstIntegration = true;
     enableCavaIntegration = true;
     enableZellijIntegration = true;
+    enableBottomIntegration = true;
   };
 
   modules.desktop.nupkgs.enable = true;
@@ -31,7 +30,7 @@ in {
   modules.programs.media.user.enable = true;
   modules.programs.devtools.user.enable = true;
   modules.programs.desktopapps.user.enable = true;
-  modules.programs.btop.user.enable = true;
+  modules.programs.bottom.user.enable = true;
   modules.programs.browsers.user.enable = true;
   modules.desktop.addons.gtk.user.enable = true;
   modules.desktop.addons.xdg.user.enable = true;
@@ -51,8 +50,8 @@ in {
     enableZellijIntegration = true;
     enableGhosttyIntegration = true;
     enableFzfIntegration = true;
-    enableI3Integration = true;
-    enableI3StatusIntegration = true;
+    enableNiriIntegration = true;
+    enableFuzzelIntegration = true;
   };
 
   modules.themes.${common.theme}.enable = true;

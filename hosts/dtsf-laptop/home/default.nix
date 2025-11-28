@@ -29,7 +29,7 @@ in {
   modules.programs.media.user.enable = true;
   modules.programs.devtools.user.enable = true;
   modules.programs.desktopapps.user.enable = true;
-  modules.programs.btop.user.enable = true;
+  modules.programs.bottom.user.enable = true;
   modules.programs.browsers.user.enable = true;
   modules.desktop.addons.gtk.user.enable = true;
   modules.desktop.addons.xdg.user.enable = true;

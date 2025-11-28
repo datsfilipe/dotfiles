@@ -19,7 +19,6 @@ in {
       sysstat
       iotop
       iftop
-      btop
       psmisc
       lm_sensors
       ethtool
