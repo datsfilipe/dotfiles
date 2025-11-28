@@ -6,136 +6,150 @@
   ...
 }:
 with lib; let
+  cfg = config.modules.desktop.wallpaper;
   monitorCfg = config.modules.hardware.monitors;
-  monitorCount = let
-    mons = monitorCfg.monitors or [];
-  in
-    if mons == []
-    then 1
-    else builtins.length mons;
-  waylandEnabled =
-    config.modules.desktop.wms.niri.system.enable
-    || config.modules.desktop.wms.sway.system.enable;
+  activeMonitors = monitorCfg.monitors or [];
+
+  getWidth = m: builtins.fromJSON (builtins.elemAt (splitString "x" m.resolution) 0);
+  getHeight = m: builtins.fromJSON (builtins.elemAt (splitString "x" m.resolution) 1);
+
+  getMonitorMaxX = m: m.nvidiaSettings.coordinate.x + (getWidth m);
+  getMonitorMaxY = m: m.nvidiaSettings.coordinate.y + (getHeight m);
+
+  totalWidth =
+    if activeMonitors == []
+    then 1920
+    else foldl' (acc: m: max acc (getMonitorMaxX m)) 0 activeMonitors;
+  totalHeight =
+    if activeMonitors == []
+    then 1080
+    else foldl' (acc: m: max acc (getMonitorMaxY m)) 0 activeMonitors;
+
+  cropLogic =
+    concatMapStringsSep "\n" (m: let
+      w = toString (getWidth m);
+      h = toString (getHeight m);
+      x = toString m.nvidiaSettings.coordinate.x;
+      y = toString m.nvidiaSettings.coordinate.y;
+      name = m.name;
+    in ''
+      echo "[Wallpaper] Cropping ${name}: ${w}x${h} at ${x},${y}..."
+      ${pkgs.imagemagick}/bin/magick "$CACHE_DIR/master.png" \
+        -crop "${w}x${h}+${x}+${y}" \
+        +repage \
+        "$CACHE_DIR/${name}.png"
+    '')
+    activeMonitors;
+
+  swaybgArgs =
+    concatMapStringsSep " " (
+      m: "-o ${m.name} -i $CACHE_DIR/${m.name}.png"
+    )
+    activeMonitors;
 in {
   options.modules.desktop.wallpaper = {
     enable = mkEnableOption "Wallpaper service";
     file = mkOption {
       type = types.path;
-      default = "/run/media/dtsf/datsgames/walls/01.png";
-      description = "Wallpaper path";
+      default = "/home/${myvars.username}/gdrive/walls/01.png";
+      description = "Master wallpaper path";
     };
   };
 
-  config =
-    mkIf (
-      config.modules.desktop.wallpaper.enable
-    ) {
-      systemd.user.services.link-wallpaper = {
-        enable = config.modules.desktop.wallpaper.enable;
-        description = "Create wallpaper symlink";
-        after = [
-          "graphical-session.target"
-        ];
-        wantedBy = ["default.target" "graphical-session.target"];
-        path = [pkgs.coreutils];
-        script = ''
-          for i in {1..30}; do
-            if [[ -f "${config.modules.desktop.wallpaper.file}" ]]; then
-              break
-                fi
-                sleep 1
-                done
+  config = mkIf cfg.enable {
+    systemd.user.services.wallpaper = {
+      enable = true;
+      description = "Wallpaper Renderer";
+      after = ["graphical-session.target"];
+      wantedBy = ["graphical-session.target"];
 
-                if [[ -f "${config.modules.desktop.wallpaper.file}" ]]; then
-                  mkdir -p /home/${myvars.username}/.local/share/wallpaper
-                    ln -sf ${config.modules.desktop.wallpaper.file} /home/${myvars.username}/.local/share/wallpaper/current
-                    fi
-        '';
-        serviceConfig = {
-          KillMode = "mixed";
-          Type = "oneshot";
-          RemainAfterExit = true;
-        };
-      };
+      path = [pkgs.swaybg];
 
-      systemd.user.services.wallpaper = {
-        enable = config.modules.desktop.wallpaper.enable;
-        description = "Set wallpaper";
-        after = [
-          "link-wallpaper.service"
-          "graphical-session.target"
-        ];
-        wantedBy = ["default.target"];
-        path =
-          if waylandEnabled
-          then with pkgs; [swaybg imagemagick coreutils gnugrep procps gnused bash]
-          else with pkgs; [feh imagemagick];
-        script = ''
-          WALLPAPER="/home/${myvars.username}/.local/share/wallpaper/current"
-          WIDTH=$(${pkgs.imagemagick}/bin/identify -format "%w" "$WALLPAPER")
-          ${
-            if waylandEnabled
-            then ''
-              if [ "$WIDTH" -ge 2800 ]; then
-                SPAN_WALL_PATH="/home/${myvars.username}/.local/bin/span-wall"
+      script = ''
+        CACHE_DIR="/home/${myvars.username}/.cache/wallpapers"
 
-                if [ -x "$SPAN_WALL_PATH" ]; then
-                  SPAN_CMD="$SPAN_WALL_PATH"
-                else
-                  SPAN_CMD="span-wall"
-                fi
-                pkill -f swaybg || true
+        if [ ! -f "$CACHE_DIR/master.png" ]; then
+          echo "No cache found. Waiting for updater..."
+          sleep 5
+          exit 1
+        fi
 
-                ARGS=""
-                ${concatMapStringsSep "\n" (monitor: ''
-                  NAME="${monitor.name}"
-                  RESOLUTION="${monitor.resolution}"
-                  WIDTH=$(echo $RESOLUTION | cut -d'x' -f1)
-                  HEIGHT=$(echo $RESOLUTION | cut -d'x' -f2)
-                  X_POS="${toString monitor.nvidiaSettings.coordinate.x}"
-                  Y_POS="${toString monitor.nvidiaSettings.coordinate.y}"
-                  ROTATION="${monitor.nvidiaSettings.rotation or "normal"}"
+        echo "Starting swaybg from cache..."
+        exec ${pkgs.swaybg}/bin/swaybg ${swaybgArgs} -m fill
+      '';
 
-                  if [ "$ROTATION" = "left" ] || [ "$ROTATION" = "right" ]; then
-                    ARGS="$ARGS --output-$NAME=\"$HEIGHT $WIDTH $X_POS $Y_POS $ROTATION\""
-                  else
-                    ARGS="$ARGS --output-$NAME=\"$WIDTH $HEIGHT $X_POS $Y_POS $ROTATION\""
-                  fi
-                '')
-                monitorCfg.monitors}
-
-                eval "$SPAN_CMD \"$WALLPAPER\" $ARGS"
-              else
-                # Kill any existing swaybg instances
-                pkill -f swaybg || true
-
-                # Set wallpaper on each monitor
-                ${concatMapStringsSep "\n" (monitor: ''
-                  ${pkgs.swaybg}/bin/swaybg -o "${monitor.name}" -i "$WALLPAPER" -m fill &
-                '')
-                monitorCfg.monitors}
-              fi
-            ''
-            else ''
-              if [ "$WIDTH" -ge 2800 ]; then
-                ${pkgs.feh}/bin/feh --bg-fill --no-xinerama "$WALLPAPER"
-              else
-                monitors=()
-                for ((i=0; i<${toString monitorCount}; i++)); do
-                  monitors+=("$WALLPAPER")
-                done
-                sleep 2 && ${pkgs.feh}/bin/feh --bg-fill "''${monitors[@]}"
-              fi
-            ''
-          }
-        '';
-        serviceConfig = {
-          KillMode = "mixed";
-          Type = "oneshot";
-          RemainAfterExit = true;
-          Restart = "on-failure";
-          RestartSec = 5;
-        };
+      serviceConfig = {
+        Type = "simple";
+        Restart = "on-failure";
+        RestartSec = "2s";
       };
     };
+
+    systemd.user.services.wallpaper-updater = {
+      enable = true;
+      description = "Wallpaper Updater Logic";
+      after =
+        ["graphical-session.target"]
+        ++ (optional config.modules.services.gdrive.enable "rclone-gdrive-mount.service");
+      wantedBy = ["graphical-session.target"];
+
+      path = with pkgs; [imagemagick coreutils procps diffutils gawk systemd];
+
+      script = ''
+        SOURCE_WALLPAPER="${cfg.file}"
+        CACHE_DIR="/home/${myvars.username}/.cache/wallpapers"
+        SUM_FILE="$CACHE_DIR/source.md5"
+        mkdir -p "$CACHE_DIR"
+
+        CANVAS_W="${toString totalWidth}"
+        CANVAS_H="${toString totalHeight}"
+
+        echo "[Updater] Checking source..."
+        for i in {1..30}; do
+          if [[ -f "$SOURCE_WALLPAPER" ]]; then break; fi
+          sleep 1
+        done
+
+        if [ ! -f "$SOURCE_WALLPAPER" ]; then
+           echo "[Updater] Source not found. Assuming offline."
+           exit 0
+        fi
+
+        CURRENT_SUM=$(md5sum "$SOURCE_WALLPAPER" | awk '{print $1}')
+        SAVED_SUM=$(cat "$SUM_FILE" 2>/dev/null || echo "")
+        RENDERER_ACTIVE=$(systemctl --user is-active wallpaper.service)
+
+        if [ "$CURRENT_SUM" == "$SAVED_SUM" ] && [ -f "$CACHE_DIR/master.png" ]; then
+           echo "[Updater] Hash match ($CURRENT_SUM)."
+
+           if [ "$RENDERER_ACTIVE" != "active" ]; then
+              echo "[Updater] Renderer not active. Starting it."
+              systemctl --user start wallpaper.service
+           else
+              echo "[Updater] Renderer active and valid. Doing nothing."
+           fi
+           exit 0
+        fi
+
+        echo "[Updater] Update detected or cache invalid. Processing..."
+
+        ${pkgs.imagemagick}/bin/magick "$SOURCE_WALLPAPER" \
+          -resize "$CANVAS_W"x"$CANVAS_H"^ \
+          -gravity center \
+          -extent "$CANVAS_W"x"$CANVAS_H" \
+          "$CACHE_DIR/master.png"
+
+        ${cropLogic}
+
+        echo "$CURRENT_SUM" > "$SUM_FILE"
+
+        echo "[Updater] Restarting renderer..."
+        systemctl --user restart wallpaper.service
+      '';
+
+      serviceConfig = {
+        Type = "oneshot";
+      };
+    };
+  };
 }

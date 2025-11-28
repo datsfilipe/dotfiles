@@ -1,6 +1,6 @@
 {
-  wallpaper = "/run/media/dtsf/datsgames/walls/46.png";
-  theme = "gruvbox";
+  wallpaper = "/home/dtsf/gdrive/walls/45.png";
+  theme = "min";
 
   monitors = {
     pc = [
@@ -19,7 +19,7 @@
         };
       }
       {
-        name = "HDMI-0";
+        name = "HDMI-A-1";
         resolution = "1920x1080";
         refreshRate = "75";
         scale = "1.1";

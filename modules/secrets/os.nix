@@ -1,6 +1,7 @@
 {
-  config,
+  lib,
   pkgs,
+  config,
   myvars,
   ...
 }: {
@@ -21,6 +22,10 @@
     };
     secrets."hosts" = {
       owner = myvars.username;
+    };
+    secrets."rclone/config" = lib.mkIf (config.modules.services.gdrive.enable) {
+      owner = myvars.username;
+      path = "/home/${myvars.username}/.config/rclone/rclone.conf";
     };
   };
 }
