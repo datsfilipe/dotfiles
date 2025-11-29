@@ -6,11 +6,13 @@
 with lib; let
   cfg = config.modules.core.shell.ssh.system;
 in {
-  options.modules.core.shell.ssh.system.enable = mkEnableOption "OpenSSH service";
+  options.modules.core.shell.ssh.system = {
+    enable = mkEnableOption "OpenSSH service";
+  };
 
   config = mkIf cfg.enable {
     networking.firewall.enable = mkDefault false;
-    environment.enableAllTerminfo = true;
+    environment.enableAllTerminfo = false;
 
     services.openssh = {
       enable = true;
