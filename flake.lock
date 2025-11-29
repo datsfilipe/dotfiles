@@ -16,11 +16,11 @@
         "vesper-nvim": "vesper-nvim"
       },
       "locked": {
-        "lastModified": 1764311685,
-        "narHash": "sha256-5zfH2qD0NrVwY+7dbyjulfg45A+48650fAR+uEtnsjA=",
+        "lastModified": 1764453259,
+        "narHash": "sha256-LGmxyWQRIncd3V+/nt8ywjDXkoZ1gffft6ZUBKvfQ8M=",
         "owner": "datsfilipe",
         "repo": "datsnvim",
-        "rev": "f8cc7820ad32e9a2174846fb1b188d7917944b2f",
+        "rev": "40ada1278ad61cbec79c56dfdb9200ae25a2fbda",
         "type": "github"
       },
       "original": {
