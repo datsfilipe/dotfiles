@@ -11,6 +11,7 @@
     slack
     bitwarden-desktop
     pavucontrol
+    bc
   ];
 
   modules.desktop.nupkgs.packages = with mypkgs; [

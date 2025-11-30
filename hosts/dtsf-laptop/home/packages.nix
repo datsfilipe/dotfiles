@@ -13,6 +13,7 @@
     pavucontrol
     brightnessctl
     networkmanagerapplet
+    bc
   ];
 
   modules.desktop.nupkgs.packages = with mypkgs; [
