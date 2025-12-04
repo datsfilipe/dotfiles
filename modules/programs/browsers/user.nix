@@ -1,5 +1,5 @@
 {
-  pkgs,
+  pkgs-unstable,
   lib,
   config,
   ...
@@ -7,26 +7,32 @@
 with lib; let
   cfg = config.modules.programs.browsers.user;
 in {
-  options.modules.programs.browsers.user.enable = mkEnableOption "Browser setup (Brave via chromium module)";
+  options.modules.programs.browsers.user.enable = mkEnableOption "Browser setup";
 
   config = mkIf cfg.enable {
     programs.chromium = {
       enable = true;
-      package = pkgs.brave;
+      package = pkgs-unstable.chromium;
       commandLineArgs = [
-        "--disable-features=WebRtcAllowInputVolumeAdjustment"
-        "--enable-features=WebUIDarkMode"
+        "--ozone-platform=wayland"
+        "--enable-features=UseOzonePlatform,WaylandWindowDecorations,WebUIDarkMode,VaapiVideoDecodeLinuxGL,VaapiVideoEncoder"
         "--force-dark-mode"
+        "--use-gl=angle"
+        "--use-angle=gl"
+        "--use-cmd-decoder=passthrough"
+        "--enable-gpu-rasterization"
+        "--enable-features=RunAllCompositorResourcesBeforeSync"
+        "--ignore-gpu-blocklist"
+        "--disable-features=UseSkiaGraphite"
+        # "--disable-gpu-driver-bug-workarounds"
       ];
-      dictionaries = [pkgs.hunspellDictsChromium.en_US];
+      dictionaries = [pkgs-unstable.hunspellDictsChromium.en_US];
       extensions = [
-        {id = "ajopnjidmegmdimjlfnijceegpefgped";} # bttv
-        {id = "ammjkodgmmoknidbanneddgankgfejfh";} # 7tv
         {id = "fmkadmapgofadopljbjfkapdkoienihi";} # react devtools
-        {id = "pobhoodpcipjmedfenaigbeloiidbflp";} # twitter minimal
         {id = "liecbddmkiiihnedobmlmillhodjkdmb";} # loom
         {id = "nkbihfbeogaeaoehlefnkodbefgpgknn";} # metamask
-        {id = "dpjamkmjmigaoobjbekmfgabipmfilij";} # new tab
+        {id = "ojhhcfhabhligodffabdhcaoicecaboo";} # new tab
+        {id = "eimadpbcbfnmbkopoojfekhnkhdbieeh";} # dark reader
       ];
     };
   };
