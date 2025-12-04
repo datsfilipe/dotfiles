@@ -1,6 +1,6 @@
 {
-  wallpaper = "/home/dtsf/gdrive/walls/45.png";
-  theme = "min";
+  wallpaper = "/home/dtsf/gdrive/walls/46.png";
+  theme = "vesper";
 
   monitors = {
     pc = [
