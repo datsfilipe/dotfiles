@@ -48,5 +48,5 @@ in {
   modules.programs.fhs.system.enable = true;
   modules.programs.games.system.enable = true;
 
-  system.stateVersion = "25.05";
+  system.stateVersion = "25.11";
 }
