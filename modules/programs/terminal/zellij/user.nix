@@ -21,7 +21,11 @@
 
   scrollback-editor = pkgs.writeShellScriptBin "zellij-scrollback-editor" ''
     #!/bin/bash
-    nvim --clean -c "set clipboard=unnamedplus" -c "highlight Normal guibg=NONE ctermbg=NONE" "$@"
+    nvim --clean \
+      -c "set relativenumber" \
+      -c "lua vim.g.clipboard = { name = 'smart-clipboard', copy = { ['+'] = 'shared-clipboard copy' }, paste = { ['+'] = 'shared-clipboard paste' } }" \
+      -c "highlight Normal guibg=NONE ctermbg=NONE" \
+      + "$@"
   '';
 in {
   programs.zellij.enable = true;
