@@ -27,6 +27,7 @@ in {
       parted
       openvpn
       gnumake
+      udiskie
       gum
       (pkgs.writeScriptBin "get-gh-token" ''
         #!${pkgs.bash}/bin/bash
