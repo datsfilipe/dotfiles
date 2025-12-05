@@ -43,6 +43,10 @@
         file to the nvim lua directory with the colorscheme name only.
       '';
     };
+    enableAstalIntegration = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+    };
     enableZellijIntegration = lib.mkOption {
       type = lib.types.bool;
       default = false;
@@ -122,6 +126,13 @@
             name = config.modules.desktop.colorscheme.theme;
           };
         })
+
+        (
+          lib.mkIf config.modules.desktop.colorscheme.enableAstalIntegration
+          (import ./integration/astal.nix {
+            colorscheme = colorscheme;
+          })
+        )
 
         (lib.mkIf config.modules.desktop.colorscheme.enableGTKIntegration {
           gtk = import ./integration/gtk.nix {
