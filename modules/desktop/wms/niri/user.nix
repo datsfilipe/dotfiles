@@ -49,6 +49,7 @@ in {
             else m.nvidiaSettings.rotation
           )}"
             position x=${toString m.nvidiaSettings.coordinate.x} y=${toString m.nvidiaSettings.coordinate.y}
+            hot-corners { bottom-left; }
           }
         '')
         config.modules.hardware.monitors.monitors))

@@ -133,8 +133,9 @@ binds {
   Mod+Q { close-window; }
   Mod+Shift+E repeat=false { spawn "powermenu-gtk"; }
 
-  Alt+W { spawn "switch-kb-variant"; }
-  Alt+Shift+W { spawn "switch-kb-variant" "intl"; }
+  Alt+K { spawn "switch-kb-variant"; }
+  Alt+I { spawn "switch-kb-variant" "intl"; }
+  Alt+W { spawn "sh" "-c" "niri msg pick-color | sed -n 's/^Hex: //p' | tr -d '\n' | shared-clipboard copy"; }
 
   Mod+Return repeat=false { spawn "sh" "-c" "ghostty -e zellij attach dtsf -c"; }
   Mod+Shift+Return repeat=false { spawn "ghostty"; }
