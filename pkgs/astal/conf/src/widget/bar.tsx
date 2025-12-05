@@ -1,23 +1,10 @@
-import { App, Astal, Gtk } from 'astal/gtk3';
+import { labelMap, updateInterval } from '../lib/constants';
+import { App, Astal, Gtk, Gdk } from 'astal/gtk3';
 import { Variable, bind, GLib } from 'astal';
 import { execAsync } from 'astal/process';
 import Wp from 'gi://AstalWp';
 import Tray from 'gi://AstalTray';
 import Pango from 'gi://Pango';
-
-const TIMEOUT = 200;
-const JAPANESE_LABELS = [
-  '一',
-  '二',
-  '三',
-  '四',
-  '五',
-  '六',
-  '七',
-  '八',
-  '九',
-  '十',
-];
 
 type WMState = {
   activeWs: Variable<number>;
@@ -26,7 +13,7 @@ type WMState = {
   focusWorkspace: (id: number) => void;
 };
 
-const getWM = (): WMState => {
+const getWM = (monitor: number): WMState => {
   const current = GLib.getenv('XDG_CURRENT_DESKTOP') || '';
 
   if (current.toLowerCase().includes('niri')) {
@@ -34,26 +21,33 @@ const getWM = (): WMState => {
     const occupiedWs = Variable<number[]>([]);
     const title = Variable('');
 
-    Variable(null).poll(TIMEOUT, () => {
+    Variable(null).poll(updateInterval, () => {
       execAsync('niri msg workspaces')
         .then((out) => {
-          const occupied: number[] = [];
+          const monitors = out.split(/^Output /m).slice(1);
+          const currentMonitorData = monitors[monitor];
+
+          if (!currentMonitorData) return;
+
+          const occupied = new Set<number>();
           let active = 1;
-          out.split('\n').forEach((line) => {
+
+          currentMonitorData.split('\n').forEach((line) => {
             const match = line.match(/^\s*(\*?)\s*(\d+)/);
             if (match) {
               const id = parseInt(match[2]);
-              occupied.push(id);
+              occupied.add(id);
               if (match[1] === '*') active = id;
             }
           });
-          occupiedWs.set(occupied);
+
+          occupiedWs.set([...occupied].sort((a, b) => a - b));
           activeWs.set(active);
         })
         .catch(() => {});
     });
 
-    Variable(null).poll(TIMEOUT, () => {
+    Variable(null).poll(updateInterval, () => {
       execAsync('niri msg focused-window')
         .then((out) => {
           const match = out.match(/Title: "(.*)"/);
@@ -75,7 +69,7 @@ const getWM = (): WMState => {
     const occupiedWs = Variable<number[]>([]);
     const title = Variable('');
 
-    Variable(null).poll(TIMEOUT, () => {
+    Variable(null).poll(updateInterval, () => {
       execAsync('swaymsg -t get_workspaces')
         .then((out) => {
           try {
@@ -89,7 +83,7 @@ const getWM = (): WMState => {
         .catch(() => {});
     });
 
-    Variable(null).poll(TIMEOUT, () => {
+    Variable(null).poll(updateInterval, () => {
       execAsync('swaymsg -t get_tree')
         .then((out) => {
           try {
@@ -123,36 +117,28 @@ const getWM = (): WMState => {
   }
 };
 
-const wm = getWM();
-
-function Workspaces() {
+function Workspaces({ wm }: { wm: WMState }) {
   return (
     <box className="workspaces">
-      {JAPANESE_LABELS.map((label, i) => {
-        const wsNum = i + 1;
-
-        const className = Variable.derive(
-          [wm.activeWs, wm.occupiedWs],
-          (active, occupied) => {
-            if (active === wsNum) return 'focused';
-            if (occupied.includes(wsNum)) return 'occupied';
-            return '';
-          },
-        );
-
-        return (
-          <button
-            label={label}
-            onClicked={() => wm.focusWorkspace(wsNum)}
-            className={bind(className)}
-          />
-        );
-      })}
+      {bind(wm.occupiedWs).as((ids) =>
+        ids.map((id) => {
+          const label = labelMap[id - 1] || String(id);
+          return (
+            <button
+              label={label}
+              onClick={() => wm.focusWorkspace(id)}
+              className={bind(wm.activeWs).as((active) =>
+                active === id ? 'focused' : ''
+              )}
+            />
+          );
+        })
+      )}
     </box>
   );
 }
 
-function ClientTitle() {
+function ClientTitle({ wm }: { wm: WMState }) {
   return (
     <label
       className="client-title"
@@ -202,14 +188,27 @@ function SysTray() {
     <box className="tray">
       {bind(tray, 'items').as((items) =>
         items.map((item) => (
-          <menubutton
+          <button
             tooltipMarkup={bind(item, 'tooltipMarkup')}
-            usePopover={false}
-            actionGroup={bind(item, 'actionGroup').as((ag) => ['dbusmenu', ag])}
-            menuModel={bind(item, 'menuModel')}
+            onClick={(self, event) => {
+              if (event.button === Astal.MouseButton.PRIMARY) {
+                item.activate(0, 0);
+              } else if (event.button === Astal.MouseButton.SECONDARY) {
+                const menu = Gtk.Menu.new_from_model(item.menuModel);
+                menu.insert_action_group('dbusmenu', item.actionGroup);
+                // Added class for styling
+                menu.get_style_context().add_class('tray-menu');
+                menu.popup_at_widget(
+                  self,
+                  Gdk.Gravity.SOUTH,
+                  Gdk.Gravity.NORTH,
+                  null,
+                );
+              }
+            }}
           >
             <icon gicon={bind(item, 'gicon')} />
-          </menubutton>
+          </button>
         )),
       )}
     </box>
@@ -217,29 +216,33 @@ function SysTray() {
 }
 
 export default function Bar(monitor: number) {
+  const wm = getWM(monitor);
   return (
     <window
       name={`bar-${monitor}`}
       className="bar"
       monitor={monitor}
       anchor={
-        Astal.WindowAnchor.BOTTOM |
+        Astal.WindowAnchor.TOP |
         Astal.WindowAnchor.LEFT |
         Astal.WindowAnchor.RIGHT
       }
       exclusivity={Astal.Exclusivity.EXCLUSIVE}
       application={App}
+      marginTop={8}
+      marginLeft={8}
+      marginRight={8}
     >
       <centerbox
         className="body"
         startWidget={
           <box>
-            <Workspaces />
+            <Workspaces wm={wm} />
           </box>
         }
         centerWidget={
           <box>
-            <ClientTitle />
+            <ClientTitle wm={wm} />
           </box>
         }
         endWidget={

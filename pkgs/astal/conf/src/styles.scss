@@ -1,0 +1,293 @@
+$primary: #fefefe;
+$bg: #000000;
+$altbg: #1e1e1e;
+$fg: #ededed;
+$black: #000000;
+$red: #dd1111;
+$green: #04db04;
+$yellow: #cccc00;
+$blue: #333ccc;
+$magenta: #4e00e4;
+$cyan: #04cccc;
+$white: #ffffff;
+
+// general
+* {
+  all: unset;
+  font-weight: 500;
+  font-family: Inter;
+}
+
+label {
+  font-weight: 500;
+}
+
+progress,
+highlight {
+  background: $primary;
+  min-height: 7px;
+  border-radius: 4px;
+}
+
+slider {
+  box-shadow: none;
+  background-color: $primary;
+  outline: 1px solid $altbg;
+  border-radius: 6px;
+  min-height: 7px;
+}
+
+menu {
+  background: $bg;
+  padding: 8px;
+  border-radius: 6px;
+
+  separator {
+    background: transparent;
+  }
+
+  menuitem {
+    padding: 4px 2px;
+    border: 1px solid transparent;
+    margin: 4px 0;
+    border-radius: 4px;
+    &:first-child {
+      margin-top: 0;
+    }
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    &:hover {
+      background: $altbg;
+      border: 1px solid $black;
+    }
+  }
+}
+
+// bar
+.bar {
+  color: $fg;
+  font-size: 13px;
+  background: transparent;
+}
+
+.body {
+  background: $bg;
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+
+.tray {
+  margin-right: 12px;
+}
+
+.tray button {
+  background: transparent;
+  border: none;
+  margin-left: 12px;
+}
+
+.workspaces button {
+  background: transparent;
+  margin: 0 4px;
+  padding: 2px 8px 4px 8px;
+  border-radius: 4px;
+}
+
+.workspaces button label {
+  padding: 0;
+  margin: 0;
+}
+
+.workspaces button.focused {
+  background: $primary;
+  color: $bg;
+}
+
+.workspaces button.occupied {
+  background: $altbg;
+}
+
+.client-title {
+  margin-left: 1em;
+  color: $fg;
+  font-family: 'JetBrainsMono Nerd Font';
+}
+
+.volume {
+  min-width: 90px;
+  margin-right: 12px;
+}
+
+.volume button {
+  border: 1px solid transparent;
+  outline: none;
+  background: transparent;
+  margin-right: 12px;
+}
+
+.clock {
+  margin-right: 6px;
+}
+
+// launcher
+window#launcher {
+  background: transparent;
+}
+
+.launcher-backdrop {
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.launcher-panel {
+  background-color: $bg;
+  border: 1px solid $altbg;
+  border-radius: 6px;
+  padding: 12px;
+  margin-top: 100px;
+}
+
+.launcher-panel .search {
+  background: transparent;
+  color: $primary;
+  font-size: 14px;
+  font-weight: bold;
+  caret-color: $primary;
+  min-height: 30px;
+}
+
+.launcher-panel .search:focus {
+  box-shadow: none;
+  outline: none;
+}
+
+.launcher-panel .results {
+  margin-top: 8px;
+}
+
+.launcher-panel .results .item {
+  padding: 6px 10px;
+  border-radius: 6px;
+  color: $fg;
+  font-size: 13px;
+  border: 1px solid transparent;
+}
+
+.launcher-panel .results .item:hover,
+.launcher-panel .results .item:focus {
+  border: 1px solid $altbg;
+  background-color: rgba(30, 30, 30, 0.5);
+  color: $primary;
+}
+
+// powermenu
+window#powermenu {
+  background: transparent;
+}
+
+.powermenu-backdrop {
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.powermenu {
+  background: $bg;
+  border: 1px solid $altbg;
+  border-radius: 6px;
+  padding: 12px;
+  min-width: 50px;
+}
+
+.powermenu button {
+  padding: 10px;
+  border-radius: 6px;
+  background: $altbg;
+  color: $fg;
+  margin-bottom: 6px;
+  border: 1px solid transparent;
+}
+
+.powermenu button:focus,
+.powermenu button:hover {
+  background: $primary;
+  color: $bg;
+  border: 1px solid $primary;
+}
+
+.powermenu .icon {
+  font-family: 'JetBrainsMono Nerd Font';
+  font-size: 20px;
+}
+
+// notifications
+.notifications-window {
+  background: transparent;
+}
+
+.notifications-list {
+  padding: 10px;
+}
+
+.notification {
+  background: $bg;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  border: 1px solid $altbg;
+  min-width: 300px;
+}
+
+.notification.critical {
+  background: $red;
+  border: 1px solid $primary;
+  label {
+    color: $bg;
+  }
+  .header {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  }
+}
+
+.notification .content-btn {
+  padding: 12px;
+  background: transparent;
+}
+
+.notification .header {
+  margin-bottom: 8px;
+  border-bottom: 1px solid $altbg;
+  padding-bottom: 4px;
+}
+
+.notification .app-name {
+  font-weight: bold;
+  margin-left: 6px;
+  margin-right: 6px;
+}
+
+.notification .time {
+  font-size: 11px;
+  opacity: 0.7;
+}
+
+.notification .summary {
+  font-weight: bold;
+  font-size: 14px;
+  color: $primary;
+}
+
+.notification .actions {
+  margin: 0 12px 12px 12px;
+}
+
+.notification .actions button {
+  background: $altbg;
+  padding: 6px;
+  border-radius: 4px;
+}
+
+.notification .actions button:hover {
+  background: $primary;
+  label {
+    color: $bg;
+  }
+}

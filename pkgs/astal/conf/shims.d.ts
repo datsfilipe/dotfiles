@@ -4,6 +4,8 @@ declare module 'astal/process';
 declare module 'astal/gtk3';
 declare module 'astal' {
   export interface Variable<T> {
+    (): T;
+    <R>(transform: (value: T) => R): R;
     set: (value: T) => void;
     get: () => T;
     poll: (
@@ -12,6 +14,7 @@ declare module 'astal' {
     ) => {
       drop: () => void;
     };
+    subscribe: (callback: (value: T) => void) => void;
   }
 
   export const Variable: {
@@ -33,3 +36,14 @@ declare module 'gi://GLib';
 declare module 'gi://AstalTray';
 declare module 'gi://AstalWp';
 declare module 'gi://Pango';
+declare module 'gi://AstalNotifd';
+declare module 'gi://AstalApps' {
+  export interface Application {
+    name: string;
+    launch: () => void;
+  }
+
+  export class Apps {
+    fuzzy_query: (query: string) => Application[];
+  }
+}

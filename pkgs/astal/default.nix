@@ -6,10 +6,7 @@
   astal,
   ags,
   ...
-}: 
-let
-  # We create a custom 'ags' executable that already knows about your libraries.
-  # This is the "Nix" equivalent of installing libraries globally for the quick start.
+}: let
   myAgs = ags.override {
     extraPackages = [
       astal.battery
@@ -17,30 +14,51 @@ let
       astal.tray
       astal.astal3
       astal.io
+      astal.apps
+      astal.notifd
     ];
   };
 in
-stdenv.mkDerivation {
-  pname = "bar";
-  version = "1.0.0";
-  src = ./.;
+  stdenv.mkDerivation {
+    pname = "astal";
+    version = "1.0.0";
+    src = ./.;
 
-  buildInputs = [
-    myAgs
-    dart-sass
-  ];
+    buildInputs = [
+      myAgs
+      dart-sass
+    ];
 
-  installPhase = ''
-    mkdir -p $out/share/bar
-    cp -r . $out/share/bar
+    installPhase = ''
+      mkdir -p $out/share/wmain
+      cp -r . $out/share/wmain
 
-    mkdir -p $out/bin
-    
-    echo "#!${bash}/bin/bash" > $out/bin/bar
-    
-    echo "export PATH=${lib.makeBinPath [ dart-sass ]}:\$PATH" >> $out/bin/bar
-    echo "${myAgs}/bin/ags run $out/share/bar/conf/src/app.ts" >> $out/bin/bar
-    
-    chmod +x $out/bin/bar
-  '';
-}
+      mkdir -p $out/bin
+
+      cat <<EOF > $out/bin/wmain
+      #!${bash}/bin/bash
+      export PATH=${lib.makeBinPath [dart-sass]}:\$PATH
+
+      cd $out/share/wmain/conf/src
+      if [ "\$#" -gt 0 ]; then
+        ${myAgs}/bin/ags request "\$1" --instance bar
+      else
+        ${myAgs}/bin/ags run app.ts
+      fi
+      EOF
+
+      cat <<EOF > $out/bin/wlauncher
+      #!${bash}/bin/bash
+      ${myAgs}/bin/ags request "launcher" --instance bar
+      EOF
+
+      cat <<EOF > $out/bin/wpowermenu
+      #!${bash}/bin/bash
+      ${myAgs}/bin/ags request "powermenu" --instance bar
+      EOF
+
+      chmod +x $out/bin/wmain
+      chmod +x $out/bin/wlauncher
+      chmod +x $out/bin/wpowermenu
+    '';
+  }

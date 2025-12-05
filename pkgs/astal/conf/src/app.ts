@@ -4,6 +4,10 @@ import { exec } from 'astal/process';
 import { readFile, writeFile } from 'astal/file';
 import GLib from 'gi://GLib';
 import Bar from './widget/bar';
+import Launcher from './widget/launcher';
+import PowerMenu from './widget/powermenu';
+import Notifications from './widget/notifications';
+import { launcherVisible, powerMenuVisible } from './lib/state';
 
 const SCSS_TMP = '/tmp/modified_styles.scss';
 const CSS_OUT = '/tmp/style.css';
@@ -31,8 +35,22 @@ try {
 App.start({
   instanceName: 'bar',
   css: CSS_OUT,
+  requestHandler(request, res) {
+    if (request === 'launcher') {
+      launcherVisible.set(!launcherVisible.get());
+      res('ok');
+    } else if (request === 'powermenu') {
+      powerMenuVisible.set(!powerMenuVisible.get());
+      res('ok');
+    } else {
+      res('unknown command');
+    }
+  },
   main() {
     Bar(0);
     Bar(1);
+    Launcher();
+    PowerMenu();
+    Notifications(0);
   },
 });
