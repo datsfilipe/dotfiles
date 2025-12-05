@@ -52,6 +52,7 @@ in {
     enableFzfIntegration = true;
     enableNiriIntegration = true;
     enableFuzzelIntegration = true;
+    enableAstalIntegration = true;
   };
 
   modules.themes.${common.theme}.enable = true;
