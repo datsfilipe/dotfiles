@@ -11,6 +11,7 @@
     slack
     bitwarden-desktop
     pavucontrol
+    obs-studio
     bc
   ];
 
