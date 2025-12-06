@@ -8,6 +8,7 @@
   linux-shimeji,
   ghostty,
   theme,
+  gif-filename,
   ...
 }: let
   packageFiles =
@@ -44,7 +45,7 @@
               if toString file == toString scriptFile
               then {inherit unix-scripts;}
               else if toString file == toString astalFile
-              then {inherit colorscheme;}
+              then {inherit colorscheme gif-filename;}
               else {};
           in
             pkgsWithOverlays.callPackage file scriptArgs;

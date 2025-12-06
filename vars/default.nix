@@ -25,8 +25,11 @@ in {
 
   # common hosts config
   hostsConfig = {
-    wallpaper = "/home/dtsf/gdrive/walls/46.png";
     theme = "vesper";
+    wallpaper = "/home/dtsf/gdrive/walls/46.png";
+
+    # used by powermenu widget
+    gif-filename = "gif0.gif";
 
     monitors = {
       pc = [

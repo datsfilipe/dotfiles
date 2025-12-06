@@ -7,7 +7,7 @@ import { powerMenuVisible } from '../lib/state';
 
 const gifPulse = Variable(false);
 
-export default function PowerMenu() {
+export default function PowerMenu(gifFilename: string) {
   const hide = () => powerMenuVisible.set(false);
 
   const run = (cmd: string) => {
@@ -21,7 +21,7 @@ export default function PowerMenu() {
   };
 
   const currentDir = GLib.get_current_dir();
-  const gifPath = GLib.build_filenamev([currentDir, 'assets/gif0.gif']);
+  const gifPath = GLib.build_filenamev([currentDir, `assets/${gifFilename}`]);
 
   return (
     <window

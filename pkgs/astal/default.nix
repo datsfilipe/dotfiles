@@ -6,6 +6,7 @@
   astal,
   ags,
   colorscheme,
+  gif-filename,
   ...
 }: let
   myAgs = ags.override {
@@ -40,6 +41,7 @@ in
       #!${bash}/bin/bash
       export PATH=${lib.makeBinPath [dart-sass]}:\$PATH
       export LAUNCHER_CURSOR_COLOR="${colorscheme.colors.primary}"
+      export POWERMENU_GIF_FILENAME="${gif-filename}"
 
       cd $out/share/wmain/conf/src
       if [ "\$#" -gt 0 ]; then

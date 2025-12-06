@@ -15,6 +15,7 @@ const STYLES_SRC = './styles.scss';
 const VARS_SRC = `${GLib.get_home_dir()}/.local/share/astal/variables.scss`;
 
 const LAUNCHER_CURSOR_COLOR = GLib.getenv('LAUNCHER_CURSOR_COLOR') || '#fefefe';
+const POWERMENU_GIF_FILENAME = GLib.getenv('POWERMENU_GIF_FILENAME') || 'gif0.gif';
 
 try {
   let content = '';
@@ -52,7 +53,7 @@ App.start({
     Bar(0);
     Bar(1);
     Launcher(LAUNCHER_CURSOR_COLOR);
-    PowerMenu();
+    PowerMenu(POWERMENU_GIF_FILENAME);
     Notifications(0);
   },
 });
