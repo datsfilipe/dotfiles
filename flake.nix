@@ -10,11 +10,11 @@
         astal.follows = "astal";
         nixpkgs.follows = "nixpkgs";
       };
-      url = "github:aylur/ags";
+      url = "github:aylur/ags/e169694390548dfd38ff40f1ef2163d6c3ffe3ea";
     };
     astal = {
       inputs.nixpkgs.follows = "nixpkgs";
-      url = "github:aylur/astal";
+      url = "github:aylur/astal/7d1fac8a4b2a14954843a978d2ddde86168c75ef";
     };
     datsnvim = {
       inputs = {

@@ -50,9 +50,9 @@ in
       zellij-switch = mkInput "github:datsfilipe/zellij-switch/flake" ["nixpkgs"];
       home-manager = mkInput "github:nix-community/home-manager/master" ["nixpkgs"];
       sops-nix = mkInput "github:Mic92/sops-nix/master" ["nixpkgs"];
-      astal = mkInput "github:aylur/astal" ["nixpkgs"];
+      astal = mkInput "github:aylur/astal/7d1fac8a4b2a14954843a978d2ddde86168c75ef" ["nixpkgs"];
       datsnvim = mkInput "github:datsfilipe/datsnvim/main" ["nixpkgs" "home-manager"];
-      ags = mkInput "github:aylur/ags" ["nixpkgs" "astal"];
+      ags = mkInput "github:aylur/ags/e169694390548dfd38ff40f1ef2163d6c3ffe3ea" ["nixpkgs" "astal"];
       meow = mkInput "github:datsfilipe/meow/main" {inputs.nixpkgs.follows = "nixpkgs-unstable";};
       unix-scripts = local ../pkgs/scripts/conf;
     };
