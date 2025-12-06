@@ -21,44 +21,39 @@ in
   {
     description = "datsdots";
     inputs = let
-      ext = url: with-nixpkgs:
-        {
-          inherit url;
-        }
+      mkInput = url: args:
+        {inherit url;}
         // (
-          if with-nixpkgs
-          then {
-            inputs.nixpkgs.follows = "nixpkgs";
-          }
-          else {}
+          if isList args
+          then
+            (
+              if args == []
+              then {}
+              else {
+                inputs = listToAttrs (map (name: {
+                    inherit name;
+                    value = {follows = name;};
+                  })
+                  args);
+              }
+            )
+          else args
         );
 
-      ext-unstable = url: let
-        base = {inherit url;};
-      in
-        base // {inputs = {nixpkgs.follows = "nixpkgs-unstable";};};
-
-      ext-hm = url: {
-        inherit url;
-        inputs.nixpkgs.follows = "nixpkgs";
-        inputs.home-manager.follows = "home-manager";
-      };
-
-      local = path: {
-        url = "git+file://${toString path}?shallow=1";
-        flake = false;
-      };
+      local = path: mkInput "git+file://${toString path}?shallow=1" {flake = false;};
     in {
       nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
       nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
       nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.11";
-      ghostty = ext "github:ghostty-org/ghostty/main" false;
-      linux-shimeji = ext "github:datsfilipe/linux-shimeji/main" true;
-      zellij-switch = ext "github:datsfilipe/zellij-switch/flake" true;
-      home-manager = ext "github:nix-community/home-manager/master" true;
-      sops-nix = ext "github:Mic92/sops-nix/master" true;
-      meow = ext-unstable "github:datsfilipe/meow/main";
-      datsnvim = ext-hm "github:datsfilipe/datsnvim/main";
+      ghostty = mkInput "github:ghostty-org/ghostty/main" [];
+      linux-shimeji = mkInput "github:datsfilipe/linux-shimeji/main" ["nixpkgs"];
+      zellij-switch = mkInput "github:datsfilipe/zellij-switch/flake" ["nixpkgs"];
+      home-manager = mkInput "github:nix-community/home-manager/master" ["nixpkgs"];
+      sops-nix = mkInput "github:Mic92/sops-nix/master" ["nixpkgs"];
+      astal = mkInput "github:aylur/astal" ["nixpkgs"];
+      datsnvim = mkInput "github:datsfilipe/datsnvim/main" ["nixpkgs" "home-manager"];
+      ags = mkInput "github:aylur/ags" ["nixpkgs" "astal"];
+      meow = mkInput "github:datsfilipe/meow/main" {inputs.nixpkgs.follows = "nixpkgs-unstable";};
       unix-scripts = local ../pkgs/scripts/conf;
     };
     outputs = "inputs: import ./outputs inputs";
