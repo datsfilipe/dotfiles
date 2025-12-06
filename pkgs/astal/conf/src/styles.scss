@@ -1,6 +1,7 @@
 $primary: #fefefe;
 $bg: #000000;
 $altbg: #1e1e1e;
+$selection: #505050;
 $fg: #ededed;
 $black: #000000;
 $red: #dd1111;
@@ -18,7 +19,6 @@ $white: #ffffff;
   font-family: Inter;
 }
 
-// Enforce Monospace for the "Terminal" feel and alignment
 .launcher-panel, 
 .launcher-panel label, 
 .launcher-panel entry {
@@ -156,7 +156,6 @@ window#launcher {
 .launcher-panel .search-box {
   background-color: $bg;
   border-bottom: 1px solid $altbg;
-  // Padding removed here, handled by children margins
 }
 
 .launcher-panel .search-entry {
@@ -165,10 +164,9 @@ window#launcher {
   caret-color: transparent;
   border: none;
   box-shadow: none;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: bold;
-  // Margins force vertical centering
-  margin: 14px 12px; 
+  margin: 16px 12px; 
 }
 
 .launcher-panel .search-entry:focus {
@@ -178,28 +176,33 @@ window#launcher {
 
 .launcher-panel .search-label {
   color: $primary;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: bold;
-  // Margins force vertical centering (must match entry)
-  margin: 14px 12px;
+  margin: 16px 12px;
 }
 
 .launcher-panel .results {
-  padding: 4px 8px;
-  margin-top: 8px;
+  padding: 4px 8px 8px 8px;
 }
 
 .launcher-panel .results .item {
   padding: 2px 4px;
-  border-radius: 6px;
+  border: 1px solid transparent;
+  border-radius: 4px;
   color: $fg;
-  font-size: 13px;
+  font-size: 14px;
 }
 
+.launcher-panel .results .item .description {
+  font-size: 12px;
+  opacity: 0.6;
+}
+
+.launcher-panel .results .item.selected,
 .launcher-panel .results .item:hover,
 .launcher-panel .results .item:focus {
+  background-color: $black;
   border: 1px solid $altbg;
-  background-color: rgba(30, 30, 30, 0.5);
   color: $primary;
 }
 

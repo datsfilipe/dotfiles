@@ -11,10 +11,13 @@ export default function Launcher() {
   const text = Variable('');
   const cursorPos = Variable(0);
   const list = Variable<Apps.Application[]>([]);
+  const selectedIndex = Variable(0); // Track focused item
   const blink = Variable(true).poll(500, (b) => !b);
 
   text.subscribe((t) => {
     blink.set(true);
+    // Always reset selection to top when search changes
+    selectedIndex.set(0);
     if (!t) list.set([]);
     else list.set(apps.fuzzy_query(t).slice(0, 8));
   });
@@ -24,6 +27,7 @@ export default function Launcher() {
     text.set('');
     cursorPos.set(0);
     list.set([]);
+    selectedIndex.set(0);
   };
 
   const launch = (app: Apps.Application) => {
@@ -65,11 +69,39 @@ export default function Launcher() {
           const [okState, state] = event.get_state();
 
           if (!okKey) return false;
+
+          // 1. Navigation: Down
+          if (keyval === Gdk.KEY_Down) {
+            const current = selectedIndex.get();
+            const max = list.get().length - 1;
+            if (current < max) selectedIndex.set(current + 1);
+            return true;
+          }
+
+          // 2. Navigation: Up
+          if (keyval === Gdk.KEY_Up) {
+            const current = selectedIndex.get();
+            if (current > 0) selectedIndex.set(current - 1);
+            return true;
+          }
+
+          // 3. Action: Enter
+          if (keyval === Gdk.KEY_Return || keyval === Gdk.KEY_KP_Enter) {
+            const currentList = list.get();
+            const currentIdx = selectedIndex.get();
+            // Launch the currently selected item, or the first if index is weird
+            const app = currentList[currentIdx] || currentList[0];
+            if (app) launch(app);
+            return true;
+          }
+
+          // 4. Action: Escape
           if (keyval === Gdk.KEY_Escape) {
             hide();
             return true;
           }
 
+          // 5. Action: Ctrl+C
           if (
             okState &&
             state & Gdk.ModifierType.CONTROL_MASK &&
@@ -78,6 +110,7 @@ export default function Launcher() {
             hide();
             return true;
           }
+
           return false;
         });
 
@@ -107,7 +140,16 @@ export default function Launcher() {
         <eventbox vexpand onClick={hide} />
 
         <box halign={Gtk.Align.CENTER} vertical>
-          <box className="launcher-panel" vertical widthRequest={500}>
+          <box
+            className="launcher-panel"
+            vertical
+            widthRequest={500}
+            css={list((l) =>
+              l.length > 0
+                ? 'border-bottom-left-radius: 0; border-bottom-right-radius: 0; border-bottom: none;'
+                : '',
+            )}
+          >
             <overlay className="search-box">
               <label
                 className="search-label"
@@ -133,35 +175,70 @@ export default function Launcher() {
                   cursorPos.set(self.cursor_position);
                   blink.set(true);
                 }}
+                // Handled by window key-press mostly, but good backup
                 onActivate={() => {
-                  const first = list.get()[0];
-                  if (first) launch(first);
+                  const currentList = list.get();
+                  const app =
+                    currentList[selectedIndex.get()] || currentList[0];
+                  if (app) launch(app);
                 }}
               />
             </overlay>
-
-            <box
-              className="results"
-              vertical
-              spacing={5}
-              visible={list((l) => l.length > 0)}
-            >
-              {list((l) =>
-                l.map((app) => (
-                  <button className="item" onClick={() => launch(app)}>
-                    <label
-                      label={app.name}
-                      xalign={0}
-                      halign={Gtk.Align.START}
-                    />
-                  </button>
-                )),
-              )}
-            </box>
           </box>
         </box>
 
-        <eventbox vexpand valign={Gtk.Align.FILL} onClick={hide} />
+        <overlay vexpand>
+          <eventbox vexpand onClick={hide} />
+
+          <box halign={Gtk.Align.CENTER} valign={Gtk.Align.START} vertical>
+            <box
+              className="launcher-panel"
+              vertical
+              widthRequest={500}
+              spacing={5}
+              visible={list((l) => l.length > 0)}
+              css="margin-top: -1px; border-top-left-radius: 0; border-top-right-radius: 0; border-top: none;"
+            >
+              <box
+                halign={Gtk.Align.CENTER}
+                vexpand={false}
+                widthRequest={498}
+                css="min-height: 1px; background-color: #343434; margin: 2px 0;"
+              />
+
+              <box className="results" vertical spacing={5}>
+                {list((l) =>
+                  l.map((app, i) => (
+                    <button
+                      className={selectedIndex((s) =>
+                        s === i ? 'item selected' : 'item',
+                      )}
+                      onClick={() => launch(app)}
+                    >
+                      <box spacing={10}>
+                        <label
+                          label={app.name}
+                          xalign={0}
+                          halign={Gtk.Align.START}
+                          hexpand
+                          ellipsize={3}
+                        />
+                        <label
+                          label={app.description || ''}
+                          visible={!!app.description}
+                          halign={Gtk.Align.END}
+                          maxWidthChars={30}
+                          ellipsize={3}
+                          className="description"
+                        />
+                      </box>
+                    </button>
+                  )),
+                )}
+              </box>
+            </box>
+          </box>
+        </overlay>
       </box>
     </window>
   );

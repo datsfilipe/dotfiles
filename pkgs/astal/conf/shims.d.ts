@@ -41,6 +41,7 @@ declare module 'gi://AstalNotifd';
 declare module 'gi://AstalApps' {
   export interface Application {
     name: string;
+    description: string;
     launch: () => void;
   }
 
