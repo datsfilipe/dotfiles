@@ -22,8 +22,6 @@ in {
     home.packages = with pkgs; [
       yad
       niri
-      dunst
-      fuzzel
       wl-clipboard
       xwayland-satellite
     ];
@@ -31,7 +29,7 @@ in {
     modules.desktop.wms.niri.user.rawConfigValues = [
       ''spawn-at-startup "sh" "-c" "udiskie --tray --notify"''
       ''spawn-at-startup "sh" "-c" "systemctl --user restart wallpaper.service"''
-      ''spawn-at-startup "sh" "-c" "${pkgs.dunst}/bin/dunst --config ${config.home.homeDirectory}/.config/dunstrc"''
+      ''spawn-at-startup "sh" "-c" "wmain"''
       ''spawn-at-startup "sh" "-c" "nm-applet"''
 
       (lib.concatStringsSep "\n" (map (m: ''

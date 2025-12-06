@@ -19,7 +19,6 @@ in {
   };
 
   modules.desktop.conf = {
-    enableDunstIntegration = true;
     enableCavaIntegration = true;
     enableZellijIntegration = true;
   };
@@ -41,7 +40,6 @@ in {
 
   modules.desktop.colorscheme = {
     enable = true;
-    enableDunstIntegration = true;
     enableNeovimIntegration = true;
     enableGTKIntegration = true;
     enableFishIntegration = true;
@@ -50,7 +48,6 @@ in {
     enableGhosttyIntegration = true;
     enableFzfIntegration = true;
     enableNiriIntegration = true;
-    enableFuzzelIntegration = true;
   };
 
   modules.themes.${common.theme}.enable = true;
