@@ -36,12 +36,24 @@ highlight {
   border-radius: 4px;
 }
 
+/* Updated Global Slider Styles */
 slider {
-  box-shadow: none;
-  background-color: $primary;
-  outline: 1px solid $altbg;
+  min-height: 10px;
+  min-width: 10px;
+}
+
+/* Style the track (empty part) */
+slider trough {
+  min-height: 10px;
   border-radius: 6px;
-  min-height: 7px;
+  background-color: $altbg;
+}
+
+/* Style the filled part */
+slider highlight {
+  min-height: 10px;
+  border-radius: 6px;
+  background-color: $primary;
 }
 
 menu {
@@ -123,15 +135,51 @@ menu {
 }
 
 .volume {
-  min-width: 90px;
-  margin-right: 12px;
+  margin-right: 6px;
 }
 
 .volume button {
-  border: 1px solid transparent;
-  outline: none;
   background: transparent;
-  margin-right: 12px;
+  border: none;
+  margin-right: 4px; 
+}
+
+.volume-slider {
+  margin-left: 8px;
+  margin-right: 4px;
+  min-width: 75px;
+  min-height: 6px; 
+  margin-top: 0;
+  margin-bottom: 0;
+  padding: 0;
+}
+
+.volume-slider trough {
+  min-height: 6px;
+  border-radius: 3px;
+  background-color: $altbg;
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+.volume-slider highlight {
+  min-height: 6px;
+  border-radius: 3px;
+  background-color: $primary;
+  margin: 0;
+  padding: 0;
+}
+
+.volume-slider slider {
+  min-height: 0px;
+  min-width: 0px;
+  opacity: 0;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  margin: 0;
+  padding: 0;
 }
 
 .clock {

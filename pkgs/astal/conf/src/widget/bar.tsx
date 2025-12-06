@@ -128,11 +128,11 @@ function Workspaces({ wm }: { wm: WMState }) {
               label={label}
               onClick={() => wm.focusWorkspace(id)}
               className={bind(wm.activeWs).as((active) =>
-                active === id ? 'focused' : ''
+                active === id ? 'focused' : '',
               )}
             />
           );
-        })
+        }),
       )}
     </box>
   );
@@ -152,23 +152,39 @@ function ClientTitle({ wm }: { wm: WMState }) {
 function Volume() {
   const audio = Wp.get_default()?.audio;
   const speaker = audio?.defaultSpeaker;
+  const revealed = Variable(false);
 
   if (!speaker) return <box />;
 
   return (
-    <box className="volume">
-      <button>
-        <icon
-          icon={bind(speaker, 'volumeIcon').as(() => 'audio-speakers-symbolic')}
-        />
-      </button>
-      <slider
-        hexpand
-        drawValue={false}
-        value={bind(speaker, 'volume')}
-        onDragged={({ value }) => (speaker.volume = value)}
-      />
-    </box>
+    <eventbox
+      onHover={() => revealed.set(true)}
+      onHoverLost={() => revealed.set(false)}
+    >
+      <box className="volume">
+        <button onClick={() => (speaker.mute = !speaker.mute)}>
+          <icon
+            icon={bind(speaker, 'volumeIcon').as(
+              (i) => i || 'audio-speakers-symbolic',
+            )}
+          />
+        </button>
+        <revealer
+          revealChild={bind(revealed)}
+          transitionType={Gtk.RevealerTransitionType.SLIDE_RIGHT}
+          transitionDuration={300}
+        >
+          <slider
+            className="volume-slider"
+            hexpand
+            drawValue={false}
+            valign={Gtk.Align.CENTER}
+            value={bind(speaker, 'volume')}
+            onDragged={({ value }) => (speaker.volume = value)}
+          />
+        </revealer>
+      </box>
+    </eventbox>
   );
 }
 
@@ -196,7 +212,6 @@ function SysTray() {
               } else if (event.button === Astal.MouseButton.SECONDARY) {
                 const menu = Gtk.Menu.new_from_model(item.menuModel);
                 menu.insert_action_group('dbusmenu', item.actionGroup);
-                // Added class for styling
                 menu.get_style_context().add_class('tray-menu');
                 menu.popup_at_widget(
                   self,
