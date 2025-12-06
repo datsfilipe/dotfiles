@@ -1,7 +1,7 @@
 {colorscheme, ...}: {
   programs.rio.settings = {
     colors.background = "${colorscheme.colors.bg}";
-    colors.black = "${colorscheme.colors.black}";
+    colors.selection = "${colorscheme.colors.selection}";
     colors.blue = "${colorscheme.colors.blue}";
     colors.cyan = "${colorscheme.colors.cyan}";
     colors.foreground = "${colorscheme.colors.fg}";
@@ -30,7 +30,7 @@
     colors.selection-foreground = "${colorscheme.colors.bg}";
     colors.selection-background = "${colorscheme.colors.primary}";
 
-    colors.dim-black = "${colorscheme.colors.black}";
+    colors.dim-black = "${colorscheme.colors.selection}";
     colors.dim-blue = "${colorscheme.colors.blue}";
     colors.dim-cyan = "${colorscheme.colors.cyan}";
     colors.dim-foreground = "${colorscheme.colors.fg}";
@@ -40,7 +40,7 @@
     colors.dim-white = "${colorscheme.colors.white}";
     colors.dim-yellow = "${colorscheme.colors.yellow}";
 
-    colors.light-black = "${colorscheme.colors.black}";
+    colors.light-black = "${colorscheme.colors.selection}";
     colors.light-blue = "${colorscheme.colors.blue}";
     colors.light-cyan = "${colorscheme.colors.cyan}";
     colors.light-foreground = "${colorscheme.colors.fg}";

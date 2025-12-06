@@ -70,9 +70,6 @@ window-rule {
 }
 
 binds {
-  Mod+D { spawn "fuzzel"; }
-  Super+Alt+L { spawn "swaylock"; }
-
   XF86AudioRaiseVolume  allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1+"; }
   XF86AudioLowerVolume  allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1-"; }
   XF86AudioMute         allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"; }
@@ -131,10 +128,14 @@ binds {
   Mod+F { maximize-column; }
   Mod+E { center-column; }
   Mod+Q { close-window; }
-  Mod+Shift+E repeat=false { spawn "powermenu-gtk"; }
 
-  Alt+W { spawn "switch-kb-variant"; }
-  Alt+Shift+W { spawn "switch-kb-variant" "intl"; }
+  Super+Alt+L { spawn "swaylock"; }
+  Mod+Shift+E repeat=false { spawn "wpowermenu"; }
+  Mod+D { spawn "wlauncher"; }
+
+  Alt+K { spawn "switch-kb-variant"; }
+  Alt+I { spawn "switch-kb-variant" "intl"; }
+  Alt+W { spawn "sh" "-c" "niri msg pick-color | sed -n 's/^Hex: //p' | tr -d '\n' | shared-clipboard copy"; }
 
   Mod+Return repeat=false { spawn "sh" "-c" "ghostty -e zellij attach dtsf -c"; }
   Mod+Shift+Return repeat=false { spawn "ghostty"; }

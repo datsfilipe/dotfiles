@@ -2,7 +2,7 @@
   programs.alacritty.settings = {
     colors = {
       bright = {
-        black = colorscheme.colors.black;
+        black = colorscheme.colors.selection;
         red = colorscheme.colors.red;
         green = colorscheme.colors.green;
         yellow = colorscheme.colors.yellow;
@@ -12,7 +12,7 @@
         white = colorscheme.colors.white;
       };
       normal = {
-        black = colorscheme.colors.black;
+        black = colorscheme.colors.selection;
         red = colorscheme.colors.red;
         green = colorscheme.colors.green;
         yellow = colorscheme.colors.yellow;

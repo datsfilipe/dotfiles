@@ -1,9 +1,9 @@
 {
   lib,
   mylib,
+  myvars,
   ...
 }: let
-  common = import ../../common;
 in {
   imports = (mylib.file.scanPaths ../../../modules "user.nix") ++ [./packages.nix];
 
@@ -15,11 +15,10 @@ in {
 
   modules.hardware.monitors = {
     enable = true;
-    monitors = common.monitors.laptop;
+    monitors = myvars.hostsConfig.monitors.laptop;
   };
 
   modules.desktop.conf = {
-    enableDunstIntegration = true;
     enableCavaIntegration = true;
     enableZellijIntegration = true;
   };
@@ -41,7 +40,6 @@ in {
 
   modules.desktop.colorscheme = {
     enable = true;
-    enableDunstIntegration = true;
     enableNeovimIntegration = true;
     enableGTKIntegration = true;
     enableFishIntegration = true;
@@ -50,8 +48,7 @@ in {
     enableGhosttyIntegration = true;
     enableFzfIntegration = true;
     enableNiriIntegration = true;
-    enableFuzzelIntegration = true;
   };
 
-  modules.themes.${common.theme}.enable = true;
+  modules.themes.${myvars.hostsConfig.theme}.enable = true;
 }

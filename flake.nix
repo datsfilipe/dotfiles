@@ -5,6 +5,17 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.11";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    ags = {
+      inputs = {
+        astal.follows = "astal";
+        nixpkgs.follows = "nixpkgs";
+      };
+      url = "github:aylur/ags";
+    };
+    astal = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:aylur/astal";
+    };
     datsnvim = {
       inputs = {
         home-manager.follows = "home-manager";

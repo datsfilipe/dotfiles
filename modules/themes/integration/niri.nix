@@ -6,7 +6,7 @@
       }
 
       layout {
-        gaps 12
+        gaps 8
         center-focused-column "never"
         preset-column-widths {
           proportion 0.33333
@@ -32,6 +32,8 @@
           offset x=0 y=5
           color "${colorscheme.colors.bg}77"
         }
+
+        background-color "${colorscheme.colors.bg}"
       }
     ''
   ];

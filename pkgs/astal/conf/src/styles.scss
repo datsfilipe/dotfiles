@@ -1,0 +1,402 @@
+$primary: #fefefe;
+$bg: #000000;
+$altbg: #1e1e1e;
+$selection: #505050;
+$fg: #ededed;
+$black: #000000;
+$red: #dd1111;
+$green: #04db04;
+$yellow: #cccc00;
+$blue: #333ccc;
+$magenta: #4e00e4;
+$cyan: #04cccc;
+$white: #ffffff;
+
+// general
+* {
+  all: unset;
+  font-weight: 500;
+  font-family: Inter;
+}
+
+.launcher-panel, 
+.launcher-panel label, 
+.launcher-panel entry {
+  font-family: 'JetBrainsMono Nerd Font';
+}
+
+label {
+  font-weight: 500;
+}
+
+progress,
+highlight {
+  background: $primary;
+  min-height: 7px;
+  border-radius: 4px;
+}
+
+/* Updated Global Slider Styles */
+slider {
+  min-height: 10px;
+  min-width: 10px;
+}
+
+/* Style the track (empty part) */
+slider trough {
+  min-height: 10px;
+  border-radius: 6px;
+  background-color: $altbg;
+}
+
+/* Style the filled part */
+slider highlight {
+  min-height: 10px;
+  border-radius: 6px;
+  background-color: $primary;
+}
+
+menu {
+  background: $bg;
+  padding: 8px;
+  border-radius: 6px;
+
+  separator {
+    background: transparent;
+  }
+
+  menuitem {
+    padding: 4px 2px;
+    border: 1px solid transparent;
+    margin: 4px 0;
+    border-radius: 4px;
+    &:first-child {
+      margin-top: 0;
+    }
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    &:hover {
+      background: $altbg;
+      border: 1px solid $black;
+    }
+  }
+}
+
+// bar
+.bar {
+  color: $fg;
+  font-size: 13px;
+  background: transparent;
+}
+
+.body {
+  background: $bg;
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+
+.tray {
+  margin-right: 12px;
+}
+
+.tray button {
+  background: transparent;
+  border: none;
+  margin-left: 12px;
+}
+
+.cpu,
+.ram,
+.keyboard-layout {
+  margin-right: 12px;
+  label {
+    font-family: 'JetBrainsMono Nerd Font';
+  }
+}
+
+.workspaces button {
+  background: transparent;
+  margin: 0 4px;
+  padding: 2px 8px 4px 8px;
+  border-radius: 4px;
+}
+
+.workspaces button label {
+  padding: 0;
+  margin: 0;
+}
+
+.workspaces button.focused {
+  background: $primary;
+  color: $bg;
+}
+
+.workspaces button.occupied {
+  background: $altbg;
+}
+
+.client-title {
+  margin-left: 1em;
+  color: $fg;
+  font-family: 'JetBrainsMono Nerd Font';
+}
+
+.volume {
+  margin-right: 6px;
+}
+
+.volume button {
+  background: transparent;
+  border: none;
+  margin-right: 4px; 
+}
+
+.volume-slider {
+  margin-left: 8px;
+  margin-right: 4px;
+  min-width: 75px;
+  min-height: 6px; 
+  margin-top: 0;
+  margin-bottom: 0;
+  padding: 0;
+}
+
+.volume-slider trough {
+  min-height: 6px;
+  border-radius: 3px;
+  background-color: $altbg;
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+.volume-slider highlight {
+  min-height: 6px;
+  border-radius: 3px;
+  background-color: $primary;
+  margin: 0;
+  padding: 0;
+}
+
+.volume-slider slider {
+  min-height: 0px;
+  min-width: 0px;
+  opacity: 0;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  margin: 0;
+  padding: 0;
+}
+
+.clock {
+  margin-right: 6px;
+}
+
+// launcher
+window#launcher {
+  background: transparent;
+}
+
+.launcher-backdrop {
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.launcher-panel {
+  background-color: $bg;
+  border: 1px solid $altbg;
+  border-radius: 6px;
+}
+
+.launcher-panel .search-box {
+  background-color: $bg;
+  border-bottom: 1px solid $altbg;
+}
+
+.launcher-panel .search-entry {
+  background: transparent;
+  color: transparent;
+  caret-color: transparent;
+  border: none;
+  box-shadow: none;
+  font-size: 16px;
+  font-weight: bold;
+  margin: 16px 12px; 
+}
+
+.launcher-panel .search-entry:focus {
+  box-shadow: none;
+  outline: none;
+}
+
+.launcher-panel .search-label {
+  color: $primary;
+  font-size: 16px;
+  font-weight: bold;
+  margin: 16px 12px;
+}
+
+.launcher-panel .results {
+  padding: 4px 8px 8px 8px;
+}
+
+.launcher-panel .results .item {
+  padding: 2px 4px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: $fg;
+  font-size: 14px;
+}
+
+.launcher-panel .results .item .description {
+  font-size: 12px;
+  opacity: 0.6;
+}
+
+.launcher-panel .results .item.selected,
+.launcher-panel .results .item:hover,
+.launcher-panel .results .item:focus {
+  background-color: $black;
+  border: 1px solid $altbg;
+  color: $primary;
+}
+
+// powermenu
+window#powermenu {
+  background: transparent;
+}
+
+.powermenu-backdrop {
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.powermenu {
+  background: $bg;
+  border: 1px solid $altbg;
+  border-radius: 6px;
+  padding: 12px;
+  min-width: 50px;
+}
+
+.powermenu button {
+  border-radius: 6px;
+  background: $altbg;
+  color: $fg;
+  margin-bottom: 6px;
+  border: 1px solid transparent;
+  padding: 10px 15px 10px 10px;
+
+  image {
+     margin: 0;
+     padding: 0;
+  }
+}
+
+.powermenu button.gif-btn {
+  padding: 4px;
+}
+
+.powermenu button:focus,
+.powermenu button:hover {
+  background: $primary;
+  color: $bg;
+  border: 1px solid $primary;
+}
+
+.powermenu .icon {
+  font-family: 'JetBrainsMono Nerd Font';
+  font-size: 20px;
+}
+
+.powermenu button.pulsing {
+  background: $primary;
+  border: 1px solid $primary;
+  color: $bg;
+  transition: background 0.1s ease;
+}
+
+// notifications
+.notifications-window {
+  background: transparent;
+}
+
+.notifications-list {
+  padding: 10px;
+}
+
+.notification {
+  background: $bg;
+  border-radius: 6px;
+  margin-bottom: 8px;
+  border: 1px solid $altbg;
+  min-width: 300px;
+}
+
+.notification.critical {
+  background: $red;
+  border: 1px solid $black;
+  label {
+    color: $black;
+  }
+  .header {
+    border-bottom: 1px solid $black;
+  }
+}
+
+.notification .content-btn {
+  padding: 12px;
+  background: transparent;
+}
+
+.notification .header {
+  margin-bottom: 8px;
+  border-bottom: 1px solid $altbg;
+  padding-bottom: 4px;
+}
+
+.notification .app-name {
+  font-weight: bold;
+  margin-left: 6px;
+  margin-right: 6px;
+}
+
+.notification .time {
+  font-size: 11px;
+  opacity: 0.7;
+}
+
+.notification .summary {
+  font-weight: bold;
+  font-size: 14px;
+  color: $primary;
+}
+
+.notification .actions {
+  margin: 0 12px 12px 12px;
+}
+
+.notification .actions button {
+  background: $altbg;
+  padding: 6px;
+  border-radius: 4px;
+}
+
+.notification .actions button:hover {
+  background: $primary;
+  label {
+    color: $bg;
+  }
+}
+
+.notification.critical .actions button {
+  background: $bg;
+  label {
+    color: $fg;
+  }
+}
+
+.notification.critical .actions button:hover {
+  opacity: 0.9;
+}

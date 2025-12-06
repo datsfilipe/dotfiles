@@ -56,6 +56,7 @@ in {
       findutils
       which
       rsync
+      libnotify
     ];
   };
 }

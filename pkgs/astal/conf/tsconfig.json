@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "jsx": "preserve",
+    "moduleResolution": "bundler", 
+    "module": "ESNext", 
+    "target": "ESNext",
+    "strict": false,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "baseUrl": ".",
+    "paths": {
+      "astal/*": ["./shims.d.ts"],
+      "astal": ["./shims.d.ts"]
+    }
+  },
+  "include": [
+    "src/**/*",
+    "shims.d.ts"
+  ]
+}
