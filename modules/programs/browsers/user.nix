@@ -12,7 +12,9 @@ in {
   config = mkIf cfg.enable {
     programs.chromium = {
       enable = true;
-      package = pkgs-unstable.chromium;
+      package = pkgs-unstable.chromium.override {
+        enableWideVine = true;
+      };
       commandLineArgs = [
         "--ozone-platform=wayland"
         "--enable-features=UseOzonePlatform,WaylandWindowDecorations,WebUIDarkMode,VaapiVideoDecodeLinuxGL,VaapiVideoEncoder"
@@ -24,7 +26,6 @@ in {
         "--enable-features=RunAllCompositorResourcesBeforeSync"
         "--ignore-gpu-blocklist"
         "--disable-features=UseSkiaGraphite"
-        # "--disable-gpu-driver-bug-workarounds"
       ];
       dictionaries = [pkgs-unstable.hunspellDictsChromium.en_US];
       extensions = [
