@@ -255,7 +255,7 @@ window#powermenu {
 
 .notification {
   background: $bg;
-  border-radius: 8px;
+  border-radius: 6px;
   margin-bottom: 8px;
   border: 1px solid $altbg;
   min-width: 300px;
@@ -263,12 +263,12 @@ window#powermenu {
 
 .notification.critical {
   background: $red;
-  border: 1px solid $primary;
+  border: 1px solid $black;
   label {
-    color: $bg;
+    color: $black;
   }
   .header {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    border-bottom: 1px solid $black;
   }
 }
 
@@ -315,4 +315,15 @@ window#powermenu {
   label {
     color: $bg;
   }
+}
+
+.notification.critical .actions button {
+  background: $bg;
+  label {
+    color: $fg;
+  }
+}
+
+.notification.critical .actions button:hover {
+  opacity: 0.9;
 }

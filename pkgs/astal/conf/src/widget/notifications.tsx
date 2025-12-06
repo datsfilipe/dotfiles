@@ -22,15 +22,25 @@ export default function Notifications(monitor: number) {
             const isCritical = n.urgency === Notifd.Urgency.CRITICAL;
             const className = `notification ${isCritical ? 'critical' : ''}`;
 
+            const actions = n.actions.filter(
+              (a) => a.id !== 'default' && a.label?.trim(),
+            );
+
             return (
               <box
+                key={n.id}
                 className={className}
                 vertical
                 setup={(self) => {
-                  const timeout = isCritical ? 10000 : 5000;
+                  const now = Date.now();
+                  const duration = isCritical ? 10000 : 5000;
+                  const creationTime = n.time * 1000;
+                  const elapsed = creationTime ? now - creationTime : 0;
+                  const remaining = Math.max(0, duration - elapsed);
+
                   const id = GLib.timeout_add(
                     GLib.PRIORITY_DEFAULT,
-                    timeout,
+                    remaining,
                     () => {
                       n.dismiss();
                       return GLib.SOURCE_REMOVE;
@@ -42,7 +52,9 @@ export default function Notifications(monitor: number) {
                 <button className="content-btn" onClick={() => n.dismiss()}>
                   <box vertical>
                     <box className="header">
-                      {n.appIcon && <icon icon={n.appIcon} />}
+                      {n.appIcon && (
+                        <icon className="app-icon" icon={n.appIcon} />
+                      )}
                       <label
                         className="app-name"
                         label={n.appName || 'System'}
@@ -55,7 +67,6 @@ export default function Notifications(monitor: number) {
                       />
                     </box>
                     <box className="content" spacing={10}>
-                      {n.image && <icon className="image" icon={n.image} />}
                       <box vertical>
                         <label
                           className="summary"
@@ -63,20 +74,22 @@ export default function Notifications(monitor: number) {
                           label={n.summary}
                           truncate
                         />
-                        <label
-                          className="body"
-                          halign={Gtk.Align.START}
-                          label={n.body}
-                          wrap
-                        />
+                        {n.body && (
+                          <label
+                            className="body"
+                            halign={Gtk.Align.START}
+                            label={n.body}
+                            wrap
+                          />
+                        )}
                       </box>
                     </box>
                   </box>
                 </button>
 
-                {n.actions.length > 0 && (
+                {actions.length > 0 && (
                   <box className="actions" spacing={5}>
-                    {n.actions.map(({ id, label }) => (
+                    {actions.map(({ id, label }) => (
                       <button hexpand onClick={() => n.invoke(id)}>
                         <label label={label} />
                       </button>
