@@ -79,7 +79,7 @@ export default function PowerMenu() {
                 onClick={() => run('systemctl suspend')}
                 tooltipText="Suspend"
               >
-                <label className="icon" label="" />
+                <label className="icon" label="󰒲" />
               </button>
               <button
                 onClick={() => run('niri msg action quit -s')}
