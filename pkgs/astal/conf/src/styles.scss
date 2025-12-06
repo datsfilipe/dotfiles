@@ -107,6 +107,15 @@ menu {
   margin-left: 12px;
 }
 
+.cpu,
+.ram,
+.keyboard-layout {
+  margin-right: 12px;
+  label {
+    font-family: 'JetBrainsMono Nerd Font';
+  }
+}
+
 .workspaces button {
   background: transparent;
   margin: 0 4px;

@@ -11,12 +11,11 @@ export default function Launcher() {
   const text = Variable('');
   const cursorPos = Variable(0);
   const list = Variable<Apps.Application[]>([]);
-  const selectedIndex = Variable(0); // Track focused item
+  const selectedIndex = Variable(0);
   const blink = Variable(true).poll(500, (b) => !b);
 
   text.subscribe((t) => {
     blink.set(true);
-    // Always reset selection to top when search changes
     selectedIndex.set(0);
     if (!t) list.set([]);
     else list.set(apps.fuzzy_query(t).slice(0, 8));
@@ -70,7 +69,6 @@ export default function Launcher() {
 
           if (!okKey) return false;
 
-          // 1. Navigation: Down
           if (keyval === Gdk.KEY_Down) {
             const current = selectedIndex.get();
             const max = list.get().length - 1;
@@ -78,30 +76,25 @@ export default function Launcher() {
             return true;
           }
 
-          // 2. Navigation: Up
           if (keyval === Gdk.KEY_Up) {
             const current = selectedIndex.get();
             if (current > 0) selectedIndex.set(current - 1);
             return true;
           }
 
-          // 3. Action: Enter
           if (keyval === Gdk.KEY_Return || keyval === Gdk.KEY_KP_Enter) {
             const currentList = list.get();
             const currentIdx = selectedIndex.get();
-            // Launch the currently selected item, or the first if index is weird
             const app = currentList[currentIdx] || currentList[0];
             if (app) launch(app);
             return true;
           }
 
-          // 4. Action: Escape
           if (keyval === Gdk.KEY_Escape) {
             hide();
             return true;
           }
 
-          // 5. Action: Ctrl+C
           if (
             okState &&
             state & Gdk.ModifierType.CONTROL_MASK &&
@@ -175,7 +168,6 @@ export default function Launcher() {
                   cursorPos.set(self.cursor_position);
                   blink.set(true);
                 }}
-                // Handled by window key-press mostly, but good backup
                 onActivate={() => {
                   const currentList = list.get();
                   const app =

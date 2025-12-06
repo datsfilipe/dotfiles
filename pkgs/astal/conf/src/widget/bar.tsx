@@ -149,6 +149,111 @@ function ClientTitle({ wm }: { wm: WMState }) {
   );
 }
 
+function KeyboardLayout() {
+  const layout = Variable('EN');
+
+  Variable(null).poll(updateInterval, () => {
+    execAsync('niri msg keyboard-layouts')
+      .then((out) => {
+        const activeLine = out
+          .split('\n')
+          .find((line) => line.trim().startsWith('*'));
+        if (!activeLine) return;
+
+        if (activeLine.includes('(US, intl')) {
+          layout.set('EN (intl)');
+        } else {
+          layout.set('EN');
+        }
+      })
+      .catch(() => {});
+  });
+
+  return (
+    <button
+      className="keyboard-layout"
+      label={bind(layout)}
+      onClick={() => {
+        const current = layout.get();
+        if (current === 'EN (intl)') {
+          execAsync('switch-kb-variant').catch(() => {});
+        } else {
+          execAsync('switch-kb-variant intl').catch(() => {});
+        }
+      }}
+    />
+  );
+}
+
+function Cpu() {
+  let prevIdle = 0;
+  let prevTotal = 0;
+
+  const usage = Variable<number>(0).poll(2000, () => {
+    execAsync('cat /proc/stat')
+      .then((out) => {
+        const line = out.split('\n').find((l) => l.startsWith('cpu '));
+        if (line) {
+          const fields = line.split(/\s+/).slice(1).map(Number);
+          const idle = fields[3];
+          const total = fields.reduce((acc, v) => acc + v, 0);
+
+          if (prevTotal > 0) {
+            const deltaIdle = idle - prevIdle;
+            const deltaTotal = total - prevTotal;
+            if (deltaTotal > 0) {
+              const u = Math.round((1 - deltaIdle / deltaTotal) * 100);
+              usage.set(u);
+            }
+          }
+          prevIdle = idle;
+          prevTotal = total;
+        }
+      })
+      .catch((err) => console.error(err));
+  });
+
+  return (
+    <box className="cpu">
+      <label
+        label={bind(usage).as((v) => {
+          const value = `${v ?? 0}`;
+          return `CPU ${value.length === 1 ? `0${value}` : value}%`;
+        })}
+      />
+    </box>
+  );
+}
+
+function Ram() {
+  const usage = Variable<number>(0).poll(5000, () => {
+    execAsync('cat /proc/meminfo')
+      .then((out) => {
+        let total = 0;
+        let available = 0;
+        const lines = out.split('\n');
+        for (const line of lines) {
+          if (line.includes('MemTotal:')) {
+            total = parseInt(line.split(/\s+/)[1]);
+          } else if (line.includes('MemAvailable:')) {
+            available = parseInt(line.split(/\s+/)[1]);
+          }
+        }
+
+        if (total > 0) {
+          usage.set(Math.round(((total - available) / total) * 100));
+        }
+      })
+      .catch((err) => console.error(err));
+  });
+
+  return (
+    <box className="ram">
+      <label label={bind(usage).as((v) => `RAM ${v ?? 0}%`)} />
+    </box>
+  );
+}
+
 function Volume() {
   const audio = Wp.get_default()?.audio;
   const speaker = audio?.defaultSpeaker;
@@ -264,6 +369,27 @@ export default function Bar(monitor: number) {
           <box halign={Gtk.Align.END}>
             <SysTray />
             <Volume />
+            <box
+              valign={Gtk.Align.CENTER}
+              hexpand={false}
+              heightRequest={15}
+              css="min-width: 1px; background-color: #343434; margin: 0 10px 0 0;"
+            />
+            <KeyboardLayout />
+            <box
+              valign={Gtk.Align.CENTER}
+              hexpand={false}
+              heightRequest={15}
+              css="min-width: 1px; background-color: #343434; margin: 0 10px 0 0;"
+            />
+            <Cpu />
+            <Ram />
+            <box
+              valign={Gtk.Align.CENTER}
+              hexpand={false}
+              heightRequest={15}
+              css="min-width: 1px; background-color: #343434; margin: 0 10px 0 0;"
+            />
             <Clock />
           </box>
         }
