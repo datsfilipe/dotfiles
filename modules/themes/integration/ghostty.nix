@@ -11,7 +11,7 @@
       cursor-color = colorscheme.colors.fg;
       foreground = colorscheme.colors.fg;
       palette = [
-        "0=${colorscheme.colors.black}"
+        "0=${colorscheme.colors.selection}"
         "1=${colorscheme.colors.red}"
         "2=${colorscheme.colors.green}"
         "3=${colorscheme.colors.yellow}"
@@ -19,7 +19,7 @@
         "5=${colorscheme.colors.magenta}"
         "6=${colorscheme.colors.cyan}"
         "7=${colorscheme.colors.white}"
-        "8=${colorscheme.colors.black}"
+        "8=${colorscheme.colors.selection}"
         "9=${colorscheme.colors.red}"
         "10=${colorscheme.colors.green}"
         "11=${colorscheme.colors.yellow}"

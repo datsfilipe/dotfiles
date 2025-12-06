@@ -1,10 +1,11 @@
 {
   colors = {
     primary = "#A0A0A0";
+    fg = "#CCCCCC";
     bg = "#101010";
     altbg = "#343434";
-    fg = "#CCCCCC";
-    black = "#505050";
+    selection = "#505050";
+    black = "#0d0d0d";
     red = "#FF8080";
     green = "#82D9C2";
     yellow = "#FFCFA8";

@@ -1,9 +1,10 @@
 {colorscheme, ...}: {
   home.file.".local/share/astal/variables.scss".source = builtins.toFile "variables.scss" ''
     $primary: ${colorscheme.colors.primary};
+    $fg: ${colorscheme.colors.fg};
     $bg: ${colorscheme.colors.bg};
     $altbg: ${colorscheme.colors.altbg};
-    $fg: ${colorscheme.colors.fg};
+    $selection: ${colorscheme.colors.selection};
     $black: ${colorscheme.colors.black};
     $red: ${colorscheme.colors.red};
     $green: ${colorscheme.colors.green};

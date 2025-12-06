@@ -12,7 +12,7 @@
       blue = colorscheme.colors.blue;
       cyan = colorscheme.colors.cyan;
       fg = colorscheme.colors.fg;
-      green = colorscheme.colors.black;
+      green = colorscheme.colors.selection;
       magenta = colorscheme.colors.magenta;
       orange = colorscheme.colors.green;
       red = colorscheme.colors.red;
