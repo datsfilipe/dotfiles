@@ -1,6 +1,11 @@
 import { App, Astal, Gtk, Gdk } from 'astal/gtk3';
+import { Variable, bind } from 'astal';
 import { execAsync } from 'astal/process';
+import GdkPixbuf from 'gi://GdkPixbuf';
+import GLib from 'gi://GLib';
 import { powerMenuVisible } from '../lib/state';
+
+const gifPulse = Variable(false);
 
 export default function PowerMenu() {
   const hide = () => powerMenuVisible.set(false);
@@ -9,6 +14,14 @@ export default function PowerMenu() {
     hide();
     execAsync(cmd).catch(console.error);
   };
+
+  const triggerGif = () => {
+    gifPulse.set(true);
+    setTimeout(() => gifPulse.set(false), 150);
+  };
+
+  const currentDir = GLib.get_current_dir();
+  const gifPath = GLib.build_filenamev([currentDir, 'assets/gif0.gif']);
 
   return (
     <window
@@ -27,9 +40,7 @@ export default function PowerMenu() {
         self.connect('key-press-event', (_, event) => {
           const [okKey, keyval] = event.get_keyval();
           const [okState, state] = event.get_state();
-
           if (!okKey) return false;
-
           if (keyval === Gdk.KEY_Escape) {
             hide();
             return true;
@@ -75,6 +86,27 @@ export default function PowerMenu() {
               >
                 <label className="icon" label="" />
               </button>
+
+              <button
+                className={bind(gifPulse).as((p) =>
+                  p ? 'pulsing gif-btn' : 'gif-btn',
+                )}
+                onClick={triggerGif}
+                tooltipText="is it GIF or GIF?"
+                setup={(self) => {
+                  try {
+                    const anim =
+                      GdkPixbuf.PixbufAnimation.new_from_file(gifPath);
+                    const image = Gtk.Image.new_from_animation(anim);
+                    image.halign = Gtk.Align.CENTER;
+                    self.add(image);
+                    self.show_all();
+                  } catch (e) {
+                    console.error(`Failed to load GIF at ${gifPath}:`, e);
+                  }
+                }}
+              />
+
               <button
                 onClick={() => run('systemctl suspend')}
                 tooltipText="Suspend"

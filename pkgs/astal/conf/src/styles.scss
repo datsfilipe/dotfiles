@@ -281,12 +281,21 @@ window#powermenu {
 }
 
 .powermenu button {
-  padding: 10px 15px 10px 10px;
   border-radius: 6px;
   background: $altbg;
   color: $fg;
   margin-bottom: 6px;
   border: 1px solid transparent;
+  padding: 10px 15px 10px 10px;
+
+  image {
+     margin: 0;
+     padding: 0;
+  }
+}
+
+.powermenu button.gif-btn {
+  padding: 4px;
 }
 
 .powermenu button:focus,
@@ -299,6 +308,13 @@ window#powermenu {
 .powermenu .icon {
   font-family: 'JetBrainsMono Nerd Font';
   font-size: 20px;
+}
+
+.powermenu button.pulsing {
+  background: $primary;
+  border: 1px solid $primary;
+  color: $bg;
+  transition: background 0.1s ease;
 }
 
 // notifications

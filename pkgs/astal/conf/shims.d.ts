@@ -8,8 +8,12 @@ declare module 'astal' {
     <R>(transform: (value: T) => R): R;
     set: (value: T) => void;
     get: () => T;
-    poll: (interval: number, transform: (value: T) => T) => Variable<T>;
+    poll: (
+      interval: number,
+      execute: string | ((value: T) => T | Promise<T> | void),
+    ) => Variable<T>;
     subscribe: (callback: (value: T) => void) => void;
+    drop: () => void;
   }
 
   export const Variable: {
@@ -32,12 +36,12 @@ declare module 'astal' {
   export const Widget: any;
   export const GLib: any;
 }
-
 declare module 'gi://GLib';
 declare module 'gi://AstalTray';
 declare module 'gi://AstalWp';
 declare module 'gi://Pango';
 declare module 'gi://AstalNotifd';
+declare module 'gi://GdkPixbuf';
 declare module 'gi://AstalApps' {
   export interface Application {
     name: string;
