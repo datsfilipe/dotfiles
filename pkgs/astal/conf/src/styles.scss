@@ -18,6 +18,13 @@ $white: #ffffff;
   font-family: Inter;
 }
 
+// Enforce Monospace for the "Terminal" feel and alignment
+.launcher-panel, 
+.launcher-panel label, 
+.launcher-panel entry {
+  font-family: 'JetBrainsMono Nerd Font';
+}
+
 label {
   font-weight: 500;
 }
@@ -144,34 +151,49 @@ window#launcher {
   background-color: $bg;
   border: 1px solid $altbg;
   border-radius: 6px;
-  padding: 12px;
-  margin-top: 100px;
 }
 
-.launcher-panel .search {
+.launcher-panel .search-box {
+  background-color: $bg;
+  border-bottom: 1px solid $altbg;
+  // Padding removed here, handled by children margins
+}
+
+.launcher-panel .search-entry {
   background: transparent;
-  color: $primary;
+  color: transparent;
+  caret-color: transparent;
+  border: none;
+  box-shadow: none;
   font-size: 14px;
   font-weight: bold;
-  caret-color: $primary;
-  min-height: 30px;
+  // Margins force vertical centering
+  margin: 14px 12px; 
 }
 
-.launcher-panel .search:focus {
+.launcher-panel .search-entry:focus {
   box-shadow: none;
   outline: none;
 }
 
+.launcher-panel .search-label {
+  color: $primary;
+  font-size: 14px;
+  font-weight: bold;
+  // Margins force vertical centering (must match entry)
+  margin: 14px 12px;
+}
+
 .launcher-panel .results {
+  padding: 4px 8px;
   margin-top: 8px;
 }
 
 .launcher-panel .results .item {
-  padding: 6px 10px;
+  padding: 2px 4px;
   border-radius: 6px;
   color: $fg;
   font-size: 13px;
-  border: 1px solid transparent;
 }
 
 .launcher-panel .results .item:hover,

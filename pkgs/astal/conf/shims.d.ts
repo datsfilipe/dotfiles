@@ -8,18 +8,19 @@ declare module 'astal' {
     <R>(transform: (value: T) => R): R;
     set: (value: T) => void;
     get: () => T;
-    poll: (
-      interval: number,
-      callback: () => void,
-    ) => {
-      drop: () => void;
-    };
+    poll: (interval: number, transform: (value: T) => T) => Variable<T>;
     subscribe: (callback: (value: T) => void) => void;
   }
 
   export const Variable: {
     <T>(initial: T): Variable<T>;
     new <T>(initial: T): Variable<T>;
+    derive: <D extends Variable<any>[], R>(
+      deps: [...D],
+      callback: (
+        ...args: { [K in keyof D]: D[K] extends Variable<infer V> ? V : never }
+      ) => R,
+    ) => Variable<R>;
   };
 
   export const bind: any;
