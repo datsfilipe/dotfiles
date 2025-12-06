@@ -5,6 +5,13 @@
         draw-border-with-background false
       }
 
+      window-rule {
+        match app-id=r#"^chrome-"#
+        match app-id="chromium-browser" title=r#"^Meet - [a-z0-9-]+$"#
+        open-floating true
+        open-focused true
+      }
+
       layout {
         gaps 8
         center-focused-column "never"
