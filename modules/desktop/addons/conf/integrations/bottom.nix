@@ -5,7 +5,11 @@
   mylib,
   ...
 }: let
-  colorscheme = import ../../../themes/${config.modules.desktop.colorscheme.theme}.nix;
+  colorscheme =
+    import
+    ../../../themes/${
+      config.modules.desktop.colorscheme.theme
+    }.nix;
 in {
   configOptions.modules.desktop.conf = {
     enableBottomIntegration = lib.mkOption {

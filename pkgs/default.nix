@@ -7,6 +7,7 @@
   zellij-switch,
   linux-shimeji,
   ghostty,
+  theme,
   ...
 }: let
   packageFiles =
@@ -22,6 +23,8 @@
     (pkgs.extend zellij-switch.overlays.default)
     // {unix-scripts = unix-scripts;};
 
+  colorscheme = import ../modules/themes/${theme}.nix;
+
   packages =
     builtins.listToAttrs (
       map
@@ -36,9 +39,12 @@
           name = name;
           value = let
             scriptFile = ./scripts/default.nix;
+            astalFile = ./astal/default.nix;
             scriptArgs =
               if toString file == toString scriptFile
               then {inherit unix-scripts;}
+              else if toString file == toString astalFile
+              then {inherit colorscheme;}
               else {};
           in
             pkgsWithOverlays.callPackage file scriptArgs;

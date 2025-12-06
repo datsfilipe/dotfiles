@@ -14,6 +14,8 @@ const CSS_OUT = '/tmp/style.css';
 const STYLES_SRC = './styles.scss';
 const VARS_SRC = `${GLib.get_home_dir()}/.local/share/astal/variables.scss`;
 
+const LAUNCHER_CURSOR_COLOR = GLib.getenv('LAUNCHER_CURSOR_COLOR') || '#fefefe';
+
 try {
   let content = '';
   if (GLib.file_test(STYLES_SRC, GLib.FileTest.EXISTS)) {
@@ -49,7 +51,7 @@ App.start({
   main() {
     Bar(0);
     Bar(1);
-    Launcher();
+    Launcher(LAUNCHER_CURSOR_COLOR);
     PowerMenu();
     Notifications(0);
   },

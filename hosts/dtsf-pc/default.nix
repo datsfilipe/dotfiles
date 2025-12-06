@@ -1,10 +1,10 @@
 {
   lib,
   mylib,
+  myvars,
   ...
 }: let
   hostName = "dtsf-pc";
-  common = import ../common;
 in {
   imports =
     [./hardware-configuration.nix ./boot.nix]
@@ -30,7 +30,7 @@ in {
   modules.hardware.monitors = {
     enable = true;
     enableNvidiaSupport = true;
-    monitors = common.monitors.pc;
+    monitors = myvars.hostsConfig.monitors.pc;
   };
 
   modules.desktop.displayManager.enable = true;
@@ -38,7 +38,7 @@ in {
   modules.services.gdrive.enable = true;
   modules.desktop.wallpaper = {
     enable = true;
-    file = common.wallpaper;
+    file = myvars.hostsConfig.wallpaper;
   };
 
   modules.editors.neovim.system.enable = true;

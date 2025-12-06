@@ -1,10 +1,9 @@
 {
   lib,
   mylib,
+  myvars,
   ...
-}: let
-  common = import ../../common;
-in {
+}: {
   imports = (mylib.file.scanPaths ../../../modules "user.nix") ++ [./packages.nix];
 
   modules.core.shell.fish.user.enable = true;
@@ -15,7 +14,7 @@ in {
   modules.hardware.monitors = {
     enable = true;
     enableNvidiaSupport = true;
-    monitors = common.monitors.pc;
+    monitors = myvars.hostsConfig.monitors.pc;
   };
 
   modules.desktop.conf = {
@@ -55,5 +54,5 @@ in {
     enableAstalIntegration = true;
   };
 
-  modules.themes.${common.theme}.enable = true;
+  modules.themes.${myvars.hostsConfig.theme}.enable = true;
 }

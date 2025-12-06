@@ -6,7 +6,7 @@ import { launcherVisible } from '../lib/state';
 const escape = (str: string) =>
   str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
-export default function Launcher() {
+export default function Launcher(cursorColor: string) {
   const apps = new Apps.Apps();
   const text = Variable('');
   const cursorPos = Variable(0);
@@ -39,14 +39,14 @@ export default function Launcher() {
 
     if (!b) return escapedText;
     if (p >= t.length) {
-      return `${escapedText}<span background="#ededed" foreground="#000000"> </span>`;
+      return `${escapedText}<span background="${cursorColor}" foreground="#000000"> </span>`;
     }
 
     const char = t[p] || ' ';
     const before = escape(t.substring(0, p));
     const after = escape(t.substring(p + 1));
 
-    return `${before}<span background="#ededed" foreground="#000000">${escape(char)}</span>${after}`;
+    return `${before}<span background="${cursorColor}" foreground="#000000">${escape(char)}</span>${after}`;
   });
 
   return (

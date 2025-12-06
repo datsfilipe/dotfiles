@@ -1,10 +1,10 @@
 {
   lib,
   mylib,
+  myvars,
   ...
 }: let
   hostName = "dtsf-laptop";
-  common = import ../common;
 in {
   imports =
     [./hardware-configuration.nix ./boot.nix]
@@ -30,7 +30,7 @@ in {
   modules.hardware.bluetooth.system.enable = true;
   modules.hardware.monitors = {
     enable = true;
-    monitors = common.monitors.laptop;
+    monitors = myvars.hostsConfig.monitors.laptop;
   };
 
   modules.desktop.displayManager.enable = true;
@@ -38,7 +38,7 @@ in {
 
   modules.desktop.wallpaper = {
     enable = true;
-    file = common.wallpaper;
+    file = myvars.hostsConfig.wallpaper;
   };
 
   modules.editors.neovim.system.enable = true;

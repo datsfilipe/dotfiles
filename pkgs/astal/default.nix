@@ -5,6 +5,7 @@
   bash,
   astal,
   ags,
+  colorscheme,
   ...
 }: let
   myAgs = ags.override {
@@ -38,6 +39,7 @@ in
       cat <<EOF > $out/bin/wmain
       #!${bash}/bin/bash
       export PATH=${lib.makeBinPath [dart-sass]}:\$PATH
+      export LAUNCHER_CURSOR_COLOR="${colorscheme.colors.primary}"
 
       cd $out/share/wmain/conf/src
       if [ "\$#" -gt 0 ]; then

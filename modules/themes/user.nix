@@ -106,7 +106,11 @@
   };
 
   config = let
-    colorscheme = import ./${config.modules.desktop.colorscheme.theme}.nix;
+    colorscheme =
+      import
+      ./${
+        config.modules.desktop.colorscheme.theme
+      }.nix;
   in
     lib.mkMerge [
       (lib.mkMerge (

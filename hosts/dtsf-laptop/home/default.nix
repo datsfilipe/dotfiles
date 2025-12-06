@@ -1,9 +1,9 @@
 {
   lib,
   mylib,
+  myvars,
   ...
 }: let
-  common = import ../../common;
 in {
   imports = (mylib.file.scanPaths ../../../modules "user.nix") ++ [./packages.nix];
 
@@ -15,7 +15,7 @@ in {
 
   modules.hardware.monitors = {
     enable = true;
-    monitors = common.monitors.laptop;
+    monitors = myvars.hostsConfig.monitors.laptop;
   };
 
   modules.desktop.conf = {
@@ -50,5 +50,5 @@ in {
     enableNiriIntegration = true;
   };
 
-  modules.themes.${common.theme}.enable = true;
+  modules.themes.${myvars.hostsConfig.theme}.enable = true;
 }
