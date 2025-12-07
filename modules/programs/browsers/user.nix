@@ -32,8 +32,9 @@ in {
         {id = "fmkadmapgofadopljbjfkapdkoienihi";} # react devtools
         {id = "liecbddmkiiihnedobmlmillhodjkdmb";} # loom
         {id = "nkbihfbeogaeaoehlefnkodbefgpgknn";} # metamask
-        {id = "ojhhcfhabhligodffabdhcaoicecaboo";} # new tab
+        {id = "acmacodkjbdgmoleebolmdjonilkdbch";} # rabby
         {id = "eimadpbcbfnmbkopoojfekhnkhdbieeh";} # dark reader
+        {id = "dpjamkmjmigaoobjbekmfgabipmfilij";} # new tab
       ];
     };
   };
