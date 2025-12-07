@@ -19,6 +19,13 @@ $white: #ffffff;
   font-family: Inter;
 }
 
+tooltip {
+  background-color: $bg;
+  color: $fg;
+  border-radius: 6px;
+  border: 1px solid $altbg;
+}
+
 .launcher-panel, 
 .launcher-panel label, 
 .launcher-panel entry {
@@ -338,17 +345,6 @@ window#powermenu {
   min-width: 300px;
 }
 
-.notification.critical {
-  background: $red;
-  border: 1px solid $black;
-  label {
-    color: $black;
-  }
-  .header {
-    border-bottom: 1px solid $black;
-  }
-}
-
 .notification .content-btn {
   padding: 12px;
   background: transparent;
@@ -373,8 +369,15 @@ window#powermenu {
 
 .notification .summary {
   font-weight: bold;
+  font-size: 16px;
+  color: $fg;
+}
+
+.notification .body {
+  background: transparent;
+  padding: 0px;
   font-size: 14px;
-  color: $primary;
+  color: $fg;
 }
 
 .notification .actions {
@@ -382,25 +385,30 @@ window#powermenu {
 }
 
 .notification .actions button {
-  background: $altbg;
+  background-color: $black;
+  border: 1px solid $altbg;
+  color: $primary;
   padding: 6px;
   border-radius: 4px;
 }
 
-.notification .actions button:hover {
-  background: $primary;
-  label {
-    color: $bg;
-  }
-}
-
-.notification.critical .actions button {
-  background: $bg;
+.notification .actions button:hover,
+.notification .actions button:focus {
+  background-color: $altbg;
   label {
     color: $fg;
   }
 }
 
-.notification.critical .actions button:hover {
-  opacity: 0.9;
+.notification.critical {
+  background: $red;
+  label {
+    color: $black;
+  }
+
+  .actions button {
+    label {
+      color: $fg; 
+    }
+  }
 }

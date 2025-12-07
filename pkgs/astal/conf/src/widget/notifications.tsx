@@ -23,7 +23,10 @@ export default function Notifications(monitor: number) {
             const className = `notification ${isCritical ? 'critical' : ''}`;
 
             const actions = n.actions.filter(
-              (a) => a.id !== 'default' && a.label?.trim(),
+              (a) =>
+                a.id !== 'default' &&
+                a.label?.trim() &&
+                !a.label.includes(']'),
             );
 
             return (
@@ -67,19 +70,30 @@ export default function Notifications(monitor: number) {
                       />
                     </box>
                     <box className="content" spacing={10}>
-                      <box vertical>
+                      <box vertical spacing={4}>
                         <label
                           className="summary"
-                          halign={Gtk.Align.START}
+                          halign={Gtk.Align.CENTER}
+                          xalign={0}
                           label={n.summary}
+                          tooltipMarkup={n.summary}
+                          maxWidthChars={35}
+                          lines={2}
                           truncate
+                          wrap
                         />
                         {n.body && (
                           <label
                             className="body"
                             halign={Gtk.Align.START}
+                            xalign={0}
                             label={n.body}
+                            maxWidthChars={35}
+                            lines={3}
+                            useMarkup
+                            tooltipMarkup={n.body}
                             wrap
+                            truncate
                           />
                         )}
                       </box>
