@@ -15,7 +15,8 @@ const STYLES_SRC = './styles.scss';
 const VARS_SRC = `${GLib.get_home_dir()}/.local/share/astal/variables.scss`;
 
 const LAUNCHER_CURSOR_COLOR = GLib.getenv('LAUNCHER_CURSOR_COLOR') || '#fefefe';
-const POWERMENU_GIF_FILENAME = GLib.getenv('POWERMENU_GIF_FILENAME') || 'gif0.gif';
+const POWERMENU_GIF_FILENAME =
+  GLib.getenv('POWERMENU_GIF_FILENAME') || 'gif0.gif';
 const BAR_MONITORS_LENGTH = GLib.getenv('BAR_MONITORS_LENGTH') || '1';
 
 try {
@@ -52,7 +53,10 @@ App.start({
   },
   main() {
     const monitorsLength = parseInt(BAR_MONITORS_LENGTH);
-    for (let i = 0; i < monitorsLength; i++) { Bar(i); };
+    for (let i = 0; i < monitorsLength; i++) {
+      Bar(i);
+    }
+
     Launcher(LAUNCHER_CURSOR_COLOR);
     PowerMenu(POWERMENU_GIF_FILENAME);
     Notifications(0);
