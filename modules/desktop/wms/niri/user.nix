@@ -1,5 +1,6 @@
 {
   pkgs,
+  mypkgs,
   config,
   lib,
   ...
@@ -21,15 +22,16 @@ in {
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
       yad
-      niri
       wl-clipboard
       xwayland-satellite
     ];
 
+    modules.desktop.nupkgs.packages = [mypkgs.niri];
+
     modules.desktop.wms.niri.user.rawConfigValues = [
+      ''spawn-at-startup "sh" "-c" "wmain"''
       ''spawn-at-startup "sh" "-c" "udiskie --tray --notify"''
       ''spawn-at-startup "sh" "-c" "systemctl --user restart wallpaper.service"''
-      ''spawn-at-startup "sh" "-c" "wmain"''
       ''spawn-at-startup "sh" "-c" "nm-applet"''
 
       (lib.concatStringsSep "\n" (map (m: ''
