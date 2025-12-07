@@ -4,6 +4,7 @@
   fetchFromGitHub,
   pkg-config,
   installShellFiles,
+  makeWrapper,
   cairo,
   dbus,
   libGL,
@@ -75,6 +76,7 @@ in
       rustPlatform.bindgenHook
       pkg-config
       installShellFiles
+      makeWrapper
     ];
 
     buildInputs = [
@@ -121,6 +123,9 @@ in
       install -Dm644 resources/niri-portals.conf -t $out/share/xdg-desktop-portal
       install -Dm755 resources/niri-session $out/bin/niri-session
       install -Dm644 resources/niri{.service,-shutdown.target} -t $out/share/systemd/user
+
+      wrapProgram $out/bin/niri \
+        --prefix LD_LIBRARY_PATH : /run/opengl-driver/lib
     '';
 
     meta = {

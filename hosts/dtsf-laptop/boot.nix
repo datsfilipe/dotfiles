@@ -4,6 +4,7 @@
   ...
 }: {
   boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.initrd.kernelModules = ["i915"];
 
   boot.loader = {
     systemd-boot.enable = false;
