@@ -66,7 +66,7 @@
           au = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; git add `f`";
           incc = "!(git fetch --quiet && git log --pretty=format:'%C(yellow)%h %C(white)- %C(red)%an %C(white)- %C(cyan)%d%Creset %s %C(white)- %ar%Creset' ..@{u})";
           outc = "!(git fetch --quiet && git log --pretty=format:'%C(yellow)%h %C(white)- %C(red)%an %C(white)- %C(cyan)%d%Creset %s %C(white)- %ar%Creset' @{u}..)";
-
+          rev = "!f() { git ls-remote $1 HEAD | awk '{print $1}'; }; f";
           sp = "submodule update --init --recursive";
           sfor = "submodule foreach";
         };
