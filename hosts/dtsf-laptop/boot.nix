@@ -4,7 +4,11 @@
   ...
 }: {
   boot.kernelPackages = pkgs.linuxPackages_latest;
+
+  hardware.enableRedistributableFirmware = true;
   boot.initrd.kernelModules = ["i915"];
+  boot.kernelParams = ["i915.modeset=1"];
+  services.xserver.videoDrivers = lib.mkForce ["modesetting"];
 
   boot.loader = {
     systemd-boot.enable = false;
