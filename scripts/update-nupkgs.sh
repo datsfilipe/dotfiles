@@ -1,61 +1,73 @@
 #!/usr/bin/env bash
-set -euo pipefail
+set -uo pipefail
 
-if [ $# -ne 1 ]; then
-  echo "usage: $0 <path>"
+PKGS_DIR="./pkgs"
+GREEN='\033[0;32m'
+RED='\033[0;31m'
+NC='\033[0m'
+
+if [ ! -d "$PKGS_DIR" ]; then
+  echo "error: '$PKGS_DIR' not found. Run this from your dotfiles root."
   exit 1
 fi
 
-BASE_PATH=$(realpath "$1")
+TARGET="${1:-}"
+SCRIPTS=()
+FAILED_LOGS=()
 
-process_updates() {
-  local total_found=0
-  local total_run=0
-  local total_failed=0
-  local failed_scripts=()
-
-  while IFS= read -r script || [ -n "$script" ]; do
-    total_found=$((total_found + 1))
-    echo "running update script: $script"
-    
-    dir_name=$(basename "$(dirname "$script")")
-    
-    if [ "$dir_name" = "conf" ]; then
-      script=$(realpath "$script")
-      if bash "$script"; then
-        echo "successfully ran $script"
-        total_run=$((total_run + 1))
-      else
-        echo "failed to run $script"
-        total_failed=$((total_failed + 1))
-        failed_scripts+=("$script")
-      fi
-    else
-      echo "skipping $script as it's not in a 'conf' directory"
-    fi
-  done < <(find "$BASE_PATH" -mindepth 3 -maxdepth 3 -name "update.sh" -type f)
-
-  echo
-  echo "update Summary:"
-  echo "---------------"
-  echo "total update scripts found: $total_found"
-  echo "total scripts run: $total_run"
-  echo "total scripts failed: $total_failed"
-  
-  if [ ${#failed_scripts[@]} -gt 0 ]; then
-    echo
-    echo "failed scripts:"
-    printf '%s\n' "${failed_scripts[@]}"
-    return 1
+if [ -n "$TARGET" ]; then
+  SPECIFIC_SCRIPT="$PKGS_DIR/$TARGET/conf/update.sh"
+  if [ -f "$SPECIFIC_SCRIPT" ]; then
+    SCRIPTS+=("$SPECIFIC_SCRIPT")
+  else
+    echo "error: package '$TARGET' not found at $SPECIFIC_SCRIPT"
+    exit 1
   fi
-
-  return 0
-}
-
-if [ ! -d "$BASE_PATH" ]; then
-  echo "error: provided path '$BASE_PATH' is not a directory"
-  exit 1
+else
+  echo "scanning packages..."
+  while IFS= read -r script; do
+    SCRIPTS+=("$script")
+  done < <(find "$PKGS_DIR" -mindepth 3 -maxdepth 3 -path "*/conf/update.sh" | sort)
 fi
 
-echo "scanning for update scripts in: $BASE_PATH"
-process_updates
+if [ ${#SCRIPTS[@]} -eq 0 ]; then
+  echo "no update scripts found."
+  exit 0
+fi
+
+echo "updating ${#SCRIPTS[@]} packages..."
+echo "--------------------------------"
+
+success_count=0
+fail_count=0
+
+for script in "${SCRIPTS[@]}"; do
+  pkg_name=$(basename "$(dirname "$(dirname "$script")")")
+
+  printf "• %-20s " "$pkg_name"
+
+  chmod +x "$script"
+
+  if output=$("$script" 2>&1); then
+    printf "${GREEN}[OK]${NC}\n"
+    ((success_count++))
+  else
+    printf "${RED}[FAIL]${NC}\n"
+    ((fail_count++))
+    FAILED_LOGS+=("Package: $pkg_name\nScript: $script\nOutput:\n$output\n")
+  fi
+done
+
+echo "--------------------------------"
+
+if [ $fail_count -eq 0 ]; then
+  echo -e "${GREEN}done! $success_count packages updated.${NC}"
+else
+  echo -e "${RED}summary: $success_count updated, $fail_count failed.${NC}"
+  echo
+  echo "details:"
+  for log in "${FAILED_LOGS[@]}"; do
+    echo -e "$log"
+  done
+  exit 1
+fi
