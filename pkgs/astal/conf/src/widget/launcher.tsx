@@ -203,7 +203,7 @@ export default function Launcher(cursorColor: string) {
                   l.map((app, i) => (
                     <button
                       className={selectedIndex((s) =>
-                        s === i ? 'item selected' : 'item',
+                        s === i ? 'item focused' : 'item',
                       )}
                       onClick={() => launch(app)}
                     >

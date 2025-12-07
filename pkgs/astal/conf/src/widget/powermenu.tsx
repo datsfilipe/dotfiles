@@ -8,6 +8,7 @@ import { powerMenuVisible } from '../lib/state';
 const gifPulse = Variable(false);
 
 export default function PowerMenu(gifFilename: string) {
+  const selectedIndex = Variable(0);
   const hide = () => powerMenuVisible.set(false);
 
   const run = (cmd: string) => {
@@ -22,6 +23,14 @@ export default function PowerMenu(gifFilename: string) {
 
   const currentDir = GLib.get_current_dir();
   const gifPath = GLib.build_filenamev([currentDir, `assets/${gifFilename}`]);
+
+  const items = [
+    { label: 'Shutdown', icon: '', cmd: 'systemctl poweroff' },
+    { label: 'Reboot', icon: '', cmd: 'systemctl reboot' },
+    { id: 'gif', action: triggerGif, tooltip: 'is it GIF or GIF?' },
+    { label: 'Suspend', icon: '󰒲', cmd: 'systemctl suspend' },
+    { label: 'Logout', icon: '', cmd: 'niri msg action quit -s' },
+  ];
 
   return (
     <window
@@ -39,25 +48,44 @@ export default function PowerMenu(gifFilename: string) {
       setup={(self) => {
         self.connect('key-press-event', (_, event) => {
           const [okKey, keyval] = event.get_keyval();
-          const [okState, state] = event.get_state();
           if (!okKey) return false;
+
           if (keyval === Gdk.KEY_Escape) {
             hide();
             return true;
           }
-          if (
-            okState &&
-            state & Gdk.ModifierType.CONTROL_MASK &&
-            keyval === Gdk.KEY_c
-          ) {
-            hide();
+
+          if (keyval === Gdk.KEY_Up || keyval === Gdk.KEY_Left) {
+            const current = selectedIndex.get();
+            selectedIndex.set(current > 0 ? current - 1 : items.length - 1);
             return true;
           }
+
+          if (keyval === Gdk.KEY_Down || keyval === Gdk.KEY_Right) {
+            const current = selectedIndex.get();
+            selectedIndex.set(current < items.length - 1 ? current + 1 : 0);
+            return true;
+          }
+
+          if (
+            keyval === Gdk.KEY_Return ||
+            keyval === Gdk.KEY_KP_Enter ||
+            keyval === Gdk.KEY_space
+          ) {
+            const item = items[selectedIndex.get()];
+            if (item.action) item.action();
+            else if (item.cmd) run(item.cmd);
+            return true;
+          }
+
           return false;
         });
 
         self.hook(powerMenuVisible, () => {
-          if (powerMenuVisible.get()) self.grab_focus();
+          if (powerMenuVisible.get()) {
+            self.grab_focus();
+            selectedIndex.set(0);
+          }
         });
       }}
     >
@@ -68,57 +96,48 @@ export default function PowerMenu(gifFilename: string) {
       >
         <eventbox onClick={hide} hexpand vexpand>
           <box halign={Gtk.Align.END} valign={Gtk.Align.CENTER} marginEnd={20}>
-            <box
-              className="powermenu"
-              vertical
-              spacing={15}
-              onButtonPressEvent={() => true}
-            >
-              <button
-                onClick={() => run('systemctl poweroff')}
-                tooltipText="Shutdown"
-              >
-                <label className="icon" label="" />
-              </button>
-              <button
-                onClick={() => run('systemctl reboot')}
-                tooltipText="Reboot"
-              >
-                <label className="icon" label="" />
-              </button>
+            <box className="powermenu" vertical spacing={15}>
+              {items.map((item, i) => {
+                if (item.id === 'gif') {
+                  const classNameBinding = Variable.derive(
+                    [gifPulse, selectedIndex],
+                    (p, s) =>
+                      `${p ? 'pulsing gif-btn' : 'gif-btn'}${
+                        s === i ? ' focused' : ''
+                      }`,
+                  )();
 
-              <button
-                className={bind(gifPulse).as((p) =>
-                  p ? 'pulsing gif-btn' : 'gif-btn',
-                )}
-                onClick={triggerGif}
-                tooltipText="is it GIF or GIF?"
-                setup={(self) => {
-                  try {
-                    const anim =
-                      GdkPixbuf.PixbufAnimation.new_from_file(gifPath);
-                    const image = Gtk.Image.new_from_animation(anim);
-                    image.halign = Gtk.Align.CENTER;
-                    self.add(image);
-                    self.show_all();
-                  } catch (e) {
-                    console.error(`Failed to load GIF at ${gifPath}:`, e);
-                  }
-                }}
-              />
+                  return (
+                    <button
+                      className={classNameBinding}
+                      onClick={item.action}
+                      tooltipText={item.tooltip}
+                      setup={(self) => {
+                        try {
+                          const anim =
+                            GdkPixbuf.PixbufAnimation.new_from_file(gifPath);
+                          const image = Gtk.Image.new_from_animation(anim);
+                          image.halign = Gtk.Align.CENTER;
+                          self.add(image);
+                          self.show_all();
+                        } catch (e) {
+                          console.error(`Failed to load GIF at ${gifPath}:`, e);
+                        }
+                      }}
+                    />
+                  );
+                }
 
-              <button
-                onClick={() => run('systemctl suspend')}
-                tooltipText="Suspend"
-              >
-                <label className="icon" label="󰒲" />
-              </button>
-              <button
-                onClick={() => run('niri msg action quit -s')}
-                tooltipText="Logout"
-              >
-                <label className="icon" label="" />
-              </button>
+                return (
+                  <button
+                    className={selectedIndex((s) => (s === i ? 'focused' : ''))}
+                    onClick={() => item.cmd && run(item.cmd)}
+                    tooltipText={item.label}
+                  >
+                    <label className="icon" label={item.icon || ''} />
+                  </button>
+                );
+              })}
             </box>
           </box>
         </eventbox>

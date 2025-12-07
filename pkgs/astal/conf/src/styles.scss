@@ -256,7 +256,7 @@ window#launcher {
   opacity: 0.6;
 }
 
-.launcher-panel .results .item.selected,
+.launcher-panel .results .item.focused,
 .launcher-panel .results .item:hover,
 .launcher-panel .results .item:focus {
   background-color: $black;
@@ -299,6 +299,7 @@ window#powermenu {
   padding: 4px;
 }
 
+.powermenu button.focused,
 .powermenu button:focus,
 .powermenu button:hover {
   background: $primary;
