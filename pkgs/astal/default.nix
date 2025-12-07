@@ -43,6 +43,11 @@ in
       export LAUNCHER_CURSOR_COLOR="${colorscheme.colors.primary}"
       export POWERMENU_GIF_FILENAME="${gif-filename}"
 
+      if [ -n "\$1" ] && [ "\$1" -eq "\$1" ] 2>/dev/null; then
+        export BAR_MONITORS_LENGTH="\$1"
+        shift
+      fi
+
       cd $out/share/wmain/conf/src
       if [ "\$#" -gt 0 ]; then
         ${myAgs}/bin/ags request "\$1" --instance bar

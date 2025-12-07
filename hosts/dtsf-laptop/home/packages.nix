@@ -7,7 +7,6 @@
   ...
 }: {
   home.packages = with pkgs; [
-    qbittorrent
     slack
     bitwarden-desktop
     pavucontrol
@@ -21,5 +20,6 @@
     scripts
     trxsh
     meow
+    astal
   ];
 }

@@ -7,6 +7,8 @@
 in {
   imports = (mylib.file.scanPaths ../../../modules "user.nix") ++ [./packages.nix];
 
+  modules.hardware.machine.hostname = "dtsf-laptop";
+
   modules.core.shell.fish.user.enable = true;
   modules.core.user.home.enable = true;
 
@@ -48,6 +50,7 @@ in {
     enableGhosttyIntegration = true;
     enableFzfIntegration = true;
     enableNiriIntegration = true;
+    enableAstalIntegration = true;
   };
 
   modules.themes.${myvars.hostsConfig.theme}.enable = true;

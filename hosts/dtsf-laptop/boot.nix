@@ -5,10 +5,8 @@
 }: {
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  hardware.enableRedistributableFirmware = true;
-  boot.initrd.kernelModules = ["i915"];
-  boot.kernelParams = ["i915.modeset=1"];
-  services.xserver.videoDrivers = lib.mkForce ["modesetting"];
+  hardware.graphics.enable = true;
+  boot.kernelParams = ["i915.enable_guc=0"];
 
   boot.loader = {
     systemd-boot.enable = false;

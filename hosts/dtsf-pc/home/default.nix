@@ -6,6 +6,8 @@
 }: {
   imports = (mylib.file.scanPaths ../../../modules "user.nix") ++ [./packages.nix];
 
+  modules.hardware.machine.hostname = "dtsf-pc";
+
   modules.core.shell.fish.user.enable = true;
   modules.core.user.home.enable = true;
 
