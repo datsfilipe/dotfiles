@@ -111,6 +111,7 @@ export default function PowerMenu(gifFilename: string) {
                     <button
                       className={classNameBinding}
                       onClick={item.action}
+                      canFocus={false}
                       tooltipText={item.tooltip}
                       setup={(self) => {
                         try {
@@ -132,6 +133,7 @@ export default function PowerMenu(gifFilename: string) {
                   <button
                     className={selectedIndex((s) => (s === i ? 'focused' : ''))}
                     onClick={() => item.cmd && run(item.cmd)}
+                    canFocus={false}
                     tooltipText={item.label}
                   >
                     <label className="icon" label={item.icon || ''} />

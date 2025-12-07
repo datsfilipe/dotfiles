@@ -285,7 +285,7 @@ window#powermenu {
 
 .powermenu button {
   border-radius: 6px;
-  background: $altbg;
+  background: $bg;
   color: $fg;
   margin-bottom: 6px;
   border: 1px solid transparent;
@@ -304,9 +304,9 @@ window#powermenu {
 .powermenu button.focused,
 .powermenu button:focus,
 .powermenu button:hover {
-  background: $primary;
-  color: $bg;
-  border: 1px solid $primary;
+  background-color: $black;
+  border: 1px solid $altbg;
+  color: $primary;
 }
 
 .powermenu .icon {
