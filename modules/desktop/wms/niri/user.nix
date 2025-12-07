@@ -23,7 +23,6 @@ in {
 
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
-      yad
       wl-clipboard
       xwayland-satellite
     ];
