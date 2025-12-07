@@ -37,7 +37,7 @@
   modules.desktop.addons.xdg.user.enable = true;
 
   modules.programs.git.enable = true;
-  modules.programs.terminal.default = "ghostty";
+  modules.programs.terminal.default = "alacritty";
 
   modules.editors.neovim.user.enable = true;
 
@@ -49,7 +49,7 @@
     enableFishIntegration = true;
     enableCavaIntegration = true;
     enableZellijIntegration = true;
-    enableGhosttyIntegration = true;
+    enableAlacrittyIntegration = true;
     enableFzfIntegration = true;
     enableNiriIntegration = true;
     enableFuzzelIntegration = true;

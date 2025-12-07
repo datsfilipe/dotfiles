@@ -6,7 +6,6 @@
   unix-scripts,
   zellij-switch,
   linux-shimeji,
-  ghostty,
   theme,
   gif-filename,
   ...
@@ -56,7 +55,7 @@
     // {
       inherit (pkgsWithOverlays) zellij-switch;
       linux-shimeji = linux-shimeji.packages.${pkgs.stdenv.hostPlatform.system}.little-ghost-polite;
-      ghostty = ghostty.packages.${pkgs.stdenv.hostPlatform.system}.ghostty-releasefast;
+      # ghostty = ghostty.packages.${pkgs.stdenv.hostPlatform.system}.ghostty-releasefast;
       meow = meow.packages.${pkgs.stdenv.hostPlatform.system}.default;
     };
 in

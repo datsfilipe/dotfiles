@@ -45,7 +45,6 @@ in
       nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
       nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
       nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.11";
-      ghostty = mkInput "github:ghostty-org/ghostty/main" [];
       linux-shimeji = mkInput "github:datsfilipe/linux-shimeji/main" ["nixpkgs"];
       zellij-switch = mkInput "github:datsfilipe/zellij-switch/flake" ["nixpkgs"];
       home-manager = mkInput "github:nix-community/home-manager/master" ["nixpkgs"];

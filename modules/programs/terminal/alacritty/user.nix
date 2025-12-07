@@ -39,9 +39,9 @@ with lib; {
 
         keyboard.bindings = [
           {
-            key = "X";
-            mods = "Control";
-            action = "ToggleViMode";
+            key = "Space";
+            mods = "Control|Shift";
+            action = "None";
           }
         ];
 

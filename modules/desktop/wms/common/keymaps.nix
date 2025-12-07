@@ -46,8 +46,8 @@
   );
   staticBindings = {
     "${mod}+q" = "kill";
-    "${mod}+t" = "exec ${mypkgs.ghostty}/bin/ghostty";
-    "${mod}+Return" = "exec ${mypkgs.ghostty}/bin/ghostty -e ${pkgs.zellij}/bin/zellij attach dtsf -c";
+    "${mod}+t" = "exec alacritty";
+    "${mod}+Return" = "exec alacritty -e ${pkgs.zellij}/bin/zellij attach dtsf -c";
     "${mod}+a" = "exec chromium --ozone-platform=wayland";
     "${mod}+d" = "exec ${config.home.homeDirectory}/.local/bin/launcher";
     "${mod}+Shift+m" = "exec shimeji";

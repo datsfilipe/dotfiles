@@ -137,8 +137,8 @@ binds {
   Alt+I { spawn "switch-kb-variant" "intl"; }
   Alt+W { spawn "sh" "-c" "niri msg pick-color | sed -n 's/^Hex: //p' | tr -d '\n' | shared-clipboard copy"; }
 
-  Mod+Return repeat=false { spawn "sh" "-c" "ghostty -e zellij attach dtsf -c"; }
-  Mod+Shift+Return repeat=false { spawn "ghostty"; }
+  Mod+Return repeat=false { spawn "sh" "-c" "alacritty -e zellij attach dtsf -c"; }
+  Mod+Shift+Return repeat=false { spawn "alacritty"; }
   Mod+A repeat=false { spawn "chromium"; }
   Mod+Shift+M repeat=false { spawn "shimeji"; }
 }
