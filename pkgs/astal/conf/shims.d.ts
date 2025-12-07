@@ -42,6 +42,7 @@ declare module 'gi://AstalWp';
 declare module 'gi://Pango';
 declare module 'gi://AstalNotifd';
 declare module 'gi://GdkPixbuf';
+declare module 'gi://AstalBattery';
 declare module 'gi://AstalApps' {
   export interface Application {
     name: string;
