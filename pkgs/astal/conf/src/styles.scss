@@ -77,9 +77,11 @@ menu {
       margin-bottom: 0;
     }
 
-    &:hover {
-      background: $altbg;
-      border: 1px solid $black;
+    &:hover,
+    &:focus {
+      background-color: $black;
+      border: 1px solid $altbg;
+      color: $primary;
     }
   }
 }
