@@ -5,6 +5,7 @@ import { execAsync } from 'astal/process';
 import Wp from 'gi://AstalWp';
 import Tray from 'gi://AstalTray';
 import Pango from 'gi://Pango';
+import AstalBattery from 'gi://AstalBattery';
 
 type WMState = {
   activeWs: Variable<number>;
@@ -254,6 +255,24 @@ function Ram() {
   );
 }
 
+function BatteryLevel() {
+  const bat = AstalBattery.get_default();
+
+  return (
+    <box className="battery" visible={bind(bat, 'isPresent')}>
+      <label
+        letter-spacing="10000"
+        label={bind(bat, 'percentage').as((p) => {
+          const icons = [' ', ' ', ' ', ' ', ' '];
+          const index = Math.min(4, Math.floor(p * 5));
+          const percent = Math.floor(p * 100).toString();
+          return `${icons[index]} ${percent.length === 1 ? `0${percent}` : percent}%`;
+        })}
+      />
+    </box>
+  );
+}
+
 function Volume() {
   const audio = Wp.get_default()?.audio;
   const speaker = audio?.defaultSpeaker;
@@ -384,6 +403,7 @@ export default function Bar(monitor: number) {
             />
             <Cpu />
             <Ram />
+            <BatteryLevel />
             <box
               valign={Gtk.Align.CENTER}
               hexpand={false}
