@@ -30,5 +30,5 @@
   "dc-rma" = "docker-helpers rall";
   "dc-img-rm" = "docker-helpers riall";
   "dc-stop" = "docker-helpers sall";
-  "ne" = "~/.local/bin/nix-env";
+  "nenv" = "nix-envs";
 }

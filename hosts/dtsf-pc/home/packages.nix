@@ -18,6 +18,7 @@
   modules.desktop.nupkgs.packages = with mypkgs; [
     devtunnel-cli
     wl-shimeji
+    nix-envs
     scripts
     astal
     trxsh

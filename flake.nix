@@ -26,13 +26,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:nix-community/home-manager/master";
     };
-    linux-shimeji = {
-      inputs.nixpkgs.follows = "nixpkgs";
-      url = "github:datsfilipe/linux-shimeji/main";
-    };
     meow = {
       inputs.nixpkgs.follows = "nixpkgs-unstable";
       url = "github:datsfilipe/meow/main";
+    };
+    nix-envs = {
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      url = "github:datsfilipe/nix-envs/main";
     };
     sops-nix = {
       inputs.nixpkgs.follows = "nixpkgs";

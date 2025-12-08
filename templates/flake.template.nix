@@ -45,7 +45,6 @@ in
       nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
       nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
       nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.11";
-      linux-shimeji = mkInput "github:datsfilipe/linux-shimeji/main" ["nixpkgs"];
       zellij-switch = mkInput "github:datsfilipe/zellij-switch/flake" ["nixpkgs"];
       home-manager = mkInput "github:nix-community/home-manager/master" ["nixpkgs"];
       sops-nix = mkInput "github:Mic92/sops-nix/master" ["nixpkgs"];
@@ -53,6 +52,7 @@ in
       datsnvim = mkInput "github:datsfilipe/datsnvim/main" ["nixpkgs" "home-manager"];
       ags = mkInput "github:aylur/ags/e169694390548dfd38ff40f1ef2163d6c3ffe3ea" ["nixpkgs" "astal"];
       meow = mkInput "github:datsfilipe/meow/main" {inputs.nixpkgs.follows = "nixpkgs-unstable";};
+      nix-envs = mkInput "github:datsfilipe/nix-envs/main" {inputs.nixpkgs.follows = "nixpkgs-unstable";};
       unix-scripts = local ../pkgs/scripts/conf;
     };
     outputs = "inputs: import ./outputs inputs";

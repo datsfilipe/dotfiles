@@ -221,31 +221,9 @@
         "type": "github"
       }
     },
-    "linux-shimeji": {
-      "inputs": {
-        "flake-utils": "flake-utils_2",
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1736686093,
-        "narHash": "sha256-DsWKyn4xYYzqFu6OOVtoj1RbI7/22aWpWSKQ0KHeJIY=",
-        "owner": "datsfilipe",
-        "repo": "linux-shimeji",
-        "rev": "33a7cdbb7215f48bdb39c04be95a719b3e8e7dfb",
-        "type": "github"
-      },
-      "original": {
-        "owner": "datsfilipe",
-        "ref": "main",
-        "repo": "linux-shimeji",
-        "type": "github"
-      }
-    },
     "meow": {
       "inputs": {
-        "flake-utils": "flake-utils_3",
+        "flake-utils": "flake-utils_2",
         "nixpkgs": [
           "nixpkgs-unstable"
         ]
@@ -314,6 +292,28 @@
       "original": {
         "owner": "neovim",
         "repo": "neovim",
+        "type": "github"
+      }
+    },
+    "nix-envs": {
+      "inputs": {
+        "flake-utils": "flake-utils_3",
+        "nixpkgs": [
+          "nixpkgs-unstable"
+        ]
+      },
+      "locked": {
+        "lastModified": 1765168000,
+        "narHash": "sha256-0y6RqlQQ8ep8LEmDGuFKkl5PLZNFAzq/HR9wVtwpBHY=",
+        "owner": "datsfilipe",
+        "repo": "nix-envs",
+        "rev": "717cfdf0bca2c90f0d5f7ae232b18583e74a7a9f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "datsfilipe",
+        "ref": "main",
+        "repo": "nix-envs",
         "type": "github"
       }
     },
@@ -403,8 +403,8 @@
         "astal": "astal",
         "datsnvim": "datsnvim",
         "home-manager": "home-manager",
-        "linux-shimeji": "linux-shimeji",
         "meow": "meow",
+        "nix-envs": "nix-envs",
         "nixpkgs": "nixpkgs_2",
         "nixpkgs-stable": "nixpkgs-stable",
         "nixpkgs-unstable": "nixpkgs-unstable",
