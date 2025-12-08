@@ -70,7 +70,7 @@ export default function Notifications(monitor: number) {
                       />
                     </box>
                     <box className="content" spacing={10}>
-                      <box vertical spacing={4}>
+                      <box vertical spacing={6}>
                         <label
                           className="summary"
                           halign={Gtk.Align.CENTER}
