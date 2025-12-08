@@ -7,7 +7,7 @@
 
       window-rule {
         match app-id=r#"^chrome-"#
-        match app-id="chromium-browser" title=r#"^Meet - [a-z0-9-]+$"#
+        match title=r#"^Meet - ([^-]|-[^- ])*$"#
         open-floating true
         open-focused true
       }
