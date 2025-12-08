@@ -150,6 +150,24 @@
         "type": "github"
       }
     },
+    "flake-utils_3": {
+      "inputs": {
+        "systems": "systems_3"
+      },
+      "locked": {
+        "lastModified": 1731533236,
+        "narHash": "sha256-l0KFg5HjrsfsO/JpG+r7fRrqm12kzFHyUHqHCVpMMbI=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "11707dc2f618dd54ca8739b309ec4fc024de578b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
     "gruvbox-nvim": {
       "flake": false,
       "locked": {
@@ -227,16 +245,17 @@
     },
     "meow": {
       "inputs": {
+        "flake-utils": "flake-utils_3",
         "nixpkgs": [
           "nixpkgs-unstable"
         ]
       },
       "locked": {
-        "lastModified": 1746573225,
-        "narHash": "sha256-88l/jjSxO+IRZAtxcbfiEm0UOwfQiN3sWlNLslYutYE=",
+        "lastModified": 1765159458,
+        "narHash": "sha256-Vqd+16ZS5fQKC/SpWiw3iJLGxou9Yxkg8e6pE76oXxs=",
         "owner": "datsfilipe",
         "repo": "meow",
-        "rev": "72da7022a3f3e3de349404db462340f22a332516",
+        "rev": "6a3b37c590a18e0f63a9265dca568288d1479f6b",
         "type": "github"
       },
       "original": {
@@ -478,6 +497,21 @@
         "type": "github"
       }
     },
+    "systems_4": {
+      "locked": {
+        "lastModified": 1681028828,
+        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
+        "owner": "nix-systems",
+        "repo": "default",
+        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-systems",
+        "repo": "default",
+        "type": "github"
+      }
+    },
     "unix-scripts": {
       "flake": false,
       "locked": {
@@ -517,7 +551,7 @@
           "nixpkgs"
         ],
         "rust-overlay": "rust-overlay",
-        "systems": "systems_3"
+        "systems": "systems_4"
       },
       "locked": {
         "lastModified": 1763942246,
