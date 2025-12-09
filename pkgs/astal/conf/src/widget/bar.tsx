@@ -313,12 +313,20 @@ function Volume() {
 }
 
 function Clock() {
-  const time = Variable('').poll(
-    1000,
-    () => GLib.DateTime.new_now_local().format('%a. %b %e - %H:%M:%S')!,
-  );
+  const getTime = () => {
+    const timeString = GLib.DateTime.new_now_local().format('%a. %b-%e-%H:%M:%S')!
+    return timeString.split('-');
+  };
+
+  const time = Variable(getTime()).poll(1000, getTime);
+
   return (
-    <label className="clock" label={bind(time)} onDestroy={() => time.drop()} />
+    <box className="clock" onDestroy={() => time.drop()} halign={Gtk.Align.CENTER} spacing={2}>
+      <label className="date" label={bind(time).as(([date]) => date)} />
+      <label className="day" label={bind(time).as(([, day]) => day)} />
+      <label className="separator" label="-" />
+      <label className="hours" label={bind(time).as(([,, hours]) => hours)} />
+    </box>
   );
 }
 

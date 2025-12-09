@@ -201,8 +201,13 @@ menu {
   padding: 0;
 }
 
-.clock {
-  margin-right: 6px;
+.clock .day {
+  margin-left: -3px;
+}
+
+.clock .hours, .clock .separator {
+  font-family: 'JetBrainsMono Nerd Font';
+  margin-top: -2px;
 }
 
 // launcher
