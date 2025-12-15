@@ -44,6 +44,7 @@ in {
   modules.editors.neovim.system.enable = true;
   modules.desktop.fonts.system.enable = true;
 
+  modules.programs.ollama.system.enable = true;
   modules.programs.virtualization.system.enable = true;
   modules.programs.fhs.system.enable = true;
   modules.programs.games.system.enable = true;
