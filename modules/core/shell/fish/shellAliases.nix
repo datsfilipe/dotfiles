@@ -9,6 +9,11 @@
   "delr" = "trxsh --restore";
   "delc" = "trxsh --cleanup";
 
+  "trash-put" = "trxsh";
+  "trash-empty" = "trxsh --cleanup";
+  "trash-list" = "trxsh --list";
+  "trash-restore" = "trxsh --restore";
+
   "top" = "btm -b";
   "topp" = "btm";
 
