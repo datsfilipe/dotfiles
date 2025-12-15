@@ -42,6 +42,7 @@ in {
       eza
       zip
       fzf
+      ripgrep
       unzip
       xz
       zstd
