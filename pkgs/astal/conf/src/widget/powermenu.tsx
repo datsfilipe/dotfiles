@@ -27,7 +27,7 @@ export default function PowerMenu(gifFilename: string) {
   const items = [
     { label: 'Shutdown', icon: '', cmd: 'systemctl poweroff' },
     { label: 'Reboot', icon: '', cmd: 'systemctl reboot' },
-    { id: 'gif', action: triggerGif, tooltip: 'is it GIF or GIF?' },
+    { id: 'gif', action: triggerGif, tooltip: 'is it JIF or GIF?' },
     { label: 'Suspend', icon: '󰒲', cmd: 'systemctl suspend' },
     { label: 'Logout', icon: '', cmd: 'niri msg action quit -s' },
   ];
