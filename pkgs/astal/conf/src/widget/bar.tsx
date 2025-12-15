@@ -314,7 +314,7 @@ function Volume() {
 
 function Clock() {
   const getTime = () => {
-    const timeString = GLib.DateTime.new_now_local().format('%a. %b-%e-%H:%M:%S')!
+    const timeString = GLib.DateTime.new_now_local().format('%a. %b -%e-%H:%M:%S')!
     return timeString.split('-');
   };
 
