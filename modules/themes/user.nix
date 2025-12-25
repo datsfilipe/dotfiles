@@ -6,7 +6,7 @@
   ...
 }: {
   options.modules.themes = let
-    themeNames = ["catppuccin" "kanagawa" "min" "solarized" "vesper" "gruvbox"];
+    themeNames = ["catppuccin" "min" "solarized" "vesper" "gruvbox"];
   in
     builtins.listToAttrs (map (name: {
         inherit name;
@@ -18,7 +18,7 @@
     enable = lib.mkEnableOption "Colorscheme";
 
     theme = lib.mkOption {
-      type = lib.types.enum ["gruvbox" "kanagawa" "min" "solarized" "vesper" "catppuccin"];
+      type = lib.types.enum ["gruvbox" "min" "solarized" "vesper" "catppuccin"];
       default = "vesper";
       description = "Colorscheme theme.";
     };
@@ -121,7 +121,7 @@
               theme = name;
             };
           })
-        ["catppuccin" "kanagawa" "min" "solarized" "vesper" "gruvbox"]
+        ["catppuccin" "min" "solarized" "vesper" "gruvbox"]
       ))
       (lib.mkIf (config.modules.desktop.colorscheme.enable) (lib.mkMerge [
         (lib.mkIf config.modules.desktop.colorscheme.enableNeovimIntegration {

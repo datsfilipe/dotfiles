@@ -1,9 +1,8 @@
 {name, ...}: let
   colorschemeMap = {
     catppuccin = "catppuccin";
-    kanagawa = "kanagawa";
-    min = "min-theme";
-    solarized = "solarized-osaka";
+    min = "min";
+    solarized = "solarized";
     vesper = "vesper";
     gruvbox = "gruvbox";
   };

@@ -63,18 +63,6 @@
         };
       };
     };
-    kanagawa = {
-      theme = {
-        name = "Flat-Remix-GTK-Orange-Darkest-Solid";
-        package = pkgs.flat-remix-gtk;
-      };
-      iconTheme = {
-        name = "Reversal-orange-dark";
-        package = pkgs.reversal-icon-theme.override {
-          colorVariants = ["-orange"];
-        };
-      };
-    };
   };
 in
   mylib.mapLookup {value = name;} themes
