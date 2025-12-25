@@ -17,7 +17,6 @@
   "top" = "btm -b";
   "topp" = "btm";
 
-  "rm" = "echo \"use trash instead of rm\"";
   "cat" = "meow";
   "zp" = "zipper";
   "ext" = "extract";
