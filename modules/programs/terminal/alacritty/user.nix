@@ -10,7 +10,7 @@ with lib; {
         terminal.shell.program = "fish";
 
         font = {
-          size = 14;
+          size = 15;
           bold = {
             family = "JetBrainsMono Nerd Font";
             style = "Bold";
