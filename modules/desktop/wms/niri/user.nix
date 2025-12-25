@@ -23,11 +23,10 @@ in {
 
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
+      niri
       wl-clipboard
       xwayland-satellite
     ];
-
-    modules.desktop.nupkgs.packages = [mypkgs.niri];
 
     modules.desktop.wms.niri.user.rawConfigValues = [
       ''spawn-at-startup "sh" "-c" "wmain ${toString monitorCount}"''
