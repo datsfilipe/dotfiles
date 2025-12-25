@@ -62,22 +62,17 @@ in {
       description = "Wallpaper Renderer";
       after = ["graphical-session.target"];
       wantedBy = ["graphical-session.target"];
-
       path = [pkgs.swaybg];
-
       script = ''
         CACHE_DIR="/home/${myvars.username}/.cache/wallpapers"
-
         if [ ! -f "$CACHE_DIR/master.png" ]; then
           echo "No cache found. Waiting for updater..."
           sleep 5
           exit 1
         fi
-
         echo "Starting swaybg from cache..."
         exec ${pkgs.swaybg}/bin/swaybg ${swaybgArgs} -m fill
       '';
-
       serviceConfig = {
         Type = "simple";
         Restart = "on-failure";
@@ -88,9 +83,7 @@ in {
     systemd.user.services.wallpaper-updater = {
       enable = true;
       description = "Wallpaper Updater Logic";
-      after =
-        ["graphical-session.target"]
-        ++ (optional config.modules.services.gdrive.enable "rclone-gdrive-mount.service");
+      after = ["graphical-session.target"] ++ (optional config.modules.services.gdrive.enable "rclone-gdrive-mount.service");
       wantedBy = ["graphical-session.target"];
 
       path = with pkgs; [imagemagick coreutils procps diffutils gawk systemd];
@@ -99,10 +92,13 @@ in {
         SOURCE_WALLPAPER="${cfg.file}"
         CACHE_DIR="/home/${myvars.username}/.cache/wallpapers"
         SUM_FILE="$CACHE_DIR/source.md5"
+        ZOOM_FILE="$CACHE_DIR/zoom.txt"
         mkdir -p "$CACHE_DIR"
 
         CANVAS_W="${toString totalWidth}"
         CANVAS_H="${toString totalHeight}"
+
+        ZOOM="${toString (myvars.hostsConfig.wallpaper-zoom or 0)}"
 
         echo "[Updater] Checking source..."
         for i in {1..30}; do
@@ -117,10 +113,11 @@ in {
 
         CURRENT_SUM=$(md5sum "$SOURCE_WALLPAPER" | awk '{print $1}')
         SAVED_SUM=$(cat "$SUM_FILE" 2>/dev/null || echo "")
+        SAVED_ZOOM=$(cat "$ZOOM_FILE" 2>/dev/null || echo "")
         RENDERER_ACTIVE=$(systemctl --user is-active wallpaper.service)
 
-        if [ "$CURRENT_SUM" == "$SAVED_SUM" ] && [ -f "$CACHE_DIR/master.png" ]; then
-           echo "[Updater] Hash match ($CURRENT_SUM)."
+        if [ "$CURRENT_SUM" == "$SAVED_SUM" ] && [ "$ZOOM" == "$SAVED_ZOOM" ] && [ -f "$CACHE_DIR/master.png" ]; then
+           echo "[Updater] Hash and Zoom match ($CURRENT_SUM / $ZOOM)."
 
            if [ "$RENDERER_ACTIVE" != "active" ]; then
               echo "[Updater] Renderer not active. Starting it."
@@ -131,10 +128,15 @@ in {
            exit 0
         fi
 
-        echo "[Updater] Update detected or cache invalid. Processing..."
+        echo "[Updater] Change detected (Hash or Zoom). Processing..."
+
+        RESIZE_W=$(awk -v w="$CANVAS_W" -v z="$ZOOM" 'BEGIN { printf "%.0f", w * (1 + z) }')
+        RESIZE_H=$(awk -v h="$CANVAS_H" -v z="$ZOOM" 'BEGIN { printf "%.0f", h * (1 + z) }')
+
+        echo "[Updater] Resizing with Zoom $ZOOM -> ''${RESIZE_W}x''${RESIZE_H}"
 
         ${pkgs.imagemagick}/bin/magick "$SOURCE_WALLPAPER" \
-          -resize "$CANVAS_W"x"$CANVAS_H"^ \
+          -resize "''${RESIZE_W}x''${RESIZE_H}^" \
           -gravity center \
           -extent "$CANVAS_W"x"$CANVAS_H" \
           "$CACHE_DIR/master.png"
@@ -142,6 +144,7 @@ in {
         ${cropLogic}
 
         echo "$CURRENT_SUM" > "$SUM_FILE"
+        echo "$ZOOM" > "$ZOOM_FILE"
 
         echo "[Updater] Restarting renderer..."
         systemctl --user restart wallpaper.service
