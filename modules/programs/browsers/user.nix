@@ -12,29 +12,32 @@ in {
   config = mkIf cfg.enable {
     programs.chromium = {
       enable = true;
-      package = pkgs-unstable.chromium.override {
-        enableWideVine = true;
-      };
+      package = pkgs-unstable.chromium.override {enableWideVine = true;};
+
       commandLineArgs = [
         "--ozone-platform=wayland"
-        "--enable-features=UseOzonePlatform,WaylandWindowDecorations,WebUIDarkMode,VaapiVideoDecodeLinuxGL,VaapiVideoEncoder"
-        "--force-dark-mode"
+        "--enable-features=UseOzonePlatform,WaylandWindowDecorations,WebUIDarkMode"
+        "--enable-wayland-ime"
+
         "--use-gl=angle"
         "--use-angle=gl"
-        "--use-cmd-decoder=passthrough"
-        "--enable-gpu-rasterization"
-        "--enable-features=RunAllCompositorResourcesBeforeSync"
-        "--ignore-gpu-blocklist"
+
+        "--enable-features=VaapiVideoDecodeLinuxGL,VaapiVideoDecoder,VaapiOnNvidiaGPUs"
         "--disable-features=UseSkiaGraphite"
+        "--disable-gpu-memory-buffer-video-frames"
+        "--ignore-gpu-blocklist"
+
+        "--force-dark-mode"
       ];
+
       dictionaries = [pkgs-unstable.hunspellDictsChromium.en_US];
       extensions = [
-        {id = "fmkadmapgofadopljbjfkapdkoienihi";} # react devtools
-        {id = "liecbddmkiiihnedobmlmillhodjkdmb";} # loom
-        {id = "nkbihfbeogaeaoehlefnkodbefgpgknn";} # metamask
-        {id = "acmacodkjbdgmoleebolmdjonilkdbch";} # rabby
-        {id = "eimadpbcbfnmbkopoojfekhnkhdbieeh";} # dark reader
-        {id = "dpjamkmjmigaoobjbekmfgabipmfilij";} # new tab
+        {id = "fmkadmapgofadopljbjfkapdkoienihi";}
+        {id = "liecbddmkiiihnedobmlmillhodjkdmb";}
+        {id = "nkbihfbeogaeaoehlefnkodbefgpgknn";}
+        {id = "acmacodkjbdgmoleebolmdjonilkdbch";}
+        {id = "eimadpbcbfnmbkopoojfekhnkhdbieeh";}
+        {id = "dpjamkmjmigaoobjbekmfgabipmfilij";}
       ];
     };
   };
