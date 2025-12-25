@@ -139,6 +139,6 @@ binds {
 
   Mod+Return repeat=false { spawn "sh" "-c" "alacritty -e zellij attach dtsf -c"; }
   Mod+Shift+Return repeat=false { spawn "alacritty"; }
-  Mod+A repeat=false { spawn "chromium"; }
+  Mod+A repeat=false { spawn "sh" "-c" "chromium --ozone-platform=x11"; }
   Mod+Shift+M repeat=false { spawn "shimeji"; }
 }
