@@ -1,7 +1,7 @@
 {
-  pkgs-unstable,
-  lib,
   config,
+  mypkgs,
+  lib,
   ...
 }:
 with lib; let
@@ -10,8 +10,8 @@ in {
   options.modules.programs.devtools.user.enable = mkEnableOption "Developer GUI tools";
 
   config = mkIf cfg.enable {
-    home.packages = with pkgs-unstable; [
-      beekeeper-studio
+    modules.desktop.nupkgs.packages = with mypkgs; [
+      tableplus
     ];
   };
 }
