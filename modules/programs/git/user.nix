@@ -34,8 +34,8 @@
         mergetool.keepBackup = false;
         mergetool.nvimdiff.cmd = "nvim -d $LOCAL $REMOTE";
         mergetool.nvimdiff.trustExitCode = true;
-        ghq.root = "~/www/s";
-        ghq."ssh://git@github.com/d3-inc".root = "~/www/w";
+        ghq.root = "~/src";
+        ghq."ssh://git@github.com/d3-inc".root = "~/org";
         url = {
           "ssh://git@github.com/datsfilipe" = {
             insteadOf = "https://github.com/datsfilipe";
