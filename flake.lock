@@ -409,10 +409,10 @@
     "unix-scripts": {
       "flake": false,
       "locked": {
-        "lastModified": 1764308922,
-        "narHash": "sha256-OE3qhA7qN2Wjgr5S0pnaWKVp49ryRMMWlm7wiQwCjnI=",
+        "lastModified": 1766698914,
+        "narHash": "sha256-O/6JrN9trBj9jp6aJOvjq29AkhCgdqA8BI0IpJi6i9Q=",
         "ref": "refs/heads/main",
-        "rev": "8d0d3a0cbdb31adfc46ed7b69163b4f43f846c27",
+        "rev": "f4e578a9dc3d2c07003f55f63a4db6969ad88b6d",
         "shallow": true,
         "type": "git",
         "url": "file:///home/dtsf/.dotfiles/pkgs/scripts/conf"
