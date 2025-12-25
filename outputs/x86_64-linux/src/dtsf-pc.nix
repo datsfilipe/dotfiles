@@ -19,7 +19,7 @@
 
   home-modules =
     [
-      inputs.datsnvim.homeManagerModules.${system}.default
+      inputs.datsnvim.homeManagerModules.default
     ]
     ++ (map mylib.file.relativeToRoot [
       "hosts/${name}/home"

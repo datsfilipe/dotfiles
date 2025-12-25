@@ -16,10 +16,7 @@
       url = "github:aylur/astal/7d1fac8a4b2a14954843a978d2ddde86168c75ef";
     };
     datsnvim = {
-      inputs = {
-        home-manager.follows = "home-manager";
-        nixpkgs.follows = "nixpkgs";
-      };
+      inputs.nixpkgs.follows = "nixpkgs";
       url = "github:datsfilipe/datsnvim/main";
     };
     home-manager = {
