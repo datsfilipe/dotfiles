@@ -39,7 +39,7 @@ in {
     services.xserver.videoDrivers = ["nvidia"];
 
     hardware.nvidia = {
-      package = config.boot.kernelPackages.nvidiaPackages.beta;
+      package = config.boot.kernelPackages.nvidiaPackages.stable;
       modesetting.enable = true;
       powerManagement.enable = true;
       nvidiaSettings = true;
@@ -51,6 +51,8 @@ in {
       enable32Bit = true;
       extraPackages = with pkgs-unstable; [
         nvidia-vaapi-driver
+        egl-wayland
+        libvdpau-va-gl
       ];
     };
   };
