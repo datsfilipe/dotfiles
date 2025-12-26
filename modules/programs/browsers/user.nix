@@ -37,7 +37,6 @@ in {
         {id = "nkbihfbeogaeaoehlefnkodbefgpgknn";}
         {id = "acmacodkjbdgmoleebolmdjonilkdbch";}
         {id = "eimadpbcbfnmbkopoojfekhnkhdbieeh";}
-        {id = "dpjamkmjmigaoobjbekmfgabipmfilij";}
       ];
     };
   };
