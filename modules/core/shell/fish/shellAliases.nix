@@ -1,7 +1,7 @@
 {
-  "ll" = "eza --color always --icons -1glb -s name --git --sort date --group-directories-first";
-  "lla" = "eza --color always --icons -1galb -s name --git --sort date --group-directories-first";
-  "tree" = "eza --tree -D -L 3";
+  "ll" = "eza --color always -1glb -s name --git --sort date --group-directories-first";
+  "lla" = "eza --color always -1galb -s name --git --sort date --group-directories-first";
+  "llt" = "eza --tree -L 5";
 
   "del" = "trxsh";
   "dels" = "trxsh --list";
