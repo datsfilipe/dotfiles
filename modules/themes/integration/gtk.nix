@@ -51,6 +51,18 @@
         };
       };
     };
+    carbon = {
+      theme = {
+        name = "Flat-Remix-GTK-Blue-Darkest-Solid";
+        package = pkgs.flat-remix-gtk;
+      };
+      iconTheme = {
+        name = "Reversal-blue-dark";
+        package = pkgs.reversal-icon-theme.override {
+          colorVariants = ["-blue"];
+        };
+      };
+    };
     catppuccin = {
       theme = {
         name = "Flat-Remix-GTK-Magenta-Darkest-Solid";

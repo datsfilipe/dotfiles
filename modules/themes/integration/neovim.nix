@@ -4,6 +4,7 @@
     min = "min";
     solarized = "solarized";
     vesper = "vesper";
+    carbon = "carbon";
     gruvbox = "gruvbox";
   };
   colorscheme = colorschemeMap.${name};
