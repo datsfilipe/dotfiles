@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        hostname: [dtsf-pc, dtsf-laptop]
+        hostname: [dtsf-pc, dtsf-laptop, dtsf-server]
 
     steps:
       - name: Fast Disk Cleanup
