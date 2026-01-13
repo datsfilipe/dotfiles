@@ -11,16 +11,19 @@
     bitwarden-desktop
     pavucontrol
     brightnessctl
-    networkmanagerapplet
     bc
+    krita
+
+    gnome-tweaks
+    gnome-extension-manager
+    gnomeExtensions.dash-to-dock
+    gnomeExtensions.blur-my-shell
+    gnomeExtensions.appindicator
   ];
 
   modules.desktop.nupkgs.packages = with mypkgs; [
     devtunnel-cli
     nix-envs
     scripts
-    astal
-    trxsh
-    meow
   ];
 }

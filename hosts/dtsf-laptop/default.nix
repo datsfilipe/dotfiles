@@ -1,5 +1,6 @@
 {
   lib,
+  pkgs,
   mylib,
   myvars,
   ...
@@ -17,6 +18,23 @@ in {
     networkmanager.enable = true;
   };
 
+  services.xserver = {
+    enable = true;
+    desktopManager.gnome.enable = true;
+    displayManager.gdm = {
+      enable = true;
+      wayland = true;
+    };
+
+    xkb = {
+      layout = "us";
+      variant = "";
+    };
+  };
+
+  hardware.sensor.iio.enable = true;
+  services.udev.packages = [pkgs.libwacom];
+
   modules.core.boot.system.enable = true;
   modules.core.nix.system.enable = true;
   modules.core.security.system.enable = true;
@@ -33,16 +51,15 @@ in {
     monitors = myvars.hostsConfig.monitors.laptop;
   };
 
+  modules.desktop.fonts.system.enable = true;
   modules.desktop.displayManager.enable = true;
-  modules.desktop.wms.niri.system.enable = true;
-  modules.services.gdrive.enable = true;
   modules.desktop.wallpaper = {
     enable = true;
     file = myvars.hostsConfig.wallpaper;
   };
 
+  modules.services.gdrive.enable = true;
   modules.editors.neovim.system.enable = true;
-  modules.desktop.fonts.system.enable = true;
 
   modules.programs.virtualization.system.enable = true;
   modules.programs.fhs.system.enable = true;

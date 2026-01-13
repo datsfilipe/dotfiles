@@ -62,15 +62,16 @@ in {
       description = "Wallpaper Renderer";
       after = ["graphical-session.target"];
       wantedBy = ["graphical-session.target"];
+
+      unitConfig.ConditionEnvironment = "!XDG_CURRENT_DESKTOP=GNOME";
+
       path = [pkgs.swaybg];
       script = ''
         CACHE_DIR="/home/${myvars.username}/.cache/wallpapers"
         if [ ! -f "$CACHE_DIR/master.png" ]; then
-          echo "No cache found. Waiting for updater..."
           sleep 5
           exit 1
         fi
-        echo "Starting swaybg from cache..."
         exec ${pkgs.swaybg}/bin/swaybg ${swaybgArgs} -m fill
       '';
       serviceConfig = {
@@ -86,7 +87,7 @@ in {
       after = ["graphical-session.target"] ++ (optional config.modules.services.gdrive.enable "rclone-gdrive-mount.service");
       wantedBy = ["graphical-session.target"];
 
-      path = with pkgs; [imagemagick coreutils procps diffutils gawk systemd];
+      path = with pkgs; [imagemagick coreutils procps diffutils gawk systemd glib];
 
       script = ''
         SOURCE_WALLPAPER="${cfg.file}"
@@ -97,10 +98,8 @@ in {
 
         CANVAS_W="${toString totalWidth}"
         CANVAS_H="${toString totalHeight}"
-
         ZOOM="${toString (myvars.hostsConfig.wallpaper-zoom or 0)}"
 
-        echo "[Updater] Checking source..."
         for i in {1..30}; do
           if [[ -f "$SOURCE_WALLPAPER" ]]; then break; fi
           sleep 1
@@ -114,40 +113,47 @@ in {
         CURRENT_SUM=$(md5sum "$SOURCE_WALLPAPER" | awk '{print $1}')
         SAVED_SUM=$(cat "$SUM_FILE" 2>/dev/null || echo "")
         SAVED_ZOOM=$(cat "$ZOOM_FILE" 2>/dev/null || echo "")
-        RENDERER_ACTIVE=$(systemctl --user is-active wallpaper.service)
 
-        if [ "$CURRENT_SUM" == "$SAVED_SUM" ] && [ "$ZOOM" == "$SAVED_ZOOM" ] && [ -f "$CACHE_DIR/master.png" ]; then
-           echo "[Updater] Hash and Zoom match ($CURRENT_SUM / $ZOOM)."
-
-           if [ "$RENDERER_ACTIVE" != "active" ]; then
-              echo "[Updater] Renderer not active. Starting it."
-              systemctl --user start wallpaper.service
-           else
-              echo "[Updater] Renderer active and valid. Doing nothing."
-           fi
-           exit 0
+        CHANGES_DETECTED=0
+        if [ "$CURRENT_SUM" != "$SAVED_SUM" ] || [ "$ZOOM" != "$SAVED_ZOOM" ] || [ ! -f "$CACHE_DIR/master.png" ]; then
+           CHANGES_DETECTED=1
         fi
 
-        echo "[Updater] Change detected (Hash or Zoom). Processing..."
+        if [ "$CHANGES_DETECTED" -eq 1 ]; then
+           echo "[Updater] Change detected. Processing..."
+           RESIZE_W=$(awk -v w="$CANVAS_W" -v z="$ZOOM" 'BEGIN { printf "%.0f", w * (1 + z) }')
+           RESIZE_H=$(awk -v h="$CANVAS_H" -v z="$ZOOM" 'BEGIN { printf "%.0f", h * (1 + z) }')
 
-        RESIZE_W=$(awk -v w="$CANVAS_W" -v z="$ZOOM" 'BEGIN { printf "%.0f", w * (1 + z) }')
-        RESIZE_H=$(awk -v h="$CANVAS_H" -v z="$ZOOM" 'BEGIN { printf "%.0f", h * (1 + z) }')
+           ${pkgs.imagemagick}/bin/magick "$SOURCE_WALLPAPER" \
+             -resize "''${RESIZE_W}x''${RESIZE_H}^" \
+             -gravity center \
+             -extent "$CANVAS_W"x"$CANVAS_H" \
+             "$CACHE_DIR/master.png"
 
-        echo "[Updater] Resizing with Zoom $ZOOM -> ''${RESIZE_W}x''${RESIZE_H}"
+           ${cropLogic}
 
-        ${pkgs.imagemagick}/bin/magick "$SOURCE_WALLPAPER" \
-          -resize "''${RESIZE_W}x''${RESIZE_H}^" \
-          -gravity center \
-          -extent "$CANVAS_W"x"$CANVAS_H" \
-          "$CACHE_DIR/master.png"
+           echo "$CURRENT_SUM" > "$SUM_FILE"
+           echo "$ZOOM" > "$ZOOM_FILE"
+        else
+           echo "[Updater] No changes detected."
+        fi
 
-        ${cropLogic}
+        if [[ "$XDG_CURRENT_DESKTOP" == *"GNOME"* ]]; then
+            echo "[Updater] Detected GNOME environment."
+            gsettings set org.gnome.desktop.background picture-uri "file://$CACHE_DIR/master.png"
+            gsettings set org.gnome.desktop.background picture-uri-dark "file://$CACHE_DIR/master.png"
 
-        echo "$CURRENT_SUM" > "$SUM_FILE"
-        echo "$ZOOM" > "$ZOOM_FILE"
+            systemctl --user stop wallpaper.service || true
 
-        echo "[Updater] Restarting renderer..."
-        systemctl --user restart wallpaper.service
+        else
+            echo "[Updater] Detected Sway/Niri/Other."
+
+            if [ "$CHANGES_DETECTED" -eq 1 ]; then
+                systemctl --user restart wallpaper.service
+            else
+                systemctl --user start wallpaper.service
+            fi
+        fi
       '';
 
       serviceConfig = {
