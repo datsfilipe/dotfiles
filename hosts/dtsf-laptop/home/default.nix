@@ -66,6 +66,13 @@
       dynamic-workspaces = true;
       experimental-features = ["scale-monitor-framebuffer"];
     };
+
+    "org/gnome/settings-daemon/plugins/power" = {
+      sleep-inactive-ac-type = "hibernate";
+      sleep-inactive-ac-timeout = 300;
+      sleep-inactive-battery-type = "hibernate";
+      sleep-inactive-battery-timeout = 300;
+    };
   };
 
   modules.desktop.nupkgs.enable = true;

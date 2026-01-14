@@ -90,5 +90,18 @@ in {
   modules.programs.virtualization.system.enable = true;
   modules.programs.fhs.system.enable = true;
 
+  boot.resumeDevice = "/dev/disk/by-uuid/98e8d82d-ecb5-4977-bf07-f4430cf4d500";
+
+  services.logind.settings.Login = {
+    HandleLidSwitch = "hibernate";
+    HandleLidSwitchDocked = "ignore";
+    HandlePowerKey = "hibernate";
+  };
+
+  services.upower = {
+    enable = true;
+    criticalPowerAction = "Hibernate";
+  };
+
   system.stateVersion = "25.11";
 }
