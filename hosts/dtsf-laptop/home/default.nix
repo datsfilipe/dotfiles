@@ -92,9 +92,21 @@
     enableFishIntegration = true;
     enableAlacrittyIntegration = true;
     enableFzfIntegration = true;
+    enableZellijIntegration = true;
     enableNiriIntegration = false;
     enableAstalIntegration = false;
   };
 
   modules.themes.${myvars.hostsConfig.theme}.enable = true;
+
+  xdg.desktopEntries.alacritty = {
+    name = "Alacritty";
+    genericName = "Terminal";
+    comment = "A fast, cross-platform, OpenGL terminal emulator";
+    exec = "alacritty -e zellij attach dtsf -c";
+    icon = "Alacritty";
+    type = "Application";
+    categories = ["System" "TerminalEmulator"];
+    terminal = false;
+  };
 }

@@ -13,6 +13,27 @@ in {
 
   services.libinput.enable = true;
 
+  services.keyd = {
+    enable = true;
+    keyboards = {
+      default = {
+        ids = ["*"];
+        settings = {
+          main = {
+            a = "overloadt(meta, a, 200)";
+            s = "overloadt(alt, s, 200)";
+            d = "overloadt(control, d, 200)";
+            f = "overloadt(shift, f, 200)";
+            j = "overloadt(shift, j, 200)";
+            k = "overloadt(control, k, 200)";
+            l = "overloadt(alt, l, 200)";
+            semicolon = "overloadt(meta, semicolon, 200)";
+          };
+        };
+      };
+    };
+  };
+
   networking = {
     inherit hostName;
     networkmanager.enable = true;
