@@ -20,14 +20,14 @@ in {
         ids = ["*"];
         settings = {
           main = {
-            a = "overloadt(meta, a, 200)";
-            s = "overloadt(alt, s, 200)";
-            d = "overloadt(control, d, 200)";
-            f = "overloadt(shift, f, 200)";
-            j = "overloadt(shift, j, 200)";
-            k = "overloadt(control, k, 200)";
+            a = "overloadt(meta, a, 250)";
+            s = "overloadt(alt, s, 250)";
+            d = "overloadt(control, d, 250)";
+            f = "overloadt(shift, f, 250)";
+            j = "overloadt(shift, j, 250)";
+            k = "overloadt(control, k, 250)";
             l = "overloadt(alt, l, 200)";
-            semicolon = "overloadt(meta, semicolon, 200)";
+            semicolon = "overloadt(meta, semicolon, 250)";
           };
         };
       };
