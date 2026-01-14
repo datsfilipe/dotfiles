@@ -4,6 +4,14 @@
   ...
 }:
 with lib; {
+  options.modules.programs.terminal.alacritty = {
+    enableDecorations = mkOption {
+      type = types.bool;
+      default = false;
+      description = "Enable window decorations (title bar) for Alacritty";
+    };
+  };
+
   config = mkIf (config.modules.programs.terminal.default == "alacritty") {
     programs.alacritty = {
       settings = {
@@ -49,7 +57,10 @@ with lib; {
           opacity = 0.8;
           padding.x = 25;
           padding.y = 25;
-          decorations = "none";
+          decorations =
+            if config.modules.programs.terminal.alacritty.enableDecorations
+            then "full"
+            else "none";
         };
       };
     };

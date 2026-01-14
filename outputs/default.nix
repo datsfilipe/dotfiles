@@ -154,10 +154,14 @@ in {
           bashInteractive
           gcc
           alejandra
+          libsForQt5.qtwayland
           just
         ];
         shellHook = ''
           export DOTFILES_ROOT=$(git rev-parse --show-toplevel)
+          export QT_PLUGIN_PATH="${pkgs.libsForQt5.qtwayland}/lib/qt-5.15/plugins:$QT_PLUGIN_PATH"
+          export QT_QPA_PLATFORM=wayland
+          export QT_SCALE_FACTOR_ROUNDING_POLICY=RoundPreferFloor
         '';
       };
     }

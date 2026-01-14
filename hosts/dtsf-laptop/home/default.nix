@@ -3,8 +3,7 @@
   mylib,
   myvars,
   ...
-}: let
-in {
+}: {
   imports = (mylib.file.scanPaths ../../../modules "user.nix") ++ [./packages.nix];
 
   modules.hardware.machine.hostname = "dtsf-laptop";
@@ -12,19 +11,31 @@ in {
   modules.core.shell.fish.user.enable = true;
   modules.core.user.home.enable = true;
 
+  modules.desktop.wms.niri.user.enable = false;
+  modules.desktop.wms.common.enable = false;
+
   modules.hardware.monitors = {
     enable = true;
     monitors = myvars.hostsConfig.monitors.laptop;
   };
 
-  modules.desktop.conf.enableZellijIntegration = true;
+  modules.desktop.conf = {
+    enableCavaIntegration = false;
+    enableZellijIntegration = true;
+  };
+
+  home.sessionVariables = {
+    NIXOS_OZONE_WL = "1";
+    MOZ_ENABLE_WAYLAND = "1";
+    QT_QPA_PLATFORM = "wayland";
+    QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
+  };
 
   dconf.settings = {
     "org/gnome/shell" = {
       disable-user-extensions = false;
       enabled-extensions = [
         "dash-to-dock@micxgx.gmail.com"
-        "blur-my-shell@aunetx"
         "user-theme@gnome-shell-extensions.gcampax.github.com"
         "appindicatorsupport@rgcjonas.gmail.com"
       ];
@@ -41,7 +52,7 @@ in {
       custom-theme-shrink = true;
       apply-custom-theme = true;
       transparency-mode = "FIXED";
-      background-opacity = 0.8;
+      background-opacity = 1.0;
     };
 
     "org/gnome/desktop/interface" = {
@@ -53,6 +64,7 @@ in {
     "org/gnome/mutter" = {
       edge-tiling = true;
       dynamic-workspaces = true;
+      experimental-features = ["scale-monitor-framebuffer"];
     };
   };
 
@@ -69,6 +81,7 @@ in {
 
   modules.programs.git.enable = true;
   modules.programs.terminal.default = "alacritty";
+  modules.programs.terminal.alacritty.enableDecorations = true;
 
   modules.editors.neovim.user.enable = true;
 
@@ -79,6 +92,8 @@ in {
     enableFishIntegration = true;
     enableAlacrittyIntegration = true;
     enableFzfIntegration = true;
+    enableNiriIntegration = false;
+    enableAstalIntegration = false;
   };
 
   modules.themes.${myvars.hostsConfig.theme}.enable = true;

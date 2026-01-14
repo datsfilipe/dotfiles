@@ -20,16 +20,21 @@ in {
 
   services.xserver = {
     enable = true;
-    desktopManager.gnome.enable = true;
-    displayManager.gdm = {
-      enable = true;
-      wayland = true;
-    };
-
     xkb = {
       layout = "us";
       variant = "";
     };
+  };
+
+  services.desktopManager.gnome.enable = true;
+  services.displayManager.gdm = {
+    enable = true;
+    wayland = true;
+  };
+
+  environment.sessionVariables = {
+    QT_QPA_PLATFORM = "wayland";
+    QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
   };
 
   hardware.sensor.iio.enable = true;

@@ -3,29 +3,27 @@
   lib,
   ...
 }: {
+  environment.systemPackages = with pkgs; [
+    efibootmgr
+  ];
+
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   hardware.graphics.enable = true;
   boot.kernelParams = ["i915.enable_guc=0"];
 
   boot.loader = {
-    systemd-boot.enable = false;
+    grub.enable = false;
 
-    efi.efiSysMountPoint = "/boot";
-    grub = {
-      devices = ["nodev"];
-      efiSupport = true;
-      enable = lib.mkDefault true;
-      gfxmodeEfi = "1920x1080";
-      efiInstallAsRemovable = true;
-      extraEntries = ''
-        menuentry "Reboot" {
-          reboot
-        }
-        menuentry "Poweroff" {
-          halt
-        }
-      '';
+    systemd-boot = {
+      enable = true;
+      configurationLimit = 10;
+      consoleMode = "keep";
+    };
+
+    efi = {
+      canTouchEfiVariables = true;
+      efiSysMountPoint = "/boot";
     };
   };
 
