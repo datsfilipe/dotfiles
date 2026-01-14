@@ -108,5 +108,25 @@
     type = "Application";
     categories = ["System" "TerminalEmulator"];
     terminal = false;
+    startupNotify = true;
+    settings = {
+      StartupWMClass = "Alacritty";
+    };
+  };
+
+  xdg.desktopEntries.krita = {
+    name = "Krita (Wayland)";
+    genericName = "Digital Painting";
+    comment = "Krita configured for Wayland with proper scaling";
+    exec = "krita %F";
+    icon = "krita";
+    type = "Application";
+    categories = ["Graphics" "2DGraphics" "RasterGraphics" "Qt"];
+    mimeType = ["application/x-krita" "image/openraster" "image/png" "image/jpeg"];
+    terminal = false;
+    startupNotify = true;
+    settings = {
+      StartupWMClass = "krita";
+    };
   };
 }
