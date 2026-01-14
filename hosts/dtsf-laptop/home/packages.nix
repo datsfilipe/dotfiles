@@ -11,20 +11,19 @@
     unset XDG_SESSION_DESKTOP
     unset XDG_CURRENT_DESKTOP
     unset GDMSESSION
+    export KRITA_FORCE_WAYLAND=1
+    export KRITA_USE_NATIVE_CANVAS_SURFACE=1
     export QT_QPA_PLATFORM=wayland
-    export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
-    export QT_AUTO_SCREEN_SCALE_FACTOR=1
-    export QT_SCALE_FACTOR=1.25
-    export QT_SCALE_FACTOR_ROUNDING_POLICY=RoundPreferFloor
     exec ${pkgs.krita}/bin/krita "$@"
   '';
 in {
   home.packages = with pkgs; [
+    bc
+    mesa
     slack
     bitwarden-desktop
     pavucontrol
     brightnessctl
-    bc
     krita-wayland
     gnome-tweaks
     gnome-extension-manager

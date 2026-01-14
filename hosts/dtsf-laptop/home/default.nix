@@ -64,7 +64,6 @@
     "org/gnome/mutter" = {
       edge-tiling = true;
       dynamic-workspaces = true;
-      experimental-features = ["scale-monitor-framebuffer"];
     };
 
     "org/gnome/settings-daemon/plugins/power" = {
