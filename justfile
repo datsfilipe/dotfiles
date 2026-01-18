@@ -14,6 +14,10 @@ gc:
 verify:
   nix store verify --all
 
+fmt:
+  alejandra .
+  find . -type f -name "*.kdl" -exec kdlfmt format {} +
+
 build target mode="default":
   nixos_build {{target}} {{mode}}
 
