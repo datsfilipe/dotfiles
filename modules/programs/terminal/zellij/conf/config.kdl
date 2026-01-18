@@ -1,3 +1,12 @@
+plugins {
+  zellij-switch location="file:///home/dtsf/src/github.com/datsfilipe/zellij-switch/target/wasm32-wasip1/debug/zellij-switch.wasm" {
+    _internal_ "true"
+    name "zellij-switch"
+  }
+}
+load_plugins {
+  zellij-switch
+}
 default_shell "fish"
 copy_on_select false
 default_layout "compact"
@@ -8,132 +17,241 @@ show_startup_tips false
 scrollback_editor "zellij-scrollback-editor"
 keybinds clear-defaults=true {
   shared_among "normal" "scroll" {
-    bind "Ctrl x" { EditScrollback; SwitchToMode "Normal"; }
+    bind "Ctrl x" {
+      EditScrollback
+      SwitchToMode "Normal"
+    }
   }
   shared {
     bind "Ctrl f" {
-      Run "zellij-sessionizer" {
+      Run "bash" "-c" "find ~/src ~/org -maxdepth 5 -name .git | xargs -I{} dirname {} | sort -u | while read -r p; do if [ -f \"$p/.git\" ]; then printf \"%s_%s\t%s\n\" \"$(basename \"$(dirname \"$p\")\")\" \"$(basename \"$p\")\" \"$p\"; else printf \"%s\t%s\n\" \"$(basename \"$p\")\" \"$p\"; fi; done | column -t -s $'\t' | fzf --layout=reverse --header='Select Project' --nth=1 | awk '{print $1, $2}' | xargs -n2 bash -c 'name=$0; cwd=$1; s=$(zellij ls -s 2>/dev/null | grep -E \"(-|^)${name}$\" | head -n1); if [ -z \"$s\" ]; then s=\"$(date +%s)-$name\"; fi; zellij pipe --name zellij-switch -- \"session-select --target $s --cwd $cwd\"'" {
+        floating true
         close_on_exit true
-      };
+        width "70%"
+        height "70%"
+        x "15%"
+        y "15%"
+      }
     }
-    bind "Alt Shift f" { ToggleFloatingPanes; }
-
-    bind "Ctrl Enter" { NewTab; SwitchToMode "Normal"; }
-    bind "Alt a" { GoToTab 1; SwitchToMode "Normal"; }
-    bind "Alt s" { GoToTab 2; SwitchToMode "Normal"; }
-    bind "Alt d" { GoToTab 3; SwitchToMode "Normal"; }
-    bind "Alt f" { GoToTab 4; SwitchToMode "Normal"; }
-    bind "Alt g" { GoToTab 5; SwitchToMode "Normal"; }
-    bind "Alt h" { GoToTab 6; SwitchToMode "Normal"; }
-    bind "Alt j" { GoToTab 7; SwitchToMode "Normal"; }
-    bind "Alt k" { GoToTab 8; SwitchToMode "Normal"; }
-    bind "Alt l" { GoToTab 9; SwitchToMode "Normal"; }
-    bind "Alt ;" { GoToTab 10; SwitchToMode "Normal"; }
-
     bind "Alt 0" {
-      Run "zellij-session-nav" "--headless" "0" {
-        close_on_exit true
-      };
+      MessagePlugin "zellij-switch" {
+        payload "session-index 0"
+      }
     }
     bind "Alt 1" {
-      Run "zellij-session-nav" "--headless" "1" {
-        close_on_exit true
-      };
+      MessagePlugin "zellij-switch" {
+        payload "session-index 1"
+      }
     }
     bind "Alt 2" {
-      Run "zellij-session-nav" "--headless" "2" {
-        close_on_exit true
-      };
+      MessagePlugin "zellij-switch" {
+        payload "session-index 2"
+      }
     }
     bind "Alt 3" {
-      Run "zellij-session-nav" "--headless" "3" {
-        close_on_exit true
-      };
+      MessagePlugin "zellij-switch" {
+        payload "session-index 3"
+      }
     }
     bind "Alt 4" {
-      Run "zellij-session-nav" "--headless" "4" {
-        close_on_exit true
-      };
+      MessagePlugin "zellij-switch" {
+        payload "session-index 4"
+      }
     }
     bind "Alt 5" {
-      Run "zellij-session-nav" "--headless" "5" {
-        close_on_exit true
-      };
+      MessagePlugin "zellij-switch" {
+        payload "session-index 5"
+      }
     }
     bind "Alt 6" {
-      Run "zellij-session-nav" "--headless" "6" {
-        close_on_exit true
-      };
+      MessagePlugin "zellij-switch" {
+        payload "session-index 6"
+      }
     }
     bind "Alt 7" {
-      Run "zellij-session-nav" "--headless" "7" {
-        close_on_exit true
-      };
+      MessagePlugin "zellij-switch" {
+        payload "session-index 7"
+      }
     }
     bind "Alt 8" {
-      Run "zellij-session-nav" "--headless" "8" {
-        close_on_exit true
-      };
+      MessagePlugin "zellij-switch" {
+        payload "session-index 8"
+      }
     }
     bind "Alt 9" {
-      Run "zellij-session-nav" "--headless" "9" {
-        close_on_exit true
-      };
+      MessagePlugin "zellij-switch" {
+        payload "session-index 9"
+      }
+    }
+    bind "Alt Shift f" {
+      ToggleFloatingPanes
+    }
+    bind "Ctrl Enter" {
+      NewTab
+      SwitchToMode "Normal"
+    }
+    bind "Alt a" {
+      GoToTab 1
+      SwitchToMode "Normal"
+    }
+    bind "Alt s" {
+      GoToTab 2
+      SwitchToMode "Normal"
+    }
+    bind "Alt d" {
+      GoToTab 3
+      SwitchToMode "Normal"
+    }
+    bind "Alt f" {
+      GoToTab 4
+      SwitchToMode "Normal"
+    }
+    bind "Alt g" {
+      GoToTab 5
+      SwitchToMode "Normal"
+    }
+    bind "Alt h" {
+      GoToTab 6
+      SwitchToMode "Normal"
+    }
+    bind "Alt j" {
+      GoToTab 7
+      SwitchToMode "Normal"
+    }
+    bind "Alt k" {
+      GoToTab 8
+      SwitchToMode "Normal"
+    }
+    bind "Alt l" {
+      GoToTab 9
+      SwitchToMode "Normal"
+    }
+    bind "Alt ;" {
+      GoToTab 10
+      SwitchToMode "Normal"
     }
   }
   shared_except "normal" {
-    bind "Ctrl c" { SwitchToMode "Normal"; }
+    bind "Ctrl c" {
+      SwitchToMode "Normal"
+    }
   }
   shared_except "scroll" {
-    bind "Alt u" { SwitchToMode "Scroll"; }
+    bind "Alt u" {
+      SwitchToMode "Scroll"
+    }
   }
   scroll {
-    bind "Ctrl d" { HalfPageScrollDown; }
-    bind "Ctrl u" { HalfPageScrollUp; }
-    bind "j" { ScrollDown; }
-    bind "k" { ScrollUp; }
-    bind "/" { SwitchToMode "EnterSearch"; }
+    bind "Ctrl d" {
+      HalfPageScrollDown
+    }
+    bind "Ctrl u" {
+      HalfPageScrollUp
+    }
+    bind "j" {
+      ScrollDown
+    }
+    bind "k" {
+      ScrollUp
+    }
+    bind "/" {
+      SwitchToMode "EnterSearch"
+    }
   }
   entersearch {
-    bind "Ctrl c" "Esc" { SwitchToMode "Scroll"; }
-    bind "Enter" { SwitchToMode "Search"; }
+    bind "Ctrl c" "Esc" {
+      SwitchToMode "Scroll"
+    }
+    bind "Enter" {
+      SwitchToMode "Search"
+    }
   }
   search {
-    bind "n" { Search "up"; }
-    bind "N" { Search "down"; }
-    bind "Ctrl c" "Esc" { SwitchToMode "Scroll"; }
-    bind "Enter" { SwitchToMode "Normal"; }
+    bind "n" {
+      Search "up"
+    }
+    bind "N" {
+      Search "down"
+    }
+    bind "Ctrl c" "Esc" {
+      SwitchToMode "Scroll"
+    }
+    bind "Enter" {
+      SwitchToMode "Normal"
+    }
   }
   shared_except "tab" {
-    bind "Alt t" { SwitchToMode "Tab"; }
+    bind "Alt t" {
+      SwitchToMode "Tab"
+    }
   }
   shared_except "pane" {
-    bind "Alt p" { SwitchToMode "Pane"; }
+    bind "Alt p" {
+      SwitchToMode "Pane"
+    }
   }
   shared_except "resize" {
-    bind "Alt r" { SwitchToMode "Resize"; }
+    bind "Alt r" {
+      SwitchToMode "Resize"
+    }
   }
   tab {
-    bind "J" { MoveTab "Left"; }
-    bind "K" { MoveTab "Right"; }
+    bind "J" {
+      MoveTab "Left"
+    }
+    bind "K" {
+      MoveTab "Right"
+    }
   }
   pane {
-    bind "h" { MoveFocus "Left"; }
-    bind "j" { MoveFocus "Down"; }
-    bind "k" { MoveFocus "Up"; }
-    bind "l" { MoveFocus "Right"; }
-    bind "H" { MovePane "Left"; }
-    bind "J" { MovePane "Down"; }
-    bind "K" { MovePane "Up"; }
-    bind "L" { MovePane "Right"; }
-    bind "f" { ToggleFocusFullscreen; }
-    bind "r" { NewPane "Right"; SwitchToMode "Normal"; }
-    bind "d" { NewPane "Down"; SwitchToMode "Normal"; }
+    bind "h" {
+      MoveFocus "Left"
+    }
+    bind "j" {
+      MoveFocus "Down"
+    }
+    bind "k" {
+      MoveFocus "Up"
+    }
+    bind "l" {
+      MoveFocus "Right"
+    }
+    bind "H" {
+      MovePane "Left"
+    }
+    bind "J" {
+      MovePane "Down"
+    }
+    bind "K" {
+      MovePane "Up"
+    }
+    bind "L" {
+      MovePane "Right"
+    }
+    bind "f" {
+      ToggleFocusFullscreen
+    }
+    bind "r" {
+      NewPane "Right"
+      SwitchToMode "Normal"
+    }
+    bind "d" {
+      NewPane "Down"
+      SwitchToMode "Normal"
+    }
   }
   resize {
-    bind "h" { Resize "Left"; }
-    bind "j" { Resize "Down"; }
-    bind "k" { Resize "Up"; }
-    bind "l" { Resize "Right"; }
+    bind "h" {
+      Resize "Left"
+    }
+    bind "j" {
+      Resize "Down"
+    }
+    bind "k" {
+      Resize "Up"
+    }
+    bind "l" {
+      Resize "Right"
+    }
   }
 }
