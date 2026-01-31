@@ -56,7 +56,7 @@ in {
   <BaseUrl>/jellyfin</BaseUrl>
 </NetworkConfiguration>
 EOF
-    chown -R jellyfin:jellyfin /var/lib/jellyfin/config
+    chown -R ${myvars.username}:users /var/lib/jellyfin/config
   '';
 
   services.minecraft-server = {
