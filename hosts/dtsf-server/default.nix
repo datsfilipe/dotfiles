@@ -16,18 +16,6 @@ in {
     networkmanager.enable = true;
   };
 
-  # mDNS for local hostname resolution
-  services.avahi = {
-    enable = true;
-    nssmdns4 = true;
-    publish = {
-      enable = true;
-      addresses = true;
-      domain = true;
-      workstation = true;
-    };
-  };
-
   # Enable core modules
   modules.core.boot.system.enable = true;
   modules.core.nix.system.enable = true;
@@ -88,37 +76,21 @@ in {
     openFirewall = true;
   };
 
+  # Vaultwarden reverse proxy for HTTPS support
   services.nginx = {
     enable = true;
     recommendedProxySettings = true;
     recommendedTlsSettings = true;
 
-    # Default server with self-signed cert for IP and hostname access
-    virtualHosts."_" = {
-      default = true;
-      forceSSL = true;
+    virtualHosts."vault.dtsf-server" = {
+      listen = [{addr = "0.0.0.0"; port = 8443; ssl = true;}];
+      forceSSL = false;
       enableACME = false;
-      sslCertificate = "/var/lib/nginx/certs/dtsf-server.crt";
-      sslCertificateKey = "/var/lib/nginx/certs/dtsf-server.key";
+      sslCertificate = "/var/lib/vaultwarden-ssl/vault.crt";
+      sslCertificateKey = "/var/lib/vaultwarden-ssl/vault.key";
 
-      # Route based on port via SNI or use path-based routing
       locations."/" = {
-        proxyPass = "http://127.0.0.1:8084"; # Homepage dashboard
-        proxyWebsockets = true;
-      };
-
-      locations."/jellyfin/" = {
-        proxyPass = "http://127.0.0.1:8096/";
-        proxyWebsockets = true;
-      };
-
-      locations."/files/" = {
-        proxyPass = "http://127.0.0.1:8080/";
-        proxyWebsockets = true;
-      };
-
-      locations."/vault/" = {
-        proxyPass = "http://127.0.0.1:8082/";
+        proxyPass = "http://127.0.0.1:8082";
         proxyWebsockets = true;
         extraConfig = ''
           proxy_set_header X-Real-IP $remote_addr;
@@ -126,43 +98,28 @@ in {
           proxy_set_header X-Forwarded-Proto $scheme;
         '';
       };
-
-      locations."/git/" = {
-        proxyPass = "http://127.0.0.1:3000/";
-        proxyWebsockets = true;
-      };
-
-      locations."/draw/" = {
-        proxyPass = "http://127.0.0.1:8083/";
-        proxyWebsockets = true;
-      };
-
-      locations."/torrent/" = {
-        proxyPass = "http://127.0.0.1:8081/";
-        proxyWebsockets = true;
-      };
     };
   };
 
-  # Generate self-signed certificate on first boot
-  systemd.services.nginx-ssl-cert = {
-    description = "Generate self-signed SSL certificate for nginx";
+  # Generate self-signed certificate for Vaultwarden
+  systemd.services.vaultwarden-ssl-cert = {
+    description = "Generate self-signed SSL certificate for Vaultwarden";
     wantedBy = ["multi-user.target"];
     before = ["nginx.service"];
     script = ''
-      CERT_DIR="/var/lib/nginx/certs"
+      CERT_DIR="/var/lib/vaultwarden-ssl"
       mkdir -p "$CERT_DIR"
 
-      if [ ! -f "$CERT_DIR/dtsf-server.key" ]; then
+      if [ ! -f "$CERT_DIR/vault.key" ]; then
         ${pkgs.openssl}/bin/openssl req -x509 -newkey rsa:4096 \
-          -keyout "$CERT_DIR/dtsf-server.key" \
-          -out "$CERT_DIR/dtsf-server.crt" \
+          -keyout "$CERT_DIR/vault.key" \
+          -out "$CERT_DIR/vault.crt" \
           -days 3650 -nodes \
-          -subj "/CN=dtsf-server" \
-          -addext "subjectAltName=DNS:dtsf-server,DNS:dtsf-server.local,IP:192.168.31.212"
+          -subj "/CN=vault.dtsf-server" \
+          -addext "subjectAltName=DNS:vault.dtsf-server,DNS:dtsf-server,IP:192.168.31.212"
 
-        chmod 600 "$CERT_DIR/dtsf-server.key"
-        chmod 644 "$CERT_DIR/dtsf-server.crt"
+        chmod 600 "$CERT_DIR/vault.key"
+        chmod 644 "$CERT_DIR/vault.crt"
         chown -R nginx:nginx "$CERT_DIR"
       fi
     '';
@@ -229,14 +186,14 @@ in {
           {
             Jellyfin = {
               icon = "jellyfin.png";
-              href = "https://dtsf-server/jellyfin";
+              href = "http://dtsf-server:8096";
               description = "Media server";
             };
           }
           {
             Minecraft = {
               icon = "minecraft.png";
-              href = "http://192.168.31.212:25565";
+              href = "http://dtsf-server:25565";
               description = "Minecraft server";
             };
           }
@@ -247,35 +204,35 @@ in {
           {
             "File Browser" = {
               icon = "filebrowser.png";
-              href = "https://dtsf-server/files";
+              href = "http://dtsf-server:8080";
               description = "File management";
             };
           }
           {
             qBittorrent = {
               icon = "qbittorrent.png";
-              href = "https://dtsf-server/torrent";
+              href = "http://dtsf-server:8081";
               description = "Torrent client";
             };
           }
           {
             Vaultwarden = {
               icon = "bitwarden.png";
-              href = "https://dtsf-server/vault";
-              description = "Password manager";
+              href = "https://dtsf-server:8443";
+              description = "Password manager (HTTPS)";
             };
           }
           {
             Forgejo = {
               icon = "forgejo.png";
-              href = "https://dtsf-server/git";
+              href = "http://dtsf-server:3000";
               description = "Git server (notes)";
             };
           }
           {
             Excalidraw = {
               icon = "excalidraw.png";
-              href = "https://dtsf-server/draw";
+              href = "http://dtsf-server:8083";
               description = "Collaborative whiteboard";
             };
           }
@@ -285,11 +242,14 @@ in {
   };
 
   networking.firewall.allowedTCPPorts = [
-    80   # nginx http (redirects to https)
-    443  # nginx https
     3000 # forgejo
-    8082 # vaultwarden
+    8080 # filebrowser
+    8081 # qbittorrent
+    8082 # vaultwarden http
     8083 # excalidraw
+    8084 # homepage
+    8096 # jellyfin
+    8443 # vaultwarden https (via nginx)
   ];
 
   systemd.targets.sleep.enable = false;
