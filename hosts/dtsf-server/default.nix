@@ -108,6 +108,7 @@ in {
   services.homepage-dashboard = {
     enable = true;
     openFirewall = true;
+    listenPort = 8084;
     allowedHosts = "localhost,dtsf-server";
     settings = {
       title = "dtsf-server";
