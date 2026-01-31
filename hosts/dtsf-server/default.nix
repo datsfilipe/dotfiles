@@ -160,10 +160,12 @@ EOF
         -days 3650 -nodes \
         -subj "/CN=dtsf-server" \
         -addext "subjectAltName=DNS:dtsf-server,IP:192.168.31.212"
-
-      chmod 600 "$CERT_DIR/key.pem"
-      chmod 644 "$CERT_DIR/cert.pem"
     fi
+
+    # Ensure nginx can read the certificates
+    chmod 640 "$CERT_DIR/key.pem"
+    chmod 644 "$CERT_DIR/cert.pem"
+    chown root:nginx "$CERT_DIR/key.pem"
   '';
 
   services.qbittorrent = {
