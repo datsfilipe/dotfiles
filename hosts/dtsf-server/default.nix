@@ -91,43 +91,80 @@ EOF
     openFirewall = true;
   };
 
-  # Caddy for HTTPS with self-signed certificates on port 443 only
-  services.caddy = {
+  # nginx with HTTPS for reverse proxy
+  services.nginx = {
     enable = true;
-    globalConfig = ''
-      auto_https disable_redirects
-      local_certs
-    '';
+    recommendedProxySettings = true;
+    recommendedTlsSettings = true;
 
-    virtualHosts."dtsf-server".extraConfig = ''
-      tls internal
+    virtualHosts."dtsf-server" = {
+      forceSSL = true;
+      enableACME = false;
+      sslCertificate = "/var/lib/acme/dtsf-server/cert.pem";
+      sslCertificateKey = "/var/lib/acme/dtsf-server/key.pem";
 
-      # Jellyfin (handles /jellyfin internally via BaseUrl)
-      reverse_proxy /jellyfin/* localhost:8096
+      locations."= /" = {
+        proxyPass = "http://127.0.0.1:8084";
+        proxyWebsockets = true;
+      };
 
-      # Filebrowser (configured with baseURL)
-      reverse_proxy /files/* localhost:8080
+      locations."/jellyfin/" = {
+        proxyPass = "http://127.0.0.1:8096/jellyfin/";
+        proxyWebsockets = true;
+        extraConfig = ''
+          proxy_buffering off;
+        '';
+      };
 
-      # Vaultwarden (configured with DOMAIN)
-      reverse_proxy /vault/* localhost:8082
+      locations."/files/" = {
+        proxyPass = "http://127.0.0.1:8080/";
+        proxyWebsockets = true;
+      };
 
-      # Forgejo (configured with ROOT_URL)
-      reverse_proxy /git/* localhost:3000
+      locations."/vault/" = {
+        proxyPass = "http://127.0.0.1:8082/";
+        proxyWebsockets = true;
+        extraConfig = ''
+          proxy_set_header X-Real-IP $remote_addr;
+          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+          proxy_set_header X-Forwarded-Proto $scheme;
+        '';
+      };
 
-      # Excalidraw (direct proxy, no base path support)
-      handle_path /draw* {
-        reverse_proxy localhost:8083
-      }
+      locations."/git/" = {
+        proxyPass = "http://127.0.0.1:3000/";
+        proxyWebsockets = true;
+      };
 
-      # qBittorrent (check if it needs special config)
-      handle_path /torrent* {
-        reverse_proxy localhost:8081
-      }
+      locations."/draw/" = {
+        proxyPass = "http://127.0.0.1:8083/";
+        proxyWebsockets = true;
+      };
 
-      # Homepage at root
-      reverse_proxy localhost:8084
-    '';
+      locations."/torrent/" = {
+        proxyPass = "http://127.0.0.1:8081/";
+        proxyWebsockets = true;
+      };
+    };
   };
+
+  # Generate self-signed certificate before nginx starts
+  systemd.services.nginx.preStart = ''
+    CERT_DIR="/var/lib/acme/dtsf-server"
+    mkdir -p "$CERT_DIR"
+
+    if [ ! -f "$CERT_DIR/key.pem" ]; then
+      ${pkgs.openssl}/bin/openssl req -x509 -newkey rsa:4096 \
+        -keyout "$CERT_DIR/key.pem" \
+        -out "$CERT_DIR/cert.pem" \
+        -days 3650 -nodes \
+        -subj "/CN=dtsf-server" \
+        -addext "subjectAltName=DNS:dtsf-server,IP:192.168.31.212"
+
+      chmod 600 "$CERT_DIR/key.pem"
+      chmod 644 "$CERT_DIR/cert.pem"
+    fi
+  '';
 
   services.qbittorrent = {
     enable = true;
@@ -244,7 +281,7 @@ EOF
   };
 
   networking.firewall.allowedTCPPorts = [
-    443  # caddy HTTPS
+    443  # nginx HTTPS
   ];
 
   systemd.targets.sleep.enable = false;
