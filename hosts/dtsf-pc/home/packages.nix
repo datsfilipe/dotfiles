@@ -10,6 +10,7 @@
     qbittorrent
     slack
     bitwarden-desktop
+    claude-code
     pavucontrol
     obs-studio
     bc
