@@ -1,15 +1,32 @@
 {
   pkgs,
   lib,
+  mylib,
   myvars,
   ...
-}: {
-  imports = [
-    ./hardware-configuration.nix
-    ./boot.nix
-  ];
+}: let
+  hostName = "dtsf-server";
+in {
+  imports =
+    [./hardware-configuration.nix ./boot.nix]
+    ++ (mylib.file.scanPaths ../../modules "os.nix");
 
-  networking.hostName = "dtsf-server";
+  networking = {
+    inherit hostName;
+    networkmanager.enable = true;
+  };
+
+  # Enable core modules
+  modules.core.boot.system.enable = true;
+  modules.core.nix.system.enable = true;
+  modules.core.security.system.enable = true;
+  modules.core.user.system.enable = true;
+  modules.core.system.enable = true;
+  modules.core.shell.fish.system.enable = true;
+  modules.core.shell.ssh.system.enable = true;
+  modules.core.misc.ssh-manager.enable = true;
+
+  modules.editors.neovim.system.enable = true;
 
   services.filebrowser = {
     enable = true;
@@ -176,4 +193,6 @@
   systemd.targets.suspend.enable = false;
   systemd.targets.hibernate.enable = false;
   systemd.targets.hybrid-sleep.enable = false;
+
+  system.stateVersion = "25.11";
 }
