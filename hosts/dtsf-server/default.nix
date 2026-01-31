@@ -126,8 +126,23 @@ in {
         proxyWebsockets = true;
       };
 
+      locations."/vault/" = {
+        proxyPass = "http://127.0.0.1:8082/";
+        proxyWebsockets = true;
+        extraConfig = ''
+          proxy_set_header X-Real-IP $remote_addr;
+          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+          proxy_set_header X-Forwarded-Proto $scheme;
+        '';
+      };
+
       locations."/git/" = {
         proxyPass = "http://127.0.0.1:3000/";
+        proxyWebsockets = true;
+      };
+
+      locations."/draw/" = {
+        proxyPass = "http://127.0.0.1:8083/";
         proxyWebsockets = true;
       };
 
@@ -184,14 +199,11 @@ in {
     config = {
       ROCKET_PORT = "8082";
       ROCKET_ADDRESS = "127.0.0.1";
-      DOMAIN = "https://dtsf-server:8082";
     };
   };
 
   networking.firewall.allowedTCPPorts = [
     443  # nginx HTTPS
-    8082 # vaultwarden
-    8083 # excalidraw
   ];
 
   services.homepage-dashboard = {
@@ -254,7 +266,7 @@ in {
           {
             Vaultwarden = {
               icon = "bitwarden.png";
-              href = "https://dtsf-server:8082";
+              href = "https://dtsf-server/vault";
               description = "Password manager";
             };
           }
@@ -268,7 +280,7 @@ in {
           {
             Excalidraw = {
               icon = "excalidraw.png";
-              href = "http://dtsf-server:8083";
+              href = "https://dtsf-server/draw";
               description = "Collaborative whiteboard";
             };
           }
