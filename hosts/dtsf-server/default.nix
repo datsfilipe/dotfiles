@@ -88,9 +88,6 @@ in {
     openFirewall = true;
   };
 
-  # Self-signed SSL certificate
-  security.pki.certificateFiles = ["/var/lib/nginx/certs/dtsf-server.crt"];
-
   services.nginx = {
     enable = true;
     recommendedProxySettings = true;
