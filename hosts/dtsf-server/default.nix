@@ -50,15 +50,13 @@ in {
   # Configure Jellyfin base URL
   systemd.services.jellyfin.preStart = ''
     mkdir -p /var/lib/jellyfin/config
-    if [ ! -f /var/lib/jellyfin/config/network.xml ]; then
-      cat > /var/lib/jellyfin/config/network.xml <<EOF
+    cat > /var/lib/jellyfin/config/network.xml <<EOF
 <?xml version="1.0" encoding="utf-8"?>
 <NetworkConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <BaseUrl>/jellyfin</BaseUrl>
 </NetworkConfiguration>
 EOF
-      chown -R jellyfin:jellyfin /var/lib/jellyfin/config
-    fi
+    chown -R jellyfin:jellyfin /var/lib/jellyfin/config
   '';
 
   services.minecraft-server = {
@@ -103,9 +101,10 @@ EOF
       sslCertificate = "/var/lib/acme/dtsf-server/cert.pem";
       sslCertificateKey = "/var/lib/acme/dtsf-server/key.pem";
 
-      locations."= /" = {
+      locations."/" = {
         proxyPass = "http://127.0.0.1:8084";
         proxyWebsockets = true;
+        priority = 100;
       };
 
       locations."/jellyfin/" = {
