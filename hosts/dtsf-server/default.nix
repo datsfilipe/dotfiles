@@ -149,24 +149,27 @@ EOF
   };
 
   # Generate self-signed certificate before nginx starts
-  systemd.services.nginx.preStart = ''
-    CERT_DIR="/var/lib/acme/dtsf-server"
-    mkdir -p "$CERT_DIR"
+  systemd.services.nginx = {
+    preStart = ''
+      CERT_DIR="/var/lib/acme/dtsf-server"
+      mkdir -p "$CERT_DIR"
 
-    if [ ! -f "$CERT_DIR/key.pem" ]; then
-      ${pkgs.openssl}/bin/openssl req -x509 -newkey rsa:4096 \
-        -keyout "$CERT_DIR/key.pem" \
-        -out "$CERT_DIR/cert.pem" \
-        -days 3650 -nodes \
-        -subj "/CN=dtsf-server" \
-        -addext "subjectAltName=DNS:dtsf-server,IP:192.168.31.212"
-    fi
+      if [ ! -f "$CERT_DIR/key.pem" ]; then
+        ${pkgs.openssl}/bin/openssl req -x509 -newkey rsa:4096 \
+          -keyout "$CERT_DIR/key.pem" \
+          -out "$CERT_DIR/cert.pem" \
+          -days 3650 -nodes \
+          -subj "/CN=dtsf-server" \
+          -addext "subjectAltName=DNS:dtsf-server,IP:192.168.31.212"
+      fi
 
-    # Ensure nginx can read the certificates
-    chmod 640 "$CERT_DIR/key.pem"
-    chmod 644 "$CERT_DIR/cert.pem"
-    chown root:nginx "$CERT_DIR/key.pem"
-  '';
+      # Ensure nginx can read the certificates
+      chmod 640 "$CERT_DIR/key.pem"
+      chmod 644 "$CERT_DIR/cert.pem"
+      chown root:nginx "$CERT_DIR/key.pem"
+    '';
+    serviceConfig.ReadWritePaths = [ "/var/lib/acme" ];
+  };
 
   services.qbittorrent = {
     enable = true;
