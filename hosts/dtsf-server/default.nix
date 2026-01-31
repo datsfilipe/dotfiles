@@ -76,57 +76,46 @@ in {
     openFirewall = true;
   };
 
-  # Vaultwarden reverse proxy for HTTPS support
-  services.nginx = {
+  # Caddy reverse proxy with automatic HTTPS and path-based routing
+  services.caddy = {
     enable = true;
-    recommendedProxySettings = true;
-    recommendedTlsSettings = true;
-
-    virtualHosts."vault.dtsf-server" = {
-      listen = [{addr = "0.0.0.0"; port = 8443; ssl = true;}];
-      forceSSL = false;
-      enableACME = false;
-      sslCertificate = "/var/lib/vaultwarden-ssl/vault.crt";
-      sslCertificateKey = "/var/lib/vaultwarden-ssl/vault.key";
-
-      locations."/" = {
-        proxyPass = "http://127.0.0.1:8082";
-        proxyWebsockets = true;
-        extraConfig = ''
-          proxy_set_header X-Real-IP $remote_addr;
-          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-          proxy_set_header X-Forwarded-Proto $scheme;
-        '';
-      };
-    };
-  };
-
-  # Generate self-signed certificate for Vaultwarden
-  systemd.services.vaultwarden-ssl-cert = {
-    description = "Generate self-signed SSL certificate for Vaultwarden";
-    wantedBy = ["multi-user.target"];
-    before = ["nginx.service"];
-    script = ''
-      CERT_DIR="/var/lib/vaultwarden-ssl"
-      mkdir -p "$CERT_DIR"
-
-      if [ ! -f "$CERT_DIR/vault.key" ]; then
-        ${pkgs.openssl}/bin/openssl req -x509 -newkey rsa:4096 \
-          -keyout "$CERT_DIR/vault.key" \
-          -out "$CERT_DIR/vault.crt" \
-          -days 3650 -nodes \
-          -subj "/CN=vault.dtsf-server" \
-          -addext "subjectAltName=DNS:vault.dtsf-server,DNS:dtsf-server,IP:192.168.31.212"
-
-        chmod 600 "$CERT_DIR/vault.key"
-        chmod 644 "$CERT_DIR/vault.crt"
-        chown -R nginx:nginx "$CERT_DIR"
-      fi
+    globalConfig = ''
+      auto_https disable_redirects
+      local_certs
     '';
-    serviceConfig = {
-      Type = "oneshot";
-      RemainAfterExit = true;
-    };
+    virtualHosts."dtsf-server".extraConfig = ''
+      tls internal
+
+      # Services with path stripping
+      handle_path /jellyfin* {
+        reverse_proxy localhost:8096
+      }
+
+      handle_path /files* {
+        reverse_proxy localhost:8080
+      }
+
+      handle_path /vault* {
+        reverse_proxy localhost:8082
+      }
+
+      handle_path /git* {
+        reverse_proxy localhost:3000
+      }
+
+      handle_path /draw* {
+        reverse_proxy localhost:8083
+      }
+
+      handle_path /torrent* {
+        reverse_proxy localhost:8081
+      }
+
+      # Homepage at root (must be last)
+      handle {
+        reverse_proxy localhost:8084
+      }
+    '';
   };
 
   services.qbittorrent = {
@@ -186,7 +175,7 @@ in {
           {
             Jellyfin = {
               icon = "jellyfin.png";
-              href = "http://dtsf-server:8096";
+              href = "https://dtsf-server/jellyfin";
               description = "Media server";
             };
           }
@@ -204,35 +193,35 @@ in {
           {
             "File Browser" = {
               icon = "filebrowser.png";
-              href = "http://dtsf-server:8080";
+              href = "https://dtsf-server/files";
               description = "File management";
             };
           }
           {
             qBittorrent = {
               icon = "qbittorrent.png";
-              href = "http://dtsf-server:8081";
+              href = "https://dtsf-server/torrent";
               description = "Torrent client";
             };
           }
           {
             Vaultwarden = {
               icon = "bitwarden.png";
-              href = "https://dtsf-server:8443";
-              description = "Password manager (HTTPS)";
+              href = "https://dtsf-server/vault";
+              description = "Password manager";
             };
           }
           {
             Forgejo = {
               icon = "forgejo.png";
-              href = "http://dtsf-server:3000";
+              href = "https://dtsf-server/git";
               description = "Git server (notes)";
             };
           }
           {
             Excalidraw = {
               icon = "excalidraw.png";
-              href = "http://dtsf-server:8083";
+              href = "https://dtsf-server/draw";
               description = "Collaborative whiteboard";
             };
           }
@@ -242,14 +231,14 @@ in {
   };
 
   networking.firewall.allowedTCPPorts = [
-    3000 # forgejo
-    8080 # filebrowser
-    8081 # qbittorrent
-    8082 # vaultwarden http
-    8083 # excalidraw
-    8084 # homepage
-    8096 # jellyfin
-    8443 # vaultwarden https (via nginx)
+    443  # caddy https
+    3000 # forgejo (backend)
+    8080 # filebrowser (backend)
+    8081 # qbittorrent (backend)
+    8082 # vaultwarden (backend)
+    8083 # excalidraw (backend)
+    8084 # homepage (backend)
+    8096 # jellyfin (backend)
   ];
 
   systemd.targets.sleep.enable = false;
