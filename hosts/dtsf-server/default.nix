@@ -205,7 +205,7 @@ in {
     enable = true;
     openFirewall = true;
     listenPort = 8084;
-    allowedHosts = "localhost,dtsf-server";
+    allowedHosts = "localhost,dtsf-server,dtsf-server.local,192.168.31.212";
     settings = {
       title = "dtsf-server";
       layout = [
