@@ -47,16 +47,22 @@ in {
     user = myvars.username;
   };
 
-  # Configure Jellyfin base URL
+  # Configure Jellyfin base URL - create network.xml if missing
+  systemd.tmpfiles.rules = [
+    "d /var/lib/jellyfin/config 0755 ${myvars.username} users -"
+  ];
+
+  environment.etc."jellyfin-network.xml".text = ''
+    <?xml version="1.0" encoding="utf-8"?>
+    <NetworkConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+      <BaseUrl>/jellyfin</BaseUrl>
+    </NetworkConfiguration>
+  '';
+
   systemd.services.jellyfin.preStart = ''
-    mkdir -p /var/lib/jellyfin/config
-    cat > /var/lib/jellyfin/config/network.xml <<EOF
-<?xml version="1.0" encoding="utf-8"?>
-<NetworkConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <BaseUrl>/jellyfin</BaseUrl>
-</NetworkConfiguration>
-EOF
-    chown -R ${myvars.username}:users /var/lib/jellyfin/config
+    if [ ! -f /var/lib/jellyfin/config/network.xml ]; then
+      cp /etc/jellyfin-network.xml /var/lib/jellyfin/config/network.xml
+    fi
   '';
 
   services.minecraft-server = {
