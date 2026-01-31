@@ -144,6 +144,12 @@ in {
       locations."/draw/" = {
         proxyPass = "http://127.0.0.1:8083/";
         proxyWebsockets = true;
+        extraConfig = ''
+          proxy_set_header Accept-Encoding "";
+          sub_filter 'href="/' 'href="/draw/';
+          sub_filter 'src="/' 'src="/draw/';
+          sub_filter_once off;
+        '';
       };
 
       locations."/torrent/" = {
