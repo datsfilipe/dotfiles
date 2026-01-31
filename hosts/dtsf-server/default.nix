@@ -74,6 +74,105 @@ in {
   services.tailscale = {
     enable = true;
     openFirewall = true;
+    useRoutingFeatures = "both";
+  };
+
+  # Tailscale HTTPS certificates
+  security.acme = {
+    acceptTerms = true;
+    defaults.email = "contact@datsfilipe.xyz"; # Change if needed
+  };
+
+  services.nginx = {
+    enable = true;
+    recommendedProxySettings = true;
+    recommendedTlsSettings = true;
+
+    virtualHosts = {
+      "dtsf-server" = {
+        forceSSL = true;
+        enableACME = false;
+        sslCertificate = "/var/lib/tailscale/certs/dtsf-server.ts.net.crt";
+        sslCertificateKey = "/var/lib/tailscale/certs/dtsf-server.ts.net.key";
+
+        locations."/" = {
+          proxyPass = "http://127.0.0.1:8084"; # Homepage
+          proxyWebsockets = true;
+        };
+      };
+
+      "jellyfin.dtsf-server" = {
+        forceSSL = true;
+        enableACME = false;
+        sslCertificate = "/var/lib/tailscale/certs/dtsf-server.ts.net.crt";
+        sslCertificateKey = "/var/lib/tailscale/certs/dtsf-server.ts.net.key";
+
+        locations."/" = {
+          proxyPass = "http://127.0.0.1:8096";
+          proxyWebsockets = true;
+        };
+      };
+
+      "files.dtsf-server" = {
+        forceSSL = true;
+        enableACME = false;
+        sslCertificate = "/var/lib/tailscale/certs/dtsf-server.ts.net.crt";
+        sslCertificateKey = "/var/lib/tailscale/certs/dtsf-server.ts.net.key";
+
+        locations."/" = {
+          proxyPass = "http://127.0.0.1:8080";
+          proxyWebsockets = true;
+        };
+      };
+
+      "vault.dtsf-server" = {
+        forceSSL = true;
+        enableACME = false;
+        sslCertificate = "/var/lib/tailscale/certs/dtsf-server.ts.net.crt";
+        sslCertificateKey = "/var/lib/tailscale/certs/dtsf-server.ts.net.key";
+
+        locations."/" = {
+          proxyPass = "http://127.0.0.1:8082";
+          proxyWebsockets = true;
+        };
+      };
+
+      "git.dtsf-server" = {
+        forceSSL = true;
+        enableACME = false;
+        sslCertificate = "/var/lib/tailscale/certs/dtsf-server.ts.net.crt";
+        sslCertificateKey = "/var/lib/tailscale/certs/dtsf-server.ts.net.key";
+
+        locations."/" = {
+          proxyPass = "http://127.0.0.1:3000";
+          proxyWebsockets = true;
+        };
+      };
+
+      "draw.dtsf-server" = {
+        forceSSL = true;
+        enableACME = false;
+        sslCertificate = "/var/lib/tailscale/certs/dtsf-server.ts.net.crt";
+        sslCertificateKey = "/var/lib/tailscale/certs/dtsf-server.ts.net.key";
+
+        locations."/" = {
+          proxyPass = "http://127.0.0.1:8083";
+          proxyWebsockets = true;
+        };
+      };
+
+      "torrent.dtsf-server" = {
+        forceSSL = true;
+        enableACME = false;
+        sslCertificate = "/var/lib/tailscale/certs/dtsf-server.ts.net.crt";
+        sslCertificateKey = "/var/lib/tailscale/certs/dtsf-server.ts.net.key";
+
+        locations."/" = {
+          proxyPass = "http://127.0.0.1:8081";
+          proxyWebsockets = true;
+        };
+      };
+    };
   };
 
   services.qbittorrent = {
@@ -133,7 +232,7 @@ in {
           {
             Jellyfin = {
               icon = "jellyfin.png";
-              href = "http://localhost:8096";
+              href = "https://jellyfin.dtsf-server";
               description = "Media server";
             };
           }
@@ -151,35 +250,35 @@ in {
           {
             "File Browser" = {
               icon = "filebrowser.png";
-              href = "http://localhost:8080";
+              href = "https://files.dtsf-server";
               description = "File management";
             };
           }
           {
             qBittorrent = {
               icon = "qbittorrent.png";
-              href = "http://localhost:8081";
+              href = "https://torrent.dtsf-server";
               description = "Torrent client";
             };
           }
           {
             Vaultwarden = {
               icon = "bitwarden.png";
-              href = "http://localhost:8082";
+              href = "https://vault.dtsf-server";
               description = "Password manager";
             };
           }
           {
             Forgejo = {
               icon = "forgejo.png";
-              href = "http://localhost:3000";
+              href = "https://git.dtsf-server";
               description = "Git server (notes)";
             };
           }
           {
             Excalidraw = {
               icon = "excalidraw.png";
-              href = "http://localhost:8083";
+              href = "https://draw.dtsf-server";
               description = "Collaborative whiteboard";
             };
           }
