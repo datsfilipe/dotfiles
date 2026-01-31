@@ -32,19 +32,34 @@ in {
     enable = true;
     user = myvars.username;
     group = "users";
-    openFirewall = true;
+    openFirewall = false;
     settings = {
       port = 8080;
       root = "/home/${myvars.username}";
-      address = "0.0.0.0";
+      address = "127.0.0.1";
+      baseURL = "/files";
     };
   };
 
   services.jellyfin = {
     enable = true;
-    openFirewall = true;
+    openFirewall = false;
     user = myvars.username;
   };
+
+  # Configure Jellyfin base URL
+  systemd.services.jellyfin.preStart = ''
+    mkdir -p /var/lib/jellyfin/config
+    if [ ! -f /var/lib/jellyfin/config/network.xml ]; then
+      cat > /var/lib/jellyfin/config/network.xml <<EOF
+<?xml version="1.0" encoding="utf-8"?>
+<NetworkConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <BaseUrl>/jellyfin</BaseUrl>
+</NetworkConfiguration>
+EOF
+      chown -R jellyfin:jellyfin /var/lib/jellyfin/config
+    fi
+  '';
 
   services.minecraft-server = {
     enable = true;
@@ -76,45 +91,41 @@ in {
     openFirewall = true;
   };
 
-  # Caddy reverse proxy with automatic HTTPS and path-based routing
+  # Caddy for HTTPS with self-signed certificates on port 443 only
   services.caddy = {
     enable = true;
     globalConfig = ''
       auto_https disable_redirects
       local_certs
     '';
+
     virtualHosts."dtsf-server".extraConfig = ''
       tls internal
 
-      # Services with path stripping
-      handle_path /jellyfin* {
-        reverse_proxy localhost:8096
-      }
+      # Jellyfin (handles /jellyfin internally via BaseUrl)
+      reverse_proxy /jellyfin/* localhost:8096
 
-      handle_path /files* {
-        reverse_proxy localhost:8080
-      }
+      # Filebrowser (configured with baseURL)
+      reverse_proxy /files/* localhost:8080
 
-      handle_path /vault* {
-        reverse_proxy localhost:8082
-      }
+      # Vaultwarden (configured with DOMAIN)
+      reverse_proxy /vault/* localhost:8082
 
-      handle_path /git* {
-        reverse_proxy localhost:3000
-      }
+      # Forgejo (configured with ROOT_URL)
+      reverse_proxy /git/* localhost:3000
 
+      # Excalidraw (direct proxy, no base path support)
       handle_path /draw* {
         reverse_proxy localhost:8083
       }
 
+      # qBittorrent (check if it needs special config)
       handle_path /torrent* {
         reverse_proxy localhost:8081
       }
 
-      # Homepage at root (must be last)
-      handle {
-        reverse_proxy localhost:8084
-      }
+      # Homepage at root
+      reverse_proxy localhost:8084
     '';
   };
 
@@ -131,10 +142,11 @@ in {
     settings = {
       server = {
         HTTP_PORT = 3000;
-        DOMAIN = "localhost";
+        DOMAIN = "dtsf-server";
+        ROOT_URL = "https://dtsf-server/git/";
       };
       service = {
-        DISABLE_REGISTRATION = true;
+        DISABLE_REGISTRATION = false; # Set to true after creating admin
       };
     };
   };
@@ -143,7 +155,8 @@ in {
     enable = true;
     config = {
       ROCKET_PORT = "8082";
-      ROCKET_ADDRESS = "0.0.0.0";
+      ROCKET_ADDRESS = "127.0.0.1";
+      DOMAIN = "https://dtsf-server/vault";
     };
   };
 
@@ -151,7 +164,7 @@ in {
     enable = true;
     openFirewall = true;
     listenPort = 8084;
-    allowedHosts = "localhost,dtsf-server,dtsf-server.local,192.168.31.212";
+    allowedHosts = "localhost,dtsf-server,192.168.31.212";
     settings = {
       title = "dtsf-server";
       layout = [
@@ -182,7 +195,7 @@ in {
           {
             Minecraft = {
               icon = "minecraft.png";
-              href = "http://dtsf-server:25565";
+              href = "minecraft://dtsf-server:25565";
               description = "Minecraft server";
             };
           }
@@ -231,14 +244,7 @@ in {
   };
 
   networking.firewall.allowedTCPPorts = [
-    443  # caddy https
-    3000 # forgejo (backend)
-    8080 # filebrowser (backend)
-    8081 # qbittorrent (backend)
-    8082 # vaultwarden (backend)
-    8083 # excalidraw (backend)
-    8084 # homepage (backend)
-    8096 # jellyfin (backend)
+    443  # caddy HTTPS
   ];
 
   systemd.targets.sleep.enable = false;
