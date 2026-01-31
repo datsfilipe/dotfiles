@@ -30,11 +30,14 @@ in {
 
   services.filebrowser = {
     enable = true;
-    port = 8080;
     user = myvars.username;
     group = "users";
-    root = "/home/${myvars.username}";
     openFirewall = true;
+    settings = {
+      port = 8080;
+      root = "/home/${myvars.username}";
+      address = "0.0.0.0";
+    };
   };
 
   services.jellyfin = {
@@ -97,7 +100,7 @@ in {
   services.vaultwarden = {
     enable = true;
     config = {
-      ROCKET_PORT = 8082;
+      ROCKET_PORT = "8082";
       ROCKET_ADDRESS = "0.0.0.0";
     };
   };
@@ -105,6 +108,7 @@ in {
   services.homepage-dashboard = {
     enable = true;
     openFirewall = true;
+    allowedHosts = ["localhost" "dtsf-server"];
     settings = {
       title = "dtsf-server";
       layout = [
