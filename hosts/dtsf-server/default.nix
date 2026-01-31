@@ -241,8 +241,8 @@ in {
           {
             Minecraft = {
               icon = "minecraft.png";
-              href = "#";
-              description = "dtsf-server:25565";
+              href = "http://dtsf-server:25565";
+              description = "Minecraft server";
             };
           }
         ];
