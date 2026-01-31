@@ -209,7 +209,7 @@ in {
   };
 
   networking.firewall.allowedTCPPorts = [
-    443  # nginx HTTPS
+    443 # nginx HTTPS
   ];
 
   services.homepage-dashboard = {
@@ -294,7 +294,6 @@ in {
       }
     ];
   };
-
 
   systemd.targets.sleep.enable = false;
   systemd.targets.suspend.enable = false;
