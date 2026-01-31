@@ -120,8 +120,8 @@ EOF
         proxyWebsockets = true;
       };
 
-      locations."/vault/" = {
-        proxyPass = "http://127.0.0.1:8082/";
+      locations."/vault" = {
+        proxyPass = "http://127.0.0.1:8082";
         proxyWebsockets = true;
         extraConfig = ''
           proxy_set_header X-Real-IP $remote_addr;
@@ -138,6 +138,9 @@ EOF
       locations."/draw/" = {
         proxyPass = "http://127.0.0.1:8083/";
         proxyWebsockets = true;
+        extraConfig = ''
+          rewrite ^/draw/(.*)$ /$1 break;
+        '';
       };
 
       locations."/torrent/" = {
