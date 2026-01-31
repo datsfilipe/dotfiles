@@ -16,6 +16,18 @@ in {
     networkmanager.enable = true;
   };
 
+  # mDNS for local hostname resolution
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
+    publish = {
+      enable = true;
+      addresses = true;
+      domain = true;
+      workstation = true;
+    };
+  };
+
   # Enable core modules
   modules.core.boot.system.enable = true;
   modules.core.nix.system.enable = true;
@@ -74,104 +86,92 @@ in {
   services.tailscale = {
     enable = true;
     openFirewall = true;
-    useRoutingFeatures = "both";
   };
 
-  # Tailscale HTTPS certificates
-  security.acme = {
-    acceptTerms = true;
-    defaults.email = "contact@datsfilipe.xyz"; # Change if needed
-  };
+  # Self-signed SSL certificate
+  security.pki.certificateFiles = ["/var/lib/nginx/certs/dtsf-server.crt"];
 
   services.nginx = {
     enable = true;
     recommendedProxySettings = true;
     recommendedTlsSettings = true;
 
-    virtualHosts = {
-      "dtsf-server" = {
-        forceSSL = true;
-        enableACME = false;
-        sslCertificate = "/var/lib/tailscale/certs/dtsf-server.ts.net.crt";
-        sslCertificateKey = "/var/lib/tailscale/certs/dtsf-server.ts.net.key";
+    # Default server with self-signed cert for IP and hostname access
+    virtualHosts."_" = {
+      default = true;
+      forceSSL = true;
+      enableACME = false;
+      sslCertificate = "/var/lib/nginx/certs/dtsf-server.crt";
+      sslCertificateKey = "/var/lib/nginx/certs/dtsf-server.key";
 
-        locations."/" = {
-          proxyPass = "http://127.0.0.1:8084"; # Homepage
-          proxyWebsockets = true;
-        };
+      # Route based on port via SNI or use path-based routing
+      locations."/" = {
+        proxyPass = "http://127.0.0.1:8084"; # Homepage dashboard
+        proxyWebsockets = true;
       };
 
-      "jellyfin.dtsf-server" = {
-        forceSSL = true;
-        enableACME = false;
-        sslCertificate = "/var/lib/tailscale/certs/dtsf-server.ts.net.crt";
-        sslCertificateKey = "/var/lib/tailscale/certs/dtsf-server.ts.net.key";
-
-        locations."/" = {
-          proxyPass = "http://127.0.0.1:8096";
-          proxyWebsockets = true;
-        };
+      locations."/jellyfin/" = {
+        proxyPass = "http://127.0.0.1:8096/";
+        proxyWebsockets = true;
       };
 
-      "files.dtsf-server" = {
-        forceSSL = true;
-        enableACME = false;
-        sslCertificate = "/var/lib/tailscale/certs/dtsf-server.ts.net.crt";
-        sslCertificateKey = "/var/lib/tailscale/certs/dtsf-server.ts.net.key";
-
-        locations."/" = {
-          proxyPass = "http://127.0.0.1:8080";
-          proxyWebsockets = true;
-        };
+      locations."/files/" = {
+        proxyPass = "http://127.0.0.1:8080/";
+        proxyWebsockets = true;
       };
 
-      "vault.dtsf-server" = {
-        forceSSL = true;
-        enableACME = false;
-        sslCertificate = "/var/lib/tailscale/certs/dtsf-server.ts.net.crt";
-        sslCertificateKey = "/var/lib/tailscale/certs/dtsf-server.ts.net.key";
-
-        locations."/" = {
-          proxyPass = "http://127.0.0.1:8082";
-          proxyWebsockets = true;
-        };
+      locations."/vault/" = {
+        proxyPass = "http://127.0.0.1:8082/";
+        proxyWebsockets = true;
+        extraConfig = ''
+          proxy_set_header X-Real-IP $remote_addr;
+          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+          proxy_set_header X-Forwarded-Proto $scheme;
+        '';
       };
 
-      "git.dtsf-server" = {
-        forceSSL = true;
-        enableACME = false;
-        sslCertificate = "/var/lib/tailscale/certs/dtsf-server.ts.net.crt";
-        sslCertificateKey = "/var/lib/tailscale/certs/dtsf-server.ts.net.key";
-
-        locations."/" = {
-          proxyPass = "http://127.0.0.1:3000";
-          proxyWebsockets = true;
-        };
+      locations."/git/" = {
+        proxyPass = "http://127.0.0.1:3000/";
+        proxyWebsockets = true;
       };
 
-      "draw.dtsf-server" = {
-        forceSSL = true;
-        enableACME = false;
-        sslCertificate = "/var/lib/tailscale/certs/dtsf-server.ts.net.crt";
-        sslCertificateKey = "/var/lib/tailscale/certs/dtsf-server.ts.net.key";
-
-        locations."/" = {
-          proxyPass = "http://127.0.0.1:8083";
-          proxyWebsockets = true;
-        };
+      locations."/draw/" = {
+        proxyPass = "http://127.0.0.1:8083/";
+        proxyWebsockets = true;
       };
 
-      "torrent.dtsf-server" = {
-        forceSSL = true;
-        enableACME = false;
-        sslCertificate = "/var/lib/tailscale/certs/dtsf-server.ts.net.crt";
-        sslCertificateKey = "/var/lib/tailscale/certs/dtsf-server.ts.net.key";
-
-        locations."/" = {
-          proxyPass = "http://127.0.0.1:8081";
-          proxyWebsockets = true;
-        };
+      locations."/torrent/" = {
+        proxyPass = "http://127.0.0.1:8081/";
+        proxyWebsockets = true;
       };
+    };
+  };
+
+  # Generate self-signed certificate on first boot
+  systemd.services.nginx-ssl-cert = {
+    description = "Generate self-signed SSL certificate for nginx";
+    wantedBy = ["multi-user.target"];
+    before = ["nginx.service"];
+    script = ''
+      CERT_DIR="/var/lib/nginx/certs"
+      mkdir -p "$CERT_DIR"
+
+      if [ ! -f "$CERT_DIR/dtsf-server.key" ]; then
+        ${pkgs.openssl}/bin/openssl req -x509 -newkey rsa:4096 \
+          -keyout "$CERT_DIR/dtsf-server.key" \
+          -out "$CERT_DIR/dtsf-server.crt" \
+          -days 3650 -nodes \
+          -subj "/CN=dtsf-server" \
+          -addext "subjectAltName=DNS:dtsf-server,DNS:dtsf-server.local,IP:192.168.31.212"
+
+        chmod 600 "$CERT_DIR/dtsf-server.key"
+        chmod 644 "$CERT_DIR/dtsf-server.crt"
+        chown -R nginx:nginx "$CERT_DIR"
+      fi
+    '';
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
     };
   };
 
@@ -232,14 +232,14 @@ in {
           {
             Jellyfin = {
               icon = "jellyfin.png";
-              href = "https://jellyfin.dtsf-server";
+              href = "https://dtsf-server/jellyfin";
               description = "Media server";
             };
           }
           {
             Minecraft = {
               icon = "minecraft.png";
-              href = "http://localhost:25565";
+              href = "http://192.168.31.212:25565";
               description = "Minecraft server";
             };
           }
@@ -250,35 +250,35 @@ in {
           {
             "File Browser" = {
               icon = "filebrowser.png";
-              href = "https://files.dtsf-server";
+              href = "https://dtsf-server/files";
               description = "File management";
             };
           }
           {
             qBittorrent = {
               icon = "qbittorrent.png";
-              href = "https://torrent.dtsf-server";
+              href = "https://dtsf-server/torrent";
               description = "Torrent client";
             };
           }
           {
             Vaultwarden = {
               icon = "bitwarden.png";
-              href = "https://vault.dtsf-server";
+              href = "https://dtsf-server/vault";
               description = "Password manager";
             };
           }
           {
             Forgejo = {
               icon = "forgejo.png";
-              href = "https://git.dtsf-server";
+              href = "https://dtsf-server/git";
               description = "Git server (notes)";
             };
           }
           {
             Excalidraw = {
               icon = "excalidraw.png";
-              href = "https://draw.dtsf-server";
+              href = "https://dtsf-server/draw";
               description = "Collaborative whiteboard";
             };
           }
@@ -288,6 +288,8 @@ in {
   };
 
   networking.firewall.allowedTCPPorts = [
+    80   # nginx http (redirects to https)
+    443  # nginx https
     3000 # forgejo
     8082 # vaultwarden
     8083 # excalidraw
