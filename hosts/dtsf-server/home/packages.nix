@@ -7,5 +7,6 @@
     git
     nmap
     dig
+    direnv
   ];
 }
