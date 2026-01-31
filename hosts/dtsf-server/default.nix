@@ -126,27 +126,9 @@ in {
         proxyWebsockets = true;
       };
 
-      locations."/vault" = {
-        proxyPass = "http://127.0.0.1:8082";
-        proxyWebsockets = true;
-        extraConfig = ''
-          proxy_set_header X-Real-IP $remote_addr;
-          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-          proxy_set_header X-Forwarded-Proto $scheme;
-        '';
-      };
-
       locations."/git/" = {
         proxyPass = "http://127.0.0.1:3000/";
         proxyWebsockets = true;
-      };
-
-      locations."/draw/" = {
-        proxyPass = "http://127.0.0.1:8083/";
-        proxyWebsockets = true;
-        extraConfig = ''
-          rewrite ^/draw/(.*)$ /$1 break;
-        '';
       };
 
       locations."/torrent/" = {
@@ -202,9 +184,15 @@ in {
     config = {
       ROCKET_PORT = "8082";
       ROCKET_ADDRESS = "127.0.0.1";
-      DOMAIN = "https://dtsf-server/vault";
+      DOMAIN = "https://dtsf-server:8082";
     };
   };
+
+  networking.firewall.allowedTCPPorts = [
+    443  # nginx HTTPS
+    8082 # vaultwarden
+    8083 # excalidraw
+  ];
 
   services.homepage-dashboard = {
     enable = true;
@@ -241,8 +229,8 @@ in {
           {
             Minecraft = {
               icon = "minecraft.png";
-              href = "minecraft://dtsf-server:25565";
-              description = "Minecraft server";
+              href = "#";
+              description = "dtsf-server:25565";
             };
           }
         ];
@@ -266,7 +254,7 @@ in {
           {
             Vaultwarden = {
               icon = "bitwarden.png";
-              href = "https://dtsf-server/vault";
+              href = "https://dtsf-server:8082";
               description = "Password manager";
             };
           }
@@ -280,7 +268,7 @@ in {
           {
             Excalidraw = {
               icon = "excalidraw.png";
-              href = "https://dtsf-server/draw";
+              href = "http://dtsf-server:8083";
               description = "Collaborative whiteboard";
             };
           }
@@ -289,9 +277,6 @@ in {
     ];
   };
 
-  networking.firewall.allowedTCPPorts = [
-    443  # nginx HTTPS
-  ];
 
   systemd.targets.sleep.enable = false;
   systemd.targets.suspend.enable = false;
