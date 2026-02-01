@@ -137,11 +137,6 @@ in {
         '';
       };
 
-      locations."/git/" = {
-        proxyPass = "http://127.0.0.1:3000/";
-        proxyWebsockets = true;
-      };
-
       locations."/draw/" = {
         proxyPass = "http://127.0.0.1:8083/";
         proxyWebsockets = true;
@@ -187,19 +182,6 @@ in {
     webuiPort = 8081;
   };
 
-  services.forgejo = {
-    enable = true;
-    settings = {
-      server = {
-        HTTP_PORT = 3000;
-        DOMAIN = "dtsf-server";
-        ROOT_URL = "https://dtsf-server/git/";
-      };
-      service = {
-        DISABLE_REGISTRATION = true;
-      };
-    };
-  };
 
   services.vaultwarden = {
     enable = true;
@@ -275,13 +257,6 @@ in {
               icon = "bitwarden.png";
               href = "https://dtsf-server/vault";
               description = "Password manager";
-            };
-          }
-          {
-            Forgejo = {
-              icon = "forgejo.png";
-              href = "https://dtsf-server/git";
-              description = "Git server (notes)";
             };
           }
           {
