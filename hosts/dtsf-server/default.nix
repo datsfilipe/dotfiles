@@ -38,6 +38,7 @@ in {
       root = "/home/${myvars.username}";
       address = "127.0.0.1";
       baseURL = "/files";
+      auth.method = "noauth";
     };
   };
 
@@ -195,7 +196,7 @@ in {
         ROOT_URL = "https://dtsf-server/git/";
       };
       service = {
-        DISABLE_REGISTRATION = false; # Set to true after creating admin
+        DISABLE_REGISTRATION = true;
       };
     };
   };
