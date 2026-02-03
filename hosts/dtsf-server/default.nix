@@ -127,8 +127,12 @@ in {
         '';
       };
 
+      locations."/files" = {
+        return = "301 https://$host/files/";
+      };
+
       locations."/files/" = {
-        proxyPass = "http://127.0.0.1:8080/";
+        proxyPass = "http://127.0.0.1:8080/files/";
         proxyWebsockets = true;
         extraConfig = ''
           proxy_set_header X-Real-IP $remote_addr;
@@ -138,8 +142,12 @@ in {
         '';
       };
 
+      locations."/vault" = {
+        return = "301 https://$host/vault/";
+      };
+
       locations."/vault/" = {
-        proxyPass = "http://127.0.0.1:8082/";
+        proxyPass = "http://127.0.0.1:8082/vault/";
         proxyWebsockets = true;
         extraConfig = ''
           proxy_set_header X-Real-IP $remote_addr;
@@ -147,6 +155,10 @@ in {
           proxy_set_header X-Forwarded-Proto $scheme;
           proxy_set_header X-Forwarded-Host $host;
         '';
+      };
+
+      locations."/draw" = {
+        return = "301 https://$host/draw/";
       };
 
       locations."/draw/" = {
@@ -158,6 +170,10 @@ in {
           sub_filter 'src="/' 'src="/draw/';
           sub_filter_once off;
         '';
+      };
+
+      locations."/torrent" = {
+        return = "301 https://$host/torrent/";
       };
 
       locations."/torrent/" = {
@@ -243,7 +259,7 @@ in {
           {
             Jellyfin = {
               icon = "jellyfin.png";
-              href = "https://dtsf-server/jellyfin";
+              href = "https://dtsf-server/jellyfin/";
               description = "Media server";
             };
           }
@@ -261,28 +277,28 @@ in {
           {
             "File Browser" = {
               icon = "filebrowser.png";
-              href = "https://dtsf-server/files";
+              href = "https://dtsf-server/files/";
               description = "File management";
             };
           }
           {
             qBittorrent = {
               icon = "qbittorrent.png";
-              href = "https://dtsf-server/torrent";
+              href = "https://dtsf-server/torrent/";
               description = "Torrent client";
             };
           }
           {
             Vaultwarden = {
               icon = "bitwarden.png";
-              href = "https://dtsf-server/vault";
+              href = "https://dtsf-server/vault/";
               description = "Password manager";
             };
           }
           {
             Excalidraw = {
               icon = "excalidraw.png";
-              href = "https://dtsf-server/draw";
+              href = "https://dtsf-server/draw/";
               description = "Collaborative whiteboard";
             };
           }
