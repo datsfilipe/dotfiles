@@ -16,7 +16,7 @@ in {
     networkmanager.enable = true;
   };
 
-  users.defaultUserShell = pkgs.fish;
+  users.defaultUserShell = lib.mkForce pkgs.fish;
 
   # Enable core modules
   modules.core.boot.system.enable = true;
