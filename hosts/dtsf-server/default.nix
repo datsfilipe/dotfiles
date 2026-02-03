@@ -16,6 +16,8 @@ in {
     networkmanager.enable = true;
   };
 
+  users.defaultUserShell = pkgs.fish;
+
   # Enable core modules
   modules.core.boot.system.enable = true;
   modules.core.nix.system.enable = true;

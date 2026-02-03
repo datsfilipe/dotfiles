@@ -14,6 +14,7 @@
     direnv
     eza
     bottom
+    neovim
   ]
   ++ (with mypkgs; [
     meow
