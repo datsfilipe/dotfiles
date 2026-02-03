@@ -38,7 +38,6 @@ in {
       root = "/home/${myvars.username}";
       address = "127.0.0.1";
       baseURL = "/files";
-      auth.method = "noauth";
     };
   };
 
@@ -119,12 +118,22 @@ in {
         proxyWebsockets = true;
         extraConfig = ''
           proxy_buffering off;
+          proxy_set_header X-Real-IP $remote_addr;
+          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+          proxy_set_header X-Forwarded-Proto $scheme;
+          proxy_set_header X-Forwarded-Host $host;
         '';
       };
 
       locations."/files/" = {
         proxyPass = "http://127.0.0.1:8080/";
         proxyWebsockets = true;
+        extraConfig = ''
+          proxy_set_header X-Real-IP $remote_addr;
+          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+          proxy_set_header X-Forwarded-Proto $scheme;
+          proxy_set_header X-Forwarded-Host $host;
+        '';
       };
 
       locations."/vault/" = {
@@ -134,6 +143,7 @@ in {
           proxy_set_header X-Real-IP $remote_addr;
           proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
           proxy_set_header X-Forwarded-Proto $scheme;
+          proxy_set_header X-Forwarded-Host $host;
         '';
       };
 
@@ -151,6 +161,13 @@ in {
       locations."/torrent/" = {
         proxyPass = "http://127.0.0.1:8081/";
         proxyWebsockets = true;
+        extraConfig = ''
+          proxy_set_header X-Real-IP $remote_addr;
+          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+          proxy_set_header X-Forwarded-Proto $scheme;
+          proxy_set_header X-Forwarded-Host $host;
+          proxy_cookie_path / "/torrent/";
+        '';
       };
     };
   };
@@ -188,6 +205,7 @@ in {
     config = {
       ROCKET_PORT = "8082";
       ROCKET_ADDRESS = "127.0.0.1";
+      DOMAIN = "https://dtsf-server/vault";
     };
   };
 
