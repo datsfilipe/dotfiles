@@ -13,6 +13,7 @@ input {
   touchpad {
     tap
     natural-scroll
+    click-method "button-areas"
   }
   mouse {
     accel-profile "flat"

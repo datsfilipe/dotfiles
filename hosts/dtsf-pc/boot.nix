@@ -9,6 +9,8 @@
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
+  boot.blacklistedKernelModules = ["hid_magicmouse" "hid_apple"];
+
   boot.loader = {
     grub.enable = false;
 
