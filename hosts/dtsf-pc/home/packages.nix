@@ -13,6 +13,7 @@
     claude-code
     pavucontrol
     obs-studio
+    zoom-us
     bc
   ];
 
