@@ -10,8 +10,22 @@ with lib; let
   monitorCfg = config.modules.hardware.monitors;
   activeMonitors = monitorCfg.monitors or [];
 
-  getWidth = m: builtins.fromJSON (builtins.elemAt (splitString "x" m.resolution) 0);
-  getHeight = m: builtins.fromJSON (builtins.elemAt (splitString "x" m.resolution) 1);
+  getRawWidth = m: builtins.fromJSON (builtins.elemAt (splitString "x" m.resolution) 0);
+  getRawHeight = m: builtins.fromJSON (builtins.elemAt (splitString "x" m.resolution) 1);
+
+  isRotated = m: let
+    rotation = m.nvidiaSettings.rotation or "normal";
+  in
+    rotation == "left" || rotation == "right";
+
+  getWidth = m:
+    if isRotated m
+    then getRawHeight m
+    else getRawWidth m;
+  getHeight = m:
+    if isRotated m
+    then getRawWidth m
+    else getRawHeight m;
 
   getMonitorMaxX = m: m.nvidiaSettings.coordinate.x + (getWidth m);
   getMonitorMaxY = m: m.nvidiaSettings.coordinate.y + (getHeight m);

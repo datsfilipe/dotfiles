@@ -46,7 +46,9 @@ in {
             transform "${(
             if m.nvidiaSettings.rotation == "left"
             then "90"
-            else m.nvidiaSettings.rotation
+            else if m.nvidiaSettings.rotation == "right"
+            then "270"
+            else "normal"
           )}"
             position x=${toString m.nvidiaSettings.coordinate.x} y=${toString m.nvidiaSettings.coordinate.y}
             hot-corners { bottom-left; }

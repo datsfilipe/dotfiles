@@ -38,28 +38,27 @@ in {
           name = "DP-2";
           focus = true;
           resolution = "1920x1080";
-          refreshRate = "180";
+          refreshRate = "179.998";
           nvidiaSettings = {
             coordinate = {
               x = 0;
-              y = 15;
+              y = 420;
             };
             forceFullCompositionPipeline = true;
             rotation = "normal";
           };
         }
         {
-          name = "HDMI-A-1";
+          name = "DP-1";
           resolution = "1920x1080";
-          refreshRate = "75";
-          scale = "1.1";
+          refreshRate = "179.961";
           nvidiaSettings = {
             coordinate = {
               x = 1920;
               y = 0;
             };
             forceFullCompositionPipeline = true;
-            rotation = "normal";
+            rotation = "left";
           };
         }
       ];
