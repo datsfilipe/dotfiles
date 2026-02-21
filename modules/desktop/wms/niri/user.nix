@@ -22,17 +22,20 @@ in {
   };
 
   config = mkIf cfg.enable {
-    home.packages = with pkgs; [
-      niri
-      wl-clipboard
-      xwayland-satellite
-    ];
+    home.packages =
+      (with pkgs; [
+        niri
+        wl-clipboard
+        xwayland-satellite
+      ])
+      ++ [mypkgs.niri-stack-to-n];
 
     modules.desktop.wms.niri.user.rawConfigValues = [
       ''spawn-at-startup "sh" "-c" "wmain ${toString monitorCount}"''
       ''spawn-at-startup "sh" "-c" "udiskie --tray --notify"''
       ''spawn-at-startup "sh" "-c" "systemctl --user restart wallpaper.service"''
       ''spawn-at-startup "sh" "-c" "nm-applet"''
+      ''spawn-at-startup "niri-stack-to-n"''
 
       (lib.concatStringsSep "\n" (map (m: ''
           output "${m.name}" {
