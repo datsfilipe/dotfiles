@@ -217,7 +217,6 @@ in {
     webuiPort = 8081;
   };
 
-
   services.vaultwarden = {
     enable = true;
     config = {
