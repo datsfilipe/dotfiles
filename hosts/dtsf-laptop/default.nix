@@ -1,4 +1,5 @@
 {
+  config,
   lib,
   pkgs,
   mylib,
@@ -101,6 +102,16 @@ in {
   services.upower = {
     enable = true;
     criticalPowerAction = "Hibernate";
+  };
+
+  system.activationScripts.custom-certs = lib.stringAfter ["setupSecrets"] ''
+    mkdir -p /run/custom-certs
+    cat ${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt ${config.sops.secrets."certs/server".path} > /run/custom-certs/ca-bundle.crt
+  '';
+
+  environment.variables = {
+    SSL_CERT_FILE = "/run/custom-certs/ca-bundle.crt";
+    NIX_SSL_CERT_FILE = "/run/custom-certs/ca-bundle.crt";
   };
 
   system.stateVersion = "25.11";
