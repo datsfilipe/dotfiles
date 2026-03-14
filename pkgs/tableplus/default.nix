@@ -15,6 +15,12 @@ in
       sha256 = source.sha256;
     };
 
+    extraPkgs = pkgs:
+      with pkgs; [
+        openssh
+        openssl
+      ];
+
     extraInstallCommands = ''
       mkdir -p $out/share/applications
       echo "[Desktop Entry]
