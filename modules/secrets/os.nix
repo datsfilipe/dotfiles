@@ -20,6 +20,9 @@
     secrets."token/github/dtsf-pc" = {
       owner = myvars.username;
     };
+    secrets."token/github/dtsf-pc-org" = {
+      owner = myvars.username;
+    };
     secrets."hosts" = {
       owner = myvars.username;
     };
