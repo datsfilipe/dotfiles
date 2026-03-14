@@ -25,13 +25,20 @@ in {
       pciutils
       usbutils
       parted
-      openvpn
+      # openvpn
       gnumake
       udiskie
       gum
       (pkgs.writeScriptBin "get-gh-token" ''
         #!${pkgs.bash}/bin/bash
-        cat ${config.sops.secrets."token/github/dtsf-pc".path}
+        case "$PWD" in
+          /home/*/org|/home/*/org/*)
+            cat ${config.sops.secrets."token/github/dtsf-pc-org".path}
+            ;;
+          *)
+            cat ${config.sops.secrets."token/github/dtsf-pc".path}
+            ;;
+        esac
       '')
     ];
 
