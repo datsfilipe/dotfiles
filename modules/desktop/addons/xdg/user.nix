@@ -75,7 +75,7 @@ in {
         pictures = "${config.home.homeDirectory}/media/photos";
         videos = "${config.home.homeDirectory}/media/videos";
         extraConfig = {
-          XDG_SCREENSHOTS_DIR = "${config.xdg.userDirs.pictures}/screenshots";
+          SCREENSHOTS = "${config.xdg.userDirs.pictures}/screenshots";
         };
       };
     };
