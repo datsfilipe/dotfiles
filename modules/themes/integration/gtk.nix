@@ -23,7 +23,7 @@
       iconTheme = {
         name = "Reversal-red-dark";
         package = pkgs.reversal-icon-theme.override {
-          colorVariants = ["-red"];
+          colorVariants = ["red"];
         };
       };
     };
@@ -35,7 +35,7 @@
       iconTheme = {
         name = "Reversal-cyan-dark";
         package = pkgs.reversal-icon-theme.override {
-          colorVariants = ["-cyan"];
+          colorVariants = ["cyan"];
         };
       };
     };
@@ -47,7 +47,7 @@
       iconTheme = {
         name = "Reversal-black-dark";
         package = pkgs.reversal-icon-theme.override {
-          colorVariants = ["-black"];
+          colorVariants = ["black"];
         };
       };
     };
@@ -59,7 +59,7 @@
       iconTheme = {
         name = "Reversal-blue-dark";
         package = pkgs.reversal-icon-theme.override {
-          colorVariants = ["-blue"];
+          colorVariants = ["blue"];
         };
       };
     };
@@ -71,7 +71,7 @@
       iconTheme = {
         name = "Reversal-purple-dark";
         package = pkgs.reversal-icon-theme.override {
-          colorVariants = ["-purple"];
+          colorVariants = ["purple"];
         };
       };
     };

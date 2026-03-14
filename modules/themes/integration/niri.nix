@@ -1,6 +1,8 @@
 {colorscheme, ...}: {
   modules.desktop.wms.niri.user.rawConfigValues = [
     ''
+      prefer-no-csd
+
       window-rule {
         draw-border-with-background false
       }
