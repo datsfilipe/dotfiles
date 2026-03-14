@@ -37,7 +37,7 @@
     };
     zellij-switch = {
       inputs.nixpkgs.follows = "nixpkgs";
-      url = "github:datsfilipe/zellij-switch/flake";
+      url = "github:datsfilipe/zellij-switch/master";
     };
     unix-scripts = {
       flake = false;

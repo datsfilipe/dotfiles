@@ -45,7 +45,7 @@ in
       nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
       nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
       nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.11";
-      zellij-switch = mkInput "github:datsfilipe/zellij-switch/flake" ["nixpkgs"];
+      zellij-switch = mkInput "github:datsfilipe/zellij-switch/master" ["nixpkgs"];
       home-manager = mkInput "github:nix-community/home-manager/master" ["nixpkgs"];
       sops-nix = mkInput "github:Mic92/sops-nix/master" ["nixpkgs"];
       astal = mkInput "github:aylur/astal/7d1fac8a4b2a14954843a978d2ddde86168c75ef" ["nixpkgs"];
