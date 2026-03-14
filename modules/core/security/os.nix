@@ -19,5 +19,8 @@ in {
       enableSSHSupport = false;
       settings.default-cache-ttl = 4 * 60 * 60;
     };
+
+    services.gnome.gnome-keyring.enable = true;
+    security.pam.services.login.enableGnomeKeyring = true;
   };
 }
