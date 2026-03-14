@@ -1,5 +1,6 @@
 {
   lib,
+  pkgs,
   mylib,
   myvars,
   ...
@@ -47,6 +48,16 @@ in {
   modules.programs.virtualization.system.enable = true;
   modules.programs.fhs.system.enable = true;
   modules.programs.games.system.enable = true;
+
+  systemd.services.pritunl-client = {
+    description = "Pritunl Client Service";
+    after = ["network.target"];
+    wantedBy = ["multi-user.target"];
+    serviceConfig = {
+      ExecStart = "${pkgs.pritunl-client}/bin/pritunl-client-service";
+      Restart = "always";
+    };
+  };
 
   system.stateVersion = "25.11";
 }
