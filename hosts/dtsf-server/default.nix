@@ -63,7 +63,7 @@ in {
 
   systemd.services.jellyfin.preStart = ''
     if [ ! -f /var/lib/jellyfin/config/network.xml ]; then
-      cp /etc/jellyfin-network.xml /var/lib/jellyfin/config/network.xml
+      install -m 0644 -o ${myvars.username} -g users /etc/jellyfin-network.xml /var/lib/jellyfin/config/network.xml
     fi
   '';
 
