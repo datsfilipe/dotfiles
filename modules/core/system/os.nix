@@ -40,6 +40,17 @@ in {
             ;;
         esac
       '')
+      (pkgs.writeScriptBin "get-claude-config-dir" ''
+        #!${pkgs.bash}/bin/bash
+        case "$PWD" in
+          /home/*/org|/home/*/org/*)
+            echo "$HOME/.claude-org"
+            ;;
+          *)
+            echo "$HOME/.claude"
+            ;;
+        esac
+      '')
     ];
 
     environment.shells = [pkgs.bashInteractive];
