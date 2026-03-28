@@ -52,6 +52,8 @@ in {
   # Configure Jellyfin base URL - create network.xml if missing
   systemd.tmpfiles.rules = [
     "d /var/lib/jellyfin/config 0755 ${myvars.username} users -"
+    "d /home/dtsf-2 0700 dtsf-2 users -"
+    "d /home/${myvars.username}/downloads 0755 ${myvars.username} users -"
   ];
 
   environment.etc."jellyfin-network.xml".text = ''
@@ -75,6 +77,26 @@ in {
   };
 
   users.users.${myvars.username}.extraGroups = ["minecraft" "podman"];
+
+  users.users."dtsf-2" = {
+    isSystemUser = true;
+    group = "users";
+    home = "/home/dtsf-2";
+    createHome = false;
+  };
+
+  systemd.services.filebrowser-dtsf2 = {
+    description = "File Browser (dtsf-2)";
+    after = ["network.target" "sops-nix.service"];
+    wantedBy = ["multi-user.target"];
+    serviceConfig = {
+      User = "dtsf-2";
+      Group = "users";
+      ExecStart = "${pkgs.filebrowser}/bin/filebrowser --port 8085 --address 127.0.0.1 --root /home/dtsf-2 --baseurl /dtsf-2 --database /var/lib/filebrowser-dtsf2/filebrowser.db";
+      StateDirectory = "filebrowser-dtsf2";
+      Restart = "on-failure";
+    };
+  };
 
   virtualisation.podman = {
     enable = true;
@@ -133,6 +155,21 @@ in {
 
       locations."/files/" = {
         proxyPass = "http://127.0.0.1:8080/files/";
+        proxyWebsockets = true;
+        extraConfig = ''
+          proxy_set_header X-Real-IP $remote_addr;
+          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+          proxy_set_header X-Forwarded-Proto $scheme;
+          proxy_set_header X-Forwarded-Host $host;
+        '';
+      };
+
+      locations."/dtsf-2" = {
+        return = "301 https://$host/dtsf-2/";
+      };
+
+      locations."/dtsf-2/" = {
+        proxyPass = "http://127.0.0.1:8085/dtsf-2/";
         proxyWebsockets = true;
         extraConfig = ''
           proxy_set_header X-Real-IP $remote_addr;
@@ -215,6 +252,14 @@ in {
     user = myvars.username;
     group = "users";
     webuiPort = 8081;
+    torrentingPort = 6881;
+    serverConfig.Preferences.Downloads.SavePath = "/home/${myvars.username}/downloads";
+  };
+
+  systemd.services.qbittorrent.serviceConfig.ProtectHome = lib.mkForce false;
+
+  systemd.services.qbittorrent.serviceConfig = {
+    ReadWritePaths = ["/home/${myvars.username}"];
   };
 
   services.vaultwarden = {
@@ -226,9 +271,14 @@ in {
     };
   };
 
+  environment.systemPackages = [pkgs.cryptsetup pkgs.filebrowser];
+
   networking.firewall.allowedTCPPorts = [
     443 # nginx HTTPS
+    6881 # qbittorrent torrenting
   ];
+
+  networking.firewall.allowedUDPPorts = [6881];
 
   services.homepage-dashboard = {
     enable = true;
