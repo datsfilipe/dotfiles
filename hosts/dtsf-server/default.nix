@@ -361,5 +361,5 @@ in {
   systemd.targets.hibernate.enable = false;
   systemd.targets.hybrid-sleep.enable = false;
 
-  system.stateVersion = "25.11";
+  system.stateVersion = "26.05";
 }

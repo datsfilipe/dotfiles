@@ -74,5 +74,5 @@ in {
     NIX_SSL_CERT_FILE = "/run/custom-certs/ca-bundle.crt";
   };
 
-  system.stateVersion = "25.11";
+  system.stateVersion = "26.05";
 }

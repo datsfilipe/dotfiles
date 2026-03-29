@@ -70,7 +70,7 @@
           nixos-rebuild switch --flake "$target" --show-trace --verbose
         elif [ "$mode" = "update" ]; then
           nix flake update
-          nixos-rebuild switch --recreate-lock-file --flake "$target"
+          nixos-rebuild switch --flake "$target"
         else
           nix flake update datsnvim
           nix flake update unix-scripts
