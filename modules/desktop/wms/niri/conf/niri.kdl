@@ -239,4 +239,7 @@ binds {
   Mod+Shift+Z repeat=false {
     spawn "focus-mode"
   }
+  Mod+B repeat=false {
+    spawn "wmain" "toggle-autohide"
+  }
 }

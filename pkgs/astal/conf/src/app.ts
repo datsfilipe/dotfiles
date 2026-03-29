@@ -7,7 +7,7 @@ import Bar from './widget/bar';
 import Launcher from './widget/launcher';
 import PowerMenu from './widget/powermenu';
 import Notifications from './widget/notifications';
-import { launcherVisible, powerMenuVisible } from './lib/state';
+import { launcherVisible, powerMenuVisible, barVisible, barAutohide } from './lib/state';
 
 const SCSS_TMP = '/tmp/modified_styles.scss';
 const CSS_OUT = '/tmp/style.css';
@@ -46,6 +46,25 @@ App.start({
       res('ok');
     } else if (request === 'powermenu') {
       powerMenuVisible.set(!powerMenuVisible.get());
+      res('ok');
+    } else if (request === 'toggle-bar') {
+      barVisible.set(!barVisible.get());
+      res(barVisible.get() ? 'visible' : 'hidden');
+    } else if (request === 'toggle-autohide') {
+      barAutohide.set(!barAutohide.get());
+      if (barAutohide.get()) {
+        barVisible.set(false);
+      } else {
+        barVisible.set(true);
+      }
+      res(barAutohide.get() ? 'autohide-on' : 'autohide-off');
+    } else if (request === 'autohide-on') {
+      barAutohide.set(true);
+      barVisible.set(false);
+      res('ok');
+    } else if (request === 'autohide-off') {
+      barAutohide.set(false);
+      barVisible.set(true);
       res('ok');
     } else {
       res('unknown command');

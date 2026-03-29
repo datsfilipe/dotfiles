@@ -6,6 +6,7 @@ import Wp from 'gi://AstalWp';
 import Tray from 'gi://AstalTray';
 import Pango from 'gi://Pango';
 import AstalBattery from 'gi://AstalBattery';
+import { barVisible, barAutohide } from '../lib/state';
 
 type WMState = {
   activeWs: Variable<number>;
@@ -362,8 +363,50 @@ function SysTray() {
   );
 }
 
+function TriggerZone(monitor: number) {
+  return (
+    <window
+      name={`bar-trigger-${monitor}`}
+      className="bar-trigger"
+      monitor={monitor}
+      anchor={
+        Astal.WindowAnchor.TOP |
+        Astal.WindowAnchor.LEFT |
+        Astal.WindowAnchor.RIGHT
+      }
+      exclusivity={Astal.Exclusivity.IGNORE}
+      application={App}
+      visible={bind(barVisible).as((v) => !v)}
+    >
+      <eventbox
+        onHover={() => {
+          if (barAutohide.get()) {
+            barVisible.set(true);
+          }
+        }}
+        css="min-height: 2px;"
+      />
+    </window>
+  );
+}
+
 export default function Bar(monitor: number) {
   const wm = getWM(monitor);
+
+  if (monitor === 0) {
+    wm.title.subscribe((title) => {
+      if (title) {
+        barAutohide.set(true);
+        barVisible.set(false);
+      } else {
+        barAutohide.set(false);
+        barVisible.set(true);
+      }
+    });
+  }
+
+  TriggerZone(monitor);
+
   return (
     <window
       name={`bar-${monitor}`}
@@ -374,54 +417,65 @@ export default function Bar(monitor: number) {
         Astal.WindowAnchor.LEFT |
         Astal.WindowAnchor.RIGHT
       }
-      exclusivity={Astal.Exclusivity.EXCLUSIVE}
+      exclusivity={bind(barVisible).as((v) =>
+        v ? Astal.Exclusivity.EXCLUSIVE : Astal.Exclusivity.IGNORE,
+      )}
+      visible={bind(barVisible)}
       application={App}
       marginTop={8}
       marginLeft={8}
       marginRight={8}
     >
-      <centerbox
-        className="body"
-        startWidget={
-          <box>
-            <Workspaces wm={wm} />
-          </box>
-        }
-        centerWidget={
-          <box>
-            <ClientTitle wm={wm} />
-          </box>
-        }
-        endWidget={
-          <box halign={Gtk.Align.END}>
-            <SysTray />
-            <Volume />
-            <box
-              valign={Gtk.Align.CENTER}
-              hexpand={false}
-              heightRequest={15}
-              css="min-width: 1px; background-color: #343434; margin: 0 10px 0 0;"
-            />
-            <KeyboardLayout />
-            <box
-              valign={Gtk.Align.CENTER}
-              hexpand={false}
-              heightRequest={15}
-              css="min-width: 1px; background-color: #343434; margin: 0 10px 0 0;"
-            />
-            <Cpu />
-            <Ram />
-            <BatteryLevel />
-            <box
-              valign={Gtk.Align.CENTER}
-              hexpand={false}
-              heightRequest={15}
-              css="min-width: 1px; background-color: #343434; margin: 0 10px 0 0;"
-            />
-            <Clock />
-          </box>
-        }
-      />
+      <eventbox
+        onHoverLost={() => {
+          if (barAutohide.get()) {
+            barVisible.set(false);
+          }
+        }}
+      >
+        <centerbox
+          className="body"
+          startWidget={
+            <box>
+              <Workspaces wm={wm} />
+            </box>
+          }
+          centerWidget={
+            <box>
+              <ClientTitle wm={wm} />
+            </box>
+          }
+          endWidget={
+            <box halign={Gtk.Align.END}>
+              <SysTray />
+              <Volume />
+              <box
+                valign={Gtk.Align.CENTER}
+                hexpand={false}
+                heightRequest={15}
+                css="min-width: 1px; background-color: #343434; margin: 0 10px 0 0;"
+              />
+              <KeyboardLayout />
+              <box
+                valign={Gtk.Align.CENTER}
+                hexpand={false}
+                heightRequest={15}
+                css="min-width: 1px; background-color: #343434; margin: 0 10px 0 0;"
+              />
+              <Cpu />
+              <Ram />
+              <BatteryLevel />
+              <box
+                valign={Gtk.Align.CENTER}
+                hexpand={false}
+                heightRequest={15}
+                css="min-width: 1px; background-color: #343434; margin: 0 10px 0 0;"
+              />
+              <Clock />
+            </box>
+          }
+        />
+      </eventbox>
     </window>
   );
 }
