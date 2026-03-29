@@ -24,6 +24,7 @@
     nix-envs
     scripts
     astal
+    focus-mode
     trxsh
     meow
   ];

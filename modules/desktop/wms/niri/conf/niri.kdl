@@ -231,9 +231,12 @@ binds {
     spawn "alacritty"
   }
   Mod+A repeat=false {
-    spawn "sh" "-c" "chromium --ozone-platform=x11"
+    spawn "sh" "-c" "chromium"
   }
   Mod+Shift+M repeat=false {
     spawn "shimeji"
+  }
+  Mod+Shift+Z repeat=false {
+    spawn "focus-mode"
   }
 }
