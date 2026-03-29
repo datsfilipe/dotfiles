@@ -19,11 +19,13 @@
 ├── assets
 ├── hosts
 │   ├── dtsf-laptop
-│   └── dtsf-pc
+│   ├── dtsf-pc
+│   └── dtsf-server
 ├── lib
 ├── modules
 │   ├── core
 │   │   ├── boot
+│   │   ├── misc
 │   │   ├── nix
 │   │   ├── security
 │   │   ├── shell
@@ -39,12 +41,12 @@
 │   ├── hardware
 │   │   ├── audio
 │   │   ├── bluetooth
+│   │   ├── machine
 │   │   ├── monitors
 │   │   └── nvidia
 │   ├── programs
 │   ├── secrets
-│   ├── themes
-│   └── wallpaper
+│   └── themes
 ├── outputs
 │   └── x86_64-linux
 │       └── src
@@ -61,13 +63,12 @@
 - `lib`: utility functions, including the recursive module scanner (`file.nix`).
 - `modules`: feature-based configuration modules (Vertical Slices).
   - `core`: base system definitions (boot, nix settings, security).
-  - `desktop`: window managers (niri, i3, sway), addons (waybar, rofi), and desktop-specific configs.
+  - `desktop`: window managers (niri, i3, sway), addons (astal, dunst), wallpaper, and desktop-specific configs.
   - `editors`: text editor configurations (neovim).
   - `hardware`: hardware abstraction (audio, bluetooth, nvidia).
   - `programs`: gui apps, cli tools, and terminal emulators.
   - `secrets`: secrets module using sops.
   - `themes`: centralized theming logic.
-  - `wallpaper`: wallpaper definition.
 - `outputs`: outputs of the config.
 - `pkgs`: custom packages and scripts.
 - `scripts`: maintenance and utility scripts.
