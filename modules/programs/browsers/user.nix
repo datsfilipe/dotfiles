@@ -32,11 +32,12 @@ in {
 
       dictionaries = [pkgs-unstable.hunspellDictsChromium.en_US];
       extensions = [
-        {id = "fmkadmapgofadopljbjfkapdkoienihi";}
-        {id = "liecbddmkiiihnedobmlmillhodjkdmb";}
-        {id = "nkbihfbeogaeaoehlefnkodbefgpgknn";}
-        {id = "acmacodkjbdgmoleebolmdjonilkdbch";}
-        {id = "eimadpbcbfnmbkopoojfekhnkhdbieeh";}
+        {id = "fmkadmapgofadopljbjfkapdkoienihi";} # react devtools
+        {id = "nkbihfbeogaeaoehlefnkodbefgpgknn";} # metamask
+        {id = "liecbddmkiiihnedobmlmillhodjkdmb";} # loom
+        {id = "eimadpbcbfnmbkopoojfekhnkhdbieeh";} # dark reader
+        {id = "mgngbgbhliflggkamjnpdmegbkidiapm";} # ytb shorts remover
+        {id = "nngceckbapebfimnlniiiahkandclblb";} # bitwarden
       ];
     };
   };
