@@ -1,5 +1,5 @@
 {
-  pkgs-unstable,
+  pkgs,
   lib,
   config,
   ...
@@ -12,7 +12,7 @@ in {
   config = mkIf cfg.enable {
     programs.chromium = {
       enable = true;
-      package = pkgs-unstable.chromium.override {enableWideVine = true;};
+      package = pkgs.chromium.override {enableWideVine = true;};
 
       commandLineArgs = [
         "--ozone-platform=wayland"
@@ -30,7 +30,7 @@ in {
         "--force-dark-mode"
       ];
 
-      dictionaries = [pkgs-unstable.hunspellDictsChromium.en_US];
+      dictionaries = [pkgs.hunspellDictsChromium.en_US];
       extensions = [
         {id = "fmkadmapgofadopljbjfkapdkoienihi";} # react devtools
         {id = "nkbihfbeogaeaoehlefnkodbefgpgknn";} # metamask
