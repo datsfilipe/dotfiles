@@ -6,7 +6,7 @@ import Wp from 'gi://AstalWp';
 import Tray from 'gi://AstalTray';
 import Pango from 'gi://Pango';
 import AstalBattery from 'gi://AstalBattery';
-import { barVisible, barAutohide } from '../lib/state';
+import { barVisible, barAutohide, trayMenuOpen } from '../lib/state';
 
 type WMState = {
   activeWs: Variable<number>;
@@ -346,6 +346,13 @@ function SysTray() {
                 const menu = Gtk.Menu.new_from_model(item.menuModel);
                 menu.insert_action_group('dbusmenu', item.actionGroup);
                 menu.get_style_context().add_class('tray-menu');
+                trayMenuOpen.set(true);
+                menu.connect('deactivate', () => {
+                  trayMenuOpen.set(false);
+                  if (barAutohide.get()) {
+                    barVisible.set(false);
+                  }
+                });
                 menu.popup_at_widget(
                   self,
                   Gdk.Gravity.SOUTH,
@@ -428,7 +435,7 @@ export default function Bar(monitor: number) {
     >
       <eventbox
         onHoverLost={() => {
-          if (barAutohide.get()) {
+          if (barAutohide.get() && !trayMenuOpen.get()) {
             barVisible.set(false);
           }
         }}
