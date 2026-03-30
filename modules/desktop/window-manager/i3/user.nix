@@ -6,9 +6,9 @@
   ...
 } @ args:
 with lib; let
-  cfg = config.modules.desktop.wms.i3.user;
+  cfg = config.modules.desktop.wm.i3.user;
 in {
-  options.modules.desktop.wms.i3.user = {
+  options.modules.desktop.wm.i3.user = {
     enable = mkEnableOption "i3 wm";
     settings = lib.mkOption {
       type = with lib.types; let

@@ -1,5 +1,5 @@
 {colorscheme, ...}: {
-  modules.desktop.wms.niri.user.rawConfigValues = [
+  modules.desktop.wm.niri.user.rawConfigValues = [
     ''
       prefer-no-csd
 

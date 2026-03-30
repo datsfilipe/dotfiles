@@ -5,11 +5,11 @@
   lib,
   ...
 }: {
-  options.modules.desktop.wms.common = {
+  options.modules.desktop.wm.common = {
     enable = lib.mkEnableOption "i3 and sway common configuration";
   };
 
-  config = lib.mkIf config.modules.desktop.wms.common.enable (
+  config = lib.mkIf config.modules.desktop.wm.common.enable (
     let
       generate = wm: let
         mod = "Mod4";
@@ -130,12 +130,12 @@
         ];
       };
     in {
-      modules.desktop.wms = {
+      modules.desktop.wm = {
         sway.user.settings = (generate "sway").settings;
         i3.user.settings = (generate "i3").settings;
       };
 
-      programs.i3status = lib.mkIf (config.modules.desktop.wms.i3.user.enable) {
+      programs.i3status = lib.mkIf (config.modules.desktop.wm.i3.user.enable) {
         enable = true;
         enableDefault = false;
         modules = {

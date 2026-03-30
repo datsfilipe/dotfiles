@@ -6,12 +6,12 @@
   ...
 }:
 with lib; let
-  cfg = config.modules.desktop.wms.niri.user;
-  generateConfig = rootConfig: builtins.concatStringsSep "\n" rootConfig.modules.desktop.wms.niri.user.rawConfigValues;
+  cfg = config.modules.desktop.wm.niri.user;
+  generateConfig = rootConfig: builtins.concatStringsSep "\n" rootConfig.modules.desktop.wm.niri.user.rawConfigValues;
   hostMonitors = config.modules.hardware.monitors.monitors or [];
   monitorCount = builtins.length hostMonitors;
 in {
-  options.modules.desktop.wms.niri.user = {
+  options.modules.desktop.wm.niri.user = {
     enable = mkEnableOption "Niri configuration";
 
     rawConfigValues = mkOption {
@@ -30,7 +30,7 @@ in {
       ])
       ++ [mypkgs.niri-stack-to-n];
 
-    modules.desktop.wms.niri.user.rawConfigValues = [
+    modules.desktop.wm.niri.user.rawConfigValues = [
       ''spawn-at-startup "sh" "-c" "wmain ${toString monitorCount}"''
       ''spawn-at-startup "sh" "-c" "udiskie --tray --notify"''
       ''spawn-at-startup "sh" "-c" "systemctl --user restart wallpaper.service"''

@@ -5,7 +5,7 @@
   ...
 }:
 with lib; let
-  cfg = config.modules.desktop.wms.niri.system;
+  cfg = config.modules.desktop.wm.niri.system;
 
   niriSession = pkgs.writeShellScriptBin "custom-niri-session" ''
     if systemctl --user -q is-active niri.service; then
@@ -23,7 +23,7 @@ with lib; let
     systemctl --user start --job-mode=replace-irreversibly niri-shutdown.target
   '';
 in {
-  options.modules.desktop.wms.niri.system.enable = mkEnableOption "Niri (Wayland) system support";
+  options.modules.desktop.wm.niri.system.enable = mkEnableOption "Niri (Wayland) system support";
 
   config = mkIf cfg.enable {
     xdg.portal = {

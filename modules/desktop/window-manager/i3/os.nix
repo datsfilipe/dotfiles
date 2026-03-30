@@ -5,9 +5,9 @@
   ...
 }:
 with lib; let
-  cfg = config.modules.desktop.wms.i3.system;
+  cfg = config.modules.desktop.wm.i3.system;
 in {
-  options.modules.desktop.wms.i3.system.enable = mkEnableOption "i3 on Xorg";
+  options.modules.desktop.wm.i3.system.enable = mkEnableOption "i3 on Xorg";
 
   config = mkIf cfg.enable {
     services = {

@@ -12,10 +12,10 @@ in {
   config = mkIf cfg.enable {
     home.packages = with pkgs;
       [pcmanfm]
-      ++ pkgs.lib.optionals config.modules.desktop.wms.sway.user.enable [
+      ++ pkgs.lib.optionals config.modules.desktop.wm.sway.user.enable [
         grim
       ]
-      ++ pkgs.lib.optionals config.modules.desktop.wms.sway.user.enable [
+      ++ pkgs.lib.optionals config.modules.desktop.wm.sway.user.enable [
         (flameshot.overrideAttrs (oldAttrs: {
           src = pkgs.fetchFromGitHub {
             owner = "flameshot-org";
@@ -30,7 +30,7 @@ in {
           buildInputs = oldAttrs.buildInputs ++ [pkgs.libsForQt5.kguiaddons];
         }))
       ]
-      ++ pkgs.lib.optionals config.modules.desktop.wms.i3.user.enable [
+      ++ pkgs.lib.optionals config.modules.desktop.wm.i3.user.enable [
         flameshot
       ];
 

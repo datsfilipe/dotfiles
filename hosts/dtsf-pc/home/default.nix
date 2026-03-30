@@ -11,7 +11,7 @@
   modules.core.shell.fish.user.enable = true;
   modules.core.user.home.enable = true;
 
-  modules.desktop.wms.niri.user.enable = true;
+  modules.desktop.wm.niri.user.enable = true;
 
   modules.hardware.monitors = {
     enable = true;

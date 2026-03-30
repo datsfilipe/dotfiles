@@ -11,7 +11,7 @@
   alt = "Mod1";
   print = "Print";
   msgCmd =
-    if config.modules.desktop.wms.sway.user.enable
+    if config.modules.desktop.wm.sway.user.enable
     then "swaymsg"
     else "i3-msg";
 
@@ -20,7 +20,7 @@
   reboot = "-B 'reboot' 'exec systemctl reboot'";
 
   nag =
-    if config.modules.desktop.wms.sway.user.enable
+    if config.modules.desktop.wm.sway.user.enable
     then "swaynag"
     else "i3-nagbar";
 

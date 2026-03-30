@@ -6,9 +6,9 @@
   ...
 } @ args:
 with lib; let
-  cfg = config.modules.desktop.wms.sway.user;
+  cfg = config.modules.desktop.wm.sway.user;
 in {
-  options.modules.desktop.wms.sway.user = {
+  options.modules.desktop.wm.sway.user = {
     enable = mkEnableOption "sway wm";
     settings = lib.mkOption {
       type = with lib.types; let

@@ -10,7 +10,7 @@ in {
   options.modules.hardware.nvidia.system.enable = mkEnableOption "NVIDIA graphics drivers";
 
   config = mkIf cfg.enable {
-    environment.variables = mkIf (config.modules.desktop.wms.niri.system.enable || config.modules.desktop.wms.sway.system.enable) {
+    environment.variables = mkIf (config.modules.desktop.wm.niri.system.enable || config.modules.desktop.wm.sway.system.enable) {
       NIXOS_OZONE_WL = "1";
       ELECTRON_OZONE_PLATFORM_HINT = "auto";
       LIBVA_DRIVER_NAME = "nvidia";

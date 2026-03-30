@@ -5,9 +5,9 @@
   ...
 }:
 with lib; let
-  cfg = config.modules.desktop.wms.sway.system;
+  cfg = config.modules.desktop.wm.sway.system;
 in {
-  options.modules.desktop.wms.sway.system.enable = mkEnableOption "Sway (Wayland) system support";
+  options.modules.desktop.wm.sway.system.enable = mkEnableOption "Sway (Wayland) system support";
 
   config = mkIf cfg.enable {
     xdg.portal = {

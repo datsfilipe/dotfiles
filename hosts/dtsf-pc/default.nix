@@ -36,7 +36,7 @@ in {
   };
 
   modules.desktop.displayManager.enable = true;
-  modules.desktop.wms.niri.system.enable = true;
+  modules.desktop.wm.niri.system.enable = true;
   modules.services.gdrive.enable = true;
   modules.desktop.wallpaper = {
     enable = true;
