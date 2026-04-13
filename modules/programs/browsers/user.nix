@@ -12,7 +12,7 @@ in {
   config = mkIf cfg.enable {
     programs.chromium = {
       enable = true;
-      package = pkgs.chromium.override {enableWideVine = true;};
+      package = pkgs.brave;
 
       commandLineArgs = [
         "--ozone-platform=wayland"

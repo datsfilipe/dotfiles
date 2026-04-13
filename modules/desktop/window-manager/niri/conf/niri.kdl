@@ -231,7 +231,7 @@ binds {
     spawn "alacritty"
   }
   Mod+A repeat=false {
-    spawn "sh" "-c" "chromium --ozone-platform=x11"
+    spawn "sh" "-c" "brave --ozone-platform=x11"
   }
   Mod+Shift+M repeat=false {
     spawn "shimeji"
