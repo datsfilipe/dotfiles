@@ -57,7 +57,7 @@ with lib; let
 
   swaybgArgs =
     concatMapStringsSep " " (
-      m: "-o ${m.name} -i $CACHE_DIR/${m.name}.png"
+      m: "-o ${m.name} -i $CACHE_DIR/${m.name}.png -m fill"
     )
     activeMonitors;
 in {
@@ -86,7 +86,7 @@ in {
           sleep 5
           exit 1
         fi
-        exec ${pkgs.swaybg}/bin/swaybg ${swaybgArgs} -m fill
+        exec ${pkgs.swaybg}/bin/swaybg ${swaybgArgs}
       '';
       serviceConfig = {
         Type = "simple";
