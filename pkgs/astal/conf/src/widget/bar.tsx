@@ -401,8 +401,12 @@ export default function Bar(monitor: number) {
   const wm = getWM(monitor);
 
   if (monitor === 0) {
+    let hadTitle = !!wm.title.get();
     wm.title.subscribe((title) => {
-      if (title) {
+      const hasTitle = !!title;
+      if (hasTitle === hadTitle) return;
+      hadTitle = hasTitle;
+      if (hasTitle) {
         barAutohide.set(true);
         barVisible.set(false);
       } else {
