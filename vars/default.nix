@@ -35,7 +35,7 @@ in {
     monitors = {
       pc = [
         {
-          name = "DP-2";
+          name = "DP-1";
           focus = true;
           resolution = "1920x1080";
           refreshRate = "179.998";
@@ -49,7 +49,7 @@ in {
           };
         }
         {
-          name = "DP-1";
+          name = "DP-2";
           resolution = "1920x1080";
           refreshRate = "179.961";
           nvidiaSettings = {

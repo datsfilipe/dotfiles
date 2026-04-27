@@ -1,5 +1,5 @@
 plugins {
-  zellij-switch location="file:///home/dtsf/src/github.com/datsfilipe/zellij-switch/target/wasm32-wasip1/debug/zellij-switch.wasm" {
+  zellij-switch location="file://ZELLIJ_SWITCH_PLUGIN_PATH" {
     _internal_ "true"
     name "zellij-switch"
   }

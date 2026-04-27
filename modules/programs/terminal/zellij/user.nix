@@ -19,6 +19,9 @@
     ]
     text;
 
+  pluginReplacer = text:
+    lib.replaceStrings ["ZELLIJ_SWITCH_PLUGIN_PATH"] [pluginpath] text;
+
   scrollback-editor = pkgs.writeShellScriptBin "zellij-scrollback-editor" ''
     #!/bin/bash
     nvim --clean \
@@ -32,9 +35,10 @@ in {
   programs.zellij.enable = true;
   modules.desktop.conf.zellij = {
     content =
-      replacer "zellij-session-nav"
+      pluginReplacer
+      (replacer "zellij-session-nav"
       (replacer "zellij-sessionizer"
-        (builtins.readFile ./conf/config.kdl));
+        (builtins.readFile ./conf/config.kdl)));
     layoutContent = builtins.readFile ./conf/layout.kdl;
   };
 
