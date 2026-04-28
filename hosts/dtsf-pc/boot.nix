@@ -2,7 +2,9 @@
   pkgs,
   lib,
   ...
-}: {
+}: let
+  themeDir = ../../pkgs/refind-theme;
+in {
   environment.systemPackages = with pkgs; [
     efibootmgr
   ];
@@ -13,11 +15,18 @@
 
   boot.loader = {
     grub.enable = false;
+    systemd-boot.enable = false;
 
-    systemd-boot = {
+    refind = {
       enable = true;
-      configurationLimit = 10;
-      consoleMode = "keep";
+      efiInstallAsRemovable = true;
+      maxGenerations = 10;
+      extraConfig = ''
+        include themes/dtsf/theme.conf
+      '';
+      additionalFiles = {
+        "EFI/refind/themes/dtsf/theme.conf" = themeDir + "/theme.conf";
+      };
     };
 
     efi = {

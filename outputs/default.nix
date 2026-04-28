@@ -76,6 +76,11 @@
           nix flake update unix-scripts
           nixos-rebuild switch --flake "$target"
         fi
+
+        if [ -d /boot/EFI/refind ]; then
+          cp /boot/EFI/refind/refind.conf /boot/EFI/BOOT/refind.conf
+          cp -r /boot/EFI/refind/themes /boot/EFI/BOOT/ 2>/dev/null || true
+        fi
       }
 
       main "$@"
