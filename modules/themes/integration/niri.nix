@@ -27,7 +27,7 @@
 
         focus-ring {
           width 4
-          active-color "${colorscheme.colors.primary}"
+          active-color "${colorscheme.colors.selection}"
           inactive-color "${colorscheme.colors.altbg}"
         }
 
