@@ -45,7 +45,7 @@
     };
     unix-scripts = {
       flake = false;
-      url = "git+file:///home/dtsf/.dotfiles/pkgs/scripts/conf?shallow=1";
+      url = "github:datsfilipe/unix-scripts/main";
     };
   };
   outputs = inputs: import ./outputs inputs;
