@@ -4,14 +4,25 @@
   fetchurl,
 }: let
   source = builtins.fromJSON (builtins.readFile ./conf/source.json);
+  platformMap = {
+    "x86_64-linux" = {
+      suffix = "linux-amd64";
+      hash = source.sha256;
+    };
+    "aarch64-darwin" = {
+      suffix = "darwin-arm64";
+      hash = source.sha256-darwin-arm64 or source.sha256;
+    };
+  };
+  platform = platformMap.${stdenv.hostPlatform.system};
 in
   stdenv.mkDerivation rec {
     pname = "trxsh";
     version = source.version;
 
     src = fetchurl {
-      url = "https://github.com/datsfilipe/trxsh/releases/download/${version}/trxsh-${version}-linux-amd64.tar.gz";
-      sha256 = source.sha256;
+      url = "https://github.com/datsfilipe/trxsh/releases/download/${version}/trxsh-${version}-${platform.suffix}.tar.gz";
+      sha256 = platform.hash;
     };
 
     installPhase = ''
@@ -24,7 +35,7 @@ in
       description = "trxsh is a terminal-based trash manager";
       homepage = "https://github.com/datsfilipe/trxsh";
       license = licenses.mit;
-      platforms = ["x86_64-linux"];
+      platforms = ["x86_64-linux" "aarch64-darwin"];
     };
 
     unpackPhase = ":";
