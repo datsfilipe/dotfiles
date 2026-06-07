@@ -8,6 +8,8 @@
   ...
 } @ args: let
   name = "dtsf-mac";
+  macVars = myvars // {username = "filipe.lima";};
+  specialArgs = genSpecialArgs system // {myvars = macVars;};
 
   darwin-modules =
     [
@@ -27,6 +29,10 @@
     ]);
 in {
   darwinConfigurations = {
-    "${name}" = mylib.darwinSystem (args // {inherit darwin-modules home-modules;});
+    "${name}" = mylib.darwinSystem (args
+      // {
+        inherit darwin-modules home-modules specialArgs;
+        myvars = macVars;
+      });
   };
 }
