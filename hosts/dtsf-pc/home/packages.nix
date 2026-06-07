@@ -26,6 +26,5 @@
     astal
     focus-mode
     trxsh
-    meow
   ];
 }

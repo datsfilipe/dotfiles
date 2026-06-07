@@ -17,7 +17,6 @@
   "top" = "btm -b";
   "topp" = "btm";
 
-  "cat" = "meow";
   "zp" = "zipper";
   "ext" = "extract";
   "zj" = "zellij";

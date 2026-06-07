@@ -18,7 +18,6 @@
       neovim
     ]
     ++ (with mypkgs; [
-      meow
       trxsh
       scripts
     ]);
