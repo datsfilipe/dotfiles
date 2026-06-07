@@ -8,6 +8,7 @@
   homeDir = "/Users/${myvars.username}";
 in {
   nixpkgs.config.allowUnfree = true;
+  system.primaryUser = myvars.username;
 
   sops = {
     age.generateKey = false;
