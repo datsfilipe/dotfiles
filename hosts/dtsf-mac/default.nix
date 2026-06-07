@@ -116,19 +116,42 @@ in {
     enable = true;
     onActivation = {
       autoUpdate = true;
-      cleanup = "zap";
+      cleanup = "none";
     };
     casks = [
       "tableplus"
       "zoom"
       "slack"
       "bitwarden"
-      "obs"
-      "qbittorrent"
+      "google-drive"
     ];
   };
 
   security.pam.services.sudo_local.touchIdAuth = true;
+
+  system.activationScripts.postActivation.text = ''
+    dscl . -create /Users/${myvars.username} UserShell /run/current-system/sw/bin/fish
+  '';
+
+  services.skhd = {
+    enable = true;
+    skhdConfig = let
+      bin = "/etc/profiles/per-user/${myvars.username}/bin";
+      openZellij = pkgs.writeShellScript "skhd-open-zellij" ''
+        export PATH="${bin}:/usr/bin:/bin"
+        t='dtsf'
+        s=$(zellij ls -s 2>/dev/null | grep -E "(-|^)$t$" | sort | head -n1)
+        if [ -n "$s" ]; then
+          exec alacritty -e zellij attach "$s"
+        else
+          exec alacritty -e zellij attach -c "$(date +%s)-$t"
+        fi
+      '';
+    in ''
+      cmd - return : ${openZellij}
+      shift + cmd - return : ${bin}/alacritty
+    '';
+  };
 
   system = {
     defaults = {
@@ -140,7 +163,7 @@ in {
         "com.apple.swipescrolldirection" = false;
       };
       dock = {
-        autohide = true;
+        autohide = false;
         show-recents = false;
         mru-spaces = false;
       };

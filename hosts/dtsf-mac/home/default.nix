@@ -4,7 +4,7 @@
   myvars,
   ...
 }: {
-  imports = (mylib.file.scanPaths ../../../modules "user.nix") ++ [./packages.nix];
+  imports = (mylib.file.scanPaths ../../../modules "user.nix") ++ [./packages.nix ./wallpaper.nix];
 
   modules.hardware.machine.hostname = "dtsf-mac";
 
@@ -23,8 +23,15 @@
 
   modules.programs.git.enable = true;
   modules.programs.terminal.default = "alacritty";
+  modules.programs.terminal.alacritty.enableDecorations = true;
 
   modules.editors.neovim.user.enable = true;
+
+  # neovim/os.nix (which sets EDITOR) isn't imported on darwin, so set it here.
+  home.sessionVariables = {
+    EDITOR = "nvim";
+    MANPAGER = "nvim +Man!";
+  };
 
   modules.desktop.colorscheme = {
     enable = true;

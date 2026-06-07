@@ -25,7 +25,7 @@
     };
     nix-darwin = {
       inputs.nixpkgs.follows = "nixpkgs";
-      url = "github:nix-darwin/nix-darwin/nix-darwin-26.05";
+      url = "github:nix-darwin/nix-darwin/master";
     };
     meow = {
       inputs.nixpkgs.follows = "nixpkgs-unstable";
