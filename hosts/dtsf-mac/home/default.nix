@@ -22,7 +22,7 @@
   modules.programs.bottom.user.enable = true;
 
   modules.programs.git.enable = true;
-  modules.programs.terminal.default = "ghostty";
+  modules.programs.terminal.default = "alacritty";
 
   modules.editors.neovim.user.enable = true;
 
@@ -30,7 +30,7 @@
     enable = true;
     enableNeovimIntegration = true;
     enableFishIntegration = true;
-    enableGhosttyIntegration = true;
+    enableAlacrittyIntegration = true;
     enableFzfIntegration = true;
     enableZellijIntegration = true;
   };
