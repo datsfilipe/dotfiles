@@ -145,7 +145,6 @@ in {
       };
       finder = {
         AppleShowAllExtensions = true;
-        FHIdeExtension = false;
         ShowPathbar = true;
         ShowStatusBar = true;
       };
