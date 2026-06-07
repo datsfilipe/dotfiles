@@ -13,7 +13,5 @@
 
   modules.desktop.nupkgs.packages = with mypkgs; [
     nix-envs
-    meow
-    trxsh
   ];
 }
