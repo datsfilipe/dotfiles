@@ -37,8 +37,8 @@ in {
     content =
       pluginReplacer
       (replacer "zellij-session-nav"
-      (replacer "zellij-sessionizer"
-        (builtins.readFile ./conf/config.kdl)));
+        (replacer "zellij-sessionizer"
+          (builtins.readFile ./conf/config.kdl)));
     layoutContent = builtins.readFile ./conf/layout.kdl;
   };
 

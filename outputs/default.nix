@@ -48,10 +48,15 @@
     x86_64-linux = import ./x86_64-linux (args // {system = "x86_64-linux";});
   };
 
-  nixosSystemValues = builtins.attrValues nixosSystems;
-  systemNames = builtins.attrNames nixosSystems;
+  darwinSystems = {
+    aarch64-darwin = import ./aarch64-darwin (args // {system = "aarch64-darwin";});
+  };
 
-  forAllSystems = func: (nixpkgs.lib.genAttrs systemNames func);
+  nixosSystemValues = builtins.attrValues nixosSystems;
+  darwinSystemValues = builtins.attrValues darwinSystems;
+  allSystemNames = builtins.attrNames nixosSystems ++ builtins.attrNames darwinSystems;
+
+  forAllSystems = func: (nixpkgs.lib.genAttrs allSystemNames func);
 
   mkScript = pkgs: name: text: let
     script =
@@ -132,6 +137,25 @@
       main "$@"
     '')
 
+    (mkScript pkgs "darwin_switch" ''
+      main() {
+        local target=".#$1"
+        local mode="$2"
+        if [ "$mode" = "debug" ]; then
+          darwin-rebuild switch --flake "$target" --show-trace --verbose
+        elif [ "$mode" = "update" ]; then
+          nix flake update
+          darwin-rebuild switch --flake "$target"
+        else
+          nix flake update datsnvim
+          nix flake update unix-scripts
+          darwin-rebuild switch --flake "$target"
+        fi
+      }
+
+      main "$@"
+    '')
+
     (mkScript pkgs "j" ''
       main() {
         just "$@"
@@ -144,8 +168,13 @@ in {
   nixosConfigurations =
     lib.attrsets.mergeAttrsList (map (it: it.nixosConfigurations or {}) nixosSystemValues);
 
+  darwinConfigurations =
+    lib.attrsets.mergeAttrsList (map (it: it.darwinConfigurations or {}) darwinSystemValues);
+
   packages = forAllSystems (
-    system: nixosSystems.${system}.packages or {}
+    system:
+      (nixosSystems.${system}.packages or {})
+      // (darwinSystems.${system}.packages or {})
   );
 
   devShells = forAllSystems (

@@ -23,6 +23,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:nix-community/home-manager/master";
     };
+    nix-darwin = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:LnL7/nix-darwin/master";
+    };
     meow = {
       inputs.nixpkgs.follows = "nixpkgs-unstable";
       url = "github:datsfilipe/meow/main";

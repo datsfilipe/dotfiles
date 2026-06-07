@@ -50,6 +50,7 @@ in {
   extractName = extractName;
 
   nixosSystem = import ./nixosSystem.nix;
+  darwinSystem = import ./darwinSystem.nix;
   format = import ./format.nix {inherit lib builtins;};
   file = import ./file.nix {inherit lib builtins;};
   color = import ./color.nix {inherit lib builtins;};

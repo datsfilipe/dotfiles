@@ -1,9 +1,8 @@
 let
   username = "dtsf";
-  homedir = "/home/${username}";
-  localbin = "${homedir}/.local/bin";
-  gobin = "${homedir}/go/bin";
-  rustbin = "${homedir}/.cargo/bin";
+  localbin = "$HOME/.local/bin";
+  gobin = "$HOME/go/bin";
+  rustbin = "$HOME/.cargo/bin";
 in {
   # general
   username = username;
