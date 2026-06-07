@@ -431,11 +431,11 @@
     "unix-scripts": {
       "flake": false,
       "locked": {
-        "lastModified": 1766698914,
-        "narHash": "sha256-O/6JrN9trBj9jp6aJOvjq29AkhCgdqA8BI0IpJi6i9Q=",
+        "lastModified": 1780862874,
+        "narHash": "sha256-H6scYtGGyMjDTGyfBIZM3jb8eCEX/KDPMljSdBwC4E8=",
         "owner": "datsfilipe",
         "repo": "unix-scripts",
-        "rev": "f4e578a9dc3d2c07003f55f63a4db6969ad88b6d",
+        "rev": "b839c2309cf10964cfd0f418373ba838283f0a16",
         "type": "github"
       },
       "original": {

@@ -138,7 +138,7 @@ in {
     skhdConfig = let
       bin = "/etc/profiles/per-user/${myvars.username}/bin";
       openZellij = pkgs.writeShellScript "skhd-open-zellij" ''
-        export PATH="${bin}:/usr/bin:/bin"
+        export PATH="${bin}:/run/current-system/sw/bin:/nix/var/nix/profiles/default/bin:/usr/bin:/bin"
         t='dtsf'
         s=$(zellij ls -s 2>/dev/null | grep -E "(-|^)$t$" | sort | head -n1)
         if [ -n "$s" ]; then
