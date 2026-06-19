@@ -9,7 +9,7 @@
   home.packages = with pkgs; [
     qbittorrent
     slack
-    bitwarden-desktop
+    # bitwarden-desktop
     claude-code
     pavucontrol
     obs-studio

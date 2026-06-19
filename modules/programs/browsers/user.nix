@@ -12,18 +12,14 @@ in {
   config = mkIf cfg.enable {
     programs.chromium = {
       enable = true;
-      package = pkgs.brave;
+      package = pkgs.chromium.override {enableWideVine = true;};
 
       commandLineArgs = [
         "--ozone-platform=wayland"
         "--enable-features=UseOzonePlatform,WaylandWindowDecorations,WebUIDarkMode"
         "--enable-wayland-ime"
 
-        "--use-gl=angle"
-        "--use-angle=gl"
-
         "--enable-features=VaapiVideoDecodeLinuxGL,VaapiVideoDecoder,VaapiOnNvidiaGPUs"
-        "--disable-features=UseSkiaGraphite"
         "--disable-gpu-memory-buffer-video-frames"
         "--ignore-gpu-blocklist"
 
