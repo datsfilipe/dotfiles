@@ -16,6 +16,12 @@
 
       layout {
         gaps 8
+        struts {
+          left 12
+          right 12
+          top 12
+          bottom 12
+        }
         center-focused-column "never"
         preset-column-widths {
           proportion 0.33333
@@ -27,7 +33,7 @@
 
         focus-ring {
           width 4
-          active-color "${colorscheme.colors.selection}"
+          active-color "${colorscheme.colors.primary}"
           inactive-color "${colorscheme.colors.altbg}"
         }
 

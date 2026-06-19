@@ -24,8 +24,8 @@ in {
 
   # common hosts config
   hostsConfig = {
-    theme = "carbon";
-    wallpaper = "/home/dtsf/gdrive/walls/59.png";
+    theme = "min";
+    wallpaper = "/home/dtsf/gdrive/walls/61.png";
     wallpaper-zoom = 0;
 
     # used by powermenu widget

@@ -134,14 +134,11 @@ export default function Launcher(cursorColor: string) {
 
         <box halign={Gtk.Align.CENTER} vertical>
           <box
-            className="launcher-panel"
+            className={list((l) =>
+              l.length > 0 ? 'launcher-panel search-joined' : 'launcher-panel',
+            )}
             vertical
             widthRequest={500}
-            css={list((l) =>
-              l.length > 0
-                ? 'border-bottom-left-radius: 0; border-bottom-right-radius: 0; border-bottom: none;'
-                : '',
-            )}
           >
             <overlay className="search-box">
               <label
@@ -184,17 +181,16 @@ export default function Launcher(cursorColor: string) {
 
           <box halign={Gtk.Align.CENTER} valign={Gtk.Align.START} vertical>
             <box
-              className="launcher-panel"
+              className="launcher-panel results-joined"
               vertical
               widthRequest={500}
               spacing={5}
               visible={list((l) => l.length > 0)}
-              css="margin-top: -1px; border-top-left-radius: 0; border-top-right-radius: 0; border-top: none;"
             >
               <box
-                halign={Gtk.Align.CENTER}
+                halign={Gtk.Align.FILL}
+                hexpand
                 vexpand={false}
-                widthRequest={498}
                 css="min-height: 1px; background-color: #343434; margin: 2px 0;"
               />
 
@@ -213,13 +209,14 @@ export default function Launcher(cursorColor: string) {
                           xalign={0}
                           halign={Gtk.Align.START}
                           hexpand
+                          maxWidthChars={28}
                           ellipsize={3}
                         />
                         <label
                           label={app.description || ''}
                           visible={!!app.description}
                           halign={Gtk.Align.END}
-                          maxWidthChars={30}
+                          maxWidthChars={22}
                           ellipsize={3}
                           className="description"
                         />

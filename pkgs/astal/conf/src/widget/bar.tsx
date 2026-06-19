@@ -315,7 +315,7 @@ function Volume() {
 
 function Clock() {
   const getTime = () => {
-    const timeString = GLib.DateTime.new_now_local().format('%a. %b -%e-%H:%M:%S')!
+    const timeString = GLib.DateTime.new_now_local().format('%a. %b -%e-%H:%M:-%S')!
     return timeString.split('-');
   };
 
@@ -326,7 +326,10 @@ function Clock() {
       <label className="date" label={bind(time).as(([date]) => date)} />
       <label className="day" label={bind(time).as(([, day]) => day)} />
       <label className="separator" label="-" />
-      <label className="hours" label={bind(time).as(([,, hours]) => hours)} />
+      <box spacing={0}>
+        <label className="hours" label={bind(time).as(([,, hours]) => hours)} />
+        <label className="seconds" label={bind(time).as(([,,, seconds]) => seconds)} />
+      </box>
     </box>
   );
 }
@@ -433,9 +436,9 @@ export default function Bar(monitor: number) {
       )}
       visible={bind(barVisible)}
       application={App}
-      marginTop={8}
-      marginLeft={8}
-      marginRight={8}
+      marginTop={16}
+      marginLeft={16}
+      marginRight={16}
     >
       <eventbox
         onHoverLost={() => {
