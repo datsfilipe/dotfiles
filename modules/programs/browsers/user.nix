@@ -31,8 +31,6 @@ in {
         {id = "fmkadmapgofadopljbjfkapdkoienihi";} # react devtools
         {id = "nkbihfbeogaeaoehlefnkodbefgpgknn";} # metamask
         {id = "liecbddmkiiihnedobmlmillhodjkdmb";} # loom
-        {id = "eimadpbcbfnmbkopoojfekhnkhdbieeh";} # dark reader
-        {id = "mgngbgbhliflggkamjnpdmegbkidiapm";} # ytb shorts remover
         {id = "nngceckbapebfimnlniiiahkandclblb";} # bitwarden
       ];
     };
