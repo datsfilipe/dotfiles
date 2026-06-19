@@ -454,11 +454,11 @@
         "systems": "systems_3"
       },
       "locked": {
-        "lastModified": 1773477429,
-        "narHash": "sha256-wB+z4EA9xB7dHTcGrXwnehvSFETIQVgO5+mvD+rhXU4=",
+        "lastModified": 1781849985,
+        "narHash": "sha256-N0NkXkolml5CGMrTRwyEQnzASWFzy7IACPJZYG5w+3M=",
         "owner": "datsfilipe",
         "repo": "zellij-switch",
-        "rev": "7fdaaade3b59ca00cd8e3e5bf36a94c8270e2931",
+        "rev": "3538bd0fe3b28f9c21fa57d63995dc5b39563e03",
         "type": "github"
       },
       "original": {
