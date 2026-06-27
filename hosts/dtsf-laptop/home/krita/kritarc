@@ -1,13 +1,13 @@
 AntialiasSelectionOutline=false
 ArtColorSel.ColorSpace=0
 ArtColorSel.InversedSaturation=false
-ArtColorSel.Light=0.32304561037922086
+ArtColorSel.Light=0.41950321738214247
 ArtColorSel.LightPieces=11
 ArtColorSel.NumRings=7
 ArtColorSel.RingPieces=12
 ArtColorSel.SelColorH=0
-ArtColorSel.SelColorS=1
-ArtColorSel.SelColorX=0.32304561037922086
+ArtColorSel.SelColorS=0.8566083555776067
+ArtColorSel.SelColorX=0.41950321738214247
 ArtColorSel.defaultHueSteps=12
 ArtColorSel.defaultSaturationSteps=7
 ArtColorSel.defaultValueScaleSteps=11
@@ -33,7 +33,7 @@ KineticScrollingEnabled=true
 KineticScrollingGesture=2
 KineticScrollingHideScrollbar=false
 KineticScrollingSensitivity=75
-KisDlgPreferences/CurrentPage=general
+KisDlgPreferences/CurrentPage=shortcuts
 Krita/Ocio/DisplayDevice=sRGB
 Krita/Ocio/DisplayLook=None
 Krita/Ocio/DisplayView=Raw
@@ -44,8 +44,8 @@ Krita/Ocio/OcioLockColorVisualRepresentation=false
 Krita/Ocio/OcioLutPath=
 Krita/Ocio/UseOcio=false
 LastBackGroundColor=<!DOCTYPE LastBackGroundColor>\n<LastBackGroundColor>\n <RGB b="1" g="1" r="1" space="sRGB-elle-V2-srgbtrc.icc"/>\n</LastBackGroundColor>\n
-LastColorHistory=<!DOCTYPE LastColorHistory>\n<colors>\n <RGB b="0" g="0" r="0" space="sRGB-elle-V2-srgbtrc.icc"/>\n</colors>\n
-LastForeGroundColor=<!DOCTYPE LastForeGroundColor>\n<LastForeGroundColor>\n <RGB b="0" g="0" r="0.658823549747467" space="sRGB-elle-V2-srgbtrc.icc"/>\n</LastForeGroundColor>\n
+LastColorHistory=<!DOCTYPE LastColorHistory>\n<colors>\n <RGB b="0.156862750649452" g="0.156862750649452" r="0.807843148708344" space="sRGB-elle-V2-srgbtrc.icc"/>\n <RGB b="0" g="0" r="0" space="sRGB-elle-V2-srgbtrc.icc"/>\n</colors>\n
+LastForeGroundColor=<!DOCTYPE LastForeGroundColor>\n<LastForeGroundColor>\n <RGB b="0.156862750649452" g="0.156862750649452" r="0.807843148708344" space="sRGB-elle-V2-srgbtrc.icc"/>\n</LastForeGroundColor>\n
 LastPreset_-1=c) Pencil-3 Large 4B
 LineSmoothingDelayDistance=50
 LineSmoothingDistanceKeepAspectRatio=true
@@ -297,12 +297,16 @@ splitterState_1row=\x00\x00\x00\xff\x00\x00\x00\x01\x00\x00\x00\x02\xff\xff\xff\
 splitterState_2row=\x00\x00\x00\xff\x00\x00\x00\x01\x00\x00\x00\x03\x00\x00\x01>\x00\x00\x00*\xff\xff\xff\xff\x01\xff\xff\xff\xff\x01\x00\x00\x00\x01\x00
 
 [KisShortcutsDialog Settings]
-Dialog Size=694,658
+Dialog Size=830,649
 
 [KisToolCrop]
 allowGrow=true
 decoration=1
 growCenter=false
+
+[KisToolSelectElliptical]
+roundCornersX=0
+roundCornersY=0
 
 [KisToolTransform]
 forceLodMode=true
@@ -312,6 +316,12 @@ useOverlayPreviewStyle=false
 handsCount=4
 intervalX=0
 intervalY=0
+
+[KritaShape/KisToolRectangle]
+outlineType=1
+patternTransformScale=100
+roundCornersX=0
+roundCornersY=0
 
 [MainWindow]
 1280x720 screen: Window-Maximized=true
@@ -414,8 +424,8 @@ yPosition=18
 [MainWindow][DockWidget History]
 DockArea=2
 Locked=false
-height=131
-width=442
+height=462
+width=640
 xPosition=0
 yPosition=18
 
@@ -478,16 +488,16 @@ yPosition=0
 [MainWindow][DockWidget PresetDocker]
 DockArea=2
 Locked=false
-height=460
-width=379
+height=462
+width=640
 xPosition=0
 yPosition=18
 
 [MainWindow][DockWidget PresetHistory]
 DockArea=2
 Locked=false
-height=460
-width=379
+height=462
+width=640
 xPosition=0
 yPosition=18
 
@@ -630,8 +640,8 @@ yPosition=18
 [MainWindow][DockWidget sharedtooldocker]
 DockArea=2
 Locked=false
-height=340
-width=359
+height=462
+width=640
 xPosition=0
 yPosition=18
 
