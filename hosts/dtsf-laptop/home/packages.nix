@@ -30,4 +30,7 @@ in {
     nix-envs
     scripts
   ];
+
+  xdg.configFile."kritarc".source =
+    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/hosts/dtsf-laptop/home/krita/kritarc";
 }
