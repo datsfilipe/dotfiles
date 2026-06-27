@@ -6,14 +6,8 @@
   lib,
   ...
 }: let
-  krita-wayland = pkgs.writeShellScriptBin "krita" ''
-    unset DESKTOP_SESSION
-    unset XDG_SESSION_DESKTOP
-    unset XDG_CURRENT_DESKTOP
-    unset GDMSESSION
-    export KRITA_FORCE_WAYLAND=1
-    export KRITA_USE_NATIVE_CANVAS_SURFACE=1
-    export QT_QPA_PLATFORM=wayland
+  krita-xcb = pkgs.writeShellScriptBin "krita" ''
+    export QT_QPA_PLATFORM=xcb
     exec ${pkgs.krita}/bin/krita "$@"
   '';
 in {
@@ -24,7 +18,7 @@ in {
     # bitwarden-desktop
     pavucontrol
     brightnessctl
-    krita-wayland
+    krita-xcb
     gnome-tweaks
     gnome-extension-manager
     gnomeExtensions.dash-to-dock
