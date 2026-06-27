@@ -20,6 +20,7 @@ in {
   home.packages = with pkgs; [
     bc
     mesa
+    bottles
     slack
     bitwarden-desktop
     pavucontrol
