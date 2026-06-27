@@ -1,2 +1,5 @@
 result*
 .direnv
+hosts/dtsf-laptop/home/krita/data/*.bundle
+hosts/dtsf-laptop/home/krita/data/resourcecache.sqlite*
+hosts/dtsf-laptop/home/krita/data/KRITA_RESOURCE_VERSION

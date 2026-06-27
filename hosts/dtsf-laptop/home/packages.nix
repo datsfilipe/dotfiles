@@ -33,4 +33,7 @@ in {
 
   xdg.configFile."kritarc".source =
     config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/hosts/dtsf-laptop/home/krita/kritarc";
+
+  xdg.dataFile."krita".source =
+    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/hosts/dtsf-laptop/home/krita/data";
 }

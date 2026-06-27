@@ -1,0 +1,9 @@
+<!DOCTYPE params>
+<params>
+ <param name="height" type="internal">4000</param>
+ <param name="name" type="string"><![CDATA[custom]]></param>
+ <param name="resolution" type="internal">300</param>
+ <param name="width" type="internal">4000</param>
+ <param name="x-unit" type="internal">7</param>
+ <param name="y-unit" type="internal">7</param>
+</params>
