@@ -6,6 +6,14 @@
   ...
 }: let
   homeDir = "/Users/${myvars.username}";
+
+  blockedHostsBegin = "# BEGIN nix-darwin blocked-hosts";
+  blockedHostsEnd = "# END nix-darwin blocked-hosts";
+  blockedHostsBlock =
+    blockedHostsBegin
+    + "\n"
+    + lib.concatMapStrings (h: "127.0.0.1 ${h}\n::1 ${h}\n") myvars.blockedHosts
+    + blockedHostsEnd;
 in {
   nixpkgs.config.allowUnfree = true;
   system.primaryUser = myvars.username;
@@ -131,6 +139,17 @@ in {
 
   system.activationScripts.postActivation.text = ''
     dscl . -create /Users/${myvars.username} UserShell /run/current-system/sw/bin/fish
+
+    block=${lib.escapeShellArg blockedHostsBlock}
+    tmp=$(mktemp)
+    ${pkgs.gawk}/bin/awk -v b=${lib.escapeShellArg blockedHostsBegin} -v e=${lib.escapeShellArg blockedHostsEnd} '
+      $0==b {skip=1}
+      skip==0 {print}
+      $0==e {skip=0}
+    ' /etc/hosts > "$tmp"
+    printf '%s\n' "$block" >> "$tmp"
+    cat "$tmp" > /etc/hosts
+    rm -f "$tmp"
   '';
 
   services.skhd = {
