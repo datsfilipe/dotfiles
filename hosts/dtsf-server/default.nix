@@ -69,6 +69,15 @@ in {
     fi
   '';
 
+  services.suwayomi-server = {
+    enable = true;
+    openFirewall = true;
+    settings.server = {
+      ip = "0.0.0.0";
+      port = 4567;
+    };
+  };
+
   services.minecraft-server = {
     enable = true;
     eula = true;
@@ -317,6 +326,13 @@ in {
               icon = "minecraft.png";
               href = "http://dtsf-server:25565";
               description = "Minecraft server";
+            };
+          }
+          {
+            Suwayomi = {
+              icon = "suwayomi.png";
+              href = "http://dtsf-server:4567";
+              description = "Manga reader server";
             };
           }
         ];
