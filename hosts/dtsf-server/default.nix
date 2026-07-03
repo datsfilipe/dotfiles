@@ -78,7 +78,7 @@ in {
     settings.server = {
       ip = "0.0.0.0";
       port = 4567;
-      extensionRepos = [
+      extensionStores = [
         "https://raw.githubusercontent.com/keiyoushi/extensions/repo/index.min.json"
       ];
       basicAuthEnabled = true;
