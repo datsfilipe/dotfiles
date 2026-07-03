@@ -4,6 +4,7 @@
   lib,
   mylib,
   myvars,
+  mypkgs,
   ...
 }: let
   hostName = "dtsf-server";
@@ -73,6 +74,7 @@ in {
   services.suwayomi-server = {
     enable = true;
     openFirewall = true;
+    package = mypkgs.suwayomi-server;
     settings.server = {
       ip = "0.0.0.0";
       port = 4567;
