@@ -1,4 +1,5 @@
 {
+  config,
   pkgs,
   lib,
   mylib,
@@ -75,6 +76,9 @@ in {
     settings.server = {
       ip = "0.0.0.0";
       port = 4567;
+      basicAuthEnabled = true;
+      basicAuthUsername = myvars.username;
+      basicAuthPasswordFile = config.sops.secrets."suwayomi/basic-auth-password".path;
     };
   };
 

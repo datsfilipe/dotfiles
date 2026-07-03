@@ -29,6 +29,9 @@
     secrets."certs/server" = {
       owner = myvars.username;
     };
+    secrets."suwayomi/basic-auth-password" = lib.mkIf config.services.suwayomi-server.enable {
+      owner = config.services.suwayomi-server.user;
+    };
     secrets."rclone/config" = lib.mkIf (config.modules.services.gdrive.enable) {
       owner = myvars.username;
       path = "/home/${myvars.username}/.config/rclone/rclone.conf";
