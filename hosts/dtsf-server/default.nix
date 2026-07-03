@@ -81,7 +81,7 @@ in {
       extensionStores = [
         "https://raw.githubusercontent.com/keiyoushi/extensions/repo/index.min.json"
       ];
-      kcefEnabled = false;
+      kcefEnabled = true;
       flareSolverrEnabled = true;
       flareSolverrUrl = "http://localhost:8191";
       basicAuthEnabled = true;
