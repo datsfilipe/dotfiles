@@ -76,6 +76,9 @@ in {
     settings.server = {
       ip = "0.0.0.0";
       port = 4567;
+      extensionRepos = [
+        "https://raw.githubusercontent.com/keiyoushi/extensions/repo/index.min.json"
+      ];
       basicAuthEnabled = true;
       basicAuthUsername = myvars.username;
       basicAuthPasswordFile = config.sops.secrets."suwayomi/basic-auth-password".path;
