@@ -34,6 +34,7 @@
   modules.programs.bottom.user.enable = true;
   modules.programs.browsers.user.enable = true;
   modules.programs.games.user.enable = true;
+  modules.programs.routine.user.enable = true;
   modules.desktop.addons.gtk.user.enable = true;
   modules.desktop.addons.xdg.user.enable = true;
 

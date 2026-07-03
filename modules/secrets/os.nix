@@ -26,6 +26,9 @@
     secrets."hosts" = {
       owner = myvars.username;
     };
+    secrets."routine" = {
+      owner = myvars.username;
+    };
     secrets."certs/server" = {
       owner = myvars.username;
     };
