@@ -81,6 +81,9 @@ in {
       extensionStores = [
         "https://raw.githubusercontent.com/keiyoushi/extensions/repo/index.min.json"
       ];
+      kcefEnabled = false;
+      flareSolverrEnabled = true;
+      flareSolverrUrl = "http://localhost:8191";
       basicAuthEnabled = true;
       basicAuthUsername = myvars.username;
       basicAuthPasswordFile = config.sops.secrets."suwayomi/basic-auth-password".path;
@@ -128,6 +131,14 @@ in {
       excalidraw = {
         image = "excalidraw/excalidraw:latest";
         ports = ["8083:80"];
+      };
+      flaresolverr = {
+        image = "ghcr.io/flaresolverr/flaresolverr:latest";
+        ports = ["127.0.0.1:8191:8191"];
+        environment = {
+          LOG_LEVEL = "info";
+          TZ = "America/Sao_Paulo";
+        };
       };
     };
   };
