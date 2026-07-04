@@ -27,10 +27,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:nix-darwin/nix-darwin/master";
     };
-    meow = {
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-      url = "github:datsfilipe/meow/main";
-    };
     nix-envs = {
       inputs.nixpkgs.follows = "nixpkgs-unstable";
       url = "github:datsfilipe/nix-envs/main";

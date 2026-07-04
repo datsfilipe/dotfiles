@@ -107,24 +107,6 @@
         "type": "github"
       }
     },
-    "flake-utils_2": {
-      "inputs": {
-        "systems": "systems_2"
-      },
-      "locked": {
-        "lastModified": 1731533236,
-        "narHash": "sha256-l0KFg5HjrsfsO/JpG+r7fRrqm12kzFHyUHqHCVpMMbI=",
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "rev": "11707dc2f618dd54ca8739b309ec4fc024de578b",
-        "type": "github"
-      },
-      "original": {
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "type": "github"
-      }
-    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -143,28 +125,6 @@
         "owner": "nix-community",
         "ref": "master",
         "repo": "home-manager",
-        "type": "github"
-      }
-    },
-    "meow": {
-      "inputs": {
-        "flake-utils": "flake-utils",
-        "nixpkgs": [
-          "nixpkgs-unstable"
-        ]
-      },
-      "locked": {
-        "lastModified": 1765695004,
-        "narHash": "sha256-/l+5TnU7OoMFnc2jOWDX9N0I6T8AbP02jFs+jqoXPcg=",
-        "owner": "datsfilipe",
-        "repo": "meow",
-        "rev": "c008dda4651b32515ed1486039a7050d111f2e8f",
-        "type": "github"
-      },
-      "original": {
-        "owner": "datsfilipe",
-        "ref": "main",
-        "repo": "meow",
         "type": "github"
       }
     },
@@ -227,7 +187,7 @@
     },
     "nix-envs": {
       "inputs": {
-        "flake-utils": "flake-utils_2",
+        "flake-utils": "flake-utils",
         "nixpkgs": [
           "nixpkgs-unstable"
         ]
@@ -333,7 +293,6 @@
         "astal": "astal",
         "datsnvim": "datsnvim",
         "home-manager": "home-manager",
-        "meow": "meow",
         "nix-darwin": "nix-darwin",
         "nix-envs": "nix-envs",
         "nixpkgs": "nixpkgs_2",
@@ -413,21 +372,6 @@
         "type": "github"
       }
     },
-    "systems_3": {
-      "locked": {
-        "lastModified": 1681028828,
-        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
-        "owner": "nix-systems",
-        "repo": "default",
-        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-systems",
-        "repo": "default",
-        "type": "github"
-      }
-    },
     "unix-scripts": {
       "flake": false,
       "locked": {
@@ -451,7 +395,7 @@
           "nixpkgs"
         ],
         "rust-overlay": "rust-overlay",
-        "systems": "systems_3"
+        "systems": "systems_2"
       },
       "locked": {
         "lastModified": 1781849985,

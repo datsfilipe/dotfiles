@@ -2,7 +2,6 @@
   lib,
   pkgs,
   mylib,
-  meow,
   nix-envs,
   unix-scripts,
   zellij-switch,
@@ -55,7 +54,6 @@
     // {
       inherit (pkgsWithOverlays) zellij-switch;
       # ghostty = ghostty.packages.${pkgs.stdenv.hostPlatform.system}.ghostty-releasefast;
-      meow = meow.packages.${pkgs.stdenv.hostPlatform.system}.default;
       nix-envs = nix-envs.packages.${pkgs.stdenv.hostPlatform.system}.default;
     };
 in

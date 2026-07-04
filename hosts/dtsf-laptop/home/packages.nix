@@ -30,6 +30,7 @@ in {
     devtunnel-cli
     nix-envs
     scripts
+    trxsh
   ];
 
   xdg.configFile."kritarc".source =
