@@ -15,6 +15,7 @@ in {
     bc
     mesa
     slack
+    rnote
     # bitwarden-desktop
     pavucontrol
     brightnessctl
