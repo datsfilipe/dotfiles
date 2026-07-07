@@ -23,6 +23,7 @@
   "nsh" = "nix-set-shell";
   "dt" = "devtunnel";
   "dd" = "cd ~/.dotfiles";
+  "nn" = "cd ~/.notes";
   "wconn" = "nmcli-wifi-connect";
 
   "dc-list" = "docker-helpers names";
