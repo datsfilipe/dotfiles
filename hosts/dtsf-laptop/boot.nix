@@ -10,7 +10,7 @@
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   hardware.graphics.enable = true;
-  boot.kernelParams = ["i915.enable_guc=0"];
+  boot.kernelParams = ["i915.enable_guc=3"];
 
   boot.loader = {
     grub.enable = false;
