@@ -98,6 +98,10 @@ in {
     HandlePowerKey = "hibernate";
   };
 
+  systemd.tmpfiles.rules = [
+    "w /sys/class/firmware-attributes/samsung-galaxybook/attributes/power_on_lid_open/current_value - - - - 1"
+  ];
+
   services.upower = {
     enable = true;
     criticalPowerAction = "Hibernate";
