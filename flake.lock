@@ -398,11 +398,11 @@
         "systems": "systems_2"
       },
       "locked": {
-        "lastModified": 1781849985,
-        "narHash": "sha256-N0NkXkolml5CGMrTRwyEQnzASWFzy7IACPJZYG5w+3M=",
+        "lastModified": 1783922244,
+        "narHash": "sha256-nhusiVkxIBS5PvTGFe1MuYigvsSzqNJ0ut8KgD20SVE=",
         "owner": "datsfilipe",
         "repo": "zellij-switch",
-        "rev": "3538bd0fe3b28f9c21fa57d63995dc5b39563e03",
+        "rev": "34632db936cef6d424f4eace93f1d6da2a3f5b5e",
         "type": "github"
       },
       "original": {
