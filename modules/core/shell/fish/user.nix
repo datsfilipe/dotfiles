@@ -30,36 +30,14 @@ in {
     programs.fish = {
       enable = true;
       functions = {
-        fish_user_key_bindings = ''
-          bind --preset -M insert \cl 'clear; commandline -f repaint'
-          bind --preset -M insert \a accept-autosuggestion
-        '';
-        dtc = ''
-          devtunnel create $argv[1]
-          devtunnel port create $argv[1] -p $argv[2]
-          devtunnel access create $argv[1] -p $argv[2] --anonymous
-          devtunnel host $argv[1]
-        '';
+        fish_user_key_bindings = lib.fileContents ./conf/keybindings.fish;
+        dtc = lib.fileContents ./conf/dtc.fish;
       };
 
       shellInit = ''
         ${lib.fileContents ./conf/config.fish}
         export ${myvars.path}
-        if command -v get-gh-token >/dev/null
-          set -gx GH_TOKEN (get-gh-token)
-        end
-        if command -v get-claude-config-dir >/dev/null
-          set -gx CLAUDE_CONFIG_DIR (get-claude-config-dir)
-        end
-
-        function __update_dir_env --on-variable PWD
-          if command -v get-gh-token >/dev/null
-            set -gx GH_TOKEN (get-gh-token)
-          end
-          if command -v get-claude-config-dir >/dev/null
-            set -gx CLAUDE_CONFIG_DIR (get-claude-config-dir)
-          end
-        end
+        ${lib.fileContents ./conf/init.fish}
       '';
     };
 

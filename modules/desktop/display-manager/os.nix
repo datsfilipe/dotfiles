@@ -1,5 +1,6 @@
 {
   pkgs,
+  mylib,
   lib,
   config,
   ...
@@ -9,37 +10,25 @@ with lib; let
 
   sessionOptions = lib.concatStringsSep " " (map (s: ''"${s.name}"'') (lib.attrValues cfg.sessions));
 
-  sessionCases = lib.concatStringsSep "\n" (map (s: ''
-    if [ "$choice" = "${s.name}" ]; then
-      cmd='${s.command}'
-      case "$cmd" in
-        exec\ *) eval "$cmd" ;;
-        *) exec ${pkgs.runtimeShell} -l -c "$cmd" ;;
-      esac
-    fi
-  '') (lib.attrValues cfg.sessions));
+  sessionCases = lib.concatStringsSep "\n" (map (s:
+    mylib.file.substitute ./conf/session-case.sh {
+      "@name@" = s.name;
+      "@command@" = s.command;
+      "@shell@" = pkgs.runtimeShell;
+    }) (lib.attrValues cfg.sessions));
 
-  guiSelector = pkgs.writeShellScriptBin "gui-select" ''
-    set -eu
-    IFS=$'\n\t'
-    options=(${sessionOptions})
-    if ! command -v ${pkgs.gum}/bin/gum >/dev/null 2>&1; then
-      echo "gum not installed. Falling back to first session."
-      ${
-      if (lib.length (lib.attrValues cfg.sessions)) > 0
-      then "exec ${pkgs.runtimeShell} -l -c \"${(lib.elemAt (lib.attrValues cfg.sessions) 0).command}\""
-      else "echo 'No sessions configured.' && exit 1"
-    }
-    fi
-    choice=$(${pkgs.gum}/bin/gum choose --header "Select a GUI session" "Shell" ${sessionOptions})
-    if [ "$choice" = "Shell" ]; then
-      exec ${pkgs.runtimeShell} -l
-    fi
+  fallback =
+    if (lib.length (lib.attrValues cfg.sessions)) > 0
+    then "exec ${pkgs.runtimeShell} -l -c \"${(lib.elemAt (lib.attrValues cfg.sessions) 0).command}\""
+    else "echo 'No sessions configured.' && exit 1";
 
-    ${sessionCases}
-
-    exit 1
-  '';
+  guiSelector = pkgs.writeShellScriptBin "gui-select" (mylib.file.substitute ./conf/gui-select.sh {
+    "@sessionOptions@" = sessionOptions;
+    "@gum@" = "${pkgs.gum}/bin/gum";
+    "@shell@" = pkgs.runtimeShell;
+    "@fallback@" = fallback;
+    "@cases@" = sessionCases;
+  });
 in {
   options.modules.desktop.displayManager = {
     enable = mkEnableOption "Terminal login GUI chooser";

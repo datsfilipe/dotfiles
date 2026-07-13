@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  mylib,
   pkgs,
   myvars,
   ...
@@ -96,28 +97,11 @@ in {
     gcc
     gnumake
     gum
-    (pkgs.writeScriptBin "get-gh-token" ''
-      #!${pkgs.bash}/bin/bash
-      case "$PWD" in
-        /Users/*/org|/Users/*/org/*)
-          cat ${config.sops.secrets."token/github/dtsf-pc-org".path}
-          ;;
-        *)
-          cat ${config.sops.secrets."token/github/dtsf-pc".path}
-          ;;
-      esac
-    '')
-    (pkgs.writeScriptBin "get-claude-config-dir" ''
-      #!${pkgs.bash}/bin/bash
-      case "$PWD" in
-        /Users/*/org|/Users/*/org/*)
-          echo "$HOME/.claude-org"
-          ;;
-        *)
-          echo "$HOME/.claude"
-          ;;
-      esac
-    '')
+    (pkgs.writeShellScriptBin "get-gh-token" (mylib.file.substitute ./conf/get-gh-token.sh {
+      "@orgTokenPath@" = config.sops.secrets."token/github/dtsf-pc-org".path;
+      "@tokenPath@" = config.sops.secrets."token/github/dtsf-pc".path;
+    }))
+    (pkgs.writeShellScriptBin "get-claude-config-dir" (builtins.readFile ./conf/get-claude-config-dir.sh))
   ];
 
   homebrew = {
@@ -156,16 +140,9 @@ in {
     enable = true;
     skhdConfig = let
       bin = "/etc/profiles/per-user/${myvars.username}/bin";
-      openZellij = pkgs.writeShellScript "skhd-open-zellij" ''
-        export PATH="${bin}:/run/current-system/sw/bin:/nix/var/nix/profiles/default/bin:/usr/bin:/bin"
-        t='dtsf'
-        s=$(zellij ls -s 2>/dev/null | grep -E "(-|^)$t$" | sort | head -n1)
-        if [ -n "$s" ]; then
-          exec alacritty -e zellij attach "$s"
-        else
-          exec alacritty -e zellij attach -c "$(date +%s)-$t"
-        fi
-      '';
+      openZellij = pkgs.writeShellScript "skhd-open-zellij" (mylib.file.substitute ./conf/open-zellij.sh {
+        "@bin@" = bin;
+      });
     in ''
       cmd - return : ${openZellij}
       shift + cmd - return : ${bin}/alacritty

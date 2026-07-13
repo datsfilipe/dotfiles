@@ -22,15 +22,7 @@
   pluginReplacer = text:
     lib.replaceStrings ["ZELLIJ_SWITCH_PLUGIN_PATH"] [pluginpath] text;
 
-  scrollback-editor = pkgs.writeShellScriptBin "zellij-scrollback-editor" ''
-    #!/bin/bash
-    nvim --clean \
-      -c "set relativenumber" \
-      -c "lua vim.g.clipboard = { name = 'smart-clipboard', copy = { ['+'] = 'shared-clipboard copy' }, paste = { ['+'] = 'shared-clipboard paste' }, cache_enabled = 0 }" \
-      -c "set clipboard+=unnamedplus" \
-      -c "highlight Normal guibg=NONE ctermbg=NONE" \
-      + "$@"
-  '';
+  scrollback-editor = pkgs.writeShellScriptBin "zellij-scrollback-editor" (builtins.readFile ./conf/zellij-scrollback-editor.sh);
 in {
   programs.zellij.enable = true;
   modules.desktop.conf.zellij = {

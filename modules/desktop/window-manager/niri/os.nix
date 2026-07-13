@@ -7,21 +7,7 @@
 with lib; let
   cfg = config.modules.desktop.wm.niri.system;
 
-  niriSession = pkgs.writeShellScriptBin "custom-niri-session" ''
-    if systemctl --user -q is-active niri.service; then
-      echo 'a niri session is already running.'
-      exit 1
-    fi
-
-    systemctl --user reset-failed
-
-    if hash dbus-update-activation-environment 2>/dev/null; then
-      dbus-update-activation-environment --systemd --all
-    fi
-
-    systemctl --user --wait start niri.service
-    systemctl --user start --job-mode=replace-irreversibly niri-shutdown.target
-  '';
+  niriSession = pkgs.writeShellScriptBin "custom-niri-session" (builtins.readFile ./conf/custom-niri-session.sh);
 in {
   options.modules.desktop.wm.niri.system.enable = mkEnableOption "Niri (Wayland) system support";
 

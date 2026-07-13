@@ -20,4 +20,7 @@
 
   # Convenience helper to resolve repo-root relative paths
   relativeToRoot = lib.path.append ../.;
+
+  substitute = path: vars:
+    builtins.replaceStrings (lib.attrNames vars) (lib.attrValues vars) (builtins.readFile path);
 }
