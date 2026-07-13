@@ -66,6 +66,7 @@ in {
       userDirs = {
         enable = true;
         createDirectories = true;
+        projects = "${config.home.homeDirectory}/src";
         download = "${config.home.homeDirectory}/downloads";
         documents = "${config.home.homeDirectory}/documents";
         desktop = "${config.home.homeDirectory}/system/desktop";
