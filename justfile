@@ -16,7 +16,7 @@ verify:
 
 fmt:
   alejandra .
-  find . -type f -name "*.kdl" -exec kdlfmt format {} +
+  find . -type f -name "*.kdl" ! -name "kdlfmt.kdl" -exec kdlfmt format --kdl-version v1 {} +
 
 build target mode="default":
   nixos_build {{target}} {{mode}}
