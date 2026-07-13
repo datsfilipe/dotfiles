@@ -20,7 +20,6 @@
   programs.neovim.package = lib.mkForce pkgs.neovim-unwrapped;
 
   modules.desktop.nupkgs.packages = with mypkgs; [
-    nix-envs
     trxsh
     scripts
   ];

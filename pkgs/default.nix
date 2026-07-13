@@ -2,7 +2,6 @@
   lib,
   pkgs,
   mylib,
-  nix-envs,
   unix-scripts,
   zellij-switch,
   theme,
@@ -54,7 +53,6 @@
     // {
       inherit (pkgsWithOverlays) zellij-switch;
       # ghostty = ghostty.packages.${pkgs.stdenv.hostPlatform.system}.ghostty-releasefast;
-      nix-envs = nix-envs.packages.${pkgs.stdenv.hostPlatform.system}.default;
     };
 in
   packages

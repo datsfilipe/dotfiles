@@ -28,6 +28,7 @@
 
   modules.desktop.nupkgs.enable = true;
   modules.programs.tools.user.enable = true;
+  modules.programs.archbox.user.enable = true;
   modules.programs.media.user.enable = true;
   modules.programs.devtools.user.enable = true;
   modules.programs.desktopapps.user.enable = true;
