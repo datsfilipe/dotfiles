@@ -66,104 +66,17 @@
   in
     script;
 
-  generateScritps = pkgs: [
-    (mkScript pkgs "nixos_switch" ''
-      main() {
-        local target=".#$1"
-        local mode="$2"
-        if [ "$mode" = "debug" ]; then
-          nixos-rebuild switch --flake "$target" --show-trace --verbose
-        elif [ "$mode" = "update" ]; then
-          nix flake update
-          nixos-rebuild switch --flake "$target"
-        else
-          nix flake update datsnvim
-          nix flake update unix-scripts
-          nixos-rebuild switch --flake "$target"
-        fi
-
-        if [ -d /boot/EFI/refind ]; then
-          cp /boot/EFI/refind/refind.conf /boot/EFI/BOOT/refind.conf
-          cp -r /boot/EFI/refind/themes /boot/EFI/BOOT/ 2>/dev/null || true
-        fi
-      }
-
-      main "$@"
-    '')
-
-    (mkScript pkgs "nixos_build" ''
-      main() {
-        local target=".#$1"
-        local mode="$2"
-        if [ "$mode" = "debug" ]; then
-          nixos-rebuild build --flake "$target" --show-trace --verbose
-        elif [ "$mode" = "update" ]; then
-          pushd "$DOTFILES_ROOT"
-          ./scripts/update-nupkgs.sh ./pkgs
-          nix flake update
-          nixos-rebuild build --flake "$target"
-          popd || exit 1
-        else
-          nixos-rebuild build --flake "$target"
-        fi
-      }
-
-      main "$@"
-    '')
-
-    (mkScript pkgs "generate_flake" ''
-      main() {
-        if [ -f flake.nix ]; then
-          if ! command -v trash &> /dev/null; then
-            rm flake.nix
-          else
-            trash flake.nix
-          fi
-        fi
-        nix eval --raw -f templates/flake.template.nix flake > flake.nix
-        alejandra flake.nix
-      }
-
-      main "$@"
-    '')
-
-    (mkScript pkgs "run_lib_tests" ''
-      main() {
-        pushd "$DOTFILES_ROOT" || exit 1
-        nix-shell -p nix-unit --run "nix-unit ./lib/spec.nix --gc-roots-dir ./.result-test"
-        popd || exit 1
-      }
-
-      main "$@"
-    '')
-
-    (mkScript pkgs "darwin_switch" ''
-      main() {
-        local target=".#$1"
-        local mode="$2"
-        if [ "$mode" = "debug" ]; then
-          darwin-rebuild switch --flake "$target" --show-trace --verbose
-        elif [ "$mode" = "update" ]; then
-          nix flake update
-          darwin-rebuild switch --flake "$target"
-        else
-          nix flake update datsnvim
-          nix flake update unix-scripts
-          darwin-rebuild switch --flake "$target"
-        fi
-      }
-
-      main "$@"
-    '')
-
-    (mkScript pkgs "j" ''
-      main() {
-        just "$@"
-      }
-
-      main "$@"
-    '')
-  ];
+  generateScritps = pkgs:
+    map
+    (name: mkScript pkgs name (builtins.readFile ./conf/${name}.sh))
+    [
+      "nixos_switch"
+      "nixos_build"
+      "generate_flake"
+      "run_lib_tests"
+      "darwin_switch"
+      "j"
+    ];
 in {
   nixosConfigurations =
     lib.attrsets.mergeAttrsList (map (it: it.nixosConfigurations or {}) nixosSystemValues);
@@ -189,6 +102,8 @@ in {
           gcc
           alejandra
           kdlfmt
+          shfmt
+          fish
           just
         ];
         shellHook = ''

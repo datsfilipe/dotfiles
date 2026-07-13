@@ -3,7 +3,7 @@
 
 set -e
 
-SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
 ASSETS_DIR="$SCRIPT_DIR/../assets"
 TARGET_SIZE="40x40"
 

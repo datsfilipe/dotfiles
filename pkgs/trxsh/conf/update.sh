@@ -6,7 +6,7 @@ VERSION=$(echo "$LATEST_RELEASE" | jq -r .tag_name)
 URL="https://github.com/datsfilipe/trxsh/releases/download/${VERSION}/trxsh-${VERSION}-linux-amd64.tar.gz"
 HASH=$(nix-prefetch-url "$URL")
 NEW_HASH=$(nix hash convert --hash-algo sha256 --to base64 "$HASH")
-cat > "$SCRIPT_DIR/source.json" <<EOF
+cat >"$SCRIPT_DIR/source.json" <<EOF
 {
   "sha256": "${NEW_HASH}",
   "version": "${VERSION}"

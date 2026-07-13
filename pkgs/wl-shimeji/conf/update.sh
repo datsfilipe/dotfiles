@@ -3,7 +3,7 @@
 
 set -euo pipefail
 
-SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_URL="https://github.com/CluelessCatBurger/wl_shimeji"
 
 echo "Fetching latest revision..."
@@ -16,7 +16,7 @@ HASH=$(echo "$JSON_OUTPUT" | jq -r '.hash')
 
 echo "Calculated hash: $HASH"
 
-cat > "$SCRIPT_DIR/source.json" << EOF
+cat >"$SCRIPT_DIR/source.json" <<EOF
 {
   "rev": "${REV}",
   "hash": "${HASH}"

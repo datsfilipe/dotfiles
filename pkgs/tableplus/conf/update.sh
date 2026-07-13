@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 URL="https://tableplus.com/release/linux/x64/TablePlus-x64.AppImage"
 
 NEW_HASH=$(nix-prefetch-url $URL)
 
-cat > "$SCRIPT_DIR/source.json" << EOF
+cat >"$SCRIPT_DIR/source.json" <<EOF
 {
   "sha256": "${NEW_HASH}",
   "version": "latest"

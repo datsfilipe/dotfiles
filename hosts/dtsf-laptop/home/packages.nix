@@ -28,7 +28,6 @@ in {
 
   modules.desktop.nupkgs.packages = with mypkgs; [
     devtunnel-cli
-    nix-envs
     scripts
     trxsh
   ];

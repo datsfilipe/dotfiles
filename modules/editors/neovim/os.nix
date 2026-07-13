@@ -7,12 +7,7 @@
 with lib; let
   cfg = config.modules.editors.neovim.system;
 
-  editorScript = pkgs.writeShellScriptBin "nvim-editor" ''
-    exec nvim --clean \
-      -c 'set clipboard=unnamedplus' \
-      -c 'highlight Normal guibg=NONE ctermbg=NONE' \
-      "$@"
-  '';
+  editorScript = pkgs.writeShellScriptBin "nvim-editor" (builtins.readFile ./conf/nvim-editor.sh);
 in {
   options.modules.editors.neovim.system.enable = mkEnableOption "Set EDITOR to neovim";
 

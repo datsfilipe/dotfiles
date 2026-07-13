@@ -17,6 +17,8 @@ verify:
 fmt:
   alejandra .
   find . -type f -name "*.kdl" ! -name "kdlfmt.kdl" -exec kdlfmt format --kdl-version v1 {} +
+  find . -type f -name "*.sh" ! -path "./.direnv/*" -exec shfmt -i 2 -w {} +
+  find . -type f -name "*.fish" ! -path "./.direnv/*" -exec fish_indent -w {} +
 
 build target mode="default":
   nixos_build {{target}} {{mode}}

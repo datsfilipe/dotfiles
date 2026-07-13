@@ -27,10 +27,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:nix-darwin/nix-darwin/master";
     };
-    nix-envs = {
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-      url = "github:datsfilipe/nix-envs/main";
-    };
     sops-nix = {
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:Mic92/sops-nix/master";
