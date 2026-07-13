@@ -4,7 +4,7 @@ use_arch() {
   rm -rf "$shim_dir"
   mkdir -p "$shim_dir"
   if [ "$#" -eq 0 ]; then
-    set -- asdf node python
+    set -- mise node python
   fi
   expanded=""
   for tool in "$@"; do
@@ -16,7 +16,7 @@ use_arch() {
     esac
   done
   for cmd in $expanded; do
-    printf '#!/bin/sh\nexec distrobox enter @containerName@ -- env PATH="$HOME/.asdf/shims:/usr/local/bin:/usr/bin:/bin" %s "$@"\n' "$cmd" >"$shim_dir/$cmd"
+    printf '#!/bin/sh\nexec distrobox enter @containerName@ -- env PATH="$HOME/.local/share/mise/shims:/usr/local/bin:/usr/bin:/bin" %s "$@"\n' "$cmd" >"$shim_dir/$cmd"
     chmod +x "$shim_dir/$cmd"
   done
   PATH_add "$shim_dir"

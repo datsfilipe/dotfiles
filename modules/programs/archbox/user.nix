@@ -20,7 +20,7 @@ in {
       containers = {
         ${containerName} = {
           image = "docker.io/library/archlinux:latest";
-          additional_packages = "base-devel git";
+          additional_packages = "base-devel git mise";
         };
       };
     };
