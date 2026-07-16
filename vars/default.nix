@@ -33,8 +33,8 @@ in {
 
   # common hosts config
   hostsConfig = {
-    theme = "min";
-    wallpaper = "/home/dtsf/gdrive/walls/61.png";
+    theme = "gruvbox";
+    wallpaper = "/home/dtsf/gdrive/walls/62.png";
     wallpaper-zoom = 0;
 
     # used by powermenu widget
