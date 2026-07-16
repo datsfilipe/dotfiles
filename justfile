@@ -35,5 +35,8 @@ generate:
 secrets:
   nix-shell -p sops --run "sops modules/secrets/secrets.yaml"
 
+reconnect-gdrive:
+  ./scripts/reconnect-gdrive.sh
+
 test:
   run_lib_tests
