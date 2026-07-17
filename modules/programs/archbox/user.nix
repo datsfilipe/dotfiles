@@ -15,7 +15,7 @@ in {
     programs.distrobox = {
       enable = true;
       settings = {
-        container_manager = "docker";
+        container_manager = "podman";
       };
       containers = {
         ${containerName} = {

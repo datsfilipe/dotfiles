@@ -29,6 +29,10 @@ switch target mode="default":
 update target mode="update":
   sudo nixos_switch {{target}} {{mode}}
 
+archbox:
+  distrobox assemble create --file ~/.config/distrobox/containers.ini
+  distrobox enter arch -- true
+
 generate:
   generate_flake
 
