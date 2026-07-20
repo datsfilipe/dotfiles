@@ -102,7 +102,7 @@ menu {
 
 .body {
   background: $bg;
-  padding: 4px 8px;
+  padding: 9px 8px;
   border-radius: 6px;
 }
 
@@ -135,25 +135,45 @@ menu {
   color: $primary;
 }
 
-.workspaces button {
+.workspaces-overview,
+.workspaces-overview:hover,
+.workspaces-overview:focus,
+.workspaces-overview:active {
   background: transparent;
+  border: none;
+  box-shadow: none;
+  outline: none;
   margin: 0 4px;
-  padding: 2px 8px 4px 8px;
-  border-radius: 4px;
+  padding: 4px 8px;
+  border-radius: 8px;
+  transition: background 0.15s ease;
 }
 
-.workspaces button label {
-  padding: 0;
-  margin: 0;
-}
-
-.workspaces button.focused {
+.workspaces-overview:hover {
   background: $primary;
-  color: $bg;
 }
 
-.workspaces button.occupied {
-  background: $altbg;
+.ws-indicator .ws-dot {
+  min-width: 7px;
+  border-radius: 4px;
+  background-color: $selection;
+  margin: 0 3px;
+  transition:
+    min-width 0.15s ease,
+    background-color 0.15s ease;
+}
+
+.ws-indicator .ws-dot.active {
+  min-width: 20px;
+  background-color: $fg;
+}
+
+.workspaces-overview:hover .ws-dot {
+  background-color: rgba($bg, 0.35);
+}
+
+.workspaces-overview:hover .ws-dot.active {
+  background-color: $bg;
 }
 
 .client-title {

@@ -54,7 +54,6 @@ in {
             else "normal"
           )}"
             position x=${toString m.nvidiaSettings.coordinate.x} y=${toString m.nvidiaSettings.coordinate.y}
-            hot-corners { bottom-left; }
           }
         '')
         hostMonitors))

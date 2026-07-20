@@ -55,6 +55,11 @@ window-rule {
   geometry-corner-radius 6
   clip-to-geometry true
 }
+gestures {
+  hot-corners {
+    off
+  }
+}
 binds {
   XF86AudioRaiseVolume allow-when-locked=true {
     spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1+"
@@ -202,6 +207,9 @@ binds {
   }
   Mod+E {
     center-column
+  }
+  Mod+W {
+    toggle-overview
   }
   Mod+Q {
     close-window

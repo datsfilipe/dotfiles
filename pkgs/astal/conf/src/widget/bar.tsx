@@ -1,4 +1,4 @@
-import { labelMap, updateInterval } from '../lib/constants';
+import { updateInterval } from '../lib/constants';
 import { App, Astal, Gtk, Gdk } from 'astal/gtk3';
 import { Variable, bind, GLib } from 'astal';
 import { execAsync } from 'astal/process';
@@ -13,6 +13,7 @@ type WMState = {
   occupiedWs: Variable<number[]>;
   title: Variable<string>;
   focusWorkspace: (id: number) => void;
+  toggleOverview?: () => void;
 };
 
 const getWM = (monitor: number): WMState => {
@@ -65,6 +66,8 @@ const getWM = (monitor: number): WMState => {
       title,
       focusWorkspace: (id) =>
         execAsync(`niri msg action focus-workspace ${id}`),
+      toggleOverview: () =>
+        execAsync('niri msg action toggle-overview').catch(() => {}),
     };
   } else {
     const activeWs = Variable(1);
@@ -120,24 +123,34 @@ const getWM = (monitor: number): WMState => {
 };
 
 function Workspaces({ wm }: { wm: WMState }) {
-  return (
-    <box className="workspaces">
+  const indicator = (
+    <box className="ws-indicator" valign={Gtk.Align.CENTER}>
       {bind(wm.occupiedWs).as((ids) =>
-        ids.map((id) => {
-          const label = labelMap[id - 1] || String(id);
-          return (
-            <button
-              label={label}
-              onClick={() => wm.focusWorkspace(id)}
-              className={bind(wm.activeWs).as((active) =>
-                active === id ? 'focused' : '',
-              )}
-            />
-          );
-        }),
+        ids.map((id) => (
+          <box
+            valign={Gtk.Align.CENTER}
+            heightRequest={7}
+            className={bind(wm.activeWs).as((active) =>
+              active === id ? 'ws-dot active' : 'ws-dot',
+            )}
+          />
+        )),
       )}
     </box>
   );
+
+  if (wm.toggleOverview) {
+    return (
+      <button
+        className="workspaces-overview"
+        onClick={() => wm.toggleOverview!()}
+      >
+        {indicator}
+      </button>
+    );
+  }
+
+  return <box className="workspaces">{indicator}</box>;
 }
 
 function ClientTitle({ wm }: { wm: WMState }) {
@@ -400,8 +413,46 @@ function TriggerZone(monitor: number) {
   );
 }
 
+const BAR_TRANSITION = 160;
+
 export default function Bar(monitor: number) {
   const wm = getWM(monitor);
+
+  const barRendered = Variable(barVisible.get());
+  const barRevealed = Variable(barVisible.get());
+  let showTimer = 0;
+  let hideTimer = 0;
+
+  barVisible.subscribe((v) => {
+    if (showTimer) {
+      GLib.source_remove(showTimer);
+      showTimer = 0;
+    }
+    if (hideTimer) {
+      GLib.source_remove(hideTimer);
+      hideTimer = 0;
+    }
+
+    if (v) {
+      barRendered.set(true);
+      showTimer = GLib.timeout_add(GLib.PRIORITY_DEFAULT, 10, () => {
+        barRevealed.set(true);
+        showTimer = 0;
+        return GLib.SOURCE_REMOVE;
+      });
+    } else {
+      barRevealed.set(false);
+      hideTimer = GLib.timeout_add(
+        GLib.PRIORITY_DEFAULT,
+        BAR_TRANSITION + 20,
+        () => {
+          barRendered.set(false);
+          hideTimer = 0;
+          return GLib.SOURCE_REMOVE;
+        },
+      );
+    }
+  });
 
   if (monitor === 0) {
     let hadTitle = !!wm.title.get();
@@ -434,21 +485,26 @@ export default function Bar(monitor: number) {
       exclusivity={bind(barVisible).as((v) =>
         v ? Astal.Exclusivity.EXCLUSIVE : Astal.Exclusivity.IGNORE,
       )}
-      visible={bind(barVisible)}
+      visible={bind(barRendered)}
       application={App}
       marginTop={16}
       marginLeft={16}
       marginRight={16}
     >
-      <eventbox
-        onHoverLost={() => {
-          if (barAutohide.get() && !trayMenuOpen.get()) {
-            barVisible.set(false);
-          }
-        }}
+      <revealer
+        revealChild={bind(barRevealed)}
+        transitionType={Gtk.RevealerTransitionType.SLIDE_DOWN}
+        transitionDuration={BAR_TRANSITION}
       >
-        <centerbox
-          className="body"
+        <eventbox
+          onHoverLost={() => {
+            if (barAutohide.get() && !trayMenuOpen.get()) {
+              barVisible.set(false);
+            }
+          }}
+        >
+          <centerbox
+            className="body"
           startWidget={
             <box>
               <Workspaces wm={wm} />
@@ -488,8 +544,9 @@ export default function Bar(monitor: number) {
               <Clock />
             </box>
           }
-        />
-      </eventbox>
+          />
+        </eventbox>
+      </revealer>
     </window>
   );
 }
