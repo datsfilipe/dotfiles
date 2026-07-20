@@ -74,10 +74,10 @@ binds {
     spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"
   }
   XF86MonBrightnessDown allow-when-locked=true {
-    spawn "brightnessctl" "-c" "backlight" "set" "30-"
+    spawn "sh" "-c" "brightnessctl -c backlight set 30- && wmain osd-brightness"
   }
   XF86MonBrightnessUp allow-when-locked=true {
-    spawn "brightnessctl" "-c" "backlight" "set" "+30"
+    spawn "sh" "-c" "brightnessctl -c backlight set +30 && wmain osd-brightness"
   }
   Mod+1 {
     focus-workspace 1

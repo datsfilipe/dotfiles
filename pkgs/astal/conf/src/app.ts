@@ -7,7 +7,14 @@ import Bar from './widget/bar';
 import Launcher from './widget/launcher';
 import PowerMenu from './widget/powermenu';
 import Notifications from './widget/notifications';
-import { launcherVisible, powerMenuVisible, barVisible, barAutohide } from './lib/state';
+import Osd from './widget/osd';
+import {
+  launcherVisible,
+  powerMenuVisible,
+  barVisible,
+  barAutohide,
+  brightnessTick,
+} from './lib/state';
 
 const SCSS_TMP = '/tmp/modified_styles.scss';
 const CSS_OUT = '/tmp/style.css';
@@ -47,6 +54,9 @@ App.start({
     } else if (request === 'powermenu') {
       powerMenuVisible.set(!powerMenuVisible.get());
       res('ok');
+    } else if (request === 'osd-brightness') {
+      brightnessTick.set(brightnessTick.get() + 1);
+      res('ok');
     } else if (request === 'toggle-bar') {
       barVisible.set(!barVisible.get());
       res(barVisible.get() ? 'visible' : 'hidden');
@@ -79,5 +89,6 @@ App.start({
     Launcher(LAUNCHER_CURSOR_COLOR);
     PowerMenu(POWERMENU_GIF_FILENAME);
     Notifications(0);
+    Osd(0);
   },
 });

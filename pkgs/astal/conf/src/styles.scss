@@ -182,54 +182,6 @@ menu {
   font-family: 'JetBrainsMono Nerd Font';
 }
 
-.volume {
-  margin-right: 6px;
-}
-
-.volume button {
-  background: transparent;
-  border: none;
-  margin-right: 4px; 
-}
-
-.volume-slider {
-  margin-left: 8px;
-  margin-right: 4px;
-  min-width: 75px;
-  min-height: 6px; 
-  margin-top: 0;
-  margin-bottom: 0;
-  padding: 0;
-}
-
-.volume-slider trough {
-  min-height: 6px;
-  border-radius: 3px;
-  background-color: $altbg;
-  border: none;
-  margin: 0;
-  padding: 0;
-}
-
-.volume-slider highlight {
-  min-height: 6px;
-  border-radius: 3px;
-  background-color: $primary;
-  margin: 0;
-  padding: 0;
-}
-
-.volume-slider slider {
-  min-height: 0px;
-  min-width: 0px;
-  opacity: 0;
-  background: transparent;
-  border: none;
-  box-shadow: none;
-  margin: 0;
-  padding: 0;
-}
-
 .clock {
   .date, .day, .hours, .separator {
     opacity: 0.64;
@@ -377,6 +329,51 @@ window#powermenu {
   border: 1px solid $primary;
   color: $bg;
   transition: background 0.1s ease;
+}
+
+// osd
+.osd-window {
+  background: transparent;
+}
+
+.osd {
+  background: $bg;
+  border: 4px solid $primary;
+  border-radius: 16px;
+  padding: 26px 30px;
+  min-width: 60px;
+}
+
+.osd-icon {
+  font-family: 'JetBrainsMono Nerd Font';
+  font-size: 52px;
+  color: $primary;
+}
+
+.osd-icon.danger {
+  color: $red;
+}
+
+.osd-track {
+  border-radius: 3px;
+  background-color: $altbg;
+}
+
+.osd-fill {
+  border-radius: 3px;
+  background-color: $primary;
+}
+
+.osd-fill.capped {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.osd-fill-danger {
+  border-radius: 3px;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  background-color: $red;
 }
 
 // notifications

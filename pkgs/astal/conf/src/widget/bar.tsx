@@ -2,7 +2,6 @@ import { updateInterval } from '../lib/constants';
 import { App, Astal, Gtk, Gdk } from 'astal/gtk3';
 import { Variable, bind, GLib } from 'astal';
 import { execAsync } from 'astal/process';
-import Wp from 'gi://AstalWp';
 import Tray from 'gi://AstalTray';
 import Pango from 'gi://Pango';
 import AstalBattery from 'gi://AstalBattery';
@@ -287,45 +286,6 @@ function BatteryLevel() {
   );
 }
 
-function Volume() {
-  const audio = Wp.get_default()?.audio;
-  const speaker = audio?.defaultSpeaker;
-  const revealed = Variable(false);
-
-  if (!speaker) return <box />;
-
-  return (
-    <eventbox
-      onHover={() => revealed.set(true)}
-      onHoverLost={() => revealed.set(false)}
-    >
-      <box className="volume">
-        <button onClick={() => (speaker.mute = !speaker.mute)}>
-          <icon
-            icon={bind(speaker, 'volumeIcon').as(
-              (i) => i || 'audio-speakers-symbolic',
-            )}
-          />
-        </button>
-        <revealer
-          revealChild={bind(revealed)}
-          transitionType={Gtk.RevealerTransitionType.SLIDE_RIGHT}
-          transitionDuration={300}
-        >
-          <slider
-            className="volume-slider"
-            hexpand
-            drawValue={false}
-            valign={Gtk.Align.CENTER}
-            value={bind(speaker, 'volume')}
-            onDragged={({ value }) => (speaker.volume = value)}
-          />
-        </revealer>
-      </box>
-    </eventbox>
-  );
-}
-
 function Clock() {
   const getTime = () => {
     const timeString = GLib.DateTime.new_now_local().format('%a. %b -%e-%H:%M:-%S')!
@@ -518,7 +478,6 @@ export default function Bar(monitor: number) {
           endWidget={
             <box halign={Gtk.Align.END}>
               <SysTray />
-              <Volume />
               <box
                 valign={Gtk.Align.CENTER}
                 hexpand={false}
