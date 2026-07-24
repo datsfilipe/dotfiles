@@ -1,1 +1,2 @@
 pkgs/wl-shimeji/conf/shimeji-ee filter=lfs diff=lfs merge=lfs -text
+hosts/dtsf-laptop/home/krita/data/bundles/*.bundle filter=lfs diff=lfs merge=lfs -text
