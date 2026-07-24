@@ -119,6 +119,7 @@ menu {
 .cpu,
 .ram,
 .battery,
+.vpn,
 .keyboard-layout {
   margin-right: 12px;
   label {
@@ -131,8 +132,13 @@ menu {
   opacity: 0.64;
 }
 
-.keyboard-layout label {
+.keyboard-layout label,
+.vpn label {
   color: $primary;
+}
+
+.vpn.off label {
+  opacity: 0.4;
 }
 
 .workspaces-overview,

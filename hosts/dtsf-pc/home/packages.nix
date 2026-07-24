@@ -15,7 +15,6 @@
     obs-studio
     zoom-us
     bc
-    pritunl-client
   ];
 
   modules.desktop.nupkgs.packages = with mypkgs; [

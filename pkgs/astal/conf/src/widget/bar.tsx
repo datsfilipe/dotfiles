@@ -199,6 +199,36 @@ function KeyboardLayout() {
   );
 }
 
+function Vpn() {
+  const state = Variable('off');
+
+  Variable(null).poll(updateInterval, () => {
+    execAsync('vpn state')
+      .then((out) => state.set(out.trim() || 'off'))
+      .catch(() => {});
+  });
+
+  const label = (s: string) =>
+    s === 'personal' ? ' mine' : s === 'company' ? ' work' : ' off';
+
+  const next = (s: string) =>
+    s === 'off' ? 'personal' : s === 'personal' ? 'company' : 'off';
+
+  return (
+    <button
+      className={bind(state).as((s) => (s === 'off' ? 'vpn off' : 'vpn'))}
+      label={bind(state).as(label)}
+      onClick={(_self, event) => {
+        if (event.button === Astal.MouseButton.SECONDARY) {
+          execAsync('vpn off').catch(() => {});
+        } else {
+          execAsync(`vpn ${next(state.get())}`).catch(() => {});
+        }
+      }}
+    />
+  );
+}
+
 function Cpu() {
   let prevIdle = 0;
   let prevTotal = 0;
@@ -484,6 +514,7 @@ export default function Bar(monitor: number) {
                 heightRequest={15}
                 css="min-width: 1px; background-color: #343434; margin: 0 10px 0 0;"
               />
+              <Vpn />
               <KeyboardLayout />
               <box
                 valign={Gtk.Align.CENTER}
