@@ -79,6 +79,21 @@ binds {
   XF86MonBrightnessUp allow-when-locked=true {
     spawn "sh" "-c" "brightnessctl -c backlight set +30 && wmain osd-brightness"
   }
+  XF86AudioPlay allow-when-locked=true {
+    spawn "playerctl" "play-pause"
+  }
+  XF86AudioNext allow-when-locked=true {
+    spawn "playerctl" "next"
+  }
+  XF86AudioPrev allow-when-locked=true {
+    spawn "playerctl" "previous"
+  }
+  XF86AudioStop allow-when-locked=true {
+    spawn "playerctl" "stop"
+  }
+  XF86AudioPause allow-when-locked=true {
+    spawn "playerctl" "pause"
+  }
   Mod+1 {
     focus-workspace 1
   }
