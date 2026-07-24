@@ -1,6 +1,5 @@
 {
   pkgs,
-  mylib,
   lib,
   config,
   ...
@@ -8,30 +7,20 @@
 with lib; let
   cfg = config.modules.desktop.displayManager;
 
-  sessionOptions = lib.concatStringsSep " " (map (s: ''"${s.name}"'') (lib.attrValues cfg.sessions));
+  sessionList = lib.attrValues cfg.sessions;
 
-  sessionCases = lib.concatStringsSep "\n" (map (s:
-    mylib.file.substitute ./conf/session-case.sh {
-      "@name@" = s.name;
-      "@command@" = s.command;
-      "@shell@" = pkgs.runtimeShell;
-    }) (lib.attrValues cfg.sessions));
-
-  fallback =
-    if (lib.length (lib.attrValues cfg.sessions)) > 0
-    then "exec ${pkgs.runtimeShell} -l -c \"${(lib.elemAt (lib.attrValues cfg.sessions) 0).command}\""
-    else "echo 'No sessions configured.' && exit 1";
-
-  guiSelector = pkgs.writeShellScriptBin "gui-select" (mylib.file.substitute ./conf/gui-select.sh {
-    "@sessionOptions@" = sessionOptions;
-    "@gum@" = "${pkgs.gum}/bin/gum";
-    "@shell@" = pkgs.runtimeShell;
-    "@fallback@" = fallback;
-    "@cases@" = sessionCases;
-  });
+  launch =
+    if sessionList == []
+    then "echo 'No sessions configured.'"
+    else let
+      cmd = (lib.head sessionList).command;
+    in
+      if lib.hasPrefix "exec " cmd
+      then cmd
+      else "exec ${pkgs.runtimeShell} -l -c \"${cmd}\"";
 in {
   options.modules.desktop.displayManager = {
-    enable = mkEnableOption "Terminal login GUI chooser";
+    enable = mkEnableOption "Auto-launch GUI session on tty1";
     sessions = lib.mkOption {
       type = with lib.types;
         attrsOf (submodule {
@@ -52,11 +41,9 @@ in {
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [pkgs.gum];
-
     environment.loginShellInit = ''
       if [ -z $DISPLAY ] && [ "$(tty)" = "/dev/tty1" ]; then
-        exec ${guiSelector}/bin/gui-select
+        ${launch}
       fi
     '';
   };
