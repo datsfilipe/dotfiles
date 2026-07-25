@@ -50,16 +50,7 @@ in {
   modules.programs.archbox.system.enable = true;
   modules.programs.fhs.system.enable = true;
   modules.programs.games.system.enable = true;
-
-  systemd.services.pritunl-client = {
-    description = "Pritunl Client Service";
-    after = ["network.target"];
-    wantedBy = ["multi-user.target"];
-    serviceConfig = {
-      ExecStart = "${pkgs.pritunl-client}/bin/pritunl-client-service";
-      Restart = "always";
-    };
-  };
+  modules.programs.vpn.enable = true;
 
   system.activationScripts.custom-certs = lib.stringAfter ["setupSecrets"] ''
     mkdir -p /run/custom-certs
