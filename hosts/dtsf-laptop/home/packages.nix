@@ -24,6 +24,7 @@ in {
     gnome-extension-manager
     gnomeExtensions.dash-to-dock
     gnomeExtensions.appindicator
+    gnomeExtensions.keyboard-toggle
   ];
 
   modules.desktop.nupkgs.packages = with mypkgs; [

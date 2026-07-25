@@ -38,6 +38,7 @@
         "dash-to-dock@micxgx.gmail.com"
         "user-theme@gnome-shell-extensions.gcampax.github.com"
         "appindicatorsupport@rgcjonas.gmail.com"
+        "keyboard-toggle@SAH046.github.io"
       ];
     };
 
