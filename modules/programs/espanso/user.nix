@@ -15,7 +15,7 @@ in {
 
       configs.default = {
         backend = "auto";
-        toggle_key = "ALT";
+        toggle_key = "RIGHT_CTRL";
       };
 
       matches.base.matches = [
@@ -51,5 +51,7 @@ in {
         }
       ];
     };
+
+    xdg.configFile."espanso/match/all-emojis.yml".source = ./conf/all-emojis.yml;
   };
 }
