@@ -50,6 +50,7 @@ in {
   modules.programs.archbox.system.enable = true;
   modules.programs.fhs.system.enable = true;
   modules.programs.games.system.enable = true;
+  modules.programs.espanso.system.enable = true;
 
   systemd.services.pritunl-client = {
     description = "Pritunl Client Service";

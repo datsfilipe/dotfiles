@@ -36,6 +36,7 @@
   modules.programs.browsers.user.enable = true;
   modules.programs.games.user.enable = true;
   modules.programs.anki.user.enable = true;
+  modules.programs.espanso.user.enable = true;
   modules.desktop.addons.gtk.user.enable = true;
   modules.desktop.addons.xdg.user.enable = true;
 
