@@ -14,6 +14,13 @@ in {
   ];
 
   blockedHosts = [
+    "bsky.app"
+    "instagram.com"
+    "www.instagram.com"
+    "x.com"
+    "www.x.com"
+    "twitter.com"
+    "www.twitter.com"
   ];
 
   # build cache
