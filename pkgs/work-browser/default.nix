@@ -5,12 +5,13 @@
   bubblewrap,
   coreutils,
   nssTools,
+  jq,
   makeDesktopItem,
   symlinkJoin,
 }: let
   launcher = writeShellApplication {
     name = "work-browser";
-    runtimeInputs = [chromium bubblewrap coreutils nssTools];
+    runtimeInputs = [chromium bubblewrap coreutils nssTools jq];
     text = builtins.readFile ./conf/launch.sh;
   };
 

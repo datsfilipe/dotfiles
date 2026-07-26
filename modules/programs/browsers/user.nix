@@ -7,6 +7,11 @@
 }:
 with lib; let
   cfg = config.modules.programs.browsers.user;
+  seedFonts = pkgs.writeShellApplication {
+    name = "seed-browser-fonts";
+    runtimeInputs = [pkgs.jq pkgs.coreutils];
+    text = builtins.readFile ./conf/seed-fonts.sh;
+  };
 in {
   options.modules.programs.browsers.user.enable = mkEnableOption "Browser setup";
 
@@ -25,5 +30,9 @@ in {
       })
       mypkgs.work-browser
     ];
+
+    home.activation.braveFonts = lib.hm.dag.entryAfter ["writeBoundary"] ''
+      $DRY_RUN_CMD ${seedFonts}/bin/seed-browser-fonts "$HOME/.config/BraveSoftware/Brave-Browser/Default/Preferences"
+    '';
   };
 }

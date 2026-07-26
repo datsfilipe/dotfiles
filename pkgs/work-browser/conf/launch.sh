@@ -14,6 +14,20 @@ if [ -r "$servercert" ]; then
   certutil -A -d "sql:$nssdb" -n dtsf-server -t "C,," -i "$servercert" >/dev/null 2>&1 || true
 fi
 
+prefs="$profile/chromium/Default/Preferences"
+mkdir -p "$(dirname "$prefs")"
+if [ ! -f "$prefs" ]; then
+  printf '{}' >"$prefs"
+fi
+ftmp="$(mktemp)"
+jq '
+  .webkit.webprefs.fonts.standard.Zyyy = "Inter"
+  | .webkit.webprefs.fonts.serif.Zyyy = "Inter"
+  | .webkit.webprefs.fonts.sansserif.Zyyy = "Inter"
+  | .webkit.webprefs.fonts.fixed.Zyyy = "JetBrainsMono Nerd Font"
+' "$prefs" >"$ftmp"
+mv "$ftmp" "$prefs"
+
 binds=(
   --ro-bind /nix/store /nix/store
   --ro-bind-try /run/current-system /run/current-system
