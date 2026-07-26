@@ -293,6 +293,7 @@ in {
 
   services.vaultwarden = {
     enable = true;
+    package = mypkgs.vaultwarden;
     config = {
       ROCKET_PORT = "8082";
       ROCKET_ADDRESS = "127.0.0.1";
