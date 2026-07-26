@@ -8,7 +8,7 @@ in {
   };
 
   testExtractName = {
-    expr = mylib.extractName "../pkgs/devtunnel-cli/default.nix";
+    expr = mylib.extractName "../pkgs/tableplus/default.nix";
     expected = "default";
   };
 
