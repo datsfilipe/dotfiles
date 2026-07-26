@@ -13,10 +13,9 @@
 in {
   home.packages = with pkgs; [
     bc
+    cloudflared
     mesa
-    slack
     rnote
-    # bitwarden-desktop
     pavucontrol
     brightnessctl
     krita-xcb
@@ -28,7 +27,6 @@ in {
   ];
 
   modules.desktop.nupkgs.packages = with mypkgs; [
-    devtunnel-cli
     scripts
     trxsh
   ];
