@@ -11,6 +11,7 @@ in {
 
   config = mkIf cfg.enable {
     home.pointerCursor = {
+      enable = true;
       gtk.enable = true;
       x11.enable = true;
       name = "Quintom_Snow";
