@@ -254,7 +254,10 @@ binds {
     spawn "alacritty"
   }
   Mod+A repeat=false {
-    spawn "sh" "-c" "chromium --ozone-platform=x11"
+    spawn "brave"
+  }
+  Mod+B repeat=false {
+    spawn "work-browser"
   }
   Mod+Shift+M repeat=false {
     spawn "shimeji"
@@ -262,7 +265,7 @@ binds {
   Mod+Shift+Z repeat=false {
     spawn "focus-mode"
   }
-  Mod+B repeat=false {
+  Alt+H repeat=false {
     spawn "wmain" "toggle-autohide"
   }
 }

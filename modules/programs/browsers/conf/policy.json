@@ -1,0 +1,30 @@
+{
+  "BraveRewardsDisabled": true,
+  "BraveWalletDisabled": true,
+  "BraveVPNDisabled": true,
+  "BraveAIChatEnabled": false,
+  "BraveNewsDisabled": true,
+  "BraveTalkDisabled": true,
+  "BraveP3AEnabled": false,
+  "BraveStatsPingEnabled": false,
+  "MetricsReportingEnabled": false,
+  "DefaultBrowserSettingEnabled": false,
+  "PromotionalTabsEnabled": false,
+  "DefaultJavaScriptOptimizerSetting": 2,
+  "PasswordManagerEnabled": false,
+  "AutofillAddressEnabled": false,
+  "AutofillCreditCardEnabled": false,
+  "ShowHomeButton": false,
+  "HomepageIsNewTabPage": false,
+  "HomepageLocation": "about:blank",
+  "NewTabPageLocation": "about:blank",
+  "RestoreOnStartup": 5,
+  "DefaultSearchProviderEnabled": true,
+  "DefaultSearchProviderName": "DuckDuckGo",
+  "DefaultSearchProviderSearchURL": "https://duckduckgo.com/?q={searchTerms}",
+  "DefaultSearchProviderSuggestURL": "https://ac.duckduckgo.com/ac/?q={searchTerms}&type=list",
+  "ExtensionInstallForcelist": [
+    "dmeppfcidcpcocleneopiblmpnbokhep;https://clients2.google.com/service/update2/crx",
+    "nngceckbapebfimnlniiiahkandclblb;https://clients2.google.com/service/update2/crx"
+  ]
+}

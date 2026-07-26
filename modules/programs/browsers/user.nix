@@ -1,5 +1,6 @@
 {
   pkgs,
+  mypkgs,
   lib,
   config,
   ...
@@ -10,29 +11,19 @@ in {
   options.modules.programs.browsers.user.enable = mkEnableOption "Browser setup";
 
   config = mkIf cfg.enable {
-    programs.chromium = {
-      enable = true;
-      package = pkgs.chromium.override {enableWideVine = true;};
-
-      commandLineArgs = [
-        "--ozone-platform=wayland"
-        "--enable-features=UseOzonePlatform,WaylandWindowDecorations,WebUIDarkMode"
-        "--enable-wayland-ime"
-
-        "--enable-features=VaapiVideoDecodeLinuxGL,VaapiVideoDecoder,VaapiOnNvidiaGPUs"
-        "--disable-gpu-memory-buffer-video-frames"
-        "--ignore-gpu-blocklist"
-
-        "--force-dark-mode"
-      ];
-
-      dictionaries = [pkgs.hunspellDictsChromium.en_US];
-      extensions = [
-        {id = "fmkadmapgofadopljbjfkapdkoienihi";} # react devtools
-        {id = "nkbihfbeogaeaoehlefnkodbefgpgknn";} # metamask
-        {id = "liecbddmkiiihnedobmlmillhodjkdmb";} # loom
-        {id = "nngceckbapebfimnlniiiahkandclblb";} # bitwarden
-      ];
-    };
+    home.packages = [
+      (pkgs.brave.override {
+        commandLineArgs = concatStringsSep " " [
+          "--enable-features=AcceleratedVideoDecodeLinuxGL,AcceleratedVideoEncoder,VaapiOnNvidiaGPUs,WaylandWindowDecorations,WebUIDarkMode"
+          "--disable-features=OutdatedBuildDetector,UseChromeOSDirectVideoDecoder,Vulkan"
+          "--force-dark-mode"
+          "--ignore-gpu-blocklist"
+          "--disable-gpu-memory-buffer-video-frames"
+          "--no-first-run"
+          "--no-default-browser-check"
+        ];
+      })
+      mypkgs.work-browser
+    ];
   };
 }

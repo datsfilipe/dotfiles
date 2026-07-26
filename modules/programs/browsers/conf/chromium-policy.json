@@ -1,0 +1,11 @@
+{
+  "PasswordManagerEnabled": false,
+  "AutofillAddressEnabled": false,
+  "AutofillCreditCardEnabled": false,
+  "ExtensionInstallForcelist": [
+    "nkbihfbeogaeaoehlefnkodbefgpgknn;https://clients2.google.com/service/update2/crx",
+    "fmkadmapgofadopljbjfkapdkoienihi;https://clients2.google.com/service/update2/crx",
+    "liecbddmkiiihnedobmlmillhodjkdmb;https://clients2.google.com/service/update2/crx",
+    "nngceckbapebfimnlniiiahkandclblb;https://clients2.google.com/service/update2/crx"
+  ]
+}
