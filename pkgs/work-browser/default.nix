@@ -29,7 +29,7 @@ in
     name = "work-browser";
     paths = [launcher desktopItem];
     meta = {
-      description = "Chromium confined to ~/Work via bubblewrap, on XWayland, with an isolated profile";
+      description = "Chromium confined to ~/downloads via bubblewrap, on XWayland, with an isolated profile";
       mainProgram = "work-browser";
       platforms = lib.platforms.linux;
     };
