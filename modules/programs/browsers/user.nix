@@ -13,23 +13,27 @@ with lib; let
     text = builtins.readFile ./conf/seed-fonts.sh;
   };
 in {
-  options.modules.programs.browsers.user.enable = mkEnableOption "Browser setup";
+  options.modules.programs.browsers.user = {
+    enable = mkEnableOption "Browser setup";
+    work.enable = mkEnableOption "Work browser" // {default = true;};
+  };
 
   config = mkIf cfg.enable {
-    home.packages = [
-      (pkgs.brave.override {
-        commandLineArgs = concatStringsSep " " [
-          "--enable-features=AcceleratedVideoDecodeLinuxGL,AcceleratedVideoEncoder,VaapiOnNvidiaGPUs,WaylandWindowDecorations,WebUIDarkMode"
-          "--disable-features=OutdatedBuildDetector,UseChromeOSDirectVideoDecoder,Vulkan"
-          "--force-dark-mode"
-          "--ignore-gpu-blocklist"
-          "--disable-gpu-memory-buffer-video-frames"
-          "--no-first-run"
-          "--no-default-browser-check"
-        ];
-      })
-      mypkgs.work-browser
-    ];
+    home.packages =
+      [
+        (pkgs.brave.override {
+          commandLineArgs = concatStringsSep " " [
+            "--enable-features=AcceleratedVideoDecodeLinuxGL,AcceleratedVideoEncoder,VaapiOnNvidiaGPUs,WaylandWindowDecorations,WebUIDarkMode"
+            "--disable-features=OutdatedBuildDetector,UseChromeOSDirectVideoDecoder,Vulkan"
+            "--force-dark-mode"
+            "--ignore-gpu-blocklist"
+            "--disable-gpu-memory-buffer-video-frames"
+            "--no-first-run"
+            "--no-default-browser-check"
+          ];
+        })
+      ]
+      ++ lib.optional cfg.work.enable mypkgs.work-browser;
 
     home.activation.braveFonts = lib.hm.dag.entryAfter ["writeBoundary"] ''
       $DRY_RUN_CMD ${seedFonts}/bin/seed-browser-fonts "$HOME/.config/BraveSoftware/Brave-Browser/Default/Preferences"

@@ -82,6 +82,7 @@
   modules.programs.desktopapps.user.enable = true;
   modules.programs.bottom.user.enable = true;
   modules.programs.browsers.user.enable = true;
+  modules.programs.browsers.user.work.enable = false;
   modules.programs.anki.user.enable = true;
   modules.programs.notes.user.enable = true;
   modules.programs.espanso.user.enable = true;
