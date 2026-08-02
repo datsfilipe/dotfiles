@@ -9,6 +9,7 @@ in {
   options.modules.programs.espanso.system.enable = lib.mkEnableOption "espanso Wayland input access";
 
   config = lib.mkIf cfg.enable {
-    users.users.${myvars.username}.extraGroups = ["input"];
+    hardware.uinput.enable = true;
+    users.users.${myvars.username}.extraGroups = ["input" "uinput"];
   };
 }
