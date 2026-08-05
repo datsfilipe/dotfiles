@@ -12,6 +12,8 @@ in {
   config = mkIf cfg.enable {
     boot.kernelModules = ["vfio-pci"];
 
+    hardware.nvidia-container-toolkit.enable = true;
+
     virtualisation.docker = {
       enable = true;
       daemon.settings = {
