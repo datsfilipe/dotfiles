@@ -81,6 +81,7 @@
       enable = true;
       extensions = [
         pkgs.gh-markdown-preview
+        pkgs.gh-stack
       ];
       settings.aliases = {
         "co" = "pr checkout";
