@@ -101,7 +101,6 @@ in {
       "@orgTokenPath@" = config.sops.secrets."token/github/dtsf-pc-org".path;
       "@tokenPath@" = config.sops.secrets."token/github/dtsf-pc".path;
     }))
-    (pkgs.writeShellScriptBin "get-claude-config-dir" (builtins.readFile ./conf/get-claude-config-dir.sh))
   ];
 
   homebrew = {

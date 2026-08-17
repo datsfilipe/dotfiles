@@ -30,21 +30,30 @@ with lib; let
   getMonitorMaxX = m: m.nvidiaSettings.coordinate.x + (getWidth m);
   getMonitorMaxY = m: m.nvidiaSettings.coordinate.y + (getHeight m);
 
+  offsetX =
+    if activeMonitors == []
+    then 0
+    else foldl' (acc: m: min acc m.nvidiaSettings.coordinate.x) (builtins.head (map (m: m.nvidiaSettings.coordinate.x) activeMonitors)) activeMonitors;
+  offsetY =
+    if activeMonitors == []
+    then 0
+    else foldl' (acc: m: min acc m.nvidiaSettings.coordinate.y) (builtins.head (map (m: m.nvidiaSettings.coordinate.y) activeMonitors)) activeMonitors;
+
   totalWidth =
     if activeMonitors == []
     then 1920
-    else foldl' (acc: m: max acc (getMonitorMaxX m)) 0 activeMonitors;
+    else (foldl' (acc: m: max acc (getMonitorMaxX m)) 0 activeMonitors) - offsetX;
   totalHeight =
     if activeMonitors == []
     then 1080
-    else foldl' (acc: m: max acc (getMonitorMaxY m)) 0 activeMonitors;
+    else (foldl' (acc: m: max acc (getMonitorMaxY m)) 0 activeMonitors) - offsetY;
 
   cropLogic =
     concatMapStringsSep "\n" (m: let
       w = toString (getWidth m);
       h = toString (getHeight m);
-      x = toString m.nvidiaSettings.coordinate.x;
-      y = toString m.nvidiaSettings.coordinate.y;
+      x = toString (m.nvidiaSettings.coordinate.x - offsetX);
+      y = toString (m.nvidiaSettings.coordinate.y - offsetY);
       name = m.name;
     in ''
       echo "[Wallpaper] Cropping ${name}: ${w}x${h} at ${x},${y}..."

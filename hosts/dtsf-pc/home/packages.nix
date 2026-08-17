@@ -9,6 +9,7 @@
   home.packages = with pkgs; [
     qbittorrent
     claude-code
+    codex
     pavucontrol
     obs-studio
     zoom-us

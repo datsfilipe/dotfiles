@@ -13,15 +13,7 @@ in {
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINaF8YTdblaxjJATw1segJGHw69ooLnVY25Vz8hAo9kk datsfilipe.foss@proton.me"
   ];
 
-  blockedHosts = [
-    "bsky.app"
-    "instagram.com"
-    "www.instagram.com"
-    "x.com"
-    "www.x.com"
-    "twitter.com"
-    "www.twitter.com"
-  ];
+  blockedHosts = [];
 
   # build cache
   cache = {
@@ -55,19 +47,6 @@ in {
             };
             forceFullCompositionPipeline = true;
             rotation = "normal";
-          };
-        }
-        {
-          name = "DP-2";
-          resolution = "1920x1080";
-          refreshRate = "179.961";
-          nvidiaSettings = {
-            coordinate = {
-              x = 1920;
-              y = 0;
-            };
-            forceFullCompositionPipeline = true;
-            rotation = "left";
           };
         }
       ];
