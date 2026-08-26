@@ -85,7 +85,6 @@
   modules.programs.browsers.user.work.enable = false;
   modules.programs.anki.user.enable = true;
   modules.programs.notes.user.enable = true;
-  modules.programs.espanso.user.enable = true;
 
   modules.desktop.addons.gtk.user.enable = true;
   modules.desktop.addons.xdg.user.enable = true;

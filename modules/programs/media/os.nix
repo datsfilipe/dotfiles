@@ -23,19 +23,31 @@ in {
 
     systemd.user.services.rclone-gdrive-mount = {
       description = "Mount Google Drive via Rclone";
-      after = ["network-online.target" "sops-nix.service"];
+      after = ["network-online.target"];
       wants = ["network-online.target"];
       wantedBy = ["default.target"];
 
       path = [pkgs.coreutils pkgs.rclone];
 
       script = ''
+        config_file=${lib.escapeShellArg config.sops.secrets."rclone/config".path}
+        for attempt in $(seq 1 60); do
+          if [ -r "$config_file" ]; then
+            break
+          fi
+          if [ "$attempt" -eq 60 ]; then
+            echo "Rclone secret config is not available: $config_file" >&2
+            exit 1
+          fi
+          sleep 1
+        done
+
         export PATH="/run/wrappers/bin:$PATH"
         fusermount -u "${mountPoint}" || true
         mkdir -p "${mountPoint}"
 
         rclone mount "gdrive:" "${mountPoint}" \
-          --config=${config.sops.secrets."rclone/config".path} \
+          --config="$config_file" \
           --vfs-cache-mode writes \
           --dir-cache-time 24h
       '';

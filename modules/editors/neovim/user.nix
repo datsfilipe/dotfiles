@@ -15,6 +15,12 @@ in {
       fd
     ];
 
+    # datsnvim copies its writable package lock before linkGeneration creates
+    # the managed Neovim configuration directory.
+    home.activation.ensureDatsnvimConfigDir = lib.hm.dag.entryBefore ["copyDatsnvimLock"] ''
+      run mkdir -p "$HOME/.config/nvim"
+    '';
+
     programs.datsnvim.enable = true;
   };
 }

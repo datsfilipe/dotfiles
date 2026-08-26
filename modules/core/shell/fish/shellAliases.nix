@@ -21,7 +21,6 @@
   "ext" = "extract";
   "zj" = "zellij";
   "nsh" = "nix-set-shell";
-  "dt" = "cloudflared tunnel --url";
   "dd" = "cd ~/.dotfiles";
   "nn" = "cd ~/.notes";
   "wconn" = "nmcli-wifi-connect";

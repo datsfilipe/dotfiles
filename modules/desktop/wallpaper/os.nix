@@ -69,6 +69,13 @@ with lib; let
       m: "-o ${m.name} -i $CACHE_DIR/${m.name}.png -m fill"
     )
     activeMonitors;
+
+  gdriveMountPoint = "/home/${myvars.username}/gdrive";
+  wallpaperPath = toString cfg.file;
+  wallpaperUsesGdrive =
+    config.modules.services.gdrive.enable
+    && hasPrefix "${gdriveMountPoint}/" wallpaperPath;
+  gdriveWallpaperPath = removePrefix "${gdriveMountPoint}/" wallpaperPath;
 in {
   options.modules.desktop.wallpaper = {
     enable = mkEnableOption "Wallpaper service";
@@ -83,7 +90,7 @@ in {
     systemd.user.services.wallpaper = {
       enable = true;
       description = "Wallpaper Renderer";
-      after = ["graphical-session.target"];
+      after = ["graphical-session.target" "wallpaper-updater.service"];
       wantedBy = ["graphical-session.target"];
 
       unitConfig.ConditionEnvironment = "!XDG_CURRENT_DESKTOP=GNOME";
@@ -110,23 +117,43 @@ in {
       after = ["graphical-session.target"] ++ (optional config.modules.services.gdrive.enable "rclone-gdrive-mount.service");
       wantedBy = ["graphical-session.target"];
 
-      path = with pkgs; [imagemagick coreutils procps diffutils gawk systemd glib];
+      path = with pkgs; [imagemagick coreutils procps diffutils gawk systemd glib rclone networkmanager];
 
       script = ''
-        SOURCE_WALLPAPER="${cfg.file}"
         CACHE_DIR="/home/${myvars.username}/.cache/wallpapers"
         SUM_FILE="$CACHE_DIR/source.md5"
         ZOOM_FILE="$CACHE_DIR/zoom.txt"
         mkdir -p "$CACHE_DIR"
 
+        ${
+          if wallpaperUsesGdrive
+          then ''
+            # Do not read the wallpaper through the FUSE mount. A stalled FUSE
+            # request is unkillable and used to hold the user manager at shutdown.
+            SOURCE_WALLPAPER="$CACHE_DIR/source-wallpaper"
+            DOWNLOAD="$CACHE_DIR/source-wallpaper.download"
+            nm-online --quiet --timeout=30 || true
+            if timeout 30s rclone copyto \
+              "gdrive:${gdriveWallpaperPath}" "$DOWNLOAD" \
+              --config=${lib.escapeShellArg config.sops.secrets."rclone/config".path}; then
+              mv "$DOWNLOAD" "$SOURCE_WALLPAPER"
+            else
+              rm -f "$DOWNLOAD"
+              if [ ! -f "$SOURCE_WALLPAPER" ]; then
+                echo "[Updater] Could not fetch source and no cached copy exists."
+                exit 0
+              fi
+              echo "[Updater] Fetch failed; using the cached source."
+            fi
+          ''
+          else ''
+            SOURCE_WALLPAPER=${lib.escapeShellArg wallpaperPath}
+          ''
+        }
+
         CANVAS_W="${toString totalWidth}"
         CANVAS_H="${toString totalHeight}"
         ZOOM="${toString (myvars.hostsConfig.wallpaper-zoom or 0)}"
-
-        for i in {1..30}; do
-          if [[ -f "$SOURCE_WALLPAPER" ]]; then break; fi
-          sleep 1
-        done
 
         if [ ! -f "$SOURCE_WALLPAPER" ]; then
            echo "[Updater] Source not found. Assuming offline."
@@ -172,9 +199,7 @@ in {
             echo "[Updater] Detected Sway/Niri/Other."
 
             if [ "$CHANGES_DETECTED" -eq 1 ]; then
-                systemctl --user restart wallpaper.service
-            else
-                systemctl --user start wallpaper.service
+                systemctl --user try-restart --no-block wallpaper.service
             fi
         fi
       '';

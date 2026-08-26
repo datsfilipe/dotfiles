@@ -20,9 +20,9 @@
   "NewTabPageLocation": "about:blank",
   "RestoreOnStartup": 5,
   "DefaultSearchProviderEnabled": true,
-  "DefaultSearchProviderName": "DuckDuckGo",
-  "DefaultSearchProviderSearchURL": "https://duckduckgo.com/?q={searchTerms}",
-  "DefaultSearchProviderSuggestURL": "https://ac.duckduckgo.com/ac/?q={searchTerms}&type=list",
+  "DefaultSearchProviderName": "Google",
+  "DefaultSearchProviderSearchURL": "https://www.google.com/search?q={searchTerms}",
+  "DefaultSearchProviderSuggestURL": "https://www.google.com/complete/search?client=chrome&q={searchTerms}",
   "ExtensionInstallForcelist": [
     "dmeppfcidcpcocleneopiblmpnbokhep;https://clients2.google.com/service/update2/crx",
     "nngceckbapebfimnlniiiahkandclblb;https://clients2.google.com/service/update2/crx"

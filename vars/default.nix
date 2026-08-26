@@ -36,7 +36,7 @@ in {
     monitors = {
       pc = [
         {
-          name = "DP-1";
+          name = "DP-4";
           focus = true;
           resolution = "1920x1080";
           refreshRate = "179.998";

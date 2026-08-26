@@ -199,6 +199,48 @@ function KeyboardLayout() {
   );
 }
 
+function Ethernet() {
+  const status = Variable({ connected: false, tooltip: 'Ethernet disconnected' });
+
+  Variable(null).poll(3000, () => {
+    execAsync('ip -brief address show up')
+      .then((out) => {
+        const wired = out
+          .split('\n')
+          .map((line) => line.trim().split(/\s+/))
+          .find(([name]) => /^(en|eth)/.test(name));
+
+        if (!wired) {
+          status.set({ connected: false, tooltip: 'Ethernet disconnected' });
+          return;
+        }
+
+        const [name, , ...addresses] = wired;
+        status.set({
+          connected: true,
+          tooltip: addresses.length > 0
+            ? `${name}: ${addresses.join(', ')}`
+            : `${name}: connected`,
+        });
+      })
+      .catch(() => status.set({
+        connected: false,
+        tooltip: 'Ethernet status unavailable',
+      }));
+  });
+
+  return (
+    <box
+      className={bind(status).as(({ connected }) =>
+        connected ? 'ethernet connected' : 'ethernet disconnected'
+      )}
+      tooltipText={bind(status).as(({ tooltip }) => tooltip)}
+    >
+      <label label={bind(status).as(({ connected }) => connected ? '󰈀' : '󰈃')} />
+    </box>
+  );
+}
+
 function Cpu() {
   let prevIdle = 0;
   let prevTotal = 0;
@@ -485,6 +527,7 @@ export default function Bar(monitor: number) {
                 css="min-width: 1px; background-color: #343434; margin: 0 10px 0 0;"
               />
               <KeyboardLayout />
+              <Ethernet />
               <box
                 valign={Gtk.Align.CENTER}
                 hexpand={false}

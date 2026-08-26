@@ -119,7 +119,8 @@ menu {
 .cpu,
 .ram,
 .battery,
-.keyboard-layout {
+.keyboard-layout,
+.ethernet {
   margin-right: 12px;
   label {
     font-family: 'JetBrainsMono Nerd Font';
@@ -133,6 +134,14 @@ menu {
 
 .keyboard-layout label {
   color: $primary;
+}
+
+.ethernet.connected label {
+  color: $primary;
+}
+
+.ethernet.disconnected label {
+  opacity: 0.4;
 }
 
 .workspaces-overview,

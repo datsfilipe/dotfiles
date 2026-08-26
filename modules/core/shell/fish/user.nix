@@ -31,7 +31,7 @@ in {
       enable = true;
       functions = {
         fish_user_key_bindings = lib.fileContents ./conf/keybindings.fish;
-        dtc = lib.fileContents ./conf/dtc.fish;
+        cfd = lib.fileContents ./conf/cfd.fish;
       };
 
       shellInit = ''

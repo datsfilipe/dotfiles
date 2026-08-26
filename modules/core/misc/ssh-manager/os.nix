@@ -20,9 +20,21 @@ in {
     systemd.user.services.ssh-key-manager = {
       description = "SSH Key Management Service";
       wantedBy = ["default.target"];
-      path = [pkgs.expect];
+      path = [pkgs.coreutils pkgs.expect];
 
       script = ''
+        secret=${lib.escapeShellArg config.sops.secrets."ssh/pass/primary".path}
+        for attempt in $(seq 1 60); do
+          if [ -r "$secret" ]; then
+            break
+          fi
+          if [ "$attempt" -eq 60 ]; then
+            echo "SSH passphrase secret is not available: $secret" >&2
+            exit 1
+          fi
+          sleep 1
+        done
+
         export SSH_AUTH_SOCK="${authsock}"
         ${pkgs.openssh}/bin/ssh-agent -a "$SSH_AUTH_SOCK" &
         sleep 1
@@ -40,6 +52,8 @@ in {
         KillMode = "mixed";
         Type = "forking";
         Environment = ["HOME=/home/${myvars.username}"];
+        Restart = "on-failure";
+        RestartSec = "5s";
       };
     };
   };
