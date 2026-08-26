@@ -12,7 +12,6 @@
     codex
     pavucontrol
     obs-studio
-    zoom-us
     bc
     cloudflared
     pritunl-client
