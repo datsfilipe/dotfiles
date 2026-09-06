@@ -4,11 +4,18 @@
   pkgs,
   ...
 }: let
+  gtkThemePackage = pkgs.catppuccin-gtk.override {
+    accents = ["yellow" "red" "teal" "lavender" "blue" "mauve"];
+    size = "standard";
+    tweaks = ["black"];
+    variant = "mocha";
+  };
+
   themes = {
     gruvbox = {
       theme = {
-        name = "Flat-Remix-GTK-Yellow-Darkest-Solid";
-        package = pkgs.flat-remix-gtk;
+        name = "catppuccin-mocha-yellow-standard+black";
+        package = gtkThemePackage;
       };
       iconTheme = {
         name = "Reversal-dark";
@@ -17,8 +24,8 @@
     };
     min = {
       theme = {
-        name = "Flat-Remix-GTK-Red-Darkest-Solid";
-        package = pkgs.flat-remix-gtk;
+        name = "catppuccin-mocha-red-standard+black";
+        package = gtkThemePackage;
       };
       iconTheme = {
         name = "Reversal-red-dark";
@@ -29,8 +36,8 @@
     };
     solarized = {
       theme = {
-        name = "Flat-Remix-GTK-Cyan-Darkest-Solid";
-        package = pkgs.flat-remix-gtk;
+        name = "catppuccin-mocha-teal-standard+black";
+        package = gtkThemePackage;
       };
       iconTheme = {
         name = "Reversal-cyan-dark";
@@ -41,8 +48,8 @@
     };
     vesper = {
       theme = {
-        name = "Flat-Remix-GTK-Grey-Darkest-Solid";
-        package = pkgs.flat-remix-gtk;
+        name = "catppuccin-mocha-lavender-standard+black";
+        package = gtkThemePackage;
       };
       iconTheme = {
         name = "Reversal-black-dark";
@@ -53,8 +60,8 @@
     };
     carbon = {
       theme = {
-        name = "Flat-Remix-GTK-Blue-Darkest-Solid";
-        package = pkgs.flat-remix-gtk;
+        name = "catppuccin-mocha-blue-standard+black";
+        package = gtkThemePackage;
       };
       iconTheme = {
         name = "Reversal-blue-dark";
@@ -65,8 +72,8 @@
     };
     catppuccin = {
       theme = {
-        name = "Flat-Remix-GTK-Magenta-Darkest-Solid";
-        package = pkgs.flat-remix-gtk;
+        name = "catppuccin-mocha-mauve-standard+black";
+        package = gtkThemePackage;
       };
       iconTheme = {
         name = "Reversal-purple-dark";

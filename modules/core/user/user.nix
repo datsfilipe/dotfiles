@@ -8,7 +8,7 @@
 with lib; let
   cfg = config.modules.core.user.home;
   homeDir =
-    if pkgs.stdenv.isDarwin
+    if pkgs.stdenv.hostPlatform.isDarwin
     then "/Users/${myvars.username}"
     else "/home/${myvars.username}";
 in {
