@@ -54,7 +54,7 @@ with lib; {
         ];
 
         window = {
-          opacity = 0.8;
+          opacity = 0.9;
           padding.x = 25;
           padding.y = 25;
           decorations =

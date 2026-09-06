@@ -90,7 +90,7 @@ in {
     systemd.user.services.wallpaper = {
       enable = true;
       description = "Wallpaper Renderer";
-      after = ["graphical-session.target" "wallpaper-updater.service"];
+      after = ["graphical-session.target"];
       wantedBy = ["graphical-session.target"];
 
       unitConfig.ConditionEnvironment = "!XDG_CURRENT_DESKTOP=GNOME";
