@@ -1,6 +1,5 @@
 {
   lib,
-  pkgs,
   config,
   mylib,
   ...
@@ -40,35 +39,21 @@
       mouse_middle_click = "do_action";
       mouse_right_click = "close_all";
     };
-
-    urgency_low = {
-      timeout = 5;
-    };
-
-    urgency_normal = {
-      timeout = 10;
-    };
-
-    urgency_critical = {
-      timeout = 0;
-    };
+    urgency_low.timeout = 5;
+    urgency_normal.timeout = 10;
+    urgency_critical.timeout = 0;
   };
   evaluatedSettings = config.modules.desktop.conf.dunst.settings {};
-  mergedSettings =
-    lib.recursiveUpdate
-    defaultSettings
-    evaluatedSettings;
+  mergedSettings = lib.recursiveUpdate defaultSettings evaluatedSettings;
 in {
   configOptions.modules.desktop.conf = {
     enableDunstIntegration = lib.mkEnableOption "Whether to enable dunst";
-
     dunst.settings = lib.mkOption {
       type = lib.types.attrsOf lib.types.anything;
       default = defaultSettings;
       apply = lib.recursiveUpdate;
     };
   };
-
   configContent = lib.mkIf config.modules.desktop.conf.enableDunstIntegration {
     xdg.configFile."dunst/dunstrc".text = builtins.replaceStrings ["'"] ["\""] ''
       ${mylib.format.sections ["global" "urgency_low" "urgency_normal" "urgency_critical"] mergedSettings}

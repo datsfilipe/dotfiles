@@ -1,0 +1,6 @@
+singleton Theme 1.0 Theme.qml
+Bar 1.0 Bar.qml
+BrightnessOsd 1.0 BrightnessOsd.qml
+Launcher 1.0 Launcher.qml
+Notifications 1.0 Notifications.qml
+PowerMenu 1.0 PowerMenu.qml

@@ -53,7 +53,6 @@
     enableFzfIntegration = true;
     enableZellijIntegration = true;
     enableNiriIntegration = false;
-    enableAstalIntegration = false;
   };
 
   modules.themes.${myvars.hostsConfig.theme}.enable = true;

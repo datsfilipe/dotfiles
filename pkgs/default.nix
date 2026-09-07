@@ -5,7 +5,6 @@
   unix-scripts,
   zellij-switch,
   theme,
-  gif-filename,
   ...
 }: let
   packageFiles =
@@ -36,12 +35,12 @@
           name = name;
           value = let
             scriptFile = ./scripts/default.nix;
-            astalFile = ./astal/default.nix;
+            quickshellFile = ./quickshell/default.nix;
             scriptArgs =
               if toString file == toString scriptFile
               then {inherit unix-scripts;}
-              else if toString file == toString astalFile
-              then {inherit colorscheme gif-filename;}
+              else if toString file == toString quickshellFile
+              then {inherit colorscheme;}
               else {};
           in
             pkgsWithOverlays.callPackage file scriptArgs;

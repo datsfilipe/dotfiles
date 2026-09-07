@@ -74,10 +74,10 @@ binds {
     spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"
   }
   XF86MonBrightnessDown allow-when-locked=true {
-    spawn "sh" "-c" "brightnessctl -c backlight set 30- && wmain osd-brightness"
+    spawn "sh" "-c" "brightnessctl -c backlight set 30- && wbrightness-osd"
   }
   XF86MonBrightnessUp allow-when-locked=true {
-    spawn "sh" "-c" "brightnessctl -c backlight set +30 && wmain osd-brightness"
+    spawn "sh" "-c" "brightnessctl -c backlight set +30 && wbrightness-osd"
   }
   XF86AudioPlay allow-when-locked=true {
     spawn "playerctl" "play-pause"
@@ -266,6 +266,6 @@ binds {
     spawn "focus-mode"
   }
   Alt+H repeat=false {
-    spawn "wmain" "toggle-autohide"
+    spawn "wbar-autohide" "toggleAutohide"
   }
 }
