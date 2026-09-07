@@ -9,7 +9,7 @@ with builtins; let
   hasPrefix = prefix: str:
     substring 0 (stringLength prefix) str == prefix;
 
-  getSortPriority = name: value:
+  getSortPriority = value:
     if !isAttrs value || !(value ? url)
     then 3
     else if value ? url && length (attrNames value) == 1
@@ -19,14 +19,14 @@ with builtins; let
     else 2;
 
   compareAttrs = a: b: let
-    prioA = getSortPriority (head (attrNames a)) (a.${head (attrNames a)});
-    prioB = getSortPriority (head (attrNames b)) (b.${head (attrNames b)});
+    prioA = getSortPriority (a.${head (attrNames a)});
+    prioB = getSortPriority (b.${head (attrNames b)});
   in
     if prioA == prioB
     then head (attrNames a) < head (attrNames b)
     else prioA < prioB;
 
-  mapAttrsToList = f: attrs: let
+  mapAttrsToList = attrs: let
     pairs = attrValues (mapAttrs (name: value: {${name} = value;}) attrs);
   in
     sort compareAttrs pairs;
@@ -38,7 +38,7 @@ with builtins; let
       value = pair.${name};
     in
       f name value)
-    (mapAttrsToList f attrs));
+    (mapAttrsToList attrs));
 
   print = prefix: x:
     if isString x

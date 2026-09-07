@@ -1,8 +1,6 @@
 {
   config,
   lib,
-  pkgs,
-  mylib,
   ...
 }: {
   options.modules.desktop.nupkgs = {

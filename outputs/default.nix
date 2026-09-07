@@ -14,6 +14,7 @@
       // {
         inherit lib mylib;
         theme = myvars.hostsConfig.theme;
+        unix-scripts = inputs.unix-scripts;
         gif-filename = myvars.hostsConfig.gif-filename;
         pkgs = import inputs.nixpkgs {
           inherit system;

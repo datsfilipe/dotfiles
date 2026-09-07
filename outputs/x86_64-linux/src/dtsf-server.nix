@@ -34,7 +34,7 @@
     ]
     ++ (map mylib.file.relativeToRoot [
       "hosts/${name}/home"
-      "pkgs/home.nix"
+      "modules/desktop/nupkgs/user.nix"
 
       "modules/core/shell/bash/user.nix"
       "modules/core/shell/fish/user.nix"

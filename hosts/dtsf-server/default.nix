@@ -7,7 +7,6 @@
   mypkgs,
   ...
 }: let
-  hostName = "dtsf-server";
   jellyfinJellyNext = pkgs.fetchzip {
     url = "https://github.com/luall0/jellynext/releases/download/v1.3.0.0/jellynext-v1.3.0.0.zip";
     hash = "sha256-RnfvN+Kb1kJNcJVT/B0xUPSlz+NXyqTRO9TAkvvoC2s=";
@@ -20,25 +19,12 @@
   };
 in {
   imports =
-    [./hardware-configuration.nix ./boot.nix]
+    [
+      ./hardware-configuration.nix
+      ./boot.nix
+      (import ../common/nixos-base.nix {hostName = "dtsf-server";})
+    ]
     ++ (mylib.file.scanPaths ../../modules "os.nix");
-
-  networking = {
-    inherit hostName;
-    networkmanager.enable = true;
-  };
-
-  users.defaultUserShell = lib.mkForce pkgs.fish;
-
-  # Enable core modules
-  modules.core.boot.system.enable = true;
-  modules.core.nix.system.enable = true;
-  modules.core.security.system.enable = true;
-  modules.core.user.system.enable = true;
-  modules.core.system.enable = true;
-  modules.core.shell.fish.system.enable = true;
-  modules.core.shell.ssh.system.enable = true;
-  modules.core.misc.ssh-manager.enable = true;
 
   modules.editors.neovim.system.enable = true;
 

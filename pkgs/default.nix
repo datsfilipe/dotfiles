@@ -2,6 +2,7 @@
   lib,
   pkgs,
   mylib,
+  unix-scripts,
   zellij-switch,
   theme,
   gif-filename,
@@ -12,11 +13,12 @@
     (
       path:
         !lib.strings.hasPrefix (toString ./overlays) (toString path)
-        && builtins.baseNameOf path != "home.nix"
     )
     (mylib.file.scanPaths ./. ".nix");
 
-  pkgsWithOverlays = pkgs.extend zellij-switch.overlays.default;
+  pkgsWithOverlays =
+    (pkgs.extend zellij-switch.overlays.default)
+    // {inherit unix-scripts;};
 
   colorscheme = import ../modules/themes/${theme}.nix;
 
@@ -33,9 +35,12 @@
         in {
           name = name;
           value = let
+            scriptFile = ./scripts/default.nix;
             astalFile = ./astal/default.nix;
             scriptArgs =
-              if toString file == toString astalFile
+              if toString file == toString scriptFile
+              then {inherit unix-scripts;}
+              else if toString file == toString astalFile
               then {inherit colorscheme gif-filename;}
               else {};
           in
