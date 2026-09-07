@@ -4,6 +4,7 @@ import QtQuick.Layouts
 import Quickshell
 import Quickshell.Io
 import Quickshell.Services.Mpris
+import Quickshell.Services.Pipewire
 
 PanelWindow {
     id: root
@@ -22,9 +23,10 @@ PanelWindow {
     property var weather: null
     property real volume: 0
     property bool muted: false
-    property string audioStatus: ""
     property string deviceStatus: "checking"
     property var player: Mpris.players.values.find(item => item.isPlaying) ?? Mpris.players.values[0] ?? null
+    property var sinks: Pipewire.nodes.values.filter(node => !node.isStream && node.isSink && node.audio)
+    property var sources: Pipewire.nodes.values.filter(node => !node.isStream && !node.isSink && node.audio)
 
     function close() { ShellState.widgetShelfVisible = false }
     function updateVolume() { volumeQuery.running = false; volumeQuery.running = true }
@@ -35,8 +37,6 @@ PanelWindow {
             weatherQuery.running = true
         } else if (ShellState.widgetShelfPage === "audio") {
             root.updateVolume()
-            audioDevices.running = false
-            audioDevices.running = true
         } else if (ShellState.widgetShelfPage === "tools") {
             tabletQuery.running = false
             tabletQuery.running = true
@@ -72,18 +72,14 @@ PanelWindow {
     }
 
     Process {
-        id: audioDevices
-        command: ["sh", "-c", "wpctl inspect @DEFAULT_AUDIO_SINK@ | grep -m1 'node.description' | cut -d '\"' -f2"]
-        stdout: StdioCollector { onStreamFinished: root.audioStatus = text }
-    }
-
-    Process {
         id: tabletQuery
         command: ["sh", "-c", "if lsusb | grep -Eqi 'XP[- ]?Pen|UGTABLET'; then printf connected; else printf waiting; fi"]
         stdout: StdioCollector { onStreamFinished: root.deviceStatus = text.trim() }
     }
 
-    Timer { id: updateTimer; interval: 200; onTriggered: { root.updateVolume(); audioDevices.running = false; audioDevices.running = true } }
+    Timer { id: updateTimer; interval: 200; onTriggered: root.updateVolume() }
+
+    PwObjectTracker { objects: [...root.sinks, ...root.sources] }
 
     onVisibleChanged: {
         if (!visible)
@@ -193,10 +189,10 @@ PanelWindow {
     Component {
         id: audioPage
         ColumnLayout {
-            spacing: 12
+            spacing: 10
             Rectangle {
                 Layout.fillWidth: true
-                height: 110
+                height: 92
                 radius: 18
                 color: Theme.black
                 Column { anchors.centerIn: parent; spacing: 10
@@ -208,15 +204,55 @@ PanelWindow {
                     }
                 }
             }
-            Text { text: "output device"; color: Theme.primary; font.family: Theme.font; font.pixelSize: 12; font.bold: true }
-            Rectangle {
+            RowLayout {
                 Layout.fillWidth: true
-                height: 58
-                radius: 16
-                color: Theme.black
-                Text { anchors.centerIn: parent; width: parent.width - 24; text: root.audioStatus || "default sink"; horizontalAlignment: Text.AlignHCenter; elide: Text.ElideRight; color: Theme.foreground; opacity: 0.7; font.family: Theme.font; font.pixelSize: 11 }
+                Layout.fillHeight: true
+                spacing: 10
+
+                ColumnLayout {
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+                    Text { text: "出力 · output"; color: Theme.primary; font.family: Theme.font; font.pixelSize: 11; font.bold: true }
+                    Repeater {
+                        model: ScriptModel { values: root.sinks }
+                        Rectangle {
+                            id: sinkButton
+                            required property var modelData
+                            Layout.fillWidth: true
+                            height: 42
+                            radius: 13
+                            color: Pipewire.defaultAudioSink?.id === modelData.id ? Theme.primary : Theme.black
+                            border.width: 1
+                            border.color: Pipewire.defaultAudioSink?.id === modelData.id ? Theme.primary : Theme.alternate
+                            Text { anchors.centerIn: parent; width: parent.width - 18; text: sinkButton.modelData.description || sinkButton.modelData.nickname || sinkButton.modelData.name; elide: Text.ElideRight; horizontalAlignment: Text.AlignHCenter; color: Pipewire.defaultAudioSink?.id === sinkButton.modelData.id ? Theme.black : Theme.foreground; font.family: Theme.font; font.pixelSize: 10 }
+                            MouseArea { anchors.fill: parent; onClicked: Pipewire.preferredDefaultAudioSink = sinkButton.modelData }
+                        }
+                    }
+                    Item { Layout.fillHeight: true }
+                }
+
+                ColumnLayout {
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+                    Text { text: "入力 · input"; color: Theme.primary; font.family: Theme.font; font.pixelSize: 11; font.bold: true }
+                    Repeater {
+                        model: ScriptModel { values: root.sources }
+                        Rectangle {
+                            id: sourceButton
+                            required property var modelData
+                            Layout.fillWidth: true
+                            height: 42
+                            radius: 13
+                            color: Pipewire.defaultAudioSource?.id === modelData.id ? Theme.primary : Theme.black
+                            border.width: 1
+                            border.color: Pipewire.defaultAudioSource?.id === modelData.id ? Theme.primary : Theme.alternate
+                            Text { anchors.centerIn: parent; width: parent.width - 18; text: sourceButton.modelData.description || sourceButton.modelData.nickname || sourceButton.modelData.name; elide: Text.ElideRight; horizontalAlignment: Text.AlignHCenter; color: Pipewire.defaultAudioSource?.id === sourceButton.modelData.id ? Theme.black : Theme.foreground; font.family: Theme.font; font.pixelSize: 10 }
+                            MouseArea { anchors.fill: parent; onClicked: Pipewire.preferredDefaultAudioSource = sourceButton.modelData }
+                        }
+                    }
+                    Item { Layout.fillHeight: true }
+                }
             }
-            Item { Layout.fillHeight: true }
         }
     }
 
