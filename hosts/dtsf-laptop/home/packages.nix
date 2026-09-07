@@ -38,5 +38,5 @@ in {
     config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/hosts/dtsf-laptop/home/krita/kritashortcutsrc";
 
   xdg.dataFile."krita".source =
-    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/hosts/dtsf-laptop/home/krita/data";
+    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/pkgs/krita-resources/data";
 }

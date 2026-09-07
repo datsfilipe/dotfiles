@@ -13,4 +13,5 @@
     prompt = colorscheme.colors.magenta;
     "hl+" = colorscheme.colors.primary;
   };
+  programs.fzf.enable = true;
 }
