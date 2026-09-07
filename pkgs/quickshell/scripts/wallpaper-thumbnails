@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+set -euo pipefail
+source_dir=/home/dtsf/gdrive/walls
+cache_dir=${XDG_CACHE_HOME:-/home/dtsf/.cache}/dats-quickshell/wallpapers
+mkdir -p "$cache_dir"
+export cache_dir
+find "$source_dir" -maxdepth 1 -type f \( -iname '*.png' -o -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.webp' \) -print0 |
+  xargs -0 -P 3 -I '{}' bash -c '
+    source=$1
+    target=$cache_dir/$(basename "$source")
+    test -s "$target" || magick "$source" -auto-orient -thumbnail "420x260^" -gravity center -extent 420x260 "$target"
+  ' _ '{}'

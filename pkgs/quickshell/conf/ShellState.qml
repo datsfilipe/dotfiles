@@ -4,7 +4,8 @@ import Quickshell
 
 Singleton {
     property bool widgetShelfVisible: false
-    property string widgetShelfPage: "calendar"
+    property string widgetShelfPage: "weather"
+    property bool wallpaperPickerVisible: false
 
     function showWidget(page) {
         if (widgetShelfVisible && widgetShelfPage === page)

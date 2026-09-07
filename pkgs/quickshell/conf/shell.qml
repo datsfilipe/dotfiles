@@ -43,6 +43,7 @@ ShellRoot {
 
     Dashboard {}
     WidgetShelf {}
+    WallpaperPicker {}
     Launcher {}
     PowerMenu {}
     BrightnessOsd {}

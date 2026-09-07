@@ -7,6 +7,7 @@ Dashboard 1.0 Dashboard.qml
 BrightnessOsd 1.0 BrightnessOsd.qml
 VolumeOsd 1.0 VolumeOsd.qml
 WidgetShelf 1.0 WidgetShelf.qml
+WallpaperPicker 1.0 WallpaperPicker.qml
 Launcher 1.0 Launcher.qml
 Notifications 1.0 Notifications.qml
 PowerMenu 1.0 PowerMenu.qml

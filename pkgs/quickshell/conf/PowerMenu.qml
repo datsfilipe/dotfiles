@@ -148,9 +148,7 @@ PanelWindow {
                     Layout.preferredWidth: 68
                     Layout.preferredHeight: 68
                     radius: 18
-                    color: Theme.background
-                    border.width: 1
-                    border.color: Theme.alternate
+                    color: "transparent"
 
                     AnimatedImage {
                         anchors.fill: parent

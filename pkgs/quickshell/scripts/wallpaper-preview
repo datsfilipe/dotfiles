@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -euo pipefail
+wallpaper=${1:?}
+case "$wallpaper" in
+  /home/dtsf/gdrive/walls/*) ;;
+  *) exit 1 ;;
+esac
+test -f "$wallpaper"
+systemctl --user stop wallpaper.service
+pkill -x swaybg 2>/dev/null || true
+swaybg -i "$wallpaper" -m fill >/dev/null 2>&1 &

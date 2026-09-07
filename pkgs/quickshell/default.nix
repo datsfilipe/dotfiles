@@ -5,17 +5,24 @@
   makeWrapper,
   coreutils,
   gnugrep,
+  gnused,
+  procps,
+  systemd,
+  alacritty,
   iproute2,
   niri,
   brightnessctl,
   wireplumber,
   curl,
   usbutils,
+  swaybg,
+  imagemagick,
+  findutils,
   reversal-icon-theme,
   colorscheme,
   ...
 }: let
-  runtimePath = lib.makeBinPath [coreutils gnugrep iproute2 niri brightnessctl wireplumber curl usbutils];
+  runtimePath = lib.makeBinPath [coreutils gnugrep gnused procps systemd alacritty iproute2 niri brightnessctl wireplumber curl usbutils swaybg imagemagick findutils];
 in
   stdenvNoCC.mkDerivation {
     pname = "dats-quickshell";
@@ -41,7 +48,7 @@ in
         --replace-fail @cyan@ ${lib.escapeShellArg colorscheme.colors.cyan} \
         --replace-fail @white@ ${lib.escapeShellArg colorscheme.colors.white}
       makeWrapper ${quickshell}/bin/qs $out/bin/wmain \
-        --prefix PATH : ${runtimePath} \
+        --prefix PATH : $out/bin:${runtimePath} \
         --prefix XDG_DATA_DIRS : ${reversal-icon-theme}/share \
         --set QS_ICON_THEME Reversal-dark \
         --add-flags "--path $out/share/dats-quickshell"
@@ -67,6 +74,14 @@ in
       makeWrapper ${quickshell}/bin/qs $out/bin/wbar-autohide \
         --prefix PATH : ${runtimePath} \
         --add-flags "--path $out/share/dats-quickshell ipc call shell"
+      makeWrapper ${./scripts/wallpaper-preview} $out/bin/wwallpaper-preview \
+        --prefix PATH : ${runtimePath}
+      makeWrapper ${./scripts/wallpaper-restore} $out/bin/wwallpaper-restore \
+        --prefix PATH : ${runtimePath}
+      makeWrapper ${./scripts/wallpaper-apply} $out/bin/wwallpaper-apply \
+        --prefix PATH : ${runtimePath}
+      makeWrapper ${./scripts/wallpaper-thumbnails} $out/bin/wwallpaper-thumbnails \
+        --prefix PATH : ${runtimePath}
     '';
 
     meta.mainProgram = "wmain";

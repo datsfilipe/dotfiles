@@ -14,16 +14,13 @@ PanelWindow {
     focusable: true
     color: "transparent"
     exclusionMode: ExclusionMode.Ignore
-    implicitWidth: 390
-    implicitHeight: 430
-    margins { top: 48; right: 12 }
-    anchors { top: true; right: true }
+    anchors { top: true; bottom: true; left: true; right: true }
 
-    property date calendarDate: new Date()
     property var weather: null
     property real volume: 0
     property bool muted: false
     property string deviceStatus: "checking"
+    property string systemInfo: ""
     property var player: Mpris.players.values.find(item => item.isPlaying) ?? Mpris.players.values[0] ?? null
     property var sinks: Pipewire.nodes.values.filter(node => !node.isStream && node.isSink && node.audio)
     property var sources: Pipewire.nodes.values.filter(node => !node.isStream && !node.isSink && node.audio)
@@ -37,7 +34,9 @@ PanelWindow {
             weatherQuery.running = true
         } else if (ShellState.widgetShelfPage === "audio") {
             root.updateVolume()
-        } else if (ShellState.widgetShelfPage === "tools") {
+        } else if (ShellState.widgetShelfPage === "system") {
+            systemQuery.running = false
+            systemQuery.running = true
             tabletQuery.running = false
             tabletQuery.running = true
         }
@@ -57,6 +56,12 @@ PanelWindow {
                 try { root.weather = JSON.parse(text) } catch (error) { root.weather = null }
             }
         }
+    }
+
+    Process {
+        id: systemQuery
+        command: ["sh", "-c", "uptime -p; df -h / | tail -n1; ip route get 1.1.1.1 | head -n1"]
+        stdout: StdioCollector { onStreamFinished: root.systemInfo = text }
     }
 
     Process {
@@ -81,6 +86,19 @@ PanelWindow {
 
     PwObjectTracker { objects: [...root.sinks, ...root.sources] }
 
+    FileView {
+        id: notesFile
+        path: Quickshell.statePath("scratchpad.txt")
+        blockLoading: true
+        printErrors: false
+    }
+
+    Timer {
+        id: notesSave
+        interval: 350
+        onTriggered: notesFile.setText(notesInput.text)
+    }
+
     onVisibleChanged: {
         if (!visible)
             return
@@ -95,12 +113,23 @@ PanelWindow {
         }
     }
 
-    Rectangle {
+    MouseArea { anchors.fill: parent; onClicked: root.close() }
+
+    Item {
         anchors.fill: parent
+        focus: root.visible
+        Keys.onEscapePressed: root.close()
+    }
+
+    Rectangle {
+        anchors { top: parent.top; right: parent.right; topMargin: 48; rightMargin: 12 }
+        width: 390
+        height: 430
         radius: 22
         color: Theme.background
         border.width: 1
         border.color: Theme.alternate
+        MouseArea { anchors.fill: parent }
 
         ColumnLayout {
             anchors.fill: parent
@@ -110,50 +139,21 @@ PanelWindow {
             RowLayout {
                 Layout.fillWidth: true
                 Text {
-                    text: ShellState.widgetShelfPage === "calendar" ? "暦 · calendar" : ShellState.widgetShelfPage === "weather" ? "天気 · weather" : ShellState.widgetShelfPage === "audio" ? "音 · audio" : "道具 · tools"
+                    text: ShellState.widgetShelfPage === "weather" ? "天気 · weather" : ShellState.widgetShelfPage === "audio" ? "音 · audio" : ShellState.widgetShelfPage === "notes" ? "記録 · scratchpad" : ShellState.widgetShelfPage === "keys" ? "鍵 · key map" : "機械 · system"
                     color: Theme.primary
                     font.family: Theme.font
                     font.pixelSize: 16
                     font.bold: true
                 }
                 Item { Layout.fillWidth: true }
-                Text { text: "×"; color: Theme.foreground; font.pixelSize: 20; MouseArea { anchors.fill: parent; anchors.margins: -8; onClicked: root.close() } }
+                Text { text: "Esc / outside to close"; color: Theme.foreground; opacity: 0.35; font.family: Theme.uiFont; font.pixelSize: 9 }
             }
 
             Loader {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                sourceComponent: ShellState.widgetShelfPage === "calendar" ? calendarPage : ShellState.widgetShelfPage === "weather" ? weatherPage : ShellState.widgetShelfPage === "audio" ? audioPage : toolsPage
+                sourceComponent: ShellState.widgetShelfPage === "weather" ? weatherPage : ShellState.widgetShelfPage === "audio" ? audioPage : ShellState.widgetShelfPage === "notes" ? notesPage : ShellState.widgetShelfPage === "keys" ? keysPage : systemPage
             }
-        }
-    }
-
-    Component {
-        id: calendarPage
-        ColumnLayout {
-            spacing: 8
-            RowLayout {
-                Layout.fillWidth: true
-                Text { text: "‹"; color: Theme.foreground; font.pixelSize: 24; MouseArea { anchors.fill: parent; anchors.margins: -8; onClicked: root.calendarDate = new Date(root.calendarDate.getFullYear(), root.calendarDate.getMonth() - 1, 1) } }
-                Text { Layout.fillWidth: true; horizontalAlignment: Text.AlignHCenter; text: root.calendarDate.toLocaleDateString(Qt.locale(), "MMMM yyyy"); color: Theme.foreground; font.family: Theme.font; font.pixelSize: 18 }
-                Text { text: "›"; color: Theme.foreground; font.pixelSize: 24; MouseArea { anchors.fill: parent; anchors.margins: -8; onClicked: root.calendarDate = new Date(root.calendarDate.getFullYear(), root.calendarDate.getMonth() + 1, 1) } }
-            }
-            DayOfWeekRow { Layout.fillWidth: true; locale: grid.locale; delegate: Text { required property var model; text: model.shortName; horizontalAlignment: Text.AlignHCenter; color: model.day === 0 || model.day === 6 ? Theme.primary : Theme.foreground; font.family: Theme.font; font.pixelSize: 11 } }
-            MonthGrid {
-                id: grid
-                Layout.fillWidth: true
-                Layout.fillHeight: true
-                month: root.calendarDate.getMonth()
-                year: root.calendarDate.getFullYear()
-                locale: Qt.locale()
-                delegate: Rectangle {
-                    required property var model
-                    color: model.today ? Theme.primary : "transparent"
-                    radius: height / 2
-                    Text { anchors.centerIn: parent; text: model.day; color: parent.model.today ? Theme.black : parent.model.month === grid.month ? Theme.foreground : Theme.selection; font.family: Theme.font; font.pixelSize: 12 }
-                }
-            }
-            Text { Layout.alignment: Qt.AlignHCenter; text: "middle click resets to today"; color: Theme.foreground; opacity: 0.4; font.family: Theme.uiFont; font.pixelSize: 10; MouseArea { anchors.fill: parent; onClicked: root.calendarDate = new Date() } }
         }
     }
 
@@ -257,39 +257,105 @@ PanelWindow {
     }
 
     Component {
-        id: toolsPage
+        id: notesPage
+        Rectangle {
+            color: Theme.black
+            radius: 18
+            border.width: 1
+            border.color: Theme.alternate
+
+            TextArea {
+                id: notesInput
+                anchors.fill: parent
+                anchors.margins: 12
+                text: notesFile.text()
+                placeholderText: "考え · ideas, commands, temporary notes…"
+                color: Theme.foreground
+                placeholderTextColor: Theme.selection
+                selectionColor: Theme.primary
+                selectedTextColor: Theme.black
+                background: null
+                wrapMode: TextEdit.Wrap
+                font.family: Theme.font
+                font.pixelSize: 12
+                onTextChanged: notesSave.restart()
+                Keys.onEscapePressed: root.close()
+            }
+        }
+    }
+
+    Component {
+        id: keysPage
         ColumnLayout {
-            spacing: 10
+            spacing: 8
             Repeater {
                 model: [
-                    { jp: "色", title: "pick colour", command: ["sh", "-c", "niri msg pick-color | sed -n 's/^Hex: //p' | tr -d '\\n' | wl-copy"] },
-                    { jp: "写", title: "screenshot", command: ["niri", "msg", "action", "screenshot"] },
-                    { jp: "鍵", title: "lock screen", command: ["swaylock"] },
-                    { jp: "禅", title: "focus mode", command: ["focus-mode"] }
+                    { key: "Mod + D", action: "アプリ · launcher" },
+                    { key: "Mod + Shift + D", action: "作業室 · studio" },
+                    { key: "Mod + Return", action: "端末 · terminal session" },
+                    { key: "Mod + A / B", action: "browser / work browser" },
+                    { key: "Alt + W", action: "色 · pick colour" },
+                    { key: "Print", action: "写 · screenshot" },
+                    { key: "Alt + K / I", action: "keyboard layout" },
+                    { key: "Mod + Shift + Z", action: "禅 · focus mode" }
                 ]
                 Rectangle {
                     required property var modelData
                     Layout.fillWidth: true
-                    height: 56
-                    radius: 16
+                    height: 38
+                    radius: 12
                     color: Theme.black
-                    Row { anchors.verticalCenter: parent.verticalCenter; anchors.left: parent.left; anchors.leftMargin: 16; spacing: 14
-                        Text { text: parent.parent.modelData.jp; color: Theme.primary; font.family: Theme.font; font.pixelSize: 18; font.bold: true }
-                        Text { text: parent.parent.modelData.title; color: Theme.foreground; font.family: Theme.font; font.pixelSize: 13 }
+                    RowLayout { anchors.fill: parent; anchors.leftMargin: 12; anchors.rightMargin: 12
+                        Text { text: parent.parent.modelData.key; color: Theme.primary; font.family: Theme.font; font.pixelSize: 11; font.bold: true }
+                        Item { Layout.fillWidth: true }
+                        Text { text: parent.parent.modelData.action; color: Theme.foreground; opacity: 0.7; font.family: Theme.font; font.pixelSize: 10 }
                     }
-                    MouseArea { anchors.fill: parent; onClicked: { Quickshell.execDetached(parent.modelData.command); root.close() } }
+                }
+            }
+            Item { Layout.fillHeight: true }
+        }
+    }
+
+    Component {
+        id: systemPage
+        ColumnLayout {
+            spacing: 12
+            RowLayout {
+                Layout.fillWidth: true
+                Repeater {
+                    model: [{ label: "CPU", value: ResourceUsage.cpuUsage }, { label: "RAM", value: ResourceUsage.memoryUsage }]
+                    Rectangle {
+                        required property var modelData
+                        Layout.fillWidth: true
+                        height: 100
+                        radius: 18
+                        color: Theme.black
+                        Column { anchors.centerIn: parent; spacing: 4
+                            Text { anchors.horizontalCenter: parent.horizontalCenter; text: Math.round(parent.parent.modelData.value * 100) + "%"; color: Theme.primary; font.family: Theme.font; font.pixelSize: 30; font.bold: true }
+                            Text { anchors.horizontalCenter: parent.horizontalCenter; text: parent.parent.modelData.label; color: Theme.foreground; opacity: 0.5; font.family: Theme.font; font.pixelSize: 11 }
+                        }
+                    }
                 }
             }
             Rectangle {
                 Layout.fillWidth: true
+                height: 125
+                radius: 18
+                color: Theme.black
+                Text { anchors.fill: parent; anchors.margins: 14; text: root.systemInfo; color: Theme.foreground; opacity: 0.75; font.family: Theme.font; font.pixelSize: 11; wrapMode: Text.Wrap }
+            }
+            Rectangle {
+                Layout.fillWidth: true
                 height: 58
-                radius: 16
+                radius: 18
                 color: Theme.black
                 Row { anchors.centerIn: parent; spacing: 12
                     Text { text: "筆"; color: Theme.primary; font.family: Theme.font; font.pixelSize: 18; font.bold: true }
-                    Text { text: "XP-Pen  " + root.deviceStatus; color: Theme.foreground; font.family: Theme.font; font.pixelSize: 13 }
+                    Text { text: "XP-Pen  " + root.deviceStatus; color: Theme.foreground; font.family: Theme.font; font.pixelSize: 12 }
                 }
+                MouseArea { anchors.fill: parent; onClicked: { tabletQuery.running = false; tabletQuery.running = true } }
             }
+            Item { Layout.fillHeight: true }
         }
     }
 }

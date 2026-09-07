@@ -4,31 +4,20 @@ import QtQuick
 import QtQuick.Layouts
 import Quickshell
 import Quickshell.Services.Notifications
+import Quickshell.Widgets
 
 Scope {
     id: root
 
-    ListModel {
-        id: notifications
-    }
-
     NotificationServer {
+        id: server
         bodySupported: true
+        bodyMarkupSupported: true
         imageSupported: true
         actionsSupported: true
+        actionIconsSupported: true
         keepOnReload: true
-
-        onNotification: notification => {
-            notification.tracked = true
-            notifications.insert(0, {
-                appName: notification.appName || "Notification",
-                summary: notification.summary || "",
-                body: notification.body || "",
-                notificationId: notification.id
-            })
-            while (notifications.count > 4)
-                notifications.remove(notifications.count - 1)
-        }
+        onNotification: notification => notification.tracked = true
     }
 
     PanelWindow {
@@ -37,97 +26,130 @@ Scope {
         anchors.right: true
         margins.top: 48
         margins.right: 10
-        implicitWidth: 340
+        implicitWidth: 360
         implicitHeight: stack.implicitHeight
         color: "transparent"
         exclusiveZone: 0
-        visible: notifications.count > 0
+        focusable: server.trackedNotifications.values.length > 0
+        visible: server.trackedNotifications.values.length > 0
+
+        Item {
+            anchors.fill: parent
+            focus: parent.visible
+            Keys.onEscapePressed: {
+                for (const notification of server.trackedNotifications.values)
+                    notification.dismiss()
+            }
+        }
 
         Column {
             id: stack
-
-            width: 340
+            width: 360
             spacing: 8
 
             Repeater {
-                model: notifications
+                model: server.trackedNotifications
 
                 Rectangle {
                     id: toast
-
-                    required property string appName
-                    required property string summary
-                    required property string body
-                    required property int index
-                    width: 340
-                    height: Math.max(86, notificationContent.implicitHeight + 22)
-                    radius: 6
+                    required property Notification modelData
+                    width: 360
+                    height: Math.max(96, content.implicitHeight + 24)
+                    radius: 18
                     color: Theme.background
-                    border.width: 3
-                    border.color: Theme.primary
+                    border.width: 1
+                    border.color: Theme.alternate
+                    clip: true
 
-                    ColumnLayout {
-                        id: notificationContent
+                    Rectangle {
+                        anchors { left: parent.left; top: parent.top; bottom: parent.bottom }
+                        width: 5
+                        color: Theme.primary
+                    }
 
-                        anchors {
-                            fill: parent
-                            margins: 11
-                        }
-                        spacing: 4
+                    RowLayout {
+                        id: content
+                        anchors.fill: parent
+                        anchors.margins: 12
+                        anchors.leftMargin: 16
+                        spacing: 12
 
-                        RowLayout {
-                            Layout.fillWidth: true
+                        Rectangle {
+                            Layout.preferredWidth: 48
+                            Layout.preferredHeight: 48
+                            radius: 16
+                            color: Theme.black
 
-                            Text {
-                                Layout.fillWidth: true
-                                text: toast.appName
-                                color: Theme.foreground
-                                opacity: 0.65
-                                font.family: Theme.uiFont
-                                font.pixelSize: 11
+                            Image {
+                                anchors.fill: parent
+                                anchors.margins: toast.modelData.image ? 0 : 10
+                                source: toast.modelData.image || Quickshell.iconPath(toast.modelData.appIcon, true)
+                                fillMode: Image.PreserveAspectCrop
+                                visible: source !== ""
                             }
 
                             Text {
-                                text: "×"
-                                color: Theme.foreground
-                                font.pixelSize: 15
+                                anchors.centerIn: parent
+                                visible: !parent.children[0].visible
+                                text: (toast.modelData.appName || "?").slice(0, 1).toUpperCase()
+                                color: Theme.primary
+                                font.family: Theme.font
+                                font.pixelSize: 20
+                                font.bold: true
+                            }
+                        }
 
-                                MouseArea {
-                                    anchors.fill: parent
-                                    onClicked: notifications.remove(toast.index)
+                        ColumnLayout {
+                            Layout.fillWidth: true
+                            spacing: 3
+
+                            RowLayout {
+                                Layout.fillWidth: true
+                                Text { Layout.fillWidth: true; text: toast.modelData.appName || "知らせ"; color: Theme.primary; opacity: 0.8; font.family: Theme.uiFont; font.pixelSize: 10; font.bold: true }
+                                Text { text: "今"; color: Theme.foreground; opacity: 0.35; font.family: Theme.font; font.pixelSize: 10 }
+                            }
+
+                            Text { Layout.fillWidth: true; text: toast.modelData.summary; color: Theme.foreground; font.family: Theme.uiFont; font.bold: true; font.pixelSize: 13; elide: Text.ElideRight }
+                            Text { Layout.fillWidth: true; text: toast.modelData.body; visible: text !== ""; color: Theme.foreground; opacity: 0.72; font.family: Theme.uiFont; font.pixelSize: 11; elide: Text.ElideRight; maximumLineCount: 2 }
+
+                            RowLayout {
+                                visible: toast.modelData.actions.length > 0
+                                Repeater {
+                                    model: toast.modelData.actions
+                                    Rectangle {
+                                        required property var modelData
+                                        implicitWidth: actionText.implicitWidth + 16
+                                        implicitHeight: 24
+                                        radius: 12
+                                        color: Theme.black
+                                        Text { id: actionText; anchors.centerIn: parent; text: parent.modelData.text; color: Theme.primary; font.family: Theme.uiFont; font.pixelSize: 10 }
+                                        MouseArea { anchors.fill: parent; onClicked: parent.modelData.invoke() }
+                                    }
                                 }
                             }
                         }
+                    }
 
-                        Text {
-                            Layout.fillWidth: true
-                            text: toast.summary
-                            color: Theme.foreground
-                            font.family: Theme.uiFont
-                            font.bold: true
-                            font.pixelSize: 14
-                            elide: Text.ElideRight
-                        }
+                    TapHandler { onTapped: toast.modelData.dismiss() }
 
-                        Text {
-                            Layout.fillWidth: true
-                            text: toast.body
-                            visible: text !== ""
-                            color: Theme.foreground
-                            opacity: 0.8
-                            font.family: Theme.uiFont
-                            font.pixelSize: 12
-                            elide: Text.ElideRight
+                    Rectangle {
+                        anchors { left: parent.left; bottom: parent.bottom }
+                        property real remaining: 1
+                        width: parent.width * remaining
+                        height: 2
+                        color: Theme.primary
+
+                        NumberAnimation on remaining {
+                            from: 1
+                            to: 0
+                            duration: Math.max(5000, toast.modelData.expireTimeout * 1000)
                         }
                     }
 
                     Timer {
-                        interval: 5000
+                        interval: Math.max(5000, toast.modelData.expireTimeout * 1000)
                         running: true
-                        onTriggered: {
-                            if (toast.index >= 0 && toast.index < notifications.count)
-                                notifications.remove(toast.index)
-                        }
+                        onTriggered: toast.modelData.expire()
                     }
                 }
             }

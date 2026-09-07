@@ -50,7 +50,15 @@ Scope {
 
                 MouseArea {
                     anchors.fill: parent
-                    onClicked: ShellState.showWidget(parent.page)
+                    onClicked: {
+                        if (parent.page === "wallpaper") {
+                            ShellState.widgetShelfVisible = false
+                            ShellState.wallpaperPickerVisible = !ShellState.wallpaperPickerVisible
+                        } else {
+                            ShellState.wallpaperPickerVisible = false
+                            ShellState.showWidget(parent.page)
+                        }
+                    }
                 }
             }
 
@@ -178,10 +186,12 @@ Scope {
 
                     Row {
                         spacing: 2
-                        ShelfButton { glyph: "暦"; page: "calendar" }
                         ShelfButton { glyph: "天"; page: "weather" }
                         ShelfButton { glyph: "音"; page: "audio" }
-                        ShelfButton { glyph: "道"; page: "tools" }
+                        ShelfButton { glyph: "壁"; page: "wallpaper" }
+                        ShelfButton { glyph: "記"; page: "notes" }
+                        ShelfButton { glyph: "鍵"; page: "keys" }
+                        ShelfButton { glyph: "機"; page: "system" }
                     }
 
                     Row {
