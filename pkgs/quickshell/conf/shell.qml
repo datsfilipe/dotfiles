@@ -42,6 +42,7 @@ ShellRoot {
     }
 
     Dashboard {}
+    WidgetShelf {}
     Launcher {}
     PowerMenu {}
     BrightnessOsd {}

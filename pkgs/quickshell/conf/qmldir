@@ -1,10 +1,12 @@
 singleton Theme 1.0 Theme.qml
 singleton NiriState 1.0 NiriState.qml
 singleton ResourceUsage 1.0 ResourceUsage.qml
+singleton ShellState 1.0 ShellState.qml
 Bar 1.0 Bar.qml
 Dashboard 1.0 Dashboard.qml
 BrightnessOsd 1.0 BrightnessOsd.qml
 VolumeOsd 1.0 VolumeOsd.qml
+WidgetShelf 1.0 WidgetShelf.qml
 Launcher 1.0 Launcher.qml
 Notifications 1.0 Notifications.qml
 PowerMenu 1.0 PowerMenu.qml

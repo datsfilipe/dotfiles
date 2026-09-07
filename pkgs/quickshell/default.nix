@@ -9,11 +9,13 @@
   niri,
   brightnessctl,
   wireplumber,
+  curl,
+  usbutils,
   reversal-icon-theme,
   colorscheme,
   ...
 }: let
-  runtimePath = lib.makeBinPath [coreutils gnugrep iproute2 niri brightnessctl wireplumber];
+  runtimePath = lib.makeBinPath [coreutils gnugrep iproute2 niri brightnessctl wireplumber curl usbutils];
 in
   stdenvNoCC.mkDerivation {
     pname = "dats-quickshell";

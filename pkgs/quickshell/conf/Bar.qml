@@ -29,7 +29,30 @@ Scope {
             property var outputWorkspaces: NiriState.workspaces.filter(workspace => workspace.output === screen.name)
             property var outputWindows: NiriState.windows.filter(client => outputWorkspaces.some(workspace => workspace.id === client.workspace_id))
             property int activeWorkspace: outputWorkspaces.find(workspace => workspace.is_active)?.idx ?? 1
-            property int shownWorkspaces: Math.max(5, ...outputWorkspaces.map(workspace => workspace.idx))
+
+            component ShelfButton: Rectangle {
+                required property string glyph
+                required property string page
+                width: 24
+                height: 24
+                radius: 12
+                color: ShellState.widgetShelfVisible && ShellState.widgetShelfPage === page ? Theme.primary : Theme.alternate
+                border.width: 1
+                border.color: ShellState.widgetShelfVisible && ShellState.widgetShelfPage === page ? Theme.primary : Theme.selection
+
+                Text {
+                    anchors.centerIn: parent
+                    text: parent.glyph
+                    color: parent.color === Theme.primary ? Theme.black : Theme.foreground
+                    font.family: Theme.font
+                    font.pixelSize: 13
+                }
+
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: ShellState.showWidget(parent.page)
+                }
+            }
 
             Rectangle {
                 anchors { fill: parent; leftMargin: 6; rightMargin: 6; topMargin: 4; bottomMargin: 4 }
@@ -56,12 +79,12 @@ Scope {
                             spacing: 2
 
                             Repeater {
-                                model: window.shownWorkspaces
+                                model: window.outputWorkspaces.sort((left, right) => left.idx - right.idx)
 
                                 Rectangle {
                                     id: workspaceButton
-                                    required property int index
-                                    property int workspaceNumber: index + 1
+                                    required property var modelData
+                                    property int workspaceNumber: modelData.idx
                                     property bool active: workspaceNumber === window.activeWorkspace
                                     property bool occupied: window.outputWindows.some(client => window.outputWorkspaces.find(workspace => workspace.id === client.workspace_id)?.idx === workspaceNumber)
                                     width: active ? 28 : 20
@@ -151,6 +174,14 @@ Scope {
                                 }
                             }
                         }
+                    }
+
+                    Row {
+                        spacing: 2
+                        ShelfButton { glyph: "暦"; page: "calendar" }
+                        ShelfButton { glyph: "天"; page: "weather" }
+                        ShelfButton { glyph: "音"; page: "audio" }
+                        ShelfButton { glyph: "道"; page: "tools" }
                     }
 
                     Row {
