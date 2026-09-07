@@ -27,7 +27,10 @@ in {
       mimeApps = {
         enable = true;
         defaultApplications = let
-          browser = ["chromium.desktop"];
+          browser =
+            if config.modules.programs.browsers.user.work.enable
+            then ["work-browser.desktop"]
+            else ["chromium.desktop"];
           editor = ["nvim.desktop"];
         in {
           "application/json" = browser;

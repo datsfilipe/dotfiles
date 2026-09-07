@@ -22,7 +22,8 @@
     exec = "work-browser %U";
     icon = "chromium";
     categories = ["Network" "WebBrowser"];
-    startupWMClass = "Chromium";
+    mimeTypes = ["text/html" "x-scheme-handler/http" "x-scheme-handler/https"];
+    startupWMClass = "WorkBrowser";
   };
 in
   symlinkJoin {
