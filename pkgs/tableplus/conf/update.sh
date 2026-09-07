@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$(git rev-parse --show-toplevel)/scripts/lib/update-source.sh"
+SCRIPT_DIR=$(script_dir)
 
 URL="https://tableplus.com/release/linux/x64/TablePlus-x64.AppImage"
 
