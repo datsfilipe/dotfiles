@@ -69,5 +69,8 @@ in {
     systemd.settings.Manager = {
       DefaultTimeoutStopSec = "4s";
     };
+    systemd.user.settings.Manager = {
+      DefaultTimeoutStopSec = "4s";
+    };
   };
 }
