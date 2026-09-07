@@ -4,7 +4,7 @@
     files = builtins.readDir dir;
 
     # Find directories to recurse into
-    dirs = lib.attrNames (lib.filterAttrs (name: type: type == "directory") files);
+    dirs = lib.attrNames (lib.filterAttrs (_: type: type == "directory") files);
 
     # Find files that match the suffix
     matchedFiles = lib.attrNames (lib.filterAttrs (

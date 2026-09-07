@@ -25,7 +25,6 @@ in {
       pciutils
       usbutils
       parted
-      # openvpn
       gnumake
       udiskie
       gum

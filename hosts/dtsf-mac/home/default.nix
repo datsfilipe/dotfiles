@@ -27,7 +27,6 @@
 
   modules.editors.neovim.user.enable = true;
 
-  # neovim/os.nix (which sets EDITOR) isn't imported on darwin, so set it here.
   home.sessionVariables = {
     EDITOR = "nvim";
     MANPAGER = "nvim +Man!";

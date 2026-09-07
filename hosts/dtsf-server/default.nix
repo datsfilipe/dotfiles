@@ -47,7 +47,6 @@ in {
     user = myvars.username;
   };
 
-  # Configure Jellyfin base URL - create network.xml if missing
   systemd.tmpfiles.rules = [
     "d /var/lib/jellyfin/plugins 0755 ${myvars.username} users -"
     "d /var/lib/jellyfin/plugins/JellyNext_v1.3.0.0 0755 ${myvars.username} users -"
@@ -105,7 +104,7 @@ in {
   services.minecraft-server = {
     enable = true;
     eula = true;
-    openFirewall = true; # port 25565
+    openFirewall = true;
     jvmOpts = "-Xmx4G -Xms2G";
   };
 
@@ -160,7 +159,6 @@ in {
     openFirewall = true;
   };
 
-  # nginx with HTTPS for reverse proxy
   services.nginx = {
     enable = true;
     recommendedProxySettings = true;
@@ -268,7 +266,6 @@ in {
     };
   };
 
-  # Generate self-signed certificate before nginx starts
   systemd.services.nginx.preStart = ''
     CERT_DIR="/var/lib/acme/dtsf-server"
     mkdir -p "$CERT_DIR"
@@ -316,8 +313,8 @@ in {
   environment.systemPackages = [pkgs.cryptsetup pkgs.filebrowser];
 
   networking.firewall.allowedTCPPorts = [
-    443 # nginx HTTPS
-    6881 # qbittorrent torrenting
+    443
+    6881
   ];
 
   networking.firewall.allowedUDPPorts = [6881];

@@ -12,7 +12,6 @@ $magenta: #4e00e4;
 $cyan: #04cccc;
 $white: #ffffff;
 
-// general
 * {
   all: unset;
   font-weight: 500;
@@ -43,20 +42,17 @@ highlight {
   border-radius: 4px;
 }
 
-/* Updated Global Slider Styles */
 slider {
   min-height: 10px;
   min-width: 10px;
 }
 
-/* Style the track (empty part) */
 slider trough {
   min-height: 10px;
   border-radius: 6px;
   background-color: $altbg;
 }
 
-/* Style the filled part */
 slider highlight {
   min-height: 10px;
   border-radius: 6px;
@@ -93,7 +89,6 @@ menu {
   }
 }
 
-// bar
 .bar {
   color: $fg;
   font-size: 13px;
@@ -204,7 +199,6 @@ menu {
   }
 }
 
-// launcher
 window#launcher {
   background: transparent;
 }
@@ -285,7 +279,6 @@ window#launcher {
   color: $primary;
 }
 
-// powermenu
 window#powermenu {
   background: transparent;
 }
@@ -340,7 +333,6 @@ window#powermenu {
   transition: background 0.1s ease;
 }
 
-// osd
 .osd-window {
   background: transparent;
 }
@@ -385,7 +377,6 @@ window#powermenu {
   background-color: $red;
 }
 
-// notifications
 .notifications-window {
   background: transparent;
 }

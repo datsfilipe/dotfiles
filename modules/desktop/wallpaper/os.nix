@@ -128,8 +128,6 @@ in {
         ${
           if wallpaperUsesGdrive
           then ''
-            # Do not read the wallpaper through the FUSE mount. A stalled FUSE
-            # request is unkillable and used to hold the user manager at shutdown.
             SOURCE_WALLPAPER="$CACHE_DIR/source-wallpaper"
             DOWNLOAD="$CACHE_DIR/source-wallpaper.download"
             nm-online --quiet --timeout=30 || true
