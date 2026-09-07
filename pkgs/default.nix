@@ -5,7 +5,6 @@
   unix-scripts,
   zellij-switch,
   theme,
-  gif-filename,
   ...
 }: let
   packageFiles =
@@ -13,13 +12,12 @@
     (
       path:
         !lib.strings.hasPrefix (toString ./overlays) (toString path)
-        && builtins.baseNameOf path != "home.nix"
     )
     (mylib.file.scanPaths ./. ".nix");
 
   pkgsWithOverlays =
     (pkgs.extend zellij-switch.overlays.default)
-    // {unix-scripts = unix-scripts;};
+    // {inherit unix-scripts;};
 
   colorscheme = import ../modules/themes/${theme}.nix;
 
@@ -37,12 +35,12 @@
           name = name;
           value = let
             scriptFile = ./scripts/default.nix;
-            astalFile = ./astal/default.nix;
+            quickshellFile = ./quickshell/default.nix;
             scriptArgs =
               if toString file == toString scriptFile
               then {inherit unix-scripts;}
-              else if toString file == toString astalFile
-              then {inherit colorscheme gif-filename;}
+              else if toString file == toString quickshellFile
+              then {inherit colorscheme;}
               else {};
           in
             pkgsWithOverlays.callPackage file scriptArgs;
@@ -52,7 +50,6 @@
     )
     // {
       inherit (pkgsWithOverlays) zellij-switch;
-      # ghostty = ghostty.packages.${pkgs.stdenv.hostPlatform.system}.ghostty-releasefast;
     };
 in
   packages

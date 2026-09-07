@@ -15,7 +15,6 @@
   procps,
   coreutils,
 }: let
-  # Read version info from source.json
   source = builtins.fromJSON (builtins.readFile ./conf/source.json);
   mascotsDir = ./conf/shimeji-ee;
   pythonEnv = python3.withPackages (ps: [ps.pillow]);
@@ -66,11 +65,9 @@ in
         --prefix PYTHONPATH : "${pythonEnv}/${pythonEnv.sitePackages}" \
         --prefix PATH : "$out/bin:${pythonEnv}/bin"
 
-      # Copy zips
       mkdir -p $out/share/wl-shimeji/zips
       cp "${mascotsDir}"/*.zip $out/share/wl-shimeji/zips/
 
-      # Create runtime wrappers
       for zipfile in $out/share/wl-shimeji/zips/*.zip; do
         zip_basename=$(basename "$zipfile")
         name_no_ext="''${zip_basename%.*}"
@@ -82,7 +79,6 @@ in
       #!/bin/sh
       set -e
 
-      # 1. Daemon Keep-Alive
       if ! ${procps}/bin/pgrep -f "shimeji-overlayd" > /dev/null; then
         echo "Starting shimeji-overlayd..."
         ${coreutils}/bin/nohup $out/bin/shimeji-overlayd > /dev/null 2>&1 &
@@ -92,11 +88,9 @@ in
       CACHE_DIR="\$HOME/.cache/wl-shimeji/converted/$name_no_ext"
       mkdir -p "\$CACHE_DIR"
 
-      # 2. Convert
       echo "Attempting conversion of $name_no_ext..."
       echo "A" | $out/bin/shimejictl convert "$zipfile" -O "\$CACHE_DIR" > /dev/null 2>&1 || true
 
-      # 3. Check for success
       count=\$(find "\$CACHE_DIR" -maxdepth 1 -name "Shimeji.*.wlshm" | wc -l)
       if [ "\$count" -eq 0 ]; then
           echo "Error: Conversion failed. No prototype files found."
@@ -104,7 +98,6 @@ in
           exit 1
       fi
 
-      # 4. Smart Selection Logic
       BEST_MATCH=""
       FIRST_FOUND=""
       ZIP_LOWER=\$(echo "$name_no_ext" | tr '[:upper:]' '[:lower:]')
@@ -112,10 +105,8 @@ in
       for wlshm in "\$CACHE_DIR"/Shimeji.*.wlshm; do
           [ -e "\$wlshm" ] || continue
 
-          # Import
           $out/bin/shimejictl prototypes import "\$wlshm" > /dev/null 2>&1 || true
 
-          # Extract internal name
           base=\$(basename "\$wlshm")
           internal_name=\$(echo "\$base" | ${gnused}/bin/sed -E 's/^Shimeji\.(.+)\.wlshm\$/\1/')
           NAME_LOWER=\$(echo "\$internal_name" | tr '[:upper:]' '[:lower:]')
@@ -124,13 +115,11 @@ in
               FIRST_FOUND="\$internal_name"
           fi
 
-          # Fuzzy match zip name to mascot name
           if echo "\$ZIP_LOWER" | grep -q "\$NAME_LOWER"; then
               BEST_MATCH="\$internal_name"
           fi
       done
 
-      # 5. Summon
       if [ -n "\$BEST_MATCH" ]; then
           echo "Summoning \$BEST_MATCH..."
           $out/bin/shimejictl mascot summon "\$BEST_MATCH"

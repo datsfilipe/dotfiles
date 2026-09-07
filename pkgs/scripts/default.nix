@@ -11,6 +11,6 @@ stdenvNoCC.mkDerivation {
   installPhase = ''
     mkdir -p $out/bin
     cp -r ./* $out/bin/
-    rm -f $out/bin/LICENSE $out/bin/README.md
+    rm -f $out/bin/LICENSE $out/bin/README.md $out/bin/shared-clipboard
   '';
 }

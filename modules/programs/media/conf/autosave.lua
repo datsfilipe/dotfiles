@@ -1,6 +1,3 @@
--- autosave.lua script
-
--- Fork from: https://gist.github.com/CyberShadow/2f71a97fb85ed42146f6d9f522bc34ef
 local options = require("mp.options")
 
 local o = {
@@ -14,7 +11,6 @@ local mp = require("mp")
 local function save()
 	local filename = mp.get_property("filename")
 
-	-- Just save if there is a filename and it doesn't finish with .mp3
 	if filename and not filename:match(".mp3$") then
 		mp.commandv("set", "msg-level", "cplayer=warn")
 		mp.command("write-watch-later-config")

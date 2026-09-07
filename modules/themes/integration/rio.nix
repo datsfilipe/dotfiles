@@ -14,7 +14,6 @@
     colors.cursor = "${colorscheme.colors.primary}";
     colors.vi-cursor = "${colorscheme.colors.fg}";
 
-    # Navigation
     colors.tabs = "${colorscheme.colors.bg}";
     colors.tabs-foreground = "${colorscheme.colors.fg}";
     colors.tabs-active = "${colorscheme.colors.bg}";

@@ -3,8 +3,9 @@ work="$HOME/downloads"
 runtime="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}"
 nssdb="$profile/pki/nssdb"
 servercert="/run/secrets/certs/server"
+tmp="$profile/tmp"
 
-mkdir -p "$profile" "$work" "$nssdb"
+mkdir -p "$profile" "$work" "$nssdb" "$tmp"
 
 if [ ! -f "$nssdb/cert9.db" ]; then
   certutil -N -d "sql:$nssdb" --empty-password >/dev/null 2>&1 || true
@@ -17,16 +18,13 @@ fi
 prefs="$profile/chromium/Default/Preferences"
 mkdir -p "$(dirname "$prefs")"
 if [ ! -f "$prefs" ]; then
-  printf '{}' >"$prefs"
+  jq -n '
+    .webkit.webprefs.fonts.standard.Zyyy = "Inter"
+    | .webkit.webprefs.fonts.serif.Zyyy = "Inter"
+    | .webkit.webprefs.fonts.sansserif.Zyyy = "Inter"
+    | .webkit.webprefs.fonts.fixed.Zyyy = "JetBrainsMono Nerd Font"
+  ' >"$prefs"
 fi
-ftmp="$(mktemp)"
-jq '
-  .webkit.webprefs.fonts.standard.Zyyy = "Inter"
-  | .webkit.webprefs.fonts.serif.Zyyy = "Inter"
-  | .webkit.webprefs.fonts.sansserif.Zyyy = "Inter"
-  | .webkit.webprefs.fonts.fixed.Zyyy = "JetBrainsMono Nerd Font"
-' "$prefs" >"$ftmp"
-mv "$ftmp" "$prefs"
 
 binds=(
   --ro-bind /nix/store /nix/store
@@ -41,7 +39,7 @@ binds=(
   --tmpfs /dev/shm
   --dev-bind-try /dev/dri /dev/dri
   --dev-bind-try /dev/bus/usb /dev/bus/usb
-  --tmpfs /tmp
+  --bind "$tmp" /tmp
   --bind-try /tmp/.X11-unix /tmp/.X11-unix
   --tmpfs "$HOME"
   --bind "$profile" "$profile"
@@ -75,6 +73,7 @@ done
 exec bwrap "${binds[@]}" \
   chromium \
   --user-data-dir="$profile/chromium" \
+  --class=WorkBrowser \
   --ozone-platform=x11 \
   --disable-features=Vulkan \
   --no-first-run \

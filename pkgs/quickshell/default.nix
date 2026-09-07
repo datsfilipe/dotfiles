@@ -1,0 +1,88 @@
+{
+  lib,
+  stdenvNoCC,
+  quickshell,
+  makeWrapper,
+  coreutils,
+  gnugrep,
+  gnused,
+  procps,
+  systemd,
+  alacritty,
+  iproute2,
+  niri,
+  brightnessctl,
+  wireplumber,
+  curl,
+  usbutils,
+  swaybg,
+  imagemagick,
+  findutils,
+  reversal-icon-theme,
+  colorscheme,
+  ...
+}: let
+  runtimePath = lib.makeBinPath [coreutils gnugrep gnused procps systemd alacritty iproute2 niri brightnessctl wireplumber curl usbutils swaybg imagemagick findutils];
+in
+  stdenvNoCC.mkDerivation {
+    pname = "dats-quickshell";
+    version = "1.0.0";
+    src = ./conf;
+    nativeBuildInputs = [makeWrapper];
+
+    installPhase = ''
+      mkdir -p $out/share/dats-quickshell $out/bin
+      cp -r . $out/share/dats-quickshell
+      substituteInPlace $out/share/dats-quickshell/Theme.qml \
+        --replace-fail @primary@ ${lib.escapeShellArg colorscheme.colors.primary} \
+        --replace-fail @background@ ${lib.escapeShellArg colorscheme.colors.bg} \
+        --replace-fail @alternate@ ${lib.escapeShellArg colorscheme.colors.altbg} \
+        --replace-fail @selection@ ${lib.escapeShellArg colorscheme.colors.selection} \
+        --replace-fail @foreground@ ${lib.escapeShellArg colorscheme.colors.fg} \
+        --replace-fail @black@ ${lib.escapeShellArg colorscheme.colors.black} \
+        --replace-fail @red@ ${lib.escapeShellArg colorscheme.colors.red} \
+        --replace-fail @green@ ${lib.escapeShellArg colorscheme.colors.green} \
+        --replace-fail @yellow@ ${lib.escapeShellArg colorscheme.colors.yellow} \
+        --replace-fail @blue@ ${lib.escapeShellArg colorscheme.colors.blue} \
+        --replace-fail @magenta@ ${lib.escapeShellArg colorscheme.colors.magenta} \
+        --replace-fail @cyan@ ${lib.escapeShellArg colorscheme.colors.cyan} \
+        --replace-fail @white@ ${lib.escapeShellArg colorscheme.colors.white}
+      makeWrapper ${quickshell}/bin/qs $out/bin/wmain \
+        --prefix PATH : $out/bin:${runtimePath} \
+        --prefix XDG_DATA_DIRS : ${reversal-icon-theme}/share \
+        --set QS_ICON_THEME Reversal-dark \
+        --add-flags "--path $out/share/dats-quickshell"
+      makeWrapper ${quickshell}/bin/qs $out/bin/wlauncher \
+        --prefix PATH : ${runtimePath} \
+        --prefix XDG_DATA_DIRS : ${reversal-icon-theme}/share \
+        --set QS_ICON_THEME Reversal-dark \
+        --add-flags "--path $out/share/dats-quickshell ipc call launcher toggle"
+      makeWrapper ${quickshell}/bin/qs $out/bin/wpowermenu \
+        --prefix PATH : ${runtimePath} \
+        --prefix XDG_DATA_DIRS : ${reversal-icon-theme}/share \
+        --set QS_ICON_THEME Reversal-dark \
+        --add-flags "--path $out/share/dats-quickshell ipc call powermenu toggle"
+      makeWrapper ${quickshell}/bin/qs $out/bin/wdashboard \
+        --prefix PATH : ${runtimePath} \
+        --add-flags "--path $out/share/dats-quickshell ipc call dashboard toggle"
+      makeWrapper ${quickshell}/bin/qs $out/bin/wbrightness-osd \
+        --prefix PATH : ${runtimePath} \
+        --add-flags "--path $out/share/dats-quickshell ipc call osd brightness"
+      makeWrapper ${quickshell}/bin/qs $out/bin/wvolume-osd \
+        --prefix PATH : ${runtimePath} \
+        --add-flags "--path $out/share/dats-quickshell ipc call volumeOsd volume"
+      makeWrapper ${quickshell}/bin/qs $out/bin/wbar-autohide \
+        --prefix PATH : ${runtimePath} \
+        --add-flags "--path $out/share/dats-quickshell ipc call shell"
+      makeWrapper ${./scripts/wallpaper-preview} $out/bin/wwallpaper-preview \
+        --prefix PATH : ${runtimePath}
+      makeWrapper ${./scripts/wallpaper-restore} $out/bin/wwallpaper-restore \
+        --prefix PATH : ${runtimePath}
+      makeWrapper ${./scripts/wallpaper-apply} $out/bin/wwallpaper-apply \
+        --prefix PATH : ${runtimePath}
+      makeWrapper ${./scripts/wallpaper-thumbnails} $out/bin/wwallpaper-thumbnails \
+        --prefix PATH : ${runtimePath}
+    '';
+
+    meta.mainProgram = "wmain";
+  }

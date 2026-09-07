@@ -23,7 +23,7 @@
     ]
     ++ (map mylib.file.relativeToRoot [
       "hosts/${name}/home"
-      "pkgs/home.nix"
+      "modules/desktop/nupkgs/user.nix"
     ]);
 in {
   nixosConfigurations = {

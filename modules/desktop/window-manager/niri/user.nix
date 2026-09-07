@@ -9,7 +9,6 @@ with lib; let
   cfg = config.modules.desktop.wm.niri.user;
   generateConfig = rootConfig: builtins.concatStringsSep "\n" rootConfig.modules.desktop.wm.niri.user.rawConfigValues;
   hostMonitors = config.modules.hardware.monitors.monitors or [];
-  monitorCount = builtins.length hostMonitors;
 in {
   options.modules.desktop.wm.niri.user = {
     enable = mkEnableOption "Niri configuration";
@@ -31,7 +30,7 @@ in {
       ++ [mypkgs.niri-stack-to-n];
 
     modules.desktop.wm.niri.user.rawConfigValues = [
-      ''spawn-at-startup "sh" "-c" "wmain ${toString monitorCount}"''
+      ''spawn-at-startup "wmain"''
       ''spawn-at-startup "sh" "-c" "udiskie --tray --notify"''
       ''spawn-at-startup "sh" "-c" "systemctl --user restart wallpaper.service"''
       ''spawn-at-startup "sh" "-c" "nm-applet"''

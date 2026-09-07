@@ -34,7 +34,6 @@ in {
     wallpaper-zoom = 0;
 
     # used by powermenu widget
-    gif-filename = "gif0.gif";
 
     monitors = {
       pc = [

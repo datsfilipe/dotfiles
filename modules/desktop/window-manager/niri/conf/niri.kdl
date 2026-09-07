@@ -62,22 +62,22 @@ gestures {
 }
 binds {
   XF86AudioRaiseVolume allow-when-locked=true {
-    spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1+"
+    spawn "sh" "-c" "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+ && wvolume-osd"
   }
   XF86AudioLowerVolume allow-when-locked=true {
-    spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1-"
+    spawn "sh" "-c" "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1- && wvolume-osd"
   }
   XF86AudioMute allow-when-locked=true {
-    spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"
+    spawn "sh" "-c" "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle && wvolume-osd"
   }
   XF86AudioMicMute allow-when-locked=true {
     spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"
   }
   XF86MonBrightnessDown allow-when-locked=true {
-    spawn "sh" "-c" "brightnessctl -c backlight set 30- && wmain osd-brightness"
+    spawn "sh" "-c" "brightnessctl -c backlight set 30- && wbrightness-osd"
   }
   XF86MonBrightnessUp allow-when-locked=true {
-    spawn "sh" "-c" "brightnessctl -c backlight set +30 && wmain osd-brightness"
+    spawn "sh" "-c" "brightnessctl -c backlight set +30 && wbrightness-osd"
   }
   XF86AudioPlay allow-when-locked=true {
     spawn "playerctl" "play-pause"
@@ -235,6 +235,9 @@ binds {
   Mod+Shift+E repeat=false {
     spawn "wpowermenu"
   }
+  Mod+Shift+D repeat=false {
+    spawn "wdashboard"
+  }
   Mod+D {
     spawn "wlauncher"
   }
@@ -245,7 +248,7 @@ binds {
     spawn "switch-kb-variant" "intl"
   }
   Alt+W {
-    spawn "sh" "-c" "niri msg pick-color | sed -n 's/^Hex: //p' | tr -d '\n' | shared-clipboard copy"
+    spawn "sh" "-c" "niri msg pick-color | sed -n 's/^Hex: //p' | tr -d '\n' | wl-copy"
   }
   Mod+Return {
     spawn "bash" "-c" "t='dtsf'; s=$(zellij ls -s 2>/dev/null | grep -E \"(-|^)${t}$\" | sort | head -n1); if [ -n \"$s\" ]; then alacritty -e zellij attach \"$s\"; else alacritty -e zellij attach -c \"$(date +%s)-$t\"; fi"
@@ -266,6 +269,6 @@ binds {
     spawn "focus-mode"
   }
   Alt+H repeat=false {
-    spawn "wmain" "toggle-autohide"
+    spawn "wbar-autohide" "toggleAutohide"
   }
 }
