@@ -60,7 +60,7 @@ PanelWindow {
 
     Process {
         id: systemQuery
-        command: ["sh", "-c", "uptime -p; df -h / | tail -n1; ip route get 1.1.1.1 | head -n1"]
+        command: ["sh", "-c", "printf '稼働  '; uptime -p | sed 's/^up //'; df -h / | awk 'NR == 2 { printf \"保存  %s / %s  ·  %s used\\n\", $3, $2, $5 }'; ip route get 1.1.1.1 | awk 'NR == 1 { for (i=1; i<=NF; i++) { if ($i == \"dev\") device=$(i+1); if ($i == \"src\") address=$(i+1) } printf \"通信  %s  ·  %s\\n\", device, address }'"]
         stdout: StdioCollector { onStreamFinished: root.systemInfo = text }
     }
 
@@ -342,7 +342,7 @@ PanelWindow {
                 height: 125
                 radius: 18
                 color: Theme.black
-                Text { anchors.fill: parent; anchors.margins: 14; text: root.systemInfo; color: Theme.foreground; opacity: 0.75; font.family: Theme.font; font.pixelSize: 11; wrapMode: Text.Wrap }
+                Text { anchors.centerIn: parent; width: parent.width - 28; text: root.systemInfo; color: Theme.foreground; opacity: 0.75; font.family: Theme.font; font.pixelSize: 11; lineHeight: 1.5; wrapMode: Text.Wrap }
             }
             Rectangle {
                 Layout.fillWidth: true

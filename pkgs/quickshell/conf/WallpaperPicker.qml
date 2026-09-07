@@ -10,7 +10,7 @@ PanelWindow {
     visible: ShellState.wallpaperPickerVisible
     aboveWindows: true
     focusable: true
-    color: "#99000000"
+    color: "transparent"
     exclusionMode: ExclusionMode.Ignore
     anchors { top: true; bottom: true; left: true; right: true }
 
@@ -46,8 +46,10 @@ PanelWindow {
     }
 
     Rectangle {
-        anchors.centerIn: parent
-        width: Math.min(1120, parent.width - 80)
+        anchors.left: parent.left
+        anchors.verticalCenter: parent.verticalCenter
+        anchors.leftMargin: 28
+        width: Math.min(720, parent.width * 0.42)
         height: Math.min(760, parent.height - 100)
         radius: 28
         color: Theme.background
