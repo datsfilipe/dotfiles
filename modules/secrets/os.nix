@@ -8,9 +8,6 @@
   sops = {
     age.generateKey = false;
     age.sshKeyPaths = ["/home/${myvars.username}/.ssh/alt_key"];
-    # Keep the decryption key on the root filesystem so it is available when
-    # the activation script installs secrets during early boot.
-    age.keyFile = "/var/lib/sops-nix/key.txt";
     defaultSopsFile = ./secrets.yaml;
     defaultSopsFormat = "yaml";
     secrets."ssh/pass/primary" = {

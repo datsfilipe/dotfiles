@@ -8,6 +8,16 @@
   ...
 }: let
   hostName = "dtsf-server";
+  jellyfinJellyNext = pkgs.fetchzip {
+    url = "https://github.com/luall0/jellynext/releases/download/v1.3.0.0/jellynext-v1.3.0.0.zip";
+    hash = "sha256-RnfvN+Kb1kJNcJVT/B0xUPSlz+NXyqTRO9TAkvvoC2s=";
+    stripRoot = false;
+  };
+  jellyfinTrakt = pkgs.fetchzip {
+    url = "https://github.com/jellyfin/jellyfin-plugin-trakt/releases/download/v30/trakt_30.0.0.0.zip";
+    hash = "sha256-CLdvWaGYTEZxLzm8ZPVHKhemp0EgCeJ/QvBMZPI2nYk=";
+    stripRoot = false;
+  };
 in {
   imports =
     [./hardware-configuration.nix ./boot.nix]
@@ -53,7 +63,9 @@ in {
 
   # Configure Jellyfin base URL - create network.xml if missing
   systemd.tmpfiles.rules = [
-    "d /var/lib/jellyfin/config 0755 ${myvars.username} users -"
+    "d /var/lib/jellyfin/plugins 0755 ${myvars.username} users -"
+    "d /var/lib/jellyfin/plugins/JellyNext_v1.3.0.0 0755 ${myvars.username} users -"
+    "d /var/lib/jellyfin/plugins/Trakt_30.0.0.0 0755 ${myvars.username} users -"
     "d /home/dtsf-2 0700 dtsf-2 users -"
     "d /home/${myvars.username}/downloads 0755 ${myvars.username} users -"
   ];
@@ -66,8 +78,22 @@ in {
   '';
 
   systemd.services.jellyfin.preStart = ''
+    rm -rf /var/lib/jellyfin/plugins/StarTrack
+    rm -rf /var/lib/jellyfin/plugins/MindTheGaps
+
+    jellyNextDir=/var/lib/jellyfin/plugins/JellyNext_v1.3.0.0
+    install -d -m 0755 "$jellyNextDir"
+    install -m 0644 ${jellyfinJellyNext}/Jellyfin.Plugin.JellyNext.deps.json "$jellyNextDir/"
+    install -m 0644 ${jellyfinJellyNext}/Jellyfin.Plugin.JellyNext.dll "$jellyNextDir/"
+    install -m 0644 ${jellyfinJellyNext}/Jellyfin.Plugin.JellyNext.pdb "$jellyNextDir/"
+    install -m 0644 ${jellyfinJellyNext}/Jellyfin.Plugin.JellyNext.xml "$jellyNextDir/"
+
+    traktDir=/var/lib/jellyfin/plugins/Trakt_30.0.0.0
+    install -d -m 0755 "$traktDir"
+    install -m 0644 ${jellyfinTrakt}/Trakt.dll "$traktDir/"
+
     if [ ! -f /var/lib/jellyfin/config/network.xml ]; then
-      install -m 0644 -o ${myvars.username} -g users /etc/jellyfin-network.xml /var/lib/jellyfin/config/network.xml
+      install -m 0644 /etc/jellyfin-network.xml /var/lib/jellyfin/config/network.xml
     fi
   '';
 
