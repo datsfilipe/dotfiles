@@ -8,7 +8,6 @@ main() {
     nixos-rebuild switch --flake "$target"
   else
     nix flake update datsnvim
-    nix flake update unix-scripts
     nixos-rebuild switch --flake "$target"
   fi
 

@@ -35,10 +35,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:datsfilipe/zellij-switch/master";
     };
-    unix-scripts = {
-      flake = false;
-      url = "github:datsfilipe/unix-scripts/main";
-    };
   };
   outputs = inputs: import ./outputs inputs;
 }

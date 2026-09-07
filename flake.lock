@@ -258,7 +258,6 @@
         "nixpkgs-stable": "nixpkgs-stable",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "sops-nix": "sops-nix",
-        "unix-scripts": "unix-scripts",
         "zellij-switch": "zellij-switch"
       }
     },
@@ -313,23 +312,6 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default",
-        "type": "github"
-      }
-    },
-    "unix-scripts": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1780862874,
-        "narHash": "sha256-H6scYtGGyMjDTGyfBIZM3jb8eCEX/KDPMljSdBwC4E8=",
-        "owner": "datsfilipe",
-        "repo": "unix-scripts",
-        "rev": "b839c2309cf10964cfd0f418373ba838283f0a16",
-        "type": "github"
-      },
-      "original": {
-        "owner": "datsfilipe",
-        "ref": "main",
-        "repo": "unix-scripts",
         "type": "github"
       }
     },

@@ -8,7 +8,6 @@ main() {
     darwin-rebuild switch --flake "$target"
   else
     nix flake update datsnvim
-    nix flake update unix-scripts
     darwin-rebuild switch --flake "$target"
   fi
 }

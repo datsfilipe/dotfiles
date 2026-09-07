@@ -14,7 +14,6 @@
       // {
         inherit lib mylib;
         theme = myvars.hostsConfig.theme;
-        unix-scripts = inputs.unix-scripts;
         gif-filename = myvars.hostsConfig.gif-filename;
         pkgs = import inputs.nixpkgs {
           inherit system;
@@ -63,13 +62,12 @@
   in
     script;
 
-  generateScritps = pkgs:
+  generateScripts = pkgs:
     map
     (name: mkScript pkgs name (builtins.readFile ./conf/${name}.sh))
     [
       "nixos_switch"
       "nixos_build"
-      "generate_flake"
       "run_lib_tests"
       "darwin_switch"
       "j"
@@ -93,7 +91,7 @@ in {
     in {
       default = pkgs.mkShell {
         name = "dots";
-        nativeBuildInputs = [] ++ (generateScritps pkgs);
+        nativeBuildInputs = generateScripts pkgs;
         packages = with pkgs; [
           bashInteractive
           gcc

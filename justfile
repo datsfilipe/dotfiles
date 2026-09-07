@@ -33,9 +33,6 @@ archbox:
   distrobox assemble create --file ~/.config/distrobox/containers.ini
   distrobox enter arch -- true
 
-generate:
-  generate_flake
-
 secrets:
   nix-shell -p sops --run "sops modules/secrets/secrets.yaml"
 

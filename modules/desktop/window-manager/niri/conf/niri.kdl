@@ -245,7 +245,7 @@ binds {
     spawn "switch-kb-variant" "intl"
   }
   Alt+W {
-    spawn "sh" "-c" "niri msg pick-color | sed -n 's/^Hex: //p' | tr -d '\n' | shared-clipboard copy"
+    spawn "sh" "-c" "niri msg pick-color | sed -n 's/^Hex: //p' | tr -d '\n' | wl-copy"
   }
   Mod+Return {
     spawn "bash" "-c" "t='dtsf'; s=$(zellij ls -s 2>/dev/null | grep -E \"(-|^)${t}$\" | sort | head -n1); if [ -n \"$s\" ]; then alacritty -e zellij attach \"$s\"; else alacritty -e zellij attach -c \"$(date +%s)-$t\"; fi"

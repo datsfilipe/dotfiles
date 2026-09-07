@@ -1,4 +1,1 @@
-[submodule "pkgs/scripts/conf"]
-	path = pkgs/scripts/conf
-	url = git@github.com:datsfilipe/unix-scripts.git
 	branch = main
