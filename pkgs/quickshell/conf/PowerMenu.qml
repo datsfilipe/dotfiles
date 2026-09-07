@@ -22,6 +22,7 @@ PanelWindow {
     }
 
     property int selectedIndex: 0
+    property string selectedLabel: actions[selectedIndex].label
     property var actions: [
         { label: "Shutdown", icon: "", command: ["systemctl", "poweroff"] },
         { label: "Reboot", icon: "", command: ["systemctl", "reboot"] },
@@ -50,9 +51,9 @@ PanelWindow {
         required property var action
         required property int actionIndex
 
-        Layout.preferredWidth: 58
-        Layout.preferredHeight: 58
-        radius: 6
+        Layout.preferredWidth: 68
+        Layout.preferredHeight: 68
+        radius: root.selectedIndex === actionIndex ? 34 : 18
         color: root.selectedIndex === actionIndex ? Theme.black : Theme.background
         border.width: 1
         border.color: root.selectedIndex === actionIndex ? Theme.alternate : "transparent"
@@ -71,6 +72,8 @@ PanelWindow {
             onEntered: root.selectedIndex = parent.actionIndex
             onClicked: root.trigger(parent.actionIndex)
         }
+
+        Behavior on radius { NumberAnimation { duration: 120 } }
     }
 
     IpcHandler {
@@ -109,9 +112,9 @@ PanelWindow {
 
     Rectangle {
         anchors.centerIn: parent
-        width: actionsColumn.implicitWidth + 24
-        height: actionsColumn.implicitHeight + 24
-        radius: 6
+        width: menuContent.implicitWidth + 48
+        height: menuContent.implicitHeight + 38
+        radius: 24
         color: Theme.background
         border.width: 4
         border.color: Theme.primary
@@ -121,37 +124,52 @@ PanelWindow {
         }
 
         ColumnLayout {
-            id: actionsColumn
+            id: menuContent
 
             anchors.centerIn: parent
-            spacing: 10
+            spacing: 14
 
-            ActionButton {
-                action: root.actions[0]
-                actionIndex: 0
-            }
-
-            ActionButton {
-                action: root.actions[1]
-                actionIndex: 1
-            }
-
-            AnimatedImage {
+            Text {
                 Layout.alignment: Qt.AlignHCenter
-                Layout.preferredWidth: 52
-                Layout.preferredHeight: 52
-                source: "assets/gif0.gif"
-                fillMode: Image.PreserveAspectFit
+                text: "電源"
+                color: Theme.foreground
+                font.family: Theme.font
+                font.pixelSize: 24
+                font.bold: true
             }
 
-            ActionButton {
-                action: root.actions[2]
-                actionIndex: 2
+            RowLayout {
+                spacing: 10
+
+                ActionButton { action: root.actions[0]; actionIndex: 0 }
+                ActionButton { action: root.actions[1]; actionIndex: 1 }
+
+                Rectangle {
+                    Layout.preferredWidth: 68
+                    Layout.preferredHeight: 68
+                    radius: 18
+                    color: Theme.background
+                    border.width: 1
+                    border.color: Theme.alternate
+
+                    AnimatedImage {
+                        anchors.fill: parent
+                        anchors.margins: 8
+                        source: "assets/gif0.gif"
+                        fillMode: Image.PreserveAspectFit
+                    }
+                }
+
+                ActionButton { action: root.actions[2]; actionIndex: 2 }
+                ActionButton { action: root.actions[3]; actionIndex: 3 }
             }
 
-            ActionButton {
-                action: root.actions[3]
-                actionIndex: 3
+            Text {
+                Layout.alignment: Qt.AlignHCenter
+                text: root.selectedLabel
+                color: Theme.primary
+                font.family: Theme.uiFont
+                font.pixelSize: 12
             }
         }
     }

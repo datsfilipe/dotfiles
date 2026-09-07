@@ -3,15 +3,13 @@ pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Layouts
 import Quickshell
-import Quickshell.Io
-import Quickshell.Services.SystemTray
 import Quickshell.Services.Mpris
+import Quickshell.Services.SystemTray
 import Quickshell.Services.UPower
 import Quickshell.Widgets
 
 Scope {
     id: root
-
     required property bool visibleState
 
     Variants {
@@ -19,134 +17,81 @@ Scope {
 
         PanelWindow {
             id: window
-
             required property var modelData
             screen: modelData
             visible: root.visibleState
-            implicitHeight: 40
+            implicitHeight: 42
             color: "transparent"
             exclusiveZone: visible ? implicitHeight : 0
+            anchors { top: true; left: true; right: true }
 
-            anchors {
-                top: true
-                left: true
-                right: true
-            }
-
-            property var workspaces: []
-            property string focusedTitle: ""
-            property int cpuUsage: 0
-            property int ramUsage: 0
-            property string networkIcon: "󰈃"
-            property string keyboardLayout: "EN"
             property var mediaPlayer: Mpris.players.values.find(player => player.isPlaying) ?? Mpris.players.values[0] ?? null
-            property int previousIdle: 0
-            property int previousTotal: 0
-
-            Process {
-                id: niriState
-                command: ["sh", "-c", "niri msg -j workspaces && printf '\\n---\\n' && niri msg -j focused-window"]
-                stdout: StdioCollector {
-                    onStreamFinished: {
-                        try {
-                            const parts = text.split("\n---\n")
-                            const all = JSON.parse(parts[0])
-                            window.workspaces = all.filter(ws => ws.output === window.screen.name).sort((a, b) => a.idx - b.idx)
-                            const focused = JSON.parse(parts[1])
-                            window.focusedTitle = focused?.title ?? ""
-                        } catch (error) {
-                            window.workspaces = []
-                            window.focusedTitle = ""
-                        }
-                    }
-                }
-            }
-
-            Process {
-                id: stats
-                command: ["sh", "-c", "head -n1 /proc/stat; grep -E 'MemTotal|MemAvailable' /proc/meminfo; ip -brief address show up; niri msg keyboard-layouts"]
-                stdout: StdioCollector {
-                    onStreamFinished: {
-                        const lines = text.split("\n")
-                        const cpu = lines[0].trim().split(/\\s+/).slice(1).map(Number)
-                        const idle = cpu[3] + (cpu[4] || 0)
-                        const total = cpu.reduce((sum, value) => sum + value, 0)
-                        if (window.previousTotal > 0 && total > window.previousTotal)
-                            window.cpuUsage = Math.round((1 - (idle - window.previousIdle) / (total - window.previousTotal)) * 100)
-                        window.previousIdle = idle
-                        window.previousTotal = total
-                        const totalLine = lines.find(line => line.startsWith("MemTotal:"))
-                        const availableLine = lines.find(line => line.startsWith("MemAvailable:"))
-                        if (totalLine && availableLine) {
-                            const memoryTotal = Number(totalLine.trim().split(/\\s+/)[1])
-                            const memoryAvailable = Number(availableLine.trim().split(/\\s+/)[1])
-                            window.ramUsage = Math.round((memoryTotal - memoryAvailable) / memoryTotal * 100)
-                        }
-                        const ethernet = lines.find(line => /^(en|eth)/.test(line.trim()))
-                        window.networkIcon = ethernet ? "󰈀" : "󰈃"
-                        const activeLayout = lines.find(line => line.trim().startsWith("*")) ?? ""
-                        window.keyboardLayout = activeLayout.includes("intl") ? "EN (intl)" : "EN"
-                    }
-                }
-            }
-
-            Timer {
-                interval: 1000
-                repeat: true
-                running: true
-                triggeredOnStart: true
-                onTriggered: {
-                    niriState.running = false
-                    stats.running = false
-                    niriState.running = true
-                    stats.running = true
-                }
-            }
+            property var outputWorkspaces: NiriState.workspaces.filter(workspace => workspace.output === screen.name)
+            property var outputWindows: NiriState.windows.filter(client => outputWorkspaces.some(workspace => workspace.id === client.workspace_id))
+            property int activeWorkspace: outputWorkspaces.find(workspace => workspace.is_active)?.idx ?? 1
+            property int shownWorkspaces: Math.max(5, ...outputWorkspaces.map(workspace => workspace.idx))
 
             Rectangle {
-                anchors {
-                    fill: parent
-                    leftMargin: 6
-                    rightMargin: 6
-                    topMargin: 4
-                    bottomMargin: 4
-                }
-                radius: 6
+                anchors { fill: parent; leftMargin: 6; rightMargin: 6; topMargin: 4; bottomMargin: 4 }
+                radius: 9
                 color: Theme.background
+                border.width: 1
+                border.color: Theme.alternate
 
                 RowLayout {
                     anchors.fill: parent
-                    anchors.leftMargin: 10
-                    anchors.rightMargin: 10
-                    spacing: 12
+                    anchors.leftMargin: 8
+                    anchors.rightMargin: 8
+                    spacing: 8
 
-                    Row {
-                        spacing: 7
+                    Rectangle {
+                        implicitWidth: workspaceRow.implicitWidth + 8
+                        implicitHeight: 26
+                        radius: 13
+                        color: Theme.black
 
-                        Repeater {
-                            model: window.workspaces
+                        Row {
+                            id: workspaceRow
+                            anchors.centerIn: parent
+                            spacing: 2
 
-                            Rectangle {
-                                required property var modelData
-                                anchors.verticalCenter: parent.verticalCenter
-                                width: modelData.is_active ? 20 : 7
-                                height: 7
-                                radius: 4
-                                color: modelData.is_active ? Theme.foreground : Theme.selection
+                            Repeater {
+                                model: window.shownWorkspaces
 
-                                MouseArea {
-                                    anchors.fill: parent
-                                    onClicked: Quickshell.execDetached(["niri", "msg", "action", "focus-workspace", String(modelData.idx)])
+                                Rectangle {
+                                    id: workspaceButton
+                                    required property int index
+                                    property int workspaceNumber: index + 1
+                                    property bool active: workspaceNumber === window.activeWorkspace
+                                    property bool occupied: window.outputWindows.some(client => window.outputWorkspaces.find(workspace => workspace.id === client.workspace_id)?.idx === workspaceNumber)
+                                    width: active ? 28 : 20
+                                    height: 20
+                                    radius: 10
+                                    color: active ? Theme.primary : "transparent"
+
+                                    Text {
+                                        anchors.centerIn: parent
+                                        text: parent.occupied ? "●" : "·"
+                                        color: parent.active ? Theme.black : parent.occupied ? Theme.foreground : Theme.selection
+                                        font.family: Theme.font
+                                        font.pixelSize: parent.active ? 11 : 14
+                                    }
+
+                                    Behavior on width { NumberAnimation { duration: 120 } }
+
+                                    MouseArea {
+                                        anchors.fill: parent
+                                        onClicked: Quickshell.execDetached(["niri", "msg", "action", "focus-workspace", String(workspaceButton.workspaceNumber)])
+                                    }
                                 }
                             }
                         }
-
                     }
 
                     Text {
                         Layout.fillWidth: true
-                        Layout.minimumWidth: 100
-                        text: window.focusedTitle
+                        Layout.minimumWidth: 120
+                        text: NiriState.focusedTitle
                         elide: Text.ElideRight
                         color: Theme.foreground
                         font.family: Theme.font
@@ -155,26 +100,19 @@ Scope {
 
                     Rectangle {
                         visible: window.mediaPlayer !== null
-                        Layout.maximumWidth: 280
-                        implicitWidth: Math.min(mediaText.implicitWidth + 36, 280)
-                        implicitHeight: 24
-                        radius: 12
+                        Layout.maximumWidth: 260
+                        implicitWidth: Math.min(mediaRow.implicitWidth + 18, 260)
+                        implicitHeight: 26
+                        radius: 13
                         color: Theme.black
 
                         Row {
+                            id: mediaRow
                             anchors.centerIn: parent
-                            spacing: 8
-
+                            spacing: 7
+                            Text { text: window.mediaPlayer?.isPlaying ? "Ⅱ" : "▶"; color: Theme.primary; font.family: Theme.font; font.pixelSize: 11 }
                             Text {
-                                text: window.mediaPlayer?.isPlaying ? "Ⅱ" : "▶"
-                                color: Theme.primary
-                                font.family: Theme.font
-                                font.pixelSize: 11
-                            }
-
-                            Text {
-                                id: mediaText
-                                width: Math.min(implicitWidth, 230)
+                                width: Math.min(implicitWidth, 210)
                                 text: window.mediaPlayer?.trackTitle || window.mediaPlayer?.identity || ""
                                 elide: Text.ElideRight
                                 color: Theme.foreground
@@ -185,106 +123,89 @@ Scope {
 
                         MouseArea {
                             anchors.fill: parent
-                            onClicked: {
-                                if (window.mediaPlayer?.canTogglePlaying)
-                                    window.mediaPlayer.togglePlaying()
+                            onClicked: if (window.mediaPlayer?.canTogglePlaying) window.mediaPlayer.togglePlaying()
+                            onWheel: event => {
+                                if (window.mediaPlayer?.canSeek)
+                                    window.mediaPlayer.seek(event.angleDelta.y > 0 ? 5000000 : -5000000)
                             }
                         }
                     }
 
-                    Text {
-                        text: "CPU " + String(window.cpuUsage).padStart(2, "0") + "%"
-                        color: Theme.foreground
-                        opacity: 0.64
-                        font.family: Theme.font
-                        font.pixelSize: 12
-                    }
-
-                    Text {
-                        text: "RAM " + window.ramUsage + "%"
-                        color: Theme.foreground
-                        opacity: 0.64
-                        font.family: Theme.font
-                        font.pixelSize: 12
-                    }
-
                     Row {
-                        spacing: 10
-                        visible: SystemTray.items.values.length > 0
+                        spacing: 5
 
                         Repeater {
-                            model: SystemTray.items.values
-
-                            IconImage {
+                            model: [{ label: "C", value: ResourceUsage.cpuUsage }, { label: "M", value: ResourceUsage.memoryUsage }]
+                            Rectangle {
                                 required property var modelData
-                                width: 16
-                                height: 16
-                                source: Quickshell.iconPath(modelData.icon, "drive-removable-media")
-
-                                MouseArea {
-                                    anchors.fill: parent
-                                    acceptedButtons: Qt.LeftButton | Qt.MiddleButton | Qt.RightButton
-                                    onClicked: mouse => {
-                                        if (mouse.button === Qt.LeftButton)
-                                            modelData.activate()
-                                        else
-                                            modelData.secondaryActivate()
-                                    }
+                                width: 50
+                                height: 26
+                                radius: 13
+                                color: Theme.black
+                                Text {
+                                    anchors.centerIn: parent
+                                    text: parent.modelData.label + " " + Math.round(parent.modelData.value * 100)
+                                    color: parent.modelData.value > 0.8 ? Theme.red : Theme.foreground
+                                    font.family: Theme.font
+                                    font.pixelSize: 11
                                 }
                             }
                         }
                     }
 
-                    Text {
-                        text: window.networkIcon
-                        color: window.networkIcon === "󰈀" ? Theme.primary : Theme.foreground
-                        opacity: window.networkIcon === "󰈀" ? 1 : 0.4
-                        font.family: Theme.font
-                        font.pixelSize: 16
+                    Row {
+                        spacing: 7
+                        visible: SystemTray.items.values.length > 0
+
+                        Repeater {
+                            model: SystemTray.items
+
+                            Item {
+                                id: trayItem
+                                required property var modelData
+                                width: 18
+                                height: 18
+                                IconImage { anchors.fill: parent; source: trayItem.modelData.icon }
+
+                                MouseArea {
+                                    anchors.fill: parent
+                                    acceptedButtons: Qt.LeftButton | Qt.MiddleButton | Qt.RightButton
+                                    onPressed: event => {
+                                        if (event.button === Qt.MiddleButton) {
+                                            trayItem.modelData.secondaryActivate()
+                                        } else if (event.button === Qt.RightButton || trayItem.modelData.onlyMenu) {
+                                            const point = trayItem.mapToItem(window.contentItem, 0, trayItem.height)
+                                            trayItem.modelData.display(window, point.x, point.y)
+                                        } else {
+                                            trayItem.modelData.activate()
+                                        }
+                                        event.accepted = true
+                                    }
+                                    onWheel: event => trayItem.modelData.scroll(event.angleDelta.y, false)
+                                }
+                            }
+                        }
                     }
 
-                    Text {
-                        visible: UPower.displayDevice.isLaptopBattery
-                        text: Math.round(UPower.displayDevice.percentage * 100) + "%"
-                        color: Theme.foreground
-                        font.family: Theme.font
-                        font.pixelSize: 12
-                    }
+                    Text { visible: UPower.displayDevice.isLaptopBattery; text: Math.round(UPower.displayDevice.percentage * 100) + "%"; color: Theme.foreground; font.family: Theme.font; font.pixelSize: 11 }
 
-                    Text {
-                        text: window.keyboardLayout
-                        color: Theme.primary
-                        font.family: Theme.font
-                        font.pixelSize: 12
-
+                    Rectangle {
+                        implicitWidth: layoutText.implicitWidth + 14
+                        implicitHeight: 26
+                        radius: 13
+                        color: Theme.black
+                        Text { id: layoutText; anchors.centerIn: parent; text: NiriState.keyboardLayoutIndex === 0 ? "EN AltGr" : "EN Intl"; color: Theme.primary; font.family: Theme.font; font.pixelSize: 11 }
                         MouseArea {
                             anchors.fill: parent
-                            onClicked: Quickshell.execDetached(window.keyboardLayout === "EN (intl)" ? ["switch-kb-variant"] : ["switch-kb-variant", "intl"])
+                            onClicked: Quickshell.execDetached(NiriState.keyboardLayoutIndex === 0 ? ["switch-kb-variant", "intl"] : ["switch-kb-variant"])
                         }
                     }
 
-                    SystemClock {
-                        id: clock
-                        precision: SystemClock.Seconds
-                    }
-
+                    SystemClock { id: clock; precision: SystemClock.Seconds }
                     Row {
                         spacing: 0
-
-                        Text {
-                            text: Qt.formatDateTime(clock.date, "ddd. MMM d - hh:mm:")
-                            color: Theme.foreground
-                            opacity: 0.72
-                            font.family: Theme.font
-                            font.pixelSize: 12
-                        }
-
-                        Text {
-                            text: Qt.formatDateTime(clock.date, "ss")
-                            color: Theme.red
-                            font.family: Theme.font
-                            font.pixelSize: 12
-                        }
+                        Text { text: Qt.formatDateTime(clock.date, "ddd MMM d  hh:mm:"); color: Theme.foreground; opacity: 0.72; font.family: Theme.font; font.pixelSize: 11 }
+                        Text { text: Qt.formatDateTime(clock.date, "ss"); color: Theme.red; font.family: Theme.font; font.pixelSize: 11 }
                     }
                 }
             }

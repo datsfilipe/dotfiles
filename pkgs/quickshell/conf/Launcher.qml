@@ -25,6 +25,7 @@ PanelWindow {
     property var results: []
     property var usage: ({})
     property int selectedIndex: 0
+    property string mode: search.text.startsWith(">") ? "端末" : search.text.startsWith("?") ? "ウェブ" : "アプリ"
 
     function score(query, value) {
         const needle = query.toLowerCase()
@@ -45,6 +46,11 @@ PanelWindow {
 
     function updateResults() {
         const query = search.text.trim()
+        if (query.startsWith(">") || query.startsWith("?")) {
+            root.results = []
+            root.selectedIndex = 0
+            return
+        }
         const matches = []
         const applications = DesktopEntries.applications.values
         for (let index = 0; index < applications.length; index++) {
@@ -80,6 +86,23 @@ PanelWindow {
         usageFile.setText(JSON.stringify(root.usage))
         root.close()
         entry.execute()
+    }
+
+    function submit() {
+        const query = search.text.trim()
+        if (query.startsWith(">")) {
+            const command = query.slice(1).trim()
+            if (command)
+                Quickshell.execDetached(["alacritty", "-e", "sh", "-lc", command + "; exec $SHELL"])
+            root.close()
+        } else if (query.startsWith("?")) {
+            const terms = query.slice(1).trim()
+            if (terms)
+                Quickshell.execDetached(["xdg-open", "https://www.google.com/search?q=" + encodeURIComponent(terms)])
+            root.close()
+        } else {
+            root.launch(root.selectedIndex)
+        }
     }
 
     FileView {
@@ -124,11 +147,11 @@ PanelWindow {
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: parent.top
         anchors.topMargin: Math.max(80, parent.height * 0.18)
-        width: Math.min(540, parent.width - 32)
+        width: Math.min(680, parent.width - 32)
         height: content.implicitHeight + 24
-        radius: 6
+        radius: 22
         color: Theme.background
-        border.width: 4
+        border.width: 1
         border.color: Theme.primary
 
         MouseArea {
@@ -146,32 +169,64 @@ PanelWindow {
             }
             spacing: 8
 
-            TextInput {
-                id: search
-
+            RowLayout {
                 Layout.fillWidth: true
-                Layout.preferredHeight: 44
-                verticalAlignment: TextInput.AlignVCenter
-                color: Theme.primary
-                selectionColor: Theme.primary
-                selectedTextColor: Theme.black
-                font.family: Theme.font
-                font.pixelSize: 16
-                font.bold: true
-                clip: true
-                onTextChanged: root.updateResults()
-                onAccepted: root.launch(root.selectedIndex)
-                Keys.onEscapePressed: root.close()
-                Keys.onUpPressed: root.selectedIndex = Math.max(0, root.selectedIndex - 1)
-                Keys.onDownPressed: root.selectedIndex = Math.min(root.results.length - 1, root.selectedIndex + 1)
 
                 Text {
-                    visible: search.text === ""
-                    text: "Search applications"
+                    text: root.mode
+                    color: Theme.primary
+                    font.family: Theme.font
+                    font.pixelSize: 13
+                    font.bold: true
+                }
+
+                Item { Layout.fillWidth: true }
+
+                Text {
+                    text: search.text === "" ? "よく使う" : "> 端末   ? ウェブ"
                     color: Theme.foreground
                     opacity: 0.45
-                    font: search.font
-                    anchors.verticalCenter: parent.verticalCenter
+                    font.family: Theme.uiFont
+                    font.pixelSize: 11
+                }
+            }
+
+            Rectangle {
+                Layout.fillWidth: true
+                Layout.preferredHeight: 48
+                radius: 15
+                color: Theme.black
+                border.width: search.activeFocus ? 2 : 1
+                border.color: search.activeFocus ? Theme.primary : Theme.alternate
+
+                TextInput {
+                    id: search
+
+                    anchors.fill: parent
+                    anchors.leftMargin: 16
+                    anchors.rightMargin: 16
+                    verticalAlignment: TextInput.AlignVCenter
+                    color: Theme.primary
+                    selectionColor: Theme.primary
+                    selectedTextColor: Theme.black
+                    font.family: Theme.font
+                    font.pixelSize: 16
+                    font.bold: true
+                    clip: true
+                    onTextChanged: root.updateResults()
+                    onAccepted: root.submit()
+                    Keys.onEscapePressed: root.close()
+                    Keys.onUpPressed: root.selectedIndex = Math.max(0, root.selectedIndex - 1)
+                    Keys.onDownPressed: root.selectedIndex = Math.min(root.results.length - 1, root.selectedIndex + 1)
+
+                    Text {
+                        visible: search.text === ""
+                        text: "検索 — apps, commands, web"
+                        color: Theme.foreground
+                        opacity: 0.45
+                        font: search.font
+                        anchors.verticalCenter: parent.verticalCenter
+                    }
                 }
             }
 
@@ -190,10 +245,10 @@ PanelWindow {
                     required property var modelData
                     required property int index
                     Layout.fillWidth: true
-                    height: 42
-                    radius: 4
+                    height: 48
+                    radius: 13
                     color: root.selectedIndex === index ? Theme.black : "transparent"
-                    border.width: root.selectedIndex === index ? 1 : 0
+                    border.width: root.selectedIndex === index ? 2 : 0
                     border.color: Theme.alternate
 
                     RowLayout {
@@ -204,7 +259,7 @@ PanelWindow {
 
                         Text {
                             Layout.preferredWidth: 24
-                            text: "◉"
+                            text: result.index === root.selectedIndex ? "●" : "○"
                             color: root.selectedIndex === result.index ? Theme.primary : Theme.selection
                             font.family: Theme.font
                             font.pixelSize: 17

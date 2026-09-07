@@ -235,6 +235,9 @@ binds {
   Mod+Shift+E repeat=false {
     spawn "wpowermenu"
   }
+  Mod+Shift+D repeat=false {
+    spawn "wdashboard"
+  }
   Mod+D {
     spawn "wlauncher"
   }

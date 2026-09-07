@@ -1,3 +1,5 @@
+//@ pragma UseQApplication
+
 import QtQuick
 import Quickshell
 import Quickshell.Io
@@ -39,6 +41,7 @@ ShellRoot {
         visibleState: root.barVisible
     }
 
+    Dashboard {}
     Launcher {}
     PowerMenu {}
     BrightnessOsd {}

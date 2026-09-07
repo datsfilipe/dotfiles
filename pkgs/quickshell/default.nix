@@ -53,6 +53,9 @@ in
         --prefix XDG_DATA_DIRS : ${reversal-icon-theme}/share \
         --set QS_ICON_THEME Reversal-dark \
         --add-flags "--path $out/share/dats-quickshell ipc call powermenu toggle"
+      makeWrapper ${quickshell}/bin/qs $out/bin/wdashboard \
+        --prefix PATH : ${runtimePath} \
+        --add-flags "--path $out/share/dats-quickshell ipc call dashboard toggle"
       makeWrapper ${quickshell}/bin/qs $out/bin/wbrightness-osd \
         --prefix PATH : ${runtimePath} \
         --add-flags "--path $out/share/dats-quickshell ipc call osd brightness"
