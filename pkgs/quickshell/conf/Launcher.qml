@@ -23,6 +23,7 @@ PanelWindow {
     }
 
     property var results: []
+    property var usage: ({})
     property int selectedIndex: 0
 
     function score(query, value) {
@@ -44,29 +45,24 @@ PanelWindow {
 
     function updateResults() {
         const query = search.text.trim()
-        if (query === "") {
-            root.results = []
-            root.selectedIndex = 0
-            return
-        }
         const matches = []
         const applications = DesktopEntries.applications.values
         for (let index = 0; index < applications.length; index++) {
             const app = applications[index]
             const searchable = app.name + " " + (app.comment ?? "") + " " + (app.keywords ?? []).join(" ")
-            const appScore = root.score(query, searchable)
+            const appScore = query === "" ? (root.usage[app.id] ?? 0) : root.score(query, searchable)
             if (appScore >= 0)
                 matches.push({ entry: app, score: appScore })
         }
         matches.sort((left, right) => right.score - left.score || left.entry.name.localeCompare(right.entry.name))
-        root.results = matches.slice(0, 8).map(match => match.entry)
+        root.results = matches.slice(0, query === "" ? 6 : 8).map(match => match.entry)
         root.selectedIndex = 0
     }
 
     function open() {
         root.visible = true
         search.text = ""
-        root.results = []
+        root.updateResults()
         root.selectedIndex = 0
         Qt.callLater(() => search.forceActiveFocus())
     }
@@ -80,8 +76,25 @@ PanelWindow {
         const entry = root.results[index]
         if (!entry)
             return
+        root.usage[entry.id] = (root.usage[entry.id] ?? 0) + 1
+        usageFile.setText(JSON.stringify(root.usage))
         root.close()
         entry.execute()
+    }
+
+    FileView {
+        id: usageFile
+        path: Quickshell.statePath("launcher-usage.json")
+        blockLoading: true
+        printErrors: false
+        onLoaded: {
+            try {
+                root.usage = JSON.parse(text())
+            } catch (error) {
+                root.usage = ({})
+            }
+            root.updateResults()
+        }
     }
 
     IpcHandler {
@@ -137,6 +150,8 @@ PanelWindow {
                 id: search
 
                 Layout.fillWidth: true
+                Layout.preferredHeight: 44
+                verticalAlignment: TextInput.AlignVCenter
                 color: Theme.primary
                 selectionColor: Theme.primary
                 selectedTextColor: Theme.black
@@ -156,6 +171,7 @@ PanelWindow {
                     color: Theme.foreground
                     opacity: 0.45
                     font: search.font
+                    anchors.verticalCenter: parent.verticalCenter
                 }
             }
 
@@ -186,10 +202,13 @@ PanelWindow {
                         anchors.rightMargin: 8
                         spacing: 10
 
-                        IconImage {
+                        Text {
                             Layout.preferredWidth: 24
-                            Layout.preferredHeight: 24
-                            source: Quickshell.iconPath(result.modelData.icon)
+                            text: "◉"
+                            color: root.selectedIndex === result.index ? Theme.primary : Theme.selection
+                            font.family: Theme.font
+                            font.pixelSize: 17
+                            horizontalAlignment: Text.AlignHCenter
                         }
 
                         Text {

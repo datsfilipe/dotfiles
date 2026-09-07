@@ -46,6 +46,33 @@ PanelWindow {
         Quickshell.execDetached(action.command)
     }
 
+    component ActionButton: Rectangle {
+        required property var action
+        required property int actionIndex
+
+        Layout.preferredWidth: 58
+        Layout.preferredHeight: 58
+        radius: 6
+        color: root.selectedIndex === actionIndex ? Theme.black : Theme.background
+        border.width: 1
+        border.color: root.selectedIndex === actionIndex ? Theme.alternate : "transparent"
+
+        Text {
+            anchors.centerIn: parent
+            text: parent.action.icon
+            color: root.selectedIndex === parent.actionIndex ? Theme.primary : Theme.foreground
+            font.family: Theme.font
+            font.pixelSize: 22
+        }
+
+        MouseArea {
+            anchors.fill: parent
+            hoverEnabled: true
+            onEntered: root.selectedIndex = parent.actionIndex
+            onClicked: root.trigger(parent.actionIndex)
+        }
+    }
+
     IpcHandler {
         target: "powermenu"
 
@@ -82,8 +109,8 @@ PanelWindow {
 
     Rectangle {
         anchors.centerIn: parent
-        width: actionsRow.implicitWidth + 24
-        height: actionsRow.implicitHeight + 24
+        width: actionsColumn.implicitWidth + 24
+        height: actionsColumn.implicitHeight + 24
         radius: 6
         color: Theme.background
         border.width: 4
@@ -93,56 +120,38 @@ PanelWindow {
             anchors.fill: parent
         }
 
-        RowLayout {
-            id: actionsRow
+        ColumnLayout {
+            id: actionsColumn
 
             anchors.centerIn: parent
             spacing: 10
 
-            Repeater {
-                model: root.actions
+            ActionButton {
+                action: root.actions[0]
+                actionIndex: 0
+            }
 
-                Rectangle {
-                    id: button
+            ActionButton {
+                action: root.actions[1]
+                actionIndex: 1
+            }
 
-                    required property var modelData
-                    required property int index
-                    width: 72
-                    height: 72
-                    radius: 6
-                    color: root.selectedIndex === index ? Theme.black : Theme.background
-                    border.width: 1
-                    border.color: root.selectedIndex === index ? Theme.alternate : "transparent"
+            AnimatedImage {
+                Layout.alignment: Qt.AlignHCenter
+                Layout.preferredWidth: 52
+                Layout.preferredHeight: 52
+                source: "assets/gif0.gif"
+                fillMode: Image.PreserveAspectFit
+            }
 
-                    Column {
-                        anchors.centerIn: parent
-                        spacing: 5
+            ActionButton {
+                action: root.actions[2]
+                actionIndex: 2
+            }
 
-                        Text {
-                            anchors.horizontalCenter: parent.horizontalCenter
-                            text: button.modelData.icon
-                            color: root.selectedIndex === button.index ? Theme.primary : Theme.foreground
-                            font.family: Theme.font
-                            font.pixelSize: 22
-                        }
-
-                        Text {
-                            anchors.horizontalCenter: parent.horizontalCenter
-                            text: button.modelData.label
-                            color: Theme.foreground
-                            opacity: 0.7
-                            font.family: Theme.uiFont
-                            font.pixelSize: 10
-                        }
-                    }
-
-                    MouseArea {
-                        anchors.fill: parent
-                        hoverEnabled: true
-                        onEntered: root.selectedIndex = button.index
-                        onClicked: root.trigger(button.index)
-                    }
-                }
+            ActionButton {
+                action: root.actions[3]
+                actionIndex: 3
             }
         }
     }

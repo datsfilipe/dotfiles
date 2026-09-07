@@ -62,13 +62,13 @@ gestures {
 }
 binds {
   XF86AudioRaiseVolume allow-when-locked=true {
-    spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1+"
+    spawn "sh" "-c" "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+ && wvolume-osd"
   }
   XF86AudioLowerVolume allow-when-locked=true {
-    spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1-"
+    spawn "sh" "-c" "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1- && wvolume-osd"
   }
   XF86AudioMute allow-when-locked=true {
-    spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"
+    spawn "sh" "-c" "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle && wvolume-osd"
   }
   XF86AudioMicMute allow-when-locked=true {
     spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"

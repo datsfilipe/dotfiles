@@ -5,6 +5,7 @@ import QtQuick.Layouts
 import Quickshell
 import Quickshell.Io
 import Quickshell.Services.SystemTray
+import Quickshell.Services.Mpris
 import Quickshell.Services.UPower
 import Quickshell.Widgets
 
@@ -38,6 +39,7 @@ Scope {
             property int ramUsage: 0
             property string networkIcon: "󰈃"
             property string keyboardLayout: "EN"
+            property var mediaPlayer: Mpris.players.values.find(player => player.isPlaying) ?? Mpris.players.values[0] ?? null
             property int previousIdle: 0
             property int previousTotal: 0
 
@@ -94,10 +96,10 @@ Scope {
                 running: true
                 triggeredOnStart: true
                 onTriggered: {
-                    if (!niriState.running)
-                        niriState.running = true
-                    if (!stats.running)
-                        stats.running = true
+                    niriState.running = false
+                    stats.running = false
+                    niriState.running = true
+                    stats.running = true
                 }
             }
 
@@ -142,8 +144,8 @@ Scope {
                     }
 
                     Text {
-                        Layout.maximumWidth: 650
                         Layout.fillWidth: true
+                        Layout.minimumWidth: 100
                         text: window.focusedTitle
                         elide: Text.ElideRight
                         color: Theme.foreground
@@ -151,8 +153,43 @@ Scope {
                         font.pixelSize: 13
                     }
 
-                    Item {
-                        Layout.fillWidth: true
+                    Rectangle {
+                        visible: window.mediaPlayer !== null
+                        Layout.maximumWidth: 280
+                        implicitWidth: Math.min(mediaText.implicitWidth + 36, 280)
+                        implicitHeight: 24
+                        radius: 12
+                        color: Theme.black
+
+                        Row {
+                            anchors.centerIn: parent
+                            spacing: 8
+
+                            Text {
+                                text: window.mediaPlayer?.isPlaying ? "Ⅱ" : "▶"
+                                color: Theme.primary
+                                font.family: Theme.font
+                                font.pixelSize: 11
+                            }
+
+                            Text {
+                                id: mediaText
+                                width: Math.min(implicitWidth, 230)
+                                text: window.mediaPlayer?.trackTitle || window.mediaPlayer?.identity || ""
+                                elide: Text.ElideRight
+                                color: Theme.foreground
+                                font.family: Theme.font
+                                font.pixelSize: 11
+                            }
+                        }
+
+                        MouseArea {
+                            anchors.fill: parent
+                            onClicked: {
+                                if (window.mediaPlayer?.canTogglePlaying)
+                                    window.mediaPlayer.togglePlaying()
+                            }
+                        }
                     }
 
                     Text {
@@ -182,7 +219,7 @@ Scope {
                                 required property var modelData
                                 width: 16
                                 height: 16
-                                source: modelData.icon
+                                source: Quickshell.iconPath(modelData.icon, "drive-removable-media")
 
                                 MouseArea {
                                     anchors.fill: parent
@@ -231,19 +268,23 @@ Scope {
                         precision: SystemClock.Seconds
                     }
 
-                    Text {
-                        text: Qt.formatDateTime(clock.date, "ddd. MMM d - hh:mm:")
-                        color: Theme.foreground
-                        opacity: 0.72
-                        font.family: Theme.font
-                        font.pixelSize: 12
-                    }
+                    Row {
+                        spacing: 0
 
-                    Text {
-                        text: Qt.formatDateTime(clock.date, "ss")
-                        color: Theme.red
-                        font.family: Theme.font
-                        font.pixelSize: 12
+                        Text {
+                            text: Qt.formatDateTime(clock.date, "ddd. MMM d - hh:mm:")
+                            color: Theme.foreground
+                            opacity: 0.72
+                            font.family: Theme.font
+                            font.pixelSize: 12
+                        }
+
+                        Text {
+                            text: Qt.formatDateTime(clock.date, "ss")
+                            color: Theme.red
+                            font.family: Theme.font
+                            font.pixelSize: 12
+                        }
                     }
                 }
             }

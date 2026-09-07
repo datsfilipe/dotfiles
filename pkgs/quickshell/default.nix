@@ -8,10 +8,12 @@
   iproute2,
   niri,
   brightnessctl,
+  wireplumber,
+  reversal-icon-theme,
   colorscheme,
   ...
 }: let
-  runtimePath = lib.makeBinPath [coreutils gnugrep iproute2 niri brightnessctl];
+  runtimePath = lib.makeBinPath [coreutils gnugrep iproute2 niri brightnessctl wireplumber];
 in
   stdenvNoCC.mkDerivation {
     pname = "dats-quickshell";
@@ -38,16 +40,25 @@ in
         --replace-fail @white@ ${lib.escapeShellArg colorscheme.colors.white}
       makeWrapper ${quickshell}/bin/qs $out/bin/wmain \
         --prefix PATH : ${runtimePath} \
+        --prefix XDG_DATA_DIRS : ${reversal-icon-theme}/share \
+        --set QS_ICON_THEME Reversal-dark \
         --add-flags "--path $out/share/dats-quickshell"
       makeWrapper ${quickshell}/bin/qs $out/bin/wlauncher \
         --prefix PATH : ${runtimePath} \
+        --prefix XDG_DATA_DIRS : ${reversal-icon-theme}/share \
+        --set QS_ICON_THEME Reversal-dark \
         --add-flags "--path $out/share/dats-quickshell ipc call launcher toggle"
       makeWrapper ${quickshell}/bin/qs $out/bin/wpowermenu \
         --prefix PATH : ${runtimePath} \
+        --prefix XDG_DATA_DIRS : ${reversal-icon-theme}/share \
+        --set QS_ICON_THEME Reversal-dark \
         --add-flags "--path $out/share/dats-quickshell ipc call powermenu toggle"
       makeWrapper ${quickshell}/bin/qs $out/bin/wbrightness-osd \
         --prefix PATH : ${runtimePath} \
         --add-flags "--path $out/share/dats-quickshell ipc call osd brightness"
+      makeWrapper ${quickshell}/bin/qs $out/bin/wvolume-osd \
+        --prefix PATH : ${runtimePath} \
+        --add-flags "--path $out/share/dats-quickshell ipc call volumeOsd volume"
       makeWrapper ${quickshell}/bin/qs $out/bin/wbar-autohide \
         --prefix PATH : ${runtimePath} \
         --add-flags "--path $out/share/dats-quickshell ipc call shell"

@@ -7,25 +7,26 @@ Scope {
     id: root
 
     property bool shown: false
+    property bool muted: false
     property real value: 0
 
     IpcHandler {
-        target: "osd"
+        target: "volumeOsd"
 
-        function brightness() {
-            brightnessQuery.running = false
-            brightnessQuery.running = true
+        function volume() {
+            volumeQuery.running = false
+            volumeQuery.running = true
         }
     }
 
     Process {
-        id: brightnessQuery
-        command: ["brightnessctl", "-m"]
+        id: volumeQuery
+        command: ["wpctl", "get-volume", "@DEFAULT_AUDIO_SINK@"]
         stdout: StdioCollector {
             onStreamFinished: {
-                const match = text.match(/(\\d+)%/)
-                if (match)
-                    root.value = Number(match[1]) / 100
+                const match = text.match(/([0-9.]+)/)
+                root.value = match ? Math.min(Number(match[1]), 1) : 0
+                root.muted = text.includes("MUTED")
                 root.shown = true
                 hideTimer.restart()
             }
@@ -56,15 +57,15 @@ Scope {
                 radius: 16
                 color: Theme.background
                 border.width: 3
-                border.color: Theme.primary
+                border.color: root.muted ? Theme.red : Theme.primary
 
                 Row {
                     anchors.centerIn: parent
                     spacing: 14
 
                     Text {
-                        text: "󰃠"
-                        color: Theme.primary
+                        text: root.muted ? "󰝟" : root.value > 0.5 ? "󰕾" : "󰖀"
+                        color: root.muted ? Theme.red : Theme.primary
                         font.family: Theme.font
                         font.pixelSize: 26
                     }
@@ -80,7 +81,7 @@ Scope {
                             width: parent.width * root.value
                             height: parent.height
                             radius: parent.radius
-                            color: Theme.primary
+                            color: root.muted ? Theme.red : Theme.primary
                         }
                     }
                 }

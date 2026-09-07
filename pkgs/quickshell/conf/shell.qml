@@ -42,5 +42,6 @@ ShellRoot {
     Launcher {}
     PowerMenu {}
     BrightnessOsd {}
+    VolumeOsd {}
     Notifications {}
 }
