@@ -26,6 +26,10 @@
   modules.desktop.wm.niri.system.enable = true;
   modules.desktop.wm.niri.system.greeter.enable = true;
   modules.services.gdrive.enable = true;
+  modules.services.ollama = {
+    enable = false;
+    inherit (myvars.ollama) modelsDir models personas;
+  };
   modules.desktop.wallpaper = {
     enable = true;
     file = myvars.hostsConfig.wallpaper;
