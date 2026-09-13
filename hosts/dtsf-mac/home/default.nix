@@ -22,7 +22,7 @@
   modules.programs.bottom.user.enable = true;
 
   modules.programs.git.enable = true;
-  modules.programs.terminal.default = "alacritty";
+  modules.programs.terminal.default = myvars.hostsConfig.terminal;
   modules.programs.terminal.alacritty.enableDecorations = true;
 
   modules.editors.neovim.user.enable = true;

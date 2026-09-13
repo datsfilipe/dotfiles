@@ -14,6 +14,7 @@
       // {
         inherit lib mylib;
         theme = myvars.hostsConfig.theme;
+        inherit myvars;
         unix-scripts = inputs.unix-scripts;
         pkgs = import inputs.nixpkgs {
           inherit system;

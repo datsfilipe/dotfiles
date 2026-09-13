@@ -229,14 +229,11 @@ binds {
   Mod+Q {
     close-window
   }
-  Super+Alt+L {
-    spawn "swaylock"
+  Super+Alt+L repeat=false {
+    spawn "wlock"
   }
   Mod+Shift+E repeat=false {
-    spawn "wpowermenu"
-  }
-  Mod+Shift+D repeat=false {
-    spawn "wdashboard"
+    spawn "wsession"
   }
   Mod+D {
     spawn "wlauncher"
@@ -269,6 +266,6 @@ binds {
     spawn "focus-mode"
   }
   Alt+H repeat=false {
-    spawn "wbar-autohide" "toggleAutohide"
+    spawn "wbar" "toggleAutohide"
   }
 }

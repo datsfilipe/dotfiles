@@ -2,7 +2,7 @@
 set -euo pipefail
 wallpaper=${1:?}
 case "$wallpaper" in
-  /home/dtsf/gdrive/walls/*) ;;
+  @wallpaperDir@/*) ;;
   *) exit 1 ;;
 esac
 test -f "$wallpaper"

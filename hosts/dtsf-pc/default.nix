@@ -22,8 +22,9 @@
     monitors = myvars.hostsConfig.monitors.pc;
   };
 
-  modules.desktop.displayManager.enable = true;
+  modules.desktop.displayManager.enable = false;
   modules.desktop.wm.niri.system.enable = true;
+  modules.desktop.wm.niri.system.greeter.enable = true;
   modules.services.gdrive.enable = true;
   modules.desktop.wallpaper = {
     enable = true;

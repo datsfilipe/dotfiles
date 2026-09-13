@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
-source_dir=/home/dtsf/gdrive/walls
-cache_dir=${XDG_CACHE_HOME:-/home/dtsf/.cache}/dats-quickshell/wallpapers
+source_dir=@wallpaperDir@
+cache_dir=${XDG_CACHE_HOME:-$HOME/.cache}/dats-quickshell/wallpapers
 mkdir -p "$cache_dir"
 export cache_dir
 find "$source_dir" -maxdepth 1 -type f \( -iname '*.png' -o -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.webp' \) -print0 |

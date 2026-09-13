@@ -2,12 +2,12 @@
 set -euo pipefail
 wallpaper=${1:?}
 case "$wallpaper" in
-  /home/dtsf/gdrive/walls/*) ;;
+  @wallpaperDir@/*) ;;
   *) exit 1 ;;
 esac
 test -f "$wallpaper"
 case "$wallpaper" in
   *\"*|*$'\n'*) exit 1 ;;
 esac
-sed -i "s|^    wallpaper = .*|    wallpaper = \"$wallpaper\";|" /home/dtsf/.dotfiles/vars/default.nix
-exec alacritty -e fish -c 'sudo nixos-rebuild switch --flake /home/dtsf/.dotfiles#dtsf-pc; echo; read -P "press enter to close"'
+sed -i "s|^    wallpaper = .*|    wallpaper = \"$wallpaper\";|" @dotfiles@/vars/default.nix
+exec @terminal@ -e fish -c "sudo nixos-rebuild switch --flake @dotfiles@#$(hostname); and systemctl --user daemon-reload; and systemctl --user restart wallpaper-updater.service; echo; read -P 'press enter to close'"

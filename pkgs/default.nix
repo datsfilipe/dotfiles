@@ -5,6 +5,7 @@
   unix-scripts,
   zellij-switch,
   theme,
+  myvars,
   ...
 }: let
   packageFiles =
@@ -40,7 +41,7 @@
               if toString file == toString scriptFile
               then {inherit unix-scripts;}
               else if toString file == toString quickshellFile
-              then {inherit colorscheme;}
+              then {inherit colorscheme myvars;}
               else {};
           in
             pkgsWithOverlays.callPackage file scriptArgs;

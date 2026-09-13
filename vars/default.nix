@@ -4,8 +4,8 @@ let
   gobin = "$HOME/go/bin";
   rustbin = "$HOME/.cargo/bin";
 in {
-  # general
   username = username;
+  dotfiles = "/home/${username}/.dotfiles";
   userfullname = "Filipe Lima";
   useremail = "datsfilipe.foss@proton.me";
   path = "PATH=\"$PATH:${localbin}:${gobin}:${rustbin}\"";
@@ -14,11 +14,8 @@ in {
   ];
 
   blockedHosts = [
-    "instagram.com"
-    "www.instagram.com"
   ];
 
-  # build cache
   cache = {
     cachix = "datsfilipe-dotfiles";
     publicKeys = [
@@ -27,13 +24,12 @@ in {
     ];
   };
 
-  # common hosts config
   hostsConfig = {
-    theme = "gruvbox";
-    wallpaper = "/home/dtsf/gdrive/walls/66.png";
+    theme = "carbon";
+    terminal = "alacritty";
+    browser = "brave";
+    wallpaper = "/home/dtsf/gdrive/walls/70.png";
     wallpaper-zoom = 0;
-
-    # used by powermenu widget
 
     monitors = {
       pc = [

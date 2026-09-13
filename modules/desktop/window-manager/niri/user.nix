@@ -30,7 +30,6 @@ in {
       ++ [mypkgs.niri-stack-to-n];
 
     modules.desktop.wm.niri.user.rawConfigValues = [
-      ''spawn-at-startup "wmain"''
       ''spawn-at-startup "sh" "-c" "udiskie --tray --notify"''
       ''spawn-at-startup "sh" "-c" "systemctl --user restart wallpaper.service"''
       ''spawn-at-startup "sh" "-c" "nm-applet"''
@@ -61,5 +60,21 @@ in {
     ];
 
     xdg.configFile."niri/config.kdl".text = generateConfig config;
+
+    systemd.user.services.quickshell = {
+      Unit = {
+        Description = "Quickshell desktop shell";
+        PartOf = ["graphical-session.target"];
+        After = ["graphical-session.target"];
+      };
+
+      Service = {
+        ExecStart = "${mypkgs.quickshell}/bin/wmain";
+        Restart = "on-failure";
+        RestartSec = 2;
+      };
+
+      Install.WantedBy = ["graphical-session.target"];
+    };
   };
 }
