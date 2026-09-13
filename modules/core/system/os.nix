@@ -25,7 +25,6 @@ in {
       pciutils
       usbutils
       parted
-      # openvpn
       gnumake
       udiskie
       gum
@@ -68,6 +67,9 @@ in {
 
     systemd.services.NetworkManager-wait-online.enable = false;
     systemd.settings.Manager = {
+      DefaultTimeoutStopSec = "4s";
+    };
+    systemd.user.settings.Manager = {
       DefaultTimeoutStopSec = "4s";
     };
   };

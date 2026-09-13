@@ -27,7 +27,6 @@
     );
   };
 in {
-  imports = [];
   inherit (moduleOptions) options;
   inherit (moduleConfig) config;
 }

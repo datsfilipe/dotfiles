@@ -8,6 +8,7 @@
   sops = {
     age.generateKey = false;
     age.sshKeyPaths = ["/home/${myvars.username}/.ssh/alt_key"];
+    age.keyFile = "/var/lib/sops-nix/key.txt";
     defaultSopsFile = ./secrets.yaml;
     defaultSopsFormat = "yaml";
     secrets."ssh/pass/primary" = {

@@ -7,47 +7,6 @@ in {
     expected = "abcdef";
   };
 
-  testExtractName = {
-    expr = mylib.extractName "../pkgs/tableplus/default.nix";
-    expected = "default";
-  };
-
-  testIfLet = {
-    expr =
-      mylib.if_let
-      {
-        a = 1;
-        b = 2;
-      }
-      {a = 1;};
-    expected = {
-      a = 1;
-      b = 2;
-    };
-  };
-
-  testIfLetNoMatch = {
-    expr =
-      mylib.if_let
-      {a = 2;}
-      {a = 1;};
-    expected = null;
-  };
-
-  testMatch = {
-    expr =
-      mylib.match
-      {
-        type = "success";
-        value = 42;
-      }
-      [
-        [{type = "error";} "error"]
-        [{type = "success";} "success"]
-      ];
-    expected = "success";
-  };
-
   testRemoveSuffix = {
     expr = mylib.removeSuffix ".nix" "test.nix";
     expected = "test";

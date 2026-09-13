@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-
-TAG=$(curl -fsSL https://api.github.com/repos/dani-garcia/vaultwarden/releases/latest | grep '"tag_name"' | head -n1 | cut -d'"' -f4)
+source "$(git rev-parse --show-toplevel)/scripts/lib/update-source.sh"
+SCRIPT_DIR=$(script_dir)
+TAG=$(github_latest_tag dani-garcia/vaultwarden)
 
 SRC_HASH=$(nix run nixpkgs#nix-prefetch-github -- dani-garcia vaultwarden --rev "$TAG" | nix run nixpkgs#jq -- -r .hash)
 

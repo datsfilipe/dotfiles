@@ -1,3 +1,3 @@
-{lib, ...}: {
+{
   imports = [./common.nix];
 }

@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+set -euo pipefail
+pkill -x swaybg 2>/dev/null || true
+systemctl --user start wallpaper.service

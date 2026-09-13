@@ -1,5 +1,4 @@
 {
-  pkgs,
   lib,
   config,
   ...
@@ -11,11 +10,5 @@ in {
 
   config = mkIf cfg.enable {
     hardware.bluetooth.enable = true;
-    environment.systemPackages = with pkgs; [
-      /*
-      TODO: update bluetooth setup
-      blueberry
-      */
-    ];
   };
 }

@@ -20,7 +20,6 @@
   };
 
   modules.desktop.conf = {
-    enableDunstIntegration = true;
     enableCavaIntegration = true;
     enableZellijIntegration = true;
     enableBottomIntegration = true;
@@ -41,13 +40,12 @@
   modules.desktop.addons.xdg.user.enable = true;
 
   modules.programs.git.enable = true;
-  modules.programs.terminal.default = "alacritty";
+  modules.programs.terminal.default = myvars.hostsConfig.terminal;
 
   modules.editors.neovim.user.enable = true;
 
   modules.desktop.colorscheme = {
     enable = true;
-    enableDunstIntegration = true;
     enableNeovimIntegration = true;
     enableGTKIntegration = true;
     enableFishIntegration = true;
@@ -57,7 +55,6 @@
     enableFzfIntegration = true;
     enableNiriIntegration = true;
     enableFuzzelIntegration = true;
-    enableAstalIntegration = true;
   };
 
   modules.themes.${myvars.hostsConfig.theme}.enable = true;

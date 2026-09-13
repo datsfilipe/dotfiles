@@ -1,14 +1,13 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-
-API=$(curl -fsSL https://api.github.com/repos/Suwayomi/Suwayomi-Server/releases/latest)
-TAG=$(printf '%s' "$API" | grep '"tag_name"' | head -n1 | cut -d'"' -f4)
+source "$(git rev-parse --show-toplevel)/scripts/lib/update-source.sh"
+SCRIPT_DIR=$(script_dir)
+TAG=$(github_latest_tag Suwayomi/Suwayomi-Server)
 VERSION="${TAG#v}"
 
 URL="https://github.com/Suwayomi/Suwayomi-Server/releases/download/${TAG}/Suwayomi-Server-${TAG}.jar"
-NEW_HASH=$(nix hash convert --hash-algo sha256 --to sri "$(nix-prefetch-url "$URL")")
+NEW_HASH=$(to_sri "$(nix-prefetch-url "$URL")")
 
 cat >"$SCRIPT_DIR/source.json" <<EOF
 {

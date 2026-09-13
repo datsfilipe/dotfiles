@@ -1,15 +1,17 @@
 {
-  config,
   lib,
   pkgs,
   mylib,
   myvars,
   ...
-}: let
-  hostName = "dtsf-laptop";
-in {
+}: {
   imports =
-    [./hardware-configuration.nix ./boot.nix]
+    [
+      ./hardware-configuration.nix
+      ./boot.nix
+      (import ../common/nixos-base.nix {hostName = "dtsf-laptop";})
+      ../common/custom-certs.nix
+    ]
     ++ (mylib.file.scanPaths ../../modules "os.nix");
 
   services.libinput.enable = true;
@@ -35,11 +37,6 @@ in {
     };
   };
 
-  networking = {
-    inherit hostName;
-    networkmanager.enable = true;
-  };
-
   services.xserver = {
     enable = true;
     xkb = {
@@ -60,15 +57,6 @@ in {
 
   hardware.sensor.iio.enable = true;
   services.udev.packages = [pkgs.libwacom];
-
-  modules.core.boot.system.enable = true;
-  modules.core.nix.system.enable = true;
-  modules.core.security.system.enable = true;
-  modules.core.user.system.enable = true;
-  modules.core.system.enable = true;
-  modules.core.shell.fish.system.enable = true;
-  modules.core.shell.ssh.system.enable = true;
-  modules.core.misc.ssh-manager.enable = true;
 
   modules.hardware.audio.system.enable = true;
   modules.hardware.bluetooth.system.enable = true;
@@ -125,20 +113,6 @@ in {
       RUNTIME_PM_ON_BAT = "auto";
       USB_AUTOSUSPEND = 0;
     };
-  };
-
-  system.activationScripts.custom-certs = lib.stringAfter ["setupSecrets"] ''
-    mkdir -p /run/custom-certs
-    cat ${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt ${config.sops.secrets."certs/server".path} > /run/custom-certs/ca-bundle.crt
-
-    mkdir -p /home/${myvars.username}/.pki/nssdb
-    ${pkgs.nssTools}/bin/certutil -d sql:/home/${myvars.username}/.pki/nssdb -A -t "C,," -n "dtsf-server" -i ${config.sops.secrets."certs/server".path}
-    chown -R ${myvars.username}:users /home/${myvars.username}/.pki
-  '';
-
-  environment.variables = {
-    SSL_CERT_FILE = "/run/custom-certs/ca-bundle.crt";
-    NIX_SSL_CERT_FILE = "/run/custom-certs/ca-bundle.crt";
   };
 
   system.stateVersion = "26.05";

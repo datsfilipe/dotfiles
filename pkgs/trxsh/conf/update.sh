@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-LATEST_RELEASE=$(curl -s https://api.github.com/repos/datsfilipe/trxsh/releases/latest)
-VERSION=$(echo "$LATEST_RELEASE" | jq -r .tag_name)
+source "$(git rev-parse --show-toplevel)/scripts/lib/update-source.sh"
+SCRIPT_DIR=$(script_dir)
+VERSION=$(github_latest_tag datsfilipe/trxsh)
 URL="https://github.com/datsfilipe/trxsh/releases/download/${VERSION}/trxsh-${VERSION}-linux-amd64.tar.gz"
 HASH=$(nix-prefetch-url "$URL")
 NEW_HASH=$(nix hash convert --hash-algo sha256 --to base64 "$HASH")

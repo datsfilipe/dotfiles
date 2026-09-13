@@ -1,4 +1,3 @@
----@diagnostic disable: undefined-global
 local utils = require("mp.utils")
 
 local cover_filenames = {
@@ -21,7 +20,6 @@ local function notify(summary, body, options)
 	return mp.command_native({
 		"run",
 		"notify-send",
-		---@diagnostic disable-next-line: deprecated
 		unpack(option_args),
 		summary,
 		body,
@@ -36,18 +34,6 @@ end
 
 local function notify_media(title, origin, thumbnail)
 	return notify(escape_pango_markup(title), origin, {
-		-- For some inscrutable reason, GNOME 3.24.2
-		-- nondeterministically fails to pick up the notification icon
-		-- if either of these two parameters are present.
-		--
-		-- urgency = "low",
-		-- ["app-name"] = "mpv",
-
-		-- ...and this one makes notifications nondeterministically
-		-- fail to appear altogether.
-		--
-		-- hint = "string:desktop-entry:mpv",
-
 		icon = thumbnail or "mpv",
 	})
 end
@@ -58,7 +44,6 @@ local function file_exists(path)
 end
 
 local function find_cover(dir)
-	-- make dir an absolute path
 	if dir[1] ~= "/" then
 		dir = utils.join_path(utils.getcwd(), dir)
 	end
@@ -78,9 +63,6 @@ function notify_current_media()
 
 	local dir, file = utils.split_path(path)
 
-	-- TODO: handle embedded covers and videos?
-	-- potential options: mpv's take_screenshot, ffprobe/ffmpeg, ...
-	-- hooking off existing desktop thumbnails would be good too
 	local thumbnail = find_cover(dir)
 
 	local title = file

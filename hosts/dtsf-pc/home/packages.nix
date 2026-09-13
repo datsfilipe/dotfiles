@@ -20,7 +20,7 @@
   modules.desktop.nupkgs.packages = with mypkgs; [
     wl-shimeji
     scripts
-    astal
+    quickshell
     focus-mode
     trxsh
   ];
