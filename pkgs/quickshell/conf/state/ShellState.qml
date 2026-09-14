@@ -19,6 +19,20 @@ Singleton {
     property bool calendarOpen: false
     property bool locked: false
 
+    property var trayMenu: null
+    property real trayMenuX: 0
+    property real trayMenuY: 0
+
+    function openTrayMenu(handle, x: real, y: real): void {
+        root.trayMenuX = x;
+        root.trayMenuY = y;
+        root.trayMenu = handle;
+    }
+
+    function closeTrayMenu(): void {
+        root.trayMenu = null;
+    }
+
     readonly property bool anyOpen: root.launcherOpen || root.dashboardOpen || root.sessionOpen || root.wallpapersOpen || root.controlCentreOpen || root.notificationsOpen || root.calendarOpen
 
     function closePopouts(): void {

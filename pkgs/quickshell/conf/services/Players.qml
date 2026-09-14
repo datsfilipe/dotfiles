@@ -12,7 +12,9 @@ Singleton {
     readonly property bool hasActive: root.active !== null
     readonly property bool playing: root.active?.isPlaying ?? false
 
-    readonly property string title: root.active?.trackTitle || root.active?.identity || ""
+    readonly property string title: root.active?.trackTitle ?? ""
+
+    readonly property bool hasTrack: root.active !== null && root.title !== ""
     readonly property string artist: root.active?.trackArtist ?? ""
     readonly property string artUrl: root.active?.trackArtUrl ?? ""
 

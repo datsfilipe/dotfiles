@@ -8,7 +8,7 @@ import qs.state
 InteractiveRect {
     id: root
 
-    readonly property bool present: Players.hasActive && Players.title !== ""
+    readonly property bool present: Players.hasTrack
 
     implicitWidth: Math.min(row.implicitWidth + Appearance.padding.normal * 2, 260)
     implicitHeight: Appearance.sizes.barItemHeight

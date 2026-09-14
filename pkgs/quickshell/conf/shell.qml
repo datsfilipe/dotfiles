@@ -20,6 +20,7 @@ ShellRoot {
     id: root
 
     Bar {}
+    TrayMenu {}
 
     ControlCentre {}
     NotificationCentre {}

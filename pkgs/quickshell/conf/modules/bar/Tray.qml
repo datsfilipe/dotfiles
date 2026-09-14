@@ -6,6 +6,7 @@ import Quickshell.Services.SystemTray
 import Quickshell.Widgets
 import qs.components
 import qs.config
+import qs.state
 
 Item {
     id: root
@@ -24,6 +25,8 @@ Item {
         }
     }
 
+    readonly property bool menuOpen: ShellState.trayMenu !== null
+
     HoverHandler {
         id: hover
 
@@ -37,11 +40,23 @@ Item {
         }
     }
 
+    onMenuOpenChanged: {
+        if (root.menuOpen) {
+            collapse.stop();
+            root.expanded = true;
+        } else if (!hover.hovered) {
+            collapse.restart();
+        }
+    }
+
     Timer {
         id: collapse
 
         interval: 400
-        onTriggered: root.expanded = false
+        onTriggered: {
+            if (!hover.hovered && !root.menuOpen)
+                root.expanded = false;
+        }
     }
 
     Row {
@@ -114,21 +129,14 @@ Item {
                                 if (event.button === Qt.MiddleButton) {
                                     entry.modelData.secondaryActivate();
                                 } else if (event.button === Qt.RightButton || entry.modelData.onlyMenu) {
-                                    menuAnchor.anchor.rect = Qt.rect(0, entry.height, entry.width, 1);
-                                    menuAnchor.open();
+                                    const at = entry.mapToItem(null, 0, entry.height);
+                                    ShellState.openTrayMenu(entry.modelData.menu, at.x, at.y + Appearance.sizes.barMargin);
                                 } else {
                                     entry.modelData.activate();
                                 }
                                 event.accepted = true;
                             }
                             onWheel: event => entry.modelData.scroll(event.angleDelta.y, false)
-                        }
-
-                        QsMenuAnchor {
-                            id: menuAnchor
-
-                            menu: entry.modelData.menu
-                            anchor.item: entry
                         }
                     }
                 }

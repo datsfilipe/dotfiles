@@ -175,16 +175,16 @@ Scope {
 
                     StyledText {
                         Layout.fillWidth: true
-                        text: Players.hasActive ? Players.title : "nothing playing"
+                        text: Players.hasTrack ? Players.title : "nothing playing"
                         elide: Text.ElideRight
-                        color: Players.hasActive ? Appearance.colors.text : Appearance.colors.faint
+                        color: Players.hasTrack ? Appearance.colors.text : Appearance.colors.faint
                         font.pixelSize: Appearance.font.size.large
                     }
 
                     StyledText {
                         Layout.fillWidth: true
                         visible: text !== ""
-                        text: Players.hasActive ? (Players.artist || Players.active?.identity || "") : ""
+                        text: Players.hasTrack ? (Players.artist || Players.active?.identity || "") : ""
                         elide: Text.ElideRight
                         color: Appearance.colors.subtext
                         font.pixelSize: Appearance.font.size.normal
@@ -200,7 +200,7 @@ Scope {
                         implicitHeight: 30
                         horizontalPadding: 0
                         text: "|<"
-                        disabled: !Players.hasActive
+                        disabled: !Players.hasTrack
                         onClicked: Players.previous()
                     }
 
@@ -210,7 +210,7 @@ Scope {
                         horizontalPadding: 0
                         text: Players.playing ? "||" : "|>"
                         textColor: Appearance.colors.accent
-                        disabled: !Players.hasActive
+                        disabled: !Players.hasTrack
                         onClicked: Players.toggle()
                     }
 
@@ -219,7 +219,7 @@ Scope {
                         implicitHeight: 30
                         horizontalPadding: 0
                         text: ">|"
-                        disabled: !Players.hasActive
+                        disabled: !Players.hasTrack
                         onClicked: Players.next()
                     }
 

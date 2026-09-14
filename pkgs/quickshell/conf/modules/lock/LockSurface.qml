@@ -30,7 +30,7 @@ WlSessionLockSurface {
         busy: root.authenticating
         failed: root.failed
         message: root.message
-        caption: Players.hasActive ? (Players.artist ? Players.title + " - " + Players.artist : Players.title) : ""
+        caption: Players.hasTrack ? (Players.artist ? Players.title + " - " + Players.artist : Players.title) : ""
     }
 
     Item {
