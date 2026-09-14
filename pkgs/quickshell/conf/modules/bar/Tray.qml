@@ -9,138 +9,138 @@ import qs.config
 import qs.state
 
 Item {
-    id: root
+  id: root
 
-    readonly property var items: SystemTray.items.values
+  readonly property var items: SystemTray.items.values
 
-    property bool expanded: false
+  property bool expanded: false
 
-    implicitWidth: root.items.length === 0 ? 0 : content.implicitWidth
-    implicitHeight: Appearance.sizes.barItemHeight
-    visible: root.items.length > 0
+  implicitWidth: root.items.length === 0 ? 0 : content.implicitWidth
+  implicitHeight: Appearance.sizes.barItemHeight
+  visible: root.items.length > 0
 
-    Behavior on implicitWidth {
+  Behavior on implicitWidth {
+    Anim {
+      speed: "fast"
+    }
+  }
+
+  readonly property bool menuOpen: ShellState.trayMenu !== null
+
+  HoverHandler {
+    id: hover
+
+    onHoveredChanged: {
+      if (hover.hovered) {
+        collapse.stop();
+        root.expanded = true;
+      } else {
+        collapse.restart();
+      }
+    }
+  }
+
+  onMenuOpenChanged: {
+    if (root.menuOpen) {
+      collapse.stop();
+      root.expanded = true;
+    } else if (!hover.hovered) {
+      collapse.restart();
+    }
+  }
+
+  Timer {
+    id: collapse
+
+    interval: 400
+    onTriggered: {
+      if (!hover.hovered && !root.menuOpen)
+        root.expanded = false;
+    }
+  }
+
+  Row {
+    id: content
+
+    anchors.verticalCenter: parent.verticalCenter
+    anchors.left: parent.left
+    spacing: Appearance.spacing.small
+
+    Label {
+      anchors.verticalCenter: parent.verticalCenter
+      text: "[" + root.items.length + "]"
+      color: root.expanded ? Appearance.colors.accent : Appearance.colors.faint
+      font.letterSpacing: 0
+    }
+
+    Item {
+      anchors.verticalCenter: parent.verticalCenter
+      width: root.expanded ? icons.implicitWidth : 0
+      height: Appearance.sizes.barItemHeight
+      clip: true
+
+      Behavior on width {
         Anim {
-            speed: "fast"
+          speed: "fast"
         }
-    }
+      }
 
-    readonly property bool menuOpen: ShellState.trayMenu !== null
+      Row {
+        id: icons
 
-    HoverHandler {
-        id: hover
-
-        onHoveredChanged: {
-            if (hover.hovered) {
-                collapse.stop();
-                root.expanded = true;
-            } else {
-                collapse.restart();
-            }
-        }
-    }
-
-    onMenuOpenChanged: {
-        if (root.menuOpen) {
-            collapse.stop();
-            root.expanded = true;
-        } else if (!hover.hovered) {
-            collapse.restart();
-        }
-    }
-
-    Timer {
-        id: collapse
-
-        interval: 400
-        onTriggered: {
-            if (!hover.hovered && !root.menuOpen)
-                root.expanded = false;
-        }
-    }
-
-    Row {
-        id: content
-
-        anchors.verticalCenter: parent.verticalCenter
         anchors.left: parent.left
-        spacing: Appearance.spacing.small
+        anchors.verticalCenter: parent.verticalCenter
+        spacing: Appearance.spacing.normal
 
-        Label {
-            anchors.verticalCenter: parent.verticalCenter
-            text: "[" + root.items.length + "]"
-            color: root.expanded ? Appearance.colors.accent : Appearance.colors.faint
-            font.letterSpacing: 0
-        }
+        Repeater {
+          model: root.items
 
-        Item {
-            anchors.verticalCenter: parent.verticalCenter
-            width: root.expanded ? icons.implicitWidth : 0
+          Item {
+            id: entry
+
+            required property var modelData
+
+            width: 14
             height: Appearance.sizes.barItemHeight
-            clip: true
 
-            Behavior on width {
+            IconImage {
+              anchors.centerIn: parent
+              width: 14
+              height: 14
+              source: entry.modelData.icon
+              opacity: mouse.containsMouse ? 1 : 0.75
+
+              Behavior on opacity {
                 Anim {
-                    speed: "fast"
+                  speed: "fast"
                 }
+              }
             }
 
-            Row {
-                id: icons
+            MouseArea {
+              id: mouse
 
-                anchors.left: parent.left
-                anchors.verticalCenter: parent.verticalCenter
-                spacing: Appearance.spacing.normal
+              anchors.fill: parent
+              hoverEnabled: true
+              cursorShape: Qt.PointingHandCursor
+              acceptedButtons: Qt.LeftButton | Qt.MiddleButton | Qt.RightButton
 
-                Repeater {
-                    model: root.items
-
-                    Item {
-                        id: entry
-
-                        required property var modelData
-
-                        width: 14
-                        height: Appearance.sizes.barItemHeight
-
-                        IconImage {
-                            anchors.centerIn: parent
-                            width: 14
-                            height: 14
-                            source: entry.modelData.icon
-                            opacity: mouse.containsMouse ? 1 : 0.75
-
-                            Behavior on opacity {
-                                Anim {
-                                    speed: "fast"
-                                }
-                            }
-                        }
-
-                        MouseArea {
-                            id: mouse
-
-                            anchors.fill: parent
-                            hoverEnabled: true
-                            cursorShape: Qt.PointingHandCursor
-                            acceptedButtons: Qt.LeftButton | Qt.MiddleButton | Qt.RightButton
-
-                            onPressed: event => {
-                                if (event.button === Qt.MiddleButton) {
-                                    entry.modelData.secondaryActivate();
-                                } else if (event.button === Qt.RightButton || entry.modelData.onlyMenu) {
-                                    const at = entry.mapToItem(null, 0, entry.height);
-                                    ShellState.openTrayMenu(entry.modelData.menu, at.x, at.y + Appearance.sizes.barMargin);
-                                } else {
-                                    entry.modelData.activate();
-                                }
-                                event.accepted = true;
-                            }
-                            onWheel: event => entry.modelData.scroll(event.angleDelta.y, false)
-                        }
-                    }
+              onPressed: event => {
+                if (event.button === Qt.MiddleButton) {
+                  entry.modelData.secondaryActivate();
+                } else if (event.button === Qt.RightButton || entry.modelData.onlyMenu) {
+                  const at = entry.mapToItem(null, 0, entry.height);
+                  ShellState.openTrayMenu(entry.modelData.menu, at.x, at.y + Appearance.sizes.barMargin);
+                } else {
+                  entry.modelData.activate();
                 }
+                event.accepted = true;
+              }
+              onWheel: event => entry.modelData.scroll(event.angleDelta.y, false)
             }
+          }
         }
+      }
     }
+  }
 }

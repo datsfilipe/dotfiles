@@ -5,52 +5,52 @@ import qs.config
 import qs.state
 
 InteractiveRect {
-    id: root
+  id: root
 
-    implicitWidth: row.implicitWidth + Appearance.padding.normal * 2
-    implicitHeight: Appearance.sizes.barItemHeight
-    toggled: ShellState.calendarOpen
+  implicitWidth: row.implicitWidth + Appearance.padding.normal * 2
+  implicitHeight: Appearance.sizes.barItemHeight
+  toggled: ShellState.calendarOpen
 
-    onClicked: ShellState.toggle("calendarOpen")
+  onClicked: ShellState.toggle("calendarOpen")
 
-    SystemClock {
-        id: clock
+  SystemClock {
+    id: clock
 
-        precision: SystemClock.Minutes
+    precision: SystemClock.Minutes
+  }
+
+  Row {
+    id: row
+
+    anchors.centerIn: parent
+    spacing: Appearance.spacing.small
+
+    StyledText {
+      anchors.verticalCenter: parent.verticalCenter
+      text: Qt.formatDateTime(clock.date, "HH:mm")
+      color: root.toggled ? Appearance.colors.accent : Appearance.colors.text
+      font.family: Appearance.font.family.mono
+      font.pixelSize: Appearance.font.size.medium
     }
 
-    Row {
-        id: row
+    Item {
+      anchors.verticalCenter: parent.verticalCenter
+      width: root.hovered || root.toggled ? date.implicitWidth : 0
+      height: date.implicitHeight
+      clip: true
 
-        anchors.centerIn: parent
-        spacing: Appearance.spacing.small
+      Behavior on width {
+        Anim {}
+      }
 
-        StyledText {
-            anchors.verticalCenter: parent.verticalCenter
-            text: Qt.formatDateTime(clock.date, "HH:mm")
-            color: root.toggled ? Appearance.colors.accent : Appearance.colors.text
-            font.family: Appearance.font.family.mono
-            font.pixelSize: Appearance.font.size.medium
-        }
+      Label {
+        id: date
 
-        Item {
-            anchors.verticalCenter: parent.verticalCenter
-            width: root.hovered || root.toggled ? date.implicitWidth : 0
-            height: date.implicitHeight
-            clip: true
-
-            Behavior on width {
-                Anim {}
-            }
-
-            Label {
-                id: date
-
-                anchors.right: parent.right
-                anchors.verticalCenter: parent.verticalCenter
-                text: Qt.formatDateTime(clock.date, "ddd d MMM")
-                color: Appearance.colors.faint
-            }
-        }
+        anchors.right: parent.right
+        anchors.verticalCenter: parent.verticalCenter
+        text: Qt.formatDateTime(clock.date, "ddd d MMM")
+        color: Appearance.colors.faint
+      }
     }
+  }
 }

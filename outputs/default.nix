@@ -99,6 +99,7 @@ in {
           alejandra
           kdlfmt
           shfmt
+          qt6.qtdeclarative
           fish
           just
         ];
