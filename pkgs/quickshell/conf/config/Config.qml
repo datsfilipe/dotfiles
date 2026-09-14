@@ -26,4 +26,5 @@ Singleton {
     readonly property int notificationTimeout: 6000
     readonly property int maxNotifications: 6
     readonly property real volumeStep: 0.05
+    readonly property var mprisProxies: ["playerctld"]
 }

@@ -3,11 +3,12 @@ pragma Singleton
 import QtQuick
 import Quickshell
 import Quickshell.Services.Mpris
+import qs.config
 
 Singleton {
     id: root
 
-    readonly property var all: Mpris.players.values
+    readonly property var all: Mpris.players.values.filter(p => !Config.mprisProxies.some(n => (p.dbusName ?? "").includes(n)))
     readonly property MprisPlayer active: root.all.find(p => p.isPlaying) ?? root.all[0] ?? null
     readonly property bool hasActive: root.active !== null
     readonly property bool playing: root.active?.isPlaying ?? false
