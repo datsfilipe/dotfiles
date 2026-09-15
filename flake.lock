@@ -272,11 +272,11 @@
     "unix-scripts": {
       "flake": false,
       "locked": {
-        "lastModified": 1780862874,
-        "narHash": "sha256-H6scYtGGyMjDTGyfBIZM3jb8eCEX/KDPMljSdBwC4E8=",
+        "lastModified": 1789408503,
+        "narHash": "sha256-0jcH6bLyYHypY7TozCh72Fakg09BwL+aON4JPsRqzEo=",
         "owner": "datsfilipe",
         "repo": "unix-scripts",
-        "rev": "b839c2309cf10964cfd0f418373ba838283f0a16",
+        "rev": "39b37e3043d36f440ed7e0ab36ab0a24d80a8183",
         "type": "github"
       },
       "original": {
