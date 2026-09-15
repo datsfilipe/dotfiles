@@ -6,6 +6,7 @@ Rectangle {
 
   property bool toggled: false
   property bool disabled: false
+  property bool wheelEnabled: false
   property alias hovered: mouse.containsMouse
   property alias pressed: mouse.pressed
   property alias acceptedButtons: mouse.acceptedButtons
@@ -55,6 +56,11 @@ Rectangle {
       else
         root.clicked(event);
     }
-    onWheel: event => root.wheel(event)
+    onWheel: event => {
+      if (root.wheelEnabled)
+        root.wheel(event);
+      else
+        event.accepted = false;
+    }
   }
 }

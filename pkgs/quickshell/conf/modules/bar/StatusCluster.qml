@@ -67,6 +67,7 @@ InteractiveRect {
   border.color: root.toggled ? Appearance.colors.accent : Appearance.colors.outline
 
   onClicked: ShellState.toggle("controlCentreOpen")
+  wheelEnabled: true
   onWheel: event => Audio.step(event.angleDelta.y > 0 ? 1 : -1)
 
   Behavior on border.color {

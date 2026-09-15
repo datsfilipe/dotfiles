@@ -16,6 +16,7 @@ InteractiveRect {
   toggled: ShellState.mediaOpen
 
   onClicked: ShellState.mediaOpen = !ShellState.mediaOpen
+  wheelEnabled: true
   onWheel: event => event.angleDelta.y > 0 ? Players.next() : Players.previous()
 
   onPresentChanged: {
