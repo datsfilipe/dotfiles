@@ -5,28 +5,35 @@
 }: let
   pname = "tableplus";
   source = builtins.fromJSON (builtins.readFile ./conf/source.json);
-in
-  appimageTools.wrapType2 rec {
-    inherit pname;
-    version = source.version;
+  version = source.version;
 
-    src = fetchurl {
-      url = "https://tableplus.com/release/linux/x64/TablePlus-x64.AppImage";
-      sha256 = source.sha256;
-    };
+  src = fetchurl {
+    url = "https://tableplus.com/release/linux/x64/TablePlus-x64.AppImage";
+    sha256 = source.sha256;
+  };
+
+  contents = appimageTools.extract {inherit pname version src;};
+in
+  appimageTools.wrapType2 {
+    inherit pname version src;
 
     extraPkgs = pkgs:
       with pkgs; [
         openssh
         openssl
+        hicolor-icon-theme
+        adwaita-icon-theme
+        reversal-icon-theme
       ];
 
     extraInstallCommands = ''
       mkdir -p $out/share/applications
+      install -Dm444 ${contents}/usr/share/icons/hicolor/256x256/apps/${pname}.png \
+        $out/share/icons/hicolor/256x256/apps/${pname}.png
       echo "[Desktop Entry]
       Name=TablePlus
       Exec=$out/bin/${pname}
-      Icon=tableplus
+      Icon=${pname}
       Type=Application
       Categories=Development;Database;" > $out/share/applications/tableplus.desktop
     '';
