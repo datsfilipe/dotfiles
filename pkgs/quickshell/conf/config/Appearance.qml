@@ -113,6 +113,7 @@ Singleton {
     readonly property int barItemHeight: 26
     readonly property int panelWidth: 400
     readonly property int hitArea: 28
+    readonly property int mascotSize: 96
   }
 
   readonly property QtObject anim: QtObject {

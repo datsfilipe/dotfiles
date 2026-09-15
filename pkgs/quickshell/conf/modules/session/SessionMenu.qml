@@ -78,11 +78,11 @@ Overlay {
 
     AnimatedImage {
       Layout.alignment: Qt.AlignHCenter
-      Layout.preferredWidth: 48
-      Layout.preferredHeight: 48
-      source: "root:/assets/gif0.gif"
+      Layout.preferredWidth: Appearance.sizes.mascotSize
+      Layout.preferredHeight: Appearance.sizes.mascotSize
+      source: "root:/assets/asuka.gif"
       fillMode: Image.PreserveAspectFit
-      smooth: false
+      smooth: true
       playing: root.shown
       opacity: root.shown ? 1 : 0
 
