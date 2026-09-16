@@ -25,4 +25,13 @@
     focus-mode
     trxsh
   ];
+
+  xdg.configFile."kritarc".source =
+    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/hosts/dtsf-pc/home/krita/kritarc";
+
+  xdg.configFile."kritashortcutsrc".source =
+    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/hosts/dtsf-pc/home/krita/kritashortcutsrc";
+
+  xdg.dataFile."krita".source =
+    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/pkgs/krita-resources/data";
 }
