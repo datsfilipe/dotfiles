@@ -105,10 +105,11 @@ in {
     monitors = {
       pc = [
         {
-          name = "DP-4";
+          name = "DP-3";
           focus = true;
-          resolution = "1920x1080";
-          refreshRate = "179.998";
+          resolution = "3840x2160";
+          refreshRate = "120.000";
+          scale = "2";
           nvidiaSettings = {
             coordinate = {
               x = 0;

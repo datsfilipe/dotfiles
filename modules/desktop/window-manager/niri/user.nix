@@ -9,6 +9,13 @@ with lib; let
   cfg = config.modules.desktop.wm.niri.user;
   generateConfig = rootConfig: builtins.concatStringsSep "\n" rootConfig.modules.desktop.wm.niri.user.rawConfigValues;
   hostMonitors = config.modules.hardware.monitors.monitors or [];
+  focusedMonitors = builtins.filter (m: m.focus or false) hostMonitors;
+  touchOutput =
+    if focusedMonitors != []
+    then (builtins.head focusedMonitors).name
+    else if hostMonitors != []
+    then (builtins.head hostMonitors).name
+    else "eDP-1";
 in {
   options.modules.desktop.wm.niri.user = {
     enable = mkEnableOption "Niri configuration";
@@ -56,7 +63,7 @@ in {
         '')
         hostMonitors))
 
-      (lib.fileContents ./conf/niri.kdl)
+      (builtins.replaceStrings ["@TOUCH_OUTPUT@"] [touchOutput] (lib.fileContents ./conf/niri.kdl))
     ];
 
     xdg.configFile."niri/config.kdl".text = generateConfig config;

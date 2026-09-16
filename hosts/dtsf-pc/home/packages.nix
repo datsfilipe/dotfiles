@@ -7,6 +7,7 @@
   ...
 }: {
   home.packages = with pkgs; [
+    krita
     qbittorrent
     claude-code
     codex

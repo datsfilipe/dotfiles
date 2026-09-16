@@ -8,7 +8,10 @@ input {
     track-layout "global"
   }
   touch {
-    map-to-output "eDP-1"
+    map-to-output "@TOUCH_OUTPUT@"
+  }
+  tablet {
+    map-to-output "@TOUCH_OUTPUT@"
   }
   touchpad {
     tap

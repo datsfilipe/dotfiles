@@ -6,6 +6,16 @@
 }:
 with lib; let
   cfg = config.modules.desktop.addons.gtk.user;
+
+  hostMonitors = config.modules.hardware.monitors.monitors or [];
+  focusedMonitors = builtins.filter (m: m.focus or false) hostMonitors;
+  primaryScale =
+    if focusedMonitors != []
+    then builtins.fromJSON (builtins.head focusedMonitors).scale
+    else if hostMonitors != []
+    then builtins.fromJSON (builtins.head hostMonitors).scale
+    else 1.0;
+  scaledDpi = builtins.floor ((96.0 * primaryScale) + 0.5);
 in {
   options.modules.desktop.addons.gtk.user.enable = mkEnableOption "GTK/theme defaults";
 
@@ -20,8 +30,8 @@ in {
     };
 
     xresources.properties = {
-      "Xft.dpi" = 96;
-      "*.dpi" = 96;
+      "Xft.dpi" = scaledDpi;
+      "*.dpi" = scaledDpi;
     };
 
     gtk = {

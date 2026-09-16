@@ -70,6 +70,12 @@ with lib; let
     )
     activeMonitors;
 
+  layoutSignature =
+    "canvas=${toString totalWidth}x${toString totalHeight}"
+    + concatMapStringsSep "" (m: ";${m.name}=${toString (getWidth m)}x${toString (getHeight m)}+${toString (m.nvidiaSettings.coordinate.x - offsetX)}+${toString (m.nvidiaSettings.coordinate.y - offsetY)}") activeMonitors;
+
+  expectedCrops = concatMapStringsSep " " (m: "${m.name}.png") activeMonitors;
+
   gdriveMountPoint = "/home/${myvars.username}/gdrive";
   wallpaperPath = toString cfg.file;
   wallpaperUsesGdrive =
@@ -123,6 +129,7 @@ in {
         CACHE_DIR="/home/${myvars.username}/.cache/wallpapers"
         SUM_FILE="$CACHE_DIR/source.md5"
         ZOOM_FILE="$CACHE_DIR/zoom.txt"
+        LAYOUT_FILE="$CACHE_DIR/layout.txt"
         mkdir -p "$CACHE_DIR"
 
         ${
@@ -161,11 +168,25 @@ in {
         CURRENT_SUM=$(md5sum "$SOURCE_WALLPAPER" | awk '{print $1}')
         SAVED_SUM=$(cat "$SUM_FILE" 2>/dev/null || echo "")
         SAVED_ZOOM=$(cat "$ZOOM_FILE" 2>/dev/null || echo "")
+        LAYOUT=${lib.escapeShellArg layoutSignature}
+        SAVED_LAYOUT=$(cat "$LAYOUT_FILE" 2>/dev/null || echo "")
 
         CHANGES_DETECTED=0
         if [ "$CURRENT_SUM" != "$SAVED_SUM" ] || [ "$ZOOM" != "$SAVED_ZOOM" ] || [ ! -f "$CACHE_DIR/master.png" ]; then
            CHANGES_DETECTED=1
         fi
+
+        if [ "$LAYOUT" != "$SAVED_LAYOUT" ]; then
+           echo "[Updater] Monitor layout changed."
+           CHANGES_DETECTED=1
+        fi
+
+        for crop in ${expectedCrops}; do
+           if [ ! -f "$CACHE_DIR/$crop" ]; then
+              echo "[Updater] Missing crop $crop."
+              CHANGES_DETECTED=1
+           fi
+        done
 
         if [ "$CHANGES_DETECTED" -eq 1 ]; then
            echo "[Updater] Change detected. Processing..."
@@ -182,6 +203,7 @@ in {
 
            echo "$CURRENT_SUM" > "$SUM_FILE"
            echo "$ZOOM" > "$ZOOM_FILE"
+           echo "$LAYOUT" > "$LAYOUT_FILE"
         else
            echo "[Updater] No changes detected."
         fi
