@@ -13,6 +13,10 @@ Singleton {
   property real memoryUsedKb: 0
   property real memoryTotalKb: 0
   property real swap: 0
+  property real cpuTemp: 0
+  property real memoryTemp: 0
+  property real diskTemp: 0
+  property real ambientTemp: 0
   property real diskUsed: 0
   property string diskLabel: ""
   property string uptime: ""
@@ -22,6 +26,7 @@ Singleton {
   property var memoryHistory: []
 
   property var previousCpu: null
+  property bool sensorsAvailable: true
 
   readonly property int historySize: 60
 
@@ -55,11 +60,122 @@ Singleton {
     return minutes + "m";
   }
 
+  function percent(fraction: real): string {
+    const value = Math.round(Math.max(0, fraction) * 100);
+    return (value < 10 ? "0" : "") + value + "%";
+  }
+
+  function degrees(celsius: real): string {
+    const value = Math.round(celsius);
+    return (value < 10 ? "0" : "") + value + "°";
+  }
+
+  function readout(fraction: real, celsius: real): string {
+    return celsius > 0 ? root.percent(fraction) + "/" + root.degrees(celsius) : root.percent(fraction);
+  }
+
+  function cpuTempRank(chip: string, feature: string): int {
+    if (chip.startsWith("k10temp") && feature === "tctl")
+      return 100;
+    if (chip.startsWith("zenpower") && feature === "tdie")
+      return 95;
+    if (chip.startsWith("coretemp") && feature.startsWith("package id"))
+      return 90;
+    if (feature === "cpu" || feature.startsWith("cpu@"))
+      return 80;
+    if (feature.startsWith("cpu") || feature.startsWith("tdie") || feature.startsWith("tctl"))
+      return 60;
+    if (chip.startsWith("acpitz"))
+      return 10;
+    return 0;
+  }
+
+  function memoryTempRank(chip: string, feature: string): int {
+    if (chip.startsWith("spd5118"))
+      return 100;
+    if (feature.includes("memory") || feature.includes("dimm"))
+      return 90;
+    return 0;
+  }
+
+  function diskTempRank(chip: string, feature: string): int {
+    if (chip.startsWith("nvme") && feature === "composite")
+      return 100;
+    if (chip.startsWith("nvme"))
+      return 80;
+    if (chip.startsWith("drivetemp"))
+      return 70;
+    return 0;
+  }
+
+  function ambientTempRank(chip: string, feature: string): int {
+    if (feature.includes("ambient"))
+      return 100;
+    if (feature === "systin")
+      return 90;
+    if (feature.includes("mainboard") || feature.includes("motherboard") || feature.includes("board"))
+      return 70;
+    return 0;
+  }
+
+  function applyTemps(payload: string): void {
+    let chips;
+    try {
+      chips = JSON.parse(payload);
+    } catch (error) {
+      return;
+    }
+
+    const empty = {
+      rank: 0,
+      value: 0
+    };
+    const better = (slot, rank, value) => rank > slot.rank ? {
+        rank: rank,
+        value: value
+      } : slot;
+
+    let cpu = empty;
+    let memory = empty;
+    let disk = empty;
+    let ambient = empty;
+
+    for (const chipName in chips) {
+      const chip = chipName.toLowerCase();
+      const features = chips[chipName];
+      for (const featureName in features) {
+        const readings = features[featureName];
+        if (typeof readings !== "object")
+          continue;
+
+        let value = null;
+        for (const key in readings)
+          if (key.startsWith("temp") && key.endsWith("_input"))
+            value = readings[key];
+        if (value === null || value <= 0 || value > 150)
+          continue;
+
+        const feature = featureName.toLowerCase();
+        cpu = better(cpu, root.cpuTempRank(chip, feature), value);
+        memory = better(memory, root.memoryTempRank(chip, feature), value);
+        disk = better(disk, root.diskTempRank(chip, feature), value);
+        ambient = better(ambient, root.ambientTempRank(chip, feature), value);
+      }
+    }
+
+    root.cpuTemp = cpu.value;
+    root.memoryTemp = memory.value;
+    root.diskTemp = disk.value;
+    root.ambientTemp = ambient.value;
+  }
+
   function sample(): void {
     meminfo.reload();
     stat.reload();
     uptimeFile.reload();
     loadavg.reload();
+    if (root.sensorsAvailable && !temps.running)
+      temps.running = true;
 
     root.load = Number(loadavg.text().split(" ")[0] ?? 0);
 
@@ -147,6 +263,21 @@ Singleton {
         root.networkInterface = network[0] ?? "";
         root.networkAddress = network[1] ?? "";
       }
+    }
+  }
+
+  Process {
+    id: temps
+
+    command: ["sensors", "-j"]
+
+    onExited: exitCode => {
+      if (exitCode !== 0)
+        root.sensorsAvailable = false;
+    }
+
+    stdout: StdioCollector {
+      onStreamFinished: root.applyTemps(text)
     }
   }
 

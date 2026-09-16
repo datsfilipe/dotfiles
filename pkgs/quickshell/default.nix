@@ -21,6 +21,7 @@
   findutils,
   xdg-utils,
   inetutils,
+  lm_sensors,
   cava,
   wl-clipboard,
   reversal-icon-theme,
@@ -54,6 +55,7 @@
     findutils
     xdg-utils
     inetutils
+    lm_sensors
     cava
     wl-clipboard
   ];

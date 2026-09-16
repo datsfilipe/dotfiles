@@ -12,7 +12,7 @@ Popout {
   shown: ShellState.dashboardOpen
   onDismissed: ShellState.dashboardOpen = false
   panelWidth: 460
-  panelHeight: 280
+  panelHeight: 304
 
   onShownChanged: {
     if (root.shown)
@@ -71,7 +71,8 @@ Popout {
         label: "cpu"
         value: SysInfo.cpu
         detail: SysInfo.load.toFixed(2) + " load"
-        readout: Math.round(SysInfo.cpu * 100) + "%"
+        readout: SysInfo.readout(SysInfo.cpu, SysInfo.cpuTemp)
+        alert: SysInfo.cpuTemp >= 85
         fillColor: Appearance.colors.accent
       }
 
@@ -80,7 +81,8 @@ Popout {
         label: "memory"
         value: SysInfo.memory
         detail: SysInfo.memoryLabel
-        readout: Math.round(SysInfo.memory * 100) + "%"
+        readout: SysInfo.readout(SysInfo.memory, SysInfo.memoryTemp)
+        alert: SysInfo.memoryTemp >= 75
         fillColor: Appearance.colors.info
       }
 
@@ -89,8 +91,16 @@ Popout {
         label: "storage"
         value: SysInfo.diskUsed
         detail: SysInfo.diskLabel
-        readout: Math.round(SysInfo.diskUsed * 100) + "%"
+        readout: SysInfo.readout(SysInfo.diskUsed, SysInfo.diskTemp)
+        alert: SysInfo.diskTemp >= 70
         fillColor: Appearance.colors.success
+      }
+
+      Label {
+        Layout.topMargin: Appearance.spacing.tiny
+        visible: SysInfo.ambientTemp > 0
+        text: "ambient - " + SysInfo.degrees(SysInfo.ambientTemp)
+        color: SysInfo.ambientTemp >= 60 ? Appearance.colors.error : Appearance.colors.faint
       }
     }
 

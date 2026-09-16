@@ -9,9 +9,10 @@ Item {
   property string readout
   property real value: 0
   property color fillColor: Appearance.colors.accent
+  property bool alert: false
   property int labelWidth: 68
   property int detailWidth: 100
-  property int readoutWidth: 44
+  property int readoutWidth: 72
 
   implicitHeight: 16
 
@@ -73,6 +74,6 @@ Item {
     width: root.readoutWidth
     horizontalAlignment: Text.AlignRight
     text: root.readout
-    color: Appearance.colors.faint
+    color: root.alert ? Appearance.colors.error : Appearance.colors.faint
   }
 }

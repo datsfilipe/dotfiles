@@ -50,6 +50,13 @@ InteractiveRect {
         tint: Appearance.colors.success
       }
     }
+
+    Label {
+      anchors.verticalCenter: parent.verticalCenter
+      visible: SysInfo.cpuTemp > 0
+      text: SysInfo.degrees(SysInfo.cpuTemp)
+      color: SysInfo.cpuTemp >= 85 ? Appearance.colors.error : Appearance.colors.faint
+    }
   }
 
   component Column_: Rectangle {
