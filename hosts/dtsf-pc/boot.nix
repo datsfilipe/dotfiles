@@ -11,6 +11,8 @@
 
   boot.initrd.kernelModules = ["amdgpu"];
 
+  boot.kernelParams = ["amdgpu.dcfeaturemask=0x402"];
+
   boot.blacklistedKernelModules = ["hid_magicmouse" "hid_apple"];
 
   boot.loader = {

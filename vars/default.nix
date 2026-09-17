@@ -105,7 +105,7 @@ in {
     monitors = {
       pc = [
         {
-          name = "DP-3";
+          name = "HDMI-A-1";
           focus = true;
           resolution = "3840x2160";
           refreshRate = "120.000";
