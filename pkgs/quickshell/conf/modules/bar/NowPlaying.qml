@@ -9,6 +9,7 @@ InteractiveRect {
   id: root
 
   readonly property bool present: Players.hasTrack
+  readonly property bool vizActive: Players.playing
 
   implicitWidth: Math.min(row.implicitWidth + Appearance.padding.normal * 2, 260)
   implicitHeight: Appearance.sizes.barItemHeight
@@ -19,15 +20,15 @@ InteractiveRect {
   wheelEnabled: true
   onWheel: event => event.angleDelta.y > 0 ? Players.next() : Players.previous()
 
-  onPresentChanged: {
-    if (root.present)
+  onVizActiveChanged: {
+    if (root.vizActive)
       Cava.subscribe();
     else
       Cava.unsubscribe();
   }
 
   Component.onDestruction: {
-    if (root.present)
+    if (root.vizActive)
       Cava.unsubscribe();
   }
 
@@ -67,7 +68,7 @@ InteractiveRect {
       Layout.preferredWidth: 38
       Layout.preferredHeight: 12
       Layout.alignment: Qt.AlignVCenter
-      visible: Players.playing
+      visible: root.vizActive
       values: Cava.mini
       gap: 3
       barColor: Appearance.colors.accent

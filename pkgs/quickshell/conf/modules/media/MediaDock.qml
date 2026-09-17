@@ -12,6 +12,7 @@ Scope {
   readonly property int dockHeight: 130
   readonly property int blockInset: 56
   readonly property bool shown: ShellState.mediaOpen
+  readonly property bool vizActive: root.shown && Players.playing
 
   property real reveal: root.shown ? 1 : 0
 
@@ -21,8 +22,8 @@ Scope {
     }
   }
 
-  onShownChanged: {
-    if (root.shown)
+  onVizActiveChanged: {
+    if (root.vizActive)
       Cava.subscribe();
     else
       Cava.unsubscribe();
@@ -80,6 +81,7 @@ Scope {
 
         Bars {
           anchors.fill: parent
+          visible: root.vizActive
           values: Cava.values
           gap: 2
           barColor: Appearance.colors.accent
