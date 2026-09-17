@@ -4,6 +4,7 @@ runtime="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}"
 nssdb="$profile/pki/nssdb"
 servercert="/run/secrets/certs/server"
 tmp="$profile/tmp"
+wayland="${WAYLAND_DISPLAY:-wayland-0}"
 
 mkdir -p "$profile" "$work" "$nssdb" "$tmp"
 
@@ -40,18 +41,16 @@ binds=(
   --dev-bind-try /dev/dri /dev/dri
   --dev-bind-try /dev/bus/usb /dev/bus/usb
   --bind "$tmp" /tmp
-  --bind-try /tmp/.X11-unix /tmp/.X11-unix
   --tmpfs "$HOME"
   --bind "$profile" "$profile"
   --bind "$nssdb" "$HOME/.pki/nssdb"
   --bind "$work" "$work"
   --symlink downloads "$HOME/Downloads"
   --tmpfs "$runtime"
+  --bind-try "$runtime/$wayland" "$runtime/$wayland"
   --bind-try "$runtime/pipewire-0" "$runtime/pipewire-0"
   --bind-try "$runtime/pulse" "$runtime/pulse"
   --chdir "$HOME"
-  --unsetenv NIXOS_OZONE_WL
-  --unsetenv WAYLAND_DISPLAY
   --unshare-pid
   --unshare-uts
   --unshare-ipc
@@ -60,11 +59,7 @@ binds=(
   --new-session
 )
 
-if [ -n "${XAUTHORITY:-}" ] && [ -e "${XAUTHORITY:-}" ]; then
-  binds+=(--ro-bind "$XAUTHORITY" "$XAUTHORITY")
-fi
-
-for dev in /dev/nvidia* /dev/video* /dev/hidraw*; do
+for dev in /dev/video* /dev/hidraw*; do
   if [ -e "$dev" ]; then
     binds+=(--dev-bind "$dev" "$dev")
   fi
@@ -74,8 +69,12 @@ exec bwrap "${binds[@]}" \
   chromium \
   --user-data-dir="$profile/chromium" \
   --class=WorkBrowser \
-  --ozone-platform=x11 \
-  --disable-features=Vulkan \
+  --ozone-platform=wayland \
+  --enable-features=AcceleratedVideoDecodeLinuxGL,AcceleratedVideoEncoder,WaylandWindowDecorations,WebUIDarkMode \
+  --disable-features=OutdatedBuildDetector,UseChromeOSDirectVideoDecoder,Vulkan \
+  --force-dark-mode \
+  --ignore-gpu-blocklist \
+  --disable-gpu-memory-buffer-video-frames \
   --no-first-run \
   --no-default-browser-check \
   "$@"

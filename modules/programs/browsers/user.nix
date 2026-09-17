@@ -23,7 +23,7 @@ in {
       [
         (pkgs.brave.override {
           commandLineArgs = concatStringsSep " " [
-            "--enable-features=AcceleratedVideoDecodeLinuxGL,AcceleratedVideoEncoder,VaapiOnNvidiaGPUs,WaylandWindowDecorations,WebUIDarkMode"
+            "--enable-features=AcceleratedVideoDecodeLinuxGL,AcceleratedVideoEncoder,WaylandWindowDecorations,WebUIDarkMode"
             "--disable-features=OutdatedBuildDetector,UseChromeOSDirectVideoDecoder,Vulkan"
             "--force-dark-mode"
             "--ignore-gpu-blocklist"
