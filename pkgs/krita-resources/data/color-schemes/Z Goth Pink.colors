@@ -1,0 +1,28 @@
+[ColorEffects:Inactive]
+ChangeSelectionColor = true
+
+
+[Colors:Button]
+BackgroundNormal     = 26,25,26
+ForegroundNormal     = 255,255,255,135
+
+
+[Colors:Selection]
+BackgroundNormal     = 205,90,125
+ForegroundNormal     = 0
+
+
+[Colors:View]
+BackgroundAlternate  = 26,25,26
+BackgroundNormal     = 42,40,42
+ForegroundLink       = 220,95,130
+ForegroundNormal     = 255,255,255,135
+
+
+[Colors:Window]
+BackgroundNormal     = 26,25,26
+ForegroundNormal     = 255,255,255,135
+
+
+[General]
+Name                 = Z Goth Pink

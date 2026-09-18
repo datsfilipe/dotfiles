@@ -1,0 +1,28 @@
+[ColorEffects:Inactive]
+ChangeSelectionColor = true
+
+
+[Colors:Button]
+BackgroundNormal     = 25,25,26
+ForegroundNormal     = 255,255,255,135
+
+
+[Colors:Selection]
+BackgroundNormal     = 40,120,190
+ForegroundNormal     = 0
+
+
+[Colors:View]
+BackgroundAlternate  = 25,25,26
+BackgroundNormal     = 41,41,42
+ForegroundLink       = 75,155,230
+ForegroundNormal     = 255,255,255,135
+
+
+[Colors:Window]
+BackgroundNormal     = 25,25,26
+ForegroundNormal     = 255,255,255,135
+
+
+[General]
+Name                 = Z Goth Blue

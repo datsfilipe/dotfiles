@@ -1,0 +1,28 @@
+[ColorEffects:Inactive]
+ChangeSelectionColor = true
+
+
+[Colors:Button]
+BackgroundNormal     = 26,25,27
+ForegroundNormal     = 255,255,255,135
+
+
+[Colors:Selection]
+BackgroundNormal     = 110,115,190
+ForegroundNormal     = 0
+
+
+[Colors:View]
+BackgroundAlternate  = 26,25,27
+BackgroundNormal     = 42,41,43
+ForegroundLink       = 145,130,205
+ForegroundNormal     = 255,255,255,135
+
+
+[Colors:Window]
+BackgroundNormal     = 26,25,27
+ForegroundNormal     = 255,255,255,135
+
+
+[General]
+Name                 = Z Goth Purple

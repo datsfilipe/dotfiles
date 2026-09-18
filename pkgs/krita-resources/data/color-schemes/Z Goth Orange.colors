@@ -1,0 +1,28 @@
+[ColorEffects:Inactive]
+ChangeSelectionColor = true
+
+
+[Colors:Button]
+BackgroundNormal     = 26,25,25
+ForegroundNormal     = 255,255,255,135
+
+
+[Colors:Selection]
+BackgroundNormal     = 210,112,58
+ForegroundNormal     = 0
+
+
+[Colors:View]
+BackgroundAlternate  = 26,25,25
+BackgroundNormal     = 42,41,41
+ForegroundLink       = 220,120,70
+ForegroundNormal     = 255,255,255,135
+
+
+[Colors:Window]
+BackgroundNormal     = 26,25,25
+ForegroundNormal     = 255,255,255,135
+
+
+[General]
+Name                 = Z Goth Orange

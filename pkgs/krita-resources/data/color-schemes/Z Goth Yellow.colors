@@ -1,0 +1,28 @@
+[ColorEffects:Inactive]
+ChangeSelectionColor = true
+
+
+[Colors:Button]
+BackgroundNormal     = 27,26,25
+ForegroundNormal     = 255,255,255,135
+
+
+[Colors:Selection]
+BackgroundNormal     = 215,175,80
+ForegroundNormal     = 0
+
+
+[Colors:View]
+BackgroundAlternate  = 27,26,25
+BackgroundNormal     = 43,42,41
+ForegroundLink       = 210,175,80
+ForegroundNormal     = 255,255,255,135
+
+
+[Colors:Window]
+BackgroundNormal     = 27,26,25
+ForegroundNormal     = 255,255,255,135
+
+
+[General]
+Name                 = Z Goth Yellow
