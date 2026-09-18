@@ -5,6 +5,7 @@ nssdb="$profile/pki/nssdb"
 servercert="/run/secrets/certs/server"
 tmp="$profile/tmp"
 wayland="${WAYLAND_DISPLAY:-wayland-0}"
+busproxy="$runtime/work-browser-$$.bus"
 
 mkdir -p "$profile" "$work" "$nssdb" "$tmp"
 
@@ -25,6 +26,27 @@ if [ ! -f "$prefs" ]; then
     | .webkit.webprefs.fonts.sansserif.Zyyy = "Inter"
     | .webkit.webprefs.fonts.fixed.Zyyy = "JetBrainsMono Nerd Font"
   ' >"$prefs"
+fi
+
+proxypid=""
+cleanup() {
+  if [ -n "$proxypid" ]; then
+    kill "$proxypid" 2>/dev/null || true
+  fi
+  rm -f "$busproxy"
+}
+trap cleanup EXIT
+
+if [ -n "${DBUS_SESSION_BUS_ADDRESS:-}" ]; then
+  sync="$tmp/bus-sync-$$"
+  rm -f "$busproxy" "$sync"
+  mkfifo "$sync"
+  exec 9<>"$sync"
+  rm -f "$sync"
+  xdg-dbus-proxy --fd=3 "$DBUS_SESSION_BUS_ADDRESS" "$busproxy" \
+    --filter --talk=org.freedesktop.Notifications 3>&9 &
+  proxypid=$!
+  read -r -t 5 -n 1 -u 9 || true
 fi
 
 binds=(
@@ -50,6 +72,8 @@ binds=(
   --bind-try "$runtime/$wayland" "$runtime/$wayland"
   --bind-try "$runtime/pipewire-0" "$runtime/pipewire-0"
   --bind-try "$runtime/pulse" "$runtime/pulse"
+  --bind-try "$busproxy" "$runtime/bus"
+  --setenv DBUS_SESSION_BUS_ADDRESS "unix:path=$runtime/bus"
   --chdir "$HOME"
   --unshare-pid
   --unshare-uts
@@ -65,7 +89,7 @@ for dev in /dev/video* /dev/hidraw*; do
   fi
 done
 
-exec bwrap "${binds[@]}" \
+bwrap "${binds[@]}" \
   chromium \
   --user-data-dir="$profile/chromium" \
   --class=WorkBrowser \

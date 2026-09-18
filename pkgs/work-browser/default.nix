@@ -6,12 +6,13 @@
   coreutils,
   nssTools,
   jq,
+  xdg-dbus-proxy,
   makeDesktopItem,
   symlinkJoin,
 }: let
   launcher = writeShellApplication {
     name = "work-browser";
-    runtimeInputs = [chromium bubblewrap coreutils nssTools jq];
+    runtimeInputs = [chromium bubblewrap coreutils nssTools jq xdg-dbus-proxy];
     text = builtins.readFile ./conf/launch.sh;
   };
 

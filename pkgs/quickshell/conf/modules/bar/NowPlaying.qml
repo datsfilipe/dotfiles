@@ -40,7 +40,6 @@ InteractiveRect {
     anchors.rightMargin: Appearance.padding.normal
     spacing: Appearance.spacing.small
 
-    // Its own target inside the container: transport here, panel elsewhere.
     InteractiveRect {
       Layout.preferredWidth: 22
       Layout.preferredHeight: parent.height - 4
