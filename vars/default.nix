@@ -15,6 +15,8 @@ in {
   ];
 
   blockedHosts = [
+    "instagram.com"
+    "www.instagram.com"
   ];
 
   cache = {
