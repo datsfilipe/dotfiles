@@ -2,8 +2,14 @@
   lib,
   mylib,
   myvars,
+  pkgs,
   ...
-}: {
+}: let
+  krita-xcb = pkgs.writeShellScriptBin "krita" ''
+    export QT_QPA_PLATFORM=xcb
+    exec ${pkgs.krita}/bin/krita "$@"
+  '';
+in {
   imports = (mylib.file.scanPaths ../../../modules "user.nix") ++ [./packages.nix ./gnome.nix];
 
   modules.hardware.machine.hostname = "dtsf-laptop";
@@ -33,6 +39,10 @@
   modules.programs.browsers.user.enable = true;
   modules.programs.browsers.user.work.enable = false;
   modules.programs.anki.user.enable = true;
+  modules.programs.krita.user = {
+    enable = true;
+    package = krita-xcb;
+  };
   modules.programs.notes.user.enable = true;
 
   modules.desktop.addons.gtk.user.enable = true;
