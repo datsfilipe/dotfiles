@@ -34,8 +34,11 @@ archbox:
   distrobox assemble create --file ~/.config/distrobox/containers.ini
   distrobox enter arch -- true
 
+bootstrap-keys:
+  nix-shell -p ssh-to-age age --run ./scripts/bootstrap-keys.sh
+
 secrets:
-  nix-shell -p sops --run "sops modules/secrets/secrets.yaml"
+  nix-shell -p sops ssh-to-age --run 'SOPS_AGE_KEY="$(ssh-to-age -private-key -i ~/.ssh/alt_key)" sops modules/secrets/secrets.yaml'
 
 reconnect-gdrive:
   ./scripts/reconnect-gdrive.sh
