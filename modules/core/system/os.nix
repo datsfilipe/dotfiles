@@ -32,10 +32,10 @@ in {
         #!${pkgs.bash}/bin/bash
         case "$PWD" in
           /home/*/org|/home/*/org/*)
-            cat ${config.sops.secrets."token/github/dtsf-pc-org".path}
+            cat ${config.sops.secrets."token/github/org".path}
             ;;
           *)
-            cat ${config.sops.secrets."token/github/dtsf-pc".path}
+            cat ${config.sops.secrets."token/github/personal".path}
             ;;
         esac
       '')

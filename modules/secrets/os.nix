@@ -17,10 +17,10 @@
     secrets."ssh/remotes" = {
       owner = myvars.username;
     };
-    secrets."token/github/dtsf-pc" = {
+    secrets."token/github/personal" = {
       owner = myvars.username;
     };
-    secrets."token/github/dtsf-pc-org" = {
+    secrets."token/github/org" = {
       owner = myvars.username;
     };
     secrets."hosts" = {

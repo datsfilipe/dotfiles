@@ -25,10 +25,10 @@ in {
     age.keyFile = "${homeDir}/.config/sops/age/keys.txt";
     defaultSopsFile = ../../modules/secrets/secrets.yaml;
     defaultSopsFormat = "yaml";
-    secrets."token/github/dtsf-pc" = {
+    secrets."token/github/personal" = {
       owner = myvars.username;
     };
-    secrets."token/github/dtsf-pc-org" = {
+    secrets."token/github/org" = {
       owner = myvars.username;
     };
   };
@@ -98,8 +98,8 @@ in {
     gnumake
     gum
     (pkgs.writeShellScriptBin "get-gh-token" (mylib.file.substitute ./conf/get-gh-token.sh {
-      "@orgTokenPath@" = config.sops.secrets."token/github/dtsf-pc-org".path;
-      "@tokenPath@" = config.sops.secrets."token/github/dtsf-pc".path;
+      "@orgTokenPath@" = config.sops.secrets."token/github/org".path;
+      "@tokenPath@" = config.sops.secrets."token/github/personal".path;
     }))
   ];
 
