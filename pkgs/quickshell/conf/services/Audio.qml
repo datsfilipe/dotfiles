@@ -15,6 +15,7 @@ Singleton {
   readonly property bool muted: root.sink?.audio?.muted ?? false
   readonly property real sourceVolume: root.source?.audio?.volume ?? 0
   readonly property bool sourceMuted: root.source?.audio?.muted ?? false
+  readonly property bool boosted: !root.muted && root.volume > 1.001
 
   readonly property var sinks: Pipewire.nodes.values.filter(node => !node.isStream && node.isSink && node.audio)
   readonly property var sources: Pipewire.nodes.values.filter(node => !node.isStream && !node.isSink && node.audio)
@@ -29,7 +30,7 @@ Singleton {
     if (!root.sink?.ready || !root.sink?.audio)
       return;
     root.sink.audio.muted = false;
-    root.sink.audio.volume = Math.max(0, Math.min(1, value));
+    root.sink.audio.volume = Math.max(0, Math.min(Config.volumeMax, value));
   }
 
   function setSourceVolume(value: real): void {

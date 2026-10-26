@@ -33,7 +33,7 @@ InteractiveRect {
 
     parts.push({
       text: Audio.muted ? "muted" : Math.round(Audio.volume * 100) + "%",
-      tone: Audio.muted ? "error" : "subtext"
+      tone: Audio.muted || Audio.boosted ? "error" : "subtext"
     });
 
     parts.push({

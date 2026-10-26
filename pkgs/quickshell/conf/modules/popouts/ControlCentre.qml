@@ -107,7 +107,8 @@ Popout {
         label: "volume"
         readout: Audio.muted ? "muted" : Math.round(Audio.volume * 100) + "%"
         value: Audio.volume
-        fillColor: Audio.muted ? Appearance.colors.layer2 : Appearance.colors.accent
+        to: Config.volumeMax
+        fillColor: Audio.muted ? Appearance.colors.layer2 : Audio.boosted ? Appearance.colors.error : Appearance.colors.accent
         onMoved: value => Audio.setVolume(value)
       }
 

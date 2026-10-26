@@ -13,6 +13,8 @@ PanelWindow {
 
   readonly property real value: root.kind === "volume" ? Audio.volume : Brightness.value
   readonly property bool off: root.kind === "volume" && Audio.muted
+  readonly property real max: root.kind === "volume" ? Config.volumeMax : 1
+  readonly property bool boosted: root.kind === "volume" && Audio.boosted
   readonly property string label: root.kind === "volume" ? "volume" : "brightness"
 
   function show(which: string): void {
@@ -79,7 +81,7 @@ PanelWindow {
 
         StyledText {
           text: root.off ? "muted" : Math.round(root.value * 100) + "%"
-          color: root.off ? Appearance.colors.error : Appearance.colors.text
+          color: root.off || root.boosted ? Appearance.colors.error : Appearance.colors.text
           font.family: Appearance.font.family.mono
           font.pixelSize: Appearance.font.size.medium
         }
@@ -95,9 +97,9 @@ PanelWindow {
         Rectangle {
           x: Appearance.elevation.borderWidth
           y: Appearance.elevation.borderWidth
-          width: Math.max(0, (parent.width - Appearance.elevation.borderWidth * 2) * (root.off ? 0 : Math.max(0, Math.min(1, root.value))))
+          width: Math.max(0, (parent.width - Appearance.elevation.borderWidth * 2) * (root.off ? 0 : Math.max(0, Math.min(1, root.value / root.max))))
           height: parent.height - Appearance.elevation.borderWidth * 2
-          color: root.kind === "volume" ? Appearance.colors.accent : Appearance.colors.warning
+          color: root.boosted ? Appearance.colors.error : root.kind === "volume" ? Appearance.colors.accent : Appearance.colors.warning
 
           Behavior on width {
             Anim {

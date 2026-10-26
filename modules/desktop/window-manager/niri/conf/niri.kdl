@@ -65,7 +65,7 @@ gestures {
 }
 binds {
   XF86AudioRaiseVolume allow-when-locked=true {
-    spawn "sh" "-c" "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+ && wvolume-osd"
+    spawn "sh" "-c" "wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 0.1+ && wvolume-osd"
   }
   XF86AudioLowerVolume allow-when-locked=true {
     spawn "sh" "-c" "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1- && wvolume-osd"
